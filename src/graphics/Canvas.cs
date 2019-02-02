@@ -11,6 +11,7 @@ namespace test4
         public Canvas(SpriteBatch spriteBatch)
         {
             this.spriteBatch = spriteBatch;
+            this.entities = new LinkedList<Entity>();
         }
         public void Draw()
         {

@@ -11,7 +11,7 @@ namespace test4
         Canvas canvas;
         SpriteBatch spriteBatch;
         // Texture2D shuttle;
-        Player p;
+        Entity e;
 
         public Game1()
         {
@@ -24,19 +24,19 @@ namespace test4
         {
             // TODO: Add your initialization logic here
 
-            // p = new Player(GraphicsDevice);
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            canvas = new Canvas(spriteBatch);
             FileStream fileStream = new FileStream("Content/sprites/shuttle.png", FileMode.Open);
             Texture2D texture = Texture2D.FromStream(GraphicsDevice, fileStream);
             fileStream.Dispose();
             Vector2 loc = new Vector2(20,20);
-            Entity e = new Entity(canvas, texture, loc);
+            e = new Entity(canvas, texture, loc);
+            // Entity e2 = new Entity(canvas, texture, new Rectangle(100,300,20,20));
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            canvas = new Canvas(spriteBatch);
             // shuttle = Content.Load<Texture2D>("shuttle");
         }
 
@@ -46,6 +46,7 @@ namespace test4
                 Exit();
 
             // TODO: Add your update logic here
+            e.Move(new Vector2(1,1));
 
             base.Update(gameTime);
         }
@@ -54,10 +55,6 @@ namespace test4
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
-            // spriteBatch.Begin();
-            // spriteBatch.Draw(p.texture, p.rect, Color.White);
-            // spriteBatch.End();
             canvas.Draw();
 
             base.Draw(gameTime);
