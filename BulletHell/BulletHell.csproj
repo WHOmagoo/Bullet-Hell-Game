@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bullet\Bullet.cs" />
+    <Compile Include="Clock.cs" />
     <Compile Include="Path\Path.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Path\LinearPath.cs" />
