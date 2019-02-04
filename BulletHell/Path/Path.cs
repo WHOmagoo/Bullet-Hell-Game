@@ -22,7 +22,7 @@ namespace BulletHell
         {
             int curTime = Clock.getClock().getTime();
 
-            Vector2 newLocationBeforeAngleOffset = Equation.updateLocation(curTime - StartTime);
+            Vector2 newLocationBeforeAngleOffset = Equation.updateLocation(curTime - StartTime) + Offset;
 
             float newLocationX =
                 (float)(newLocationBeforeAngleOffset.X * Math.Cos(AngleOffset) -
