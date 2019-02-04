@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 
 
-namespace Game1
+namespace BulletHell.GameEngine
 {
     class Sprite
     {

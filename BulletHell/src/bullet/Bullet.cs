@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 
-namespace BulletHell
+namespace BulletHell.GameEngine
 {
     // public abstract class Bullet
     // {

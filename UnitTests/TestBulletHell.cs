@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.ConstrainedExecution;
-using BulletHell;
+using BulletHell.Engine;
 using NUnit.Framework;
 
 namespace UnitTests

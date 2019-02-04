@@ -1,4 +1,4 @@
-namespace BulletHell
+namespace BulletHell.GameEngine
 {
     // public class SimpleBullet : Bullet
     // {

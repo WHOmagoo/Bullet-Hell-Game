@@ -1,6 +1,6 @@
 using System.Threading;
 
-namespace BulletHell
+namespace BulletHell.GameEngine
 {
     public class Clock
     {
