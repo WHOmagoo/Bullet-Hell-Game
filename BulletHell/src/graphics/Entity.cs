@@ -2,7 +2,7 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace test4
+namespace BulletHell.GameEngine
 {
     public class Entity
     {

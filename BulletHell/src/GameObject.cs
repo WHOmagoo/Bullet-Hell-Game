@@ -3,7 +3,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace test4
+namespace BulletHell.GameEngine
 {
 
     public abstract class GameObject : Entity
