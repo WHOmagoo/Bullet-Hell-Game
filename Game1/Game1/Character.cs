@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Game1
 {
-    class Character : Player
+    class Character : Sprite
     {
         const string name2 = "download";
         const int startX = 125;
