@@ -1,17 +1,14 @@
 ﻿using System;
 
-namespace BulletHell
+namespace test4
 {
-    internal class Program
+    public static class Program
     {
-        public static void Main(string[] args)
+        [STAThread]
+        static void Main()
         {
-            Console.WriteLine("Hello world");
-            LinearEquation equation = new LinearEquation(0,4);
-
-            Tuple<double, double> result = equation.updateLocation(5);
-
-            Console.WriteLine(result);
+            using (var game = new Game1())
+                game.Run();
         }
     }
 }
