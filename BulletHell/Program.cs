@@ -7,9 +7,9 @@ namespace BulletHell
         public static void Main(string[] args)
         {
             Console.WriteLine("Hello world");
-            LinearPath path = new LinearPath(0,4);
+            LinearEquation equation = new LinearEquation(0,4);
 
-            Tuple<double, double> result = path.updateLocation(5);
+            Tuple<double, double> result = equation.updateLocation(5);
 
             Console.WriteLine(result);
         }

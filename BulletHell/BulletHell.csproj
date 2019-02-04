@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{298CA905-74B0-4452-A758-C53EC44F90C2}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BulletHell</RootNamespace>
     <AssemblyName>BulletHell</AssemblyName>
@@ -44,9 +44,10 @@
   <ItemGroup>
     <Compile Include="Bullet\Bullet.cs" />
     <Compile Include="Clock.cs" />
+    <Compile Include="Path\IEquation.cs" />
     <Compile Include="Path\Path.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Path\LinearPath.cs" />
+    <Compile Include="Path\LinearEquation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
