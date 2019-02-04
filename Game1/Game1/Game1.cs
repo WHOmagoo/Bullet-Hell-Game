@@ -5,6 +5,8 @@ using System.Text;
 
 namespace Game1
 {
+    
+
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -12,8 +14,8 @@ namespace Game1
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Vector2 position;
-        Texture2D texture;
+
+        Character char1;
         
         public Game1()
         {
@@ -32,7 +34,7 @@ namespace Game1
             // TODO: Add your initialization logic here
 
             base.Initialize();
-            position = new Vector2(graphics.GraphicsDevice.Viewport.Width / 2 - 64, graphics.GraphicsDevice.Viewport.Height / 2 - 64);
+            
         }
 
         /// <summary>
@@ -43,9 +45,13 @@ namespace Game1
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            texture = this.Content.Load<Texture2D>("download");
+            //load texture from project
+            
+
 
             // TODO: use this.Content to load your game content here
+            char1 = new Character();
+            char1.LoadContent(this.Content);
         }
 
         /// <summary>
@@ -64,20 +70,10 @@ namespace Game1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            /*
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit(); */
-            KeyboardState state = Keyboard.GetState();
 
-            if (state.IsKeyDown(Keys.Escape)) Exit();
-            if (state.IsKeyDown(Keys.Right))
-                position.X += 10;
-            if (state.IsKeyDown(Keys.Left))
-                position.X -= 10;
-            if (state.IsKeyDown(Keys.Up))
-                position.Y -= 10;
-            if (state.IsKeyDown(Keys.Down))
-                position.Y += 10;
+
+            char1.Update(gameTime);
+            
             
 
             // TODO: Add your update logic here
@@ -95,7 +91,7 @@ namespace Game1
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            spriteBatch.Draw(texture, position);
+            char1.Draw(this.spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);
