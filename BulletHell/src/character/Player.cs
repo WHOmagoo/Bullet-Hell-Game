@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BulletHell.GameEngine
 {
-    class Player : Sprite
+    class Player : Character
     {
         const string name2 = "download";
         const int startX = 125;
@@ -38,7 +38,7 @@ namespace BulletHell.GameEngine
 
             base.Update(theGameTime, speed, direction);
         }
-
+        /* 
         private void MoveLeft()
         {
             speed.X = charSpeed;
@@ -63,6 +63,8 @@ namespace BulletHell.GameEngine
             direction.Y = moveU;
         }
 
+        */
+
         private void UpdateMove(KeyboardState currState)
         {
             speed = Vector2.Zero;
@@ -70,20 +72,20 @@ namespace BulletHell.GameEngine
 
             if(currState.IsKeyDown(Keys.Left) == true)
             {
-                MoveLeft();
+                InputControl.MoveLeft();
             }
             else if(currState.IsKeyDown(Keys.Right) == true)
             {
-                MoveRight();
+                InputControl.MoveRight();
             }
 
             if(currState.IsKeyDown(Keys.Up) == true)
             {
-                MoveUp();
+                InputControl.MoveUp();
             }
             else if(currState.IsKeyDown(Keys.Down) == true)
             {
-                MoveDown();
+                InputControl.MoveDown();
             }
         }
     }
