@@ -24,6 +24,11 @@ namespace BulletHell.GameEngine
             healthPoints = 1000;    // (same as above)
         }
 
+        public void Update(GameTime theGameTime, Vector2 speed, Vector2 direction)
+        {
+            Location += direction * speed * (float)theGameTime.ElapsedGameTime.TotalSeconds;
+        }
+        
         /*public void Shoot()
         {
             //need gun class   TODO

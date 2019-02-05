@@ -33,33 +33,7 @@ namespace BulletHell.GameEngine
 
             base.Update(theGameTime, speed, direction);
         }
-        /* 
-        private void MoveLeft()
-        {
-            speed.X = charSpeed;
-            direction.X = moveL;
-        }
-
-        private void MoveRight()
-        {
-            speed.X = charSpeed;
-            direction.X = moveR;
-        }
-
-        private void MoveDown()
-        {
-            speed.Y = charSpeed;
-            direction.Y = moveD;
-        }
-
-        private void MoveUp()
-        {
-            speed.Y = charSpeed;
-            direction.Y = moveU;
-        }
-
-        */
-
+        
         private void UpdateMove(KeyboardState currState)
         {
             speed = Vector2.Zero;
