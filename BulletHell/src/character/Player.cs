@@ -16,11 +16,6 @@ namespace BulletHell.GameEngine
         const string name2 = "download";
         const int startX = 125;
         const int startY = 245;
-        const int charSpeed = 160;
-        const int moveU = -1;
-        const int moveD = 1;
-        const int moveL = -1;
-        const int moveR = 1;
 
         Vector2 direction = Vector2.Zero;
         Vector2 speed = Vector2.Zero;
