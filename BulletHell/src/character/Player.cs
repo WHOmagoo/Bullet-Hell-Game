@@ -39,6 +39,30 @@ namespace BulletHell.GameEngine
             base.Update(theGameTime, speed, direction);
         }
 
+        private void MoveLeft()
+        {
+            speed.X = charSpeed;
+            direction.X = moveL;
+        }
+
+        private void MoveRight()
+        {
+            speed.X = charSpeed;
+            direction.X = moveR;
+        }
+
+        private void MoveDown()
+        {
+            speed.Y = charSpeed;
+            direction.Y = moveD;
+        }
+
+        private void MoveUp()
+        {
+            speed.Y = charSpeed;
+            direction.Y = moveU;
+        }
+
         private void UpdateMove(KeyboardState currState)
         {
             speed = Vector2.Zero;
@@ -46,24 +70,20 @@ namespace BulletHell.GameEngine
 
             if(currState.IsKeyDown(Keys.Left) == true)
             {
-                speed.X = charSpeed;
-                direction.X = moveL;
+                MoveLeft();
             }
             else if(currState.IsKeyDown(Keys.Right) == true)
             {
-                speed.X = charSpeed;
-                direction.X = moveR;
+                MoveRight();
             }
 
             if(currState.IsKeyDown(Keys.Up) == true)
             {
-                speed.Y = charSpeed;
-                direction.Y = moveU;
+                MoveUp();
             }
             else if(currState.IsKeyDown(Keys.Down) == true)
             {
-                speed.Y = charSpeed;
-                direction.Y = moveD;
+                MoveDown();
             }
         }
     }
