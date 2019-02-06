@@ -18,6 +18,17 @@ namespace BulletHell.GameEngine
             StartTime = Clock.getClock().getTime();
         }
 
+        public Path(Path path, Vector2 initialLocation, double AngleOffset)
+        {
+            _locationEquation = path._locationEquation;
+
+            Offset = initialLocation - _locationEquation.GetLocation(0);
+
+            this.AngleOffset = AngleOffset;
+
+            this.StartTime = Clock.getClock().getTime();
+        }
+
         public Vector2 UpdateLocation()
         {
             int curTime = Clock.getClock().getTime();
