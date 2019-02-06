@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace BulletHell.GameEngine
 {
-    public class LinearEquation : IEquation
+    public class LinearLocationEquation : ILocationEquation
     {
         private float xGrowRate;
         private float yGrowRate;
@@ -14,7 +14,7 @@ namespace BulletHell.GameEngine
         /// </summary>
         /// <param name="angle">An angle, measured in radians. </param>
         /// <param name="speed">The speed at which the object should move in units per tick</param>
-        public LinearEquation(double angle, float speed)
+        public LinearLocationEquation(double angle, float speed)
         {
             xGrowRate = (float) Math.Cos(angle) * speed;
             yGrowRate = (float) Math.Sin(angle) * speed;
