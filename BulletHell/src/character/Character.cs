@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BulletHell.GameEngine
 {
-    public class Character : Entity
+    public class Character : GameObject
     {
         private int healthPoints;
         private bool hitBox;    // bool representing whether or not to display hitbox
