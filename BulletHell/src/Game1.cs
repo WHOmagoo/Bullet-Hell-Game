@@ -11,7 +11,7 @@ namespace BulletHell.GameEngine
         Canvas canvas;
         SpriteBatch spriteBatch;
         // Texture2D shuttle;
-        Entity e;
+        Player e;
 
         public Game1()
         {
@@ -30,7 +30,7 @@ namespace BulletHell.GameEngine
             Texture2D texture = Texture2D.FromStream(GraphicsDevice, fileStream);
             fileStream.Dispose();
             Vector2 loc = new Vector2(20,20);
-            e = new Entity(canvas, texture, loc);
+            e = new Player(canvas, texture, loc);
             // Entity e2 = new Entity(canvas, texture, new Rectangle(100,300,20,20));
             base.Initialize();
         }
@@ -46,7 +46,7 @@ namespace BulletHell.GameEngine
                 Exit();
 
             // TODO: Add your update logic here
-            e.Move(new Vector2(1,1));
+            e.Update(gameTime);
 
             base.Update(gameTime);
         }
