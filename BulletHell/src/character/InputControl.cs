@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,6 +18,14 @@ namespace BulletHell.GameEngine
         const int moveU = -1;
         const int moveD = 1;
         const int moveR = 1;
+
+        private static Player Player;
+        
+        public static void AssignPlayer(Player player)
+        {
+            Player = player;
+        }
+        
         public static void MoveRight()
         {
             
