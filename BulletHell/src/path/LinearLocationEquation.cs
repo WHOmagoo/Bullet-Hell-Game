@@ -26,7 +26,7 @@ namespace BulletHell.GameEngine
         /// <param name="ticksElapsed">An integer number of the amount of ticks that have happened since first
         ///     initiating the movement of the object</param>
         /// <returns> A tuple of the new location of an object on the specified equation after the amount of ticks that have elapsed</returns>
-        public Vector2 updateLocation(int ticksElapsed)
+        public Vector2 GetLocation(int ticksElapsed)
         {
             return new Vector2(ticksElapsed * xGrowRate, yGrowRate * ticksElapsed);
         }
