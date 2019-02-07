@@ -8,7 +8,7 @@ namespace BulletHell.GameEngine
         private ILocationEquation _locationEquation;
         private Vector2 Offset;
         private double AngleOffset;
-        private int StartTime;
+        private long StartTime;
         
         public Path(ILocationEquation locationEquation, Vector2 initialLocation, double AngleOffset)
         {
@@ -31,7 +31,7 @@ namespace BulletHell.GameEngine
 
         public Vector2 UpdateLocation()
         {
-            int curTime = Clock.getClock().getTime();
+            long curTime = Clock.getClock().getTime();
 
             Vector2 newLocationBeforeAngleOffset = _locationEquation.GetLocation(curTime - StartTime) + Offset;
 
