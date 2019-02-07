@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BulletHell.GameEngine
 {
-    public class Character : Entity
+    public class Character : GameObject
     {
         private int healthPoints;
         private bool hitBox;    // bool representing whether or not to display hitbox
@@ -22,11 +22,6 @@ namespace BulletHell.GameEngine
         {
             hitBox = false;
             healthPoints = 1000;    // (same as above)
-        }
-
-        public void Update(GameTime theGameTime, Vector2 speed, Vector2 direction)
-        {
-            Location += direction * speed * (float)theGameTime.ElapsedGameTime.TotalSeconds;
         }
         
         /*public void Shoot()
