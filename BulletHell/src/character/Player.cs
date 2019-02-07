@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,14 +25,18 @@ namespace BulletHell.GameEngine
             Location = new Vector2(startX, startY);
         }
 
-        public void Update(GameTime theGameTime)
+        public override void Update()
         {
             KeyboardState currState = Keyboard.GetState();
             UpdateMove(currState);
 
-            base.Update(theGameTime, speed, direction);
+            Location += direction * speed * Clock.getClock().getTimeSinceLastUpdate() / 50000;
+            
+            base.Update();
         }
         
+        
+        //TODO refactor this so that this class subscribes to events from a controller class
         private void UpdateMove(KeyboardState currState)
         {
             speed = Vector2.Zero;
