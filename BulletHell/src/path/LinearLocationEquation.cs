@@ -13,7 +13,7 @@ namespace BulletHell.GameEngine
         ///     Creates a new LinearEquation using parametric form
         /// </summary>
         /// <param name="angle">An angle, measured in radians. </param>
-        /// <param name="speed">The speed at which the object should move in units per tick</param>
+        /// <param name="speed">The speed at which the object should move in units per millisecond</param>
         public LinearLocationEquation(double angle, float speed)
         {
             xGrowRate = (float) Math.Cos(angle) * speed;
