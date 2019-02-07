@@ -8,7 +8,7 @@ namespace BulletHell.GameEngine
 {
     public class Enemy : Character
     {
-        private Path path;
+        protected Path path;
 
         //need Gun class    TODO
         public Enemy(Canvas canvas, Texture2D texture, Vector2 startLocation, Path p/*,Gun gun,Path p*/) : base(canvas, texture, startLocation)
@@ -21,6 +21,12 @@ namespace BulletHell.GameEngine
         {
             //gunEquipped = gun;
             path = p;
+        }
+
+        public override void Update()
+        {
+            this.Location = path.UpdateLocation();
+            base.Update();
         }
     }
 }
