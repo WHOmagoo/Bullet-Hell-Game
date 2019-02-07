@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,20 +38,20 @@ namespace BulletHell.GameEngine
             speed = Vector2.Zero;
             direction = Vector2.Zero;
 
-            if(currState.IsKeyDown(Keys.Left) == true)
+            if(currState.IsKeyDown(Keys.Left))
             {
                 InputControl.MoveLeft();
             }
-            else if(currState.IsKeyDown(Keys.Right) == true)
+            else if(currState.IsKeyDown(Keys.Right))
             {
                 InputControl.MoveRight();
             }
 
-            if(currState.IsKeyDown(Keys.Up) == true)
+            if(currState.IsKeyDown(Keys.Up))
             {
                 InputControl.MoveUp();
             }
-            else if(currState.IsKeyDown(Keys.Down) == true)
+            else if(currState.IsKeyDown(Keys.Down))
             {
                 InputControl.MoveDown();
             }
