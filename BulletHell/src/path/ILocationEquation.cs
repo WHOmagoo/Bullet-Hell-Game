@@ -5,6 +5,6 @@ namespace BulletHell.GameEngine
 {
     public interface ILocationEquation
     {
-        Vector2 GetLocation(int ticksElapsed);
+        Vector2 GetLocation(long ticksElapsed);
     }
 }
