@@ -28,26 +28,25 @@ namespace BulletHell.GameEngine
         
         public static void MoveRight()
         {
-            
-            Player.speed.X = 160;
+            Player.speed.X = 1;
             Player.direction.X = moveR;
         }
 
         public static void MoveLeft()
         {
-            Player.speed.X = 160;
+            Player.speed.X = 1;
             Player.direction.X = moveL;
         }
 
         public static void MoveUp()
         {
-            Player.speed.Y = 160;
+            Player.speed.Y = 1;
             Player.direction.Y = moveU;
         }
 
         public static void MoveDown()
         {
-            Player.speed.Y = 160;
+            Player.speed.Y = 1;
             Player.direction.Y = moveD;
         }
 
