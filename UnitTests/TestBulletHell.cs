@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.ConstrainedExecution;
 using BulletHell.GameEngine;
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
