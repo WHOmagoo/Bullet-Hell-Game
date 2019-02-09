@@ -44,14 +44,12 @@ namespace BulletHell
         {
             if (ReferenceEquals(gameTime, null))
             {
-                Console.WriteLine("GameTime NULL");
                 return 0;
             }
             
             //10,000,000 ticks per second
             
             var result =  (gameTime.TotalGameTime.Ticks - timeSpentPaused.Ticks) / TimeSpan.TicksPerMillisecond;
-            Console.WriteLine("Game Time result {0}", result);
             return result;
         }
 
