@@ -25,24 +25,31 @@ namespace BulletHell.GameEngine
             get { return rect; }
         }
         //Will create entity with texture size equal to normal resolution.
-        public Entity(Canvas canvas, Texture2D texture, Vector2 startLocation)
+        public Entity(Canvas canvas, Texture2D texture, Vector2 startLocation, int width = 0, int height = 0)
         {
             this.canvas = canvas;
             this.texture = texture; //Size should be held within texture for drawing
             this.location = startLocation;
-            this.rect = new Rectangle((int)location.X, (int)location.Y, texture.Bounds.Width, texture.Bounds.Height);
+            if (width == 0 || height == 0)
+            {
+                this.rect = new Rectangle((int)location.X, (int)location.Y, texture.Bounds.Width, texture.Bounds.Height);
+            }
+            else
+            {
+                this.rect = new Rectangle((int)location.X, (int)location.Y, width, height);
+            }
             canvas.AddToDrawList(this);
         }
 
         //Create entity with specific texture size given by rect.
-        public Entity(Canvas canvas, Texture2D texture, Rectangle rect)
-        {
-            this.canvas = canvas;
-            this.texture = texture; //Size should be held within texture for drawing
-            this.rect = rect;
-            this.location = new Vector2(rect.X, rect.Y);
-            canvas.AddToDrawList(this);
-        }
+        // public Entity(Canvas canvas, Texture2D texture, Rectangle rect)
+        // {
+        //     this.canvas = canvas;
+        //     this.texture = texture; //Size should be held within texture for drawing
+        //     this.rect = rect;
+        //     this.location = new Vector2(rect.X, rect.Y);
+        //     canvas.AddToDrawList(this);
+        // }
 
         ~Entity()
         {
@@ -60,7 +67,8 @@ namespace BulletHell.GameEngine
         {
             Location = Location + dir;
         }
-        public void SetSize(int width, int height) {
+        public void SetSize(int width, int height)
+        {
             rect.X = width;
             rect.Y = height;
         }
