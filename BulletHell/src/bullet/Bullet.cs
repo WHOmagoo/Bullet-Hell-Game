@@ -16,7 +16,7 @@ namespace BulletHell.GameEngine
 
         public override void Update()
         {
-            super.Move(pathToFollow.UpdateLocation());
+            Location = pathToFollow.UpdateLocation();
         }
 
     }
