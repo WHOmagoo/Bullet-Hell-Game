@@ -14,6 +14,8 @@ namespace BulletHell.GameEngine
         internal Vector2 direction = Vector2.Zero;
         internal Vector2 speed = Vector2.Zero;
 
+        int slow = 0;
+        
         public void LoadContent(ContentManager theContentManager)
         {
             Location = new Vector2(startX, startY);
@@ -21,10 +23,13 @@ namespace BulletHell.GameEngine
 
         public override void Update()
         {
+            float timeE = Clock.getClock().getTimeSinceLastUpdate();
+            float scale = 0.5;
             KeyboardState currState = Keyboard.GetState();
             UpdateMove(currState);
-
-            Location += direction * speed * Clock.getClock().getTimeSinceLastUpdate() / 50000;
+            if(slow) timeE *= scale;
+            
+            Location += direction * speed * timeE/ 50000;
             
             base.Update();
         }
@@ -35,6 +40,15 @@ namespace BulletHell.GameEngine
         {
             speed = Vector2.Zero;
             direction = Vector2.Zero;
+
+            if(currState.IsKeyDown(Keys.LeftControl))
+            {
+                slow = 1;
+            }
+            else if(currState.IsKeyDown(Keys.RightControl))
+            {
+                slow = 0;
+            }
 
             if(currState.IsKeyDown(Keys.Left))
             {
