@@ -1,20 +1,21 @@
 using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BulletHell.GameEngine
 {
     public abstract class Gun
     {
 
-        int damage;
+        protected int damage;
         //Bullet bulletNegative;
-        iLocationEquation fireShape;
-        int tickFireDelay;
-        int lastShotTick;
-        Boolean friendly;
-        Texture2D bulletTexture;
+        protected ILocationEquation fireShape;
+        private readonly long tickFireDelay;
+        private long lastShotTick;
+        protected Boolean friendly;
+        protected Texture2D bulletTexture;
 
-        Gun(int damage, iLocationEquation shape, Texture2d texture, int delay, bool friend){
+        public Gun(int damage, ILocationEquation shape, Texture2D texture, long delay, bool friend){
             this.damage = damage;
             fireShape = shape;
             tickFireDelay = delay;
@@ -22,6 +23,7 @@ namespace BulletHell.GameEngine
             friendly = friend;
             bulletTexture = texture;
         }
+
         public abstract void shoot(Vector2 location);
         private abstract Bullet makeBullet();
     }
