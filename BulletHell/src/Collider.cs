@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using BulletHell.GameEngine;
+
 namespace BulletHell
 {
     public class Collider
@@ -17,12 +20,12 @@ namespace BulletHell
             return collider;
         }
 
-        public addFriendlyObject(GameObject go)
+        public void addFriendlyObject(GameObject go)
         {
             friendlies.Add(go);
         }
 
-        public addEnemyObject(GameObject go)
+        public void addEnemyObject(GameObject go)
         {
             enemies.Add(go);
         }
