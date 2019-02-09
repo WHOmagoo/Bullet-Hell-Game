@@ -14,6 +14,8 @@ namespace BulletHell.GameEngine
         internal Vector2 direction = Vector2.Zero;
         internal Vector2 speed = Vector2.Zero;
 
+        internal Vector2 tempLoc = Vector2.Zero;
+
         int slow = 0;
         
         public void LoadContent(ContentManager theContentManager)
@@ -28,8 +30,20 @@ namespace BulletHell.GameEngine
             KeyboardState currState = Keyboard.GetState();
             UpdateMove(currState);
             if(slow) timeE *= scale;
+
+            tempLoc += direction * speed * timeE / 50000;
             
-            Location += direction * speed * timeE/ 50000;
+            if(tempLoc.X > Window.ClientBounds.Width)
+                Location.X = Window.ClientBounds.Width;
+            if(tempLoc.Y > WIndow.ClientBounds.Height)
+                Location.Y = Window.ClientBounds.Width;
+            if(Location.X < 0) Location.X = 0;
+            if(Location.Y < 0) Location.Y = 0;
+            else
+            {
+                Location += direction * speed * timeE/ 50000;
+            }
+            
             
             base.Update();
         }
