@@ -16,6 +16,8 @@ namespace BulletHell.GameEngine
 
         internal Vector2 tempLoc = Vector2.Zero;
 
+        private Canvas canvas;
+
         int slow = 0;
         
         public void LoadContent(ContentManager theContentManager)
@@ -26,19 +28,20 @@ namespace BulletHell.GameEngine
         public override void Update()
         {
             float timeE = Clock.getClock().getTimeSinceLastUpdate();
-            float scale = 0.5;
+            float scale = 0.5F;
             KeyboardState currState = Keyboard.GetState();
             UpdateMove(currState);
-            if(slow) timeE *= scale;
+            if(slow == 1) timeE *= scale;
 
             tempLoc += direction * speed * timeE / 50000;
             
-            if(tempLoc.X > Window.ClientBounds.Width)
-                Location.X = Window.ClientBounds.Width;
-            if(tempLoc.Y > WIndow.ClientBounds.Height)
-                Location.Y = Window.ClientBounds.Width;
-            if(Location.X < 0) Location.X = 0;
-            if(Location.Y < 0) Location.Y = 0;
+            if(tempLoc.X + Rect.Width > canvas.GetBounds().Width)
+                Location = new Vector2(canvas.GetBounds().Width - Rect.Width - 1, Location.Y);
+            if(tempLoc.Y + Rect.Height > canvas.GetBounds().Height)
+                Location = new Vector2(Location.X, canvas.GetBounds().Height - Rect.Height - 1);
+            
+            if(Location.X < 0) Location = new Vector2(1, Location.Y);
+            if(Location.Y < 0) Location = new Vector2(Location.X, 1);
             else
             {
                 Location += direction * speed * timeE/ 50000;
@@ -86,11 +89,13 @@ namespace BulletHell.GameEngine
         public Player(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(canvas, texture, startLocation)
         {
             InputControl.AssignPlayer(this);
+            this.canvas = canvas;
         }
 
         public Player(Canvas canvas, Texture2D texture, Rectangle rect) : base(canvas, texture, rect)
         {
             InputControl.AssignPlayer(this);
+            this.canvas = canvas;
         }
     }
 }
