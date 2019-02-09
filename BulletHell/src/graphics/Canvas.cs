@@ -29,5 +29,10 @@ namespace BulletHell.GameEngine
         {
             entities.Remove(entity);
         }
+
+        public Rectangle GetBounds()
+        {
+            return spriteBatch.GraphicsDevice.Viewport.Bounds;
+        }
     }
 }
