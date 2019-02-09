@@ -1,46 +1,83 @@
-using System.Threading;
+using System;
+using Microsoft.Xna.Framework;
 
-namespace BulletHell.GameEngine
+namespace BulletHell
 {
     public class Clock
     {
         private static readonly Clock clock = new Clock();
-        private volatile int time = 0;
-        private Thread t;
+        private GameTime gameTime;
+        private bool isPaused;
+        private TimeSpan timeLastPausedOccured;
+        private TimeSpan timeSpentPaused = TimeSpan.Zero;
+
+        private long speedModifier;
+        
+        private Game1 game;
+
+        private long ticksElapsed;
+        private long timeSinceLastUpdate;
+        
 
         private Clock()
         {
-            t = new Thread(clockLoop);   
-        }
-
-        public void startClock()
-        {
-            t.Start();
-        }
-
-        private void clockLoop()
-        {
-            while (true)
-            {
-                //50 updates per second
-                Thread.Sleep(1000 / 50);
-
-                //each update will increase the time by 24 ticks
-                //That means we have 1200 ticks per second 
-                time += 24;
-            }
-            
+            speedModifier = 1;
         }
         
-        public int getTime()
+        public void pause()
         {
-            return time;
+            if (!isPaused)
+            {
+                isPaused = true;
+                timeLastPausedOccured = gameTime.TotalGameTime;
+            }
+        }
+
+        public void resume()
+        {
+            isPaused = false;
+            timeSpentPaused = new TimeSpan(timeSpentPaused.Ticks + timeLastPausedOccured.Ticks);
+            timeLastPausedOccured = TimeSpan.Zero;
+        }
+        
+        public long getTime()
+        {
+            if (ReferenceEquals(gameTime, null))
+            {
+                Console.WriteLine("GameTime NULL");
+                return 0;
+            }
+            
+            //10,000,000 ticks per second
+            
+            var result =  (gameTime.TotalGameTime.Ticks - timeSpentPaused.Ticks) / TimeSpan.TicksPerMillisecond;
+            Console.WriteLine("Game Time result {0}", result);
+            return result;
         }
 
 
         public static Clock getClock()
         {
             return clock;
+        }
+
+        public void Update()
+        {
+            timeSinceLastUpdate = gameTime.ElapsedGameTime.Ticks;
+            ticksElapsed += gameTime.ElapsedGameTime.Ticks;
+        }
+
+        public long getTimeSinceLastUpdate()
+        {
+            return timeSinceLastUpdate;
+        }
+
+        public void SetGameTime(GameTime gameTime)
+        {
+            if (!ReferenceEquals(this.gameTime, gameTime))
+            {
+                this.gameTime = gameTime;
+            }
         }
     }
 }
