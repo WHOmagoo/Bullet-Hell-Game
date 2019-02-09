@@ -25,7 +25,16 @@ namespace BulletHell.GameEngine
         }
 
         public abstract void shoot(Vector2 location);
-        private abstract Bullet makeBullet();
+        
+        public virtual void wasShot()
+        {
+            lastShotTick = Clock.getClock().getTime();
+        }
+
+        public bool canShoot()
+        {
+            return lastShotTick + tickFireDelay < Clock.getClock().getTime();
+        }
     }
 
 }
