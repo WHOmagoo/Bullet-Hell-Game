@@ -1,16 +1,18 @@
-using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BulletHell.GameEngine
 {
-    public class BaiscBoy : Gun 
+    public class BasicGun : Gun
     {
 
-        public void shoot(Vector2 location){
-            Clock clock = Clock.getClock();
-            if(lastShotTick + tickShotDelay <= clock.getTime())
+        public BasicGun(int damage, ILocationEquation shape, Texture2D texture, long delay, bool friend) : base(damage, shape, texture, delay, friend)
+        {
+        }
+        
+        public override void shoot(Vector2 location){
+            if(canShoot())
             {
-                lastShotTick = clock.getTime();
                 Bullet bullet =  makeBullet(location);
                 Collider collider = Collider.getCollider();
                 if(friendly)
@@ -21,12 +23,14 @@ namespace BulletHell.GameEngine
                 {
                     collider.addEnemyObject(bullet);
                 }
+                
+                base.wasShot();
             }
             
         }
 
         private Bullet makeBullet(Vector2 location){
-            return new Bullet(damage, locationEquation, canvas, bulletTexture, location);
+            return new Bullet(damage, this.fireShape, Canvas.getCanvas(), bulletTexture, location);
         }
     }
 
