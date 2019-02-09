@@ -1,5 +1,5 @@
-using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BulletHell.GameEngine
 {
@@ -8,7 +8,7 @@ namespace BulletHell.GameEngine
         int damage;
         Path pathToFollow;
 
-        public Bullet(int damage, ILocationEquation locationEquation, Canvas canvas, Texture2D texture, Vector2 startLocation) : base(Canvas canvas, Texture2D texture, Vector2 startLocation)
+        public Bullet(int damage, ILocationEquation locationEquation, Canvas canvas, Texture2D texture, Vector2 startLocation) : base(canvas, texture, startLocation)
         {
             this.damage = damage;
             this.pathToFollow = new Path(locationEquation, startLocation, 0);
