@@ -28,13 +28,19 @@ namespace BulletHell
             // TODO: Add your initialization logic here
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            canvas = new Canvas(spriteBatch);
+
+            Canvas.makeCanvas(spriteBatch);
+            canvas = Canvas.getCanvas();
             FileStream fileStream = new FileStream("Content/sprites/shuttle.png", FileMode.Open);
             Texture2D playerTexture = Texture2D.FromStream(GraphicsDevice, fileStream);
 
             Texture2D enemyATexture = Texture2D.FromStream(GraphicsDevice,
                 new FileStream("Content/sprites/enemyA.png", FileMode.Open));
-            
+
+            GraphicsLoader.makeGraphicsLoader(GraphicsDevice);
+            GraphicsLoader.getGraphicsLoader().setGraphicsTexture(new FileStream("Content/sprites/bullet.png", FileMode.Open));
+
+
             fileStream.Dispose();
             Vector2 loc = new Vector2(20,20);
             player = new Player(canvas, playerTexture, loc);
@@ -63,8 +69,12 @@ namespace BulletHell
                 Exit();
 
             // TODO: Add your update logic here
+
+            canvas.Update();
+            
             player.Update();
             enemy.Update();
+            enemy.Shoot();
             
             base.Update(gameTime);
         }
