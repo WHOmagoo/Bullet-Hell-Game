@@ -7,12 +7,12 @@ namespace BulletHell.GameEngine
 {
     public class EnemyA : Enemy
     {
-        public EnemyA(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(canvas, texture, startLocation, null)
+        public EnemyA(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(canvas, texture, startLocation, null, null)
         {
             InitializeEnemy();
         }
 
-        public EnemyA(Canvas canvas, Texture2D texture, Rectangle rect) : base(canvas, texture, rect, null)
+        public EnemyA(Canvas canvas, Texture2D texture, Rectangle rect) : base(canvas, texture, rect, null, null)
         {
             InitializeEnemy();
         }
@@ -33,6 +33,7 @@ namespace BulletHell.GameEngine
             PiecewiseLocationEquation locationEquation = new PiecewiseLocationEquation(piecewiseLocationEquations);
             
             this.path = new Path(locationEquation, Location, 0);
+            this.gunEquipped = new BasicGun(3, new LinearLocationEquation(Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, false);
 //            this.path = new Path(right, Location, 0);
         }
     }
