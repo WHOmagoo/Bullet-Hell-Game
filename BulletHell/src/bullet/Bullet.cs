@@ -3,11 +3,11 @@ using Microsoft.Xna.Framework;
 
 namespace BulletHell.GameEngine
 {
-    public abstract class Bullet
+    public abstract class Bullet : GameObject
     {
         int damage;
         Path pathToFollow;
 
-        Bullet(int damage, Path path, Rectangle);
+        //Bullet(int damage, Path path, Rectangle);
     }
 }
