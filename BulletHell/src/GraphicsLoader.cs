@@ -10,6 +10,8 @@ namespace BulletHell
         private GraphicsDevice graphicsDevice;
 
         private Texture2D bulletTexture;
+        // private Texture2D enemyATexture;
+        // private Texture2D enemyBTexture;
 
         private static GraphicsLoader graphicsLoader;
 

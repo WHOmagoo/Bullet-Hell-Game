@@ -18,9 +18,12 @@ namespace BulletHell
         int finalbossFlag = 0;      //needed because we only want to create finalboss once
         int shootPatternFlag = 0;   //needed to keep track of which shooting pattern we should be on
 
-        private Enemy enemy;
+        private Enemy enemy1;
+        private Enemy enemy2;
         private MidBoss midboss;
         private FinalBoss finalboss;
+        //Textures
+        private Texture2D enemyBTexture;
 
         public Game1()
         {
@@ -37,20 +40,23 @@ namespace BulletHell
 
             Canvas.makeCanvas(spriteBatch);
             canvas = Canvas.getCanvas();
-            FileStream fileStream = new FileStream("Content/sprites/shuttle.png", FileMode.Open);
-            Texture2D playerTexture = Texture2D.FromStream(GraphicsDevice, fileStream);
+            //Load textures
+            Texture2D playerTexture = Texture2D.FromStream(GraphicsDevice, 
+                new FileStream("Content/sprites/shuttle.png", FileMode.Open));
 
             Texture2D enemyATexture = Texture2D.FromStream(GraphicsDevice,
                 new FileStream("Content/sprites/enemyA.png", FileMode.Open));
 
+            enemyBTexture = Texture2D.FromStream(GraphicsDevice,
+                new FileStream("Content/sprites/enemyB.png", FileMode.Open));
+
+            // fileStream.Dispose(); may need to do this for the filestreams made here in constructors
             GraphicsLoader.makeGraphicsLoader(GraphicsDevice);
             GraphicsLoader.getGraphicsLoader().setGraphicsTexture(new FileStream("Content/sprites/bullet.png", FileMode.Open));
 
 
-            fileStream.Dispose();
-            Vector2 loc = new Vector2(20, 20);
-            player = new Player(canvas, playerTexture, loc);
-            enemy = new EnemyA(canvas, enemyATexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - enemyATexture.Width / 2, -100));
+            player = new Player(canvas, playerTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - playerTexture.Width / 2, 300));
+            enemy1 = new EnemyA(canvas, enemyATexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - enemyATexture.Width / 2, -100));
             // Entity e2 = new Entity(canvas, texture, new Rectangle(100,300,20,20));
             base.Initialize();
         }
@@ -61,17 +67,24 @@ namespace BulletHell
         }
 
         private int updates = 0;
-        
+
         protected override void Update(GameTime gameTime)
         {
 
             Clock.getClock().SetGameTime(gameTime);
 
             Clock.getClock().Update();
+            double seconds = gameTime.TotalGameTime.TotalSeconds;
+            // seconds = seconds * 2;
 
             //            Console.WriteLine("{0}, Game Time Elapsed since last draw: {1}", updates, gameTime.ElapsedGameTime);
 
-            if (gameTime.TotalGameTime.Seconds > 48 && midbossFlag == 0)
+
+            if (seconds > 20)
+            {
+                enemy2 = new EnemyB(canvas, enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - enemyBTexture.Width / 2, -100));
+            }
+            if (seconds > 48 && midbossFlag == 0)
             {
                 midbossFlag = 1;
                 Texture2D midBossTexture = Texture2D.FromStream(GraphicsDevice,
@@ -79,19 +92,19 @@ namespace BulletHell
                 midboss = new MidBoss(canvas, midBossTexture, new Rectangle(100, 5, 100, 100));
                 midboss.movePattern();
             }
-            if (gameTime.TotalGameTime.TotalSeconds > 90 && finalbossFlag == 0)
-                {
-                    finalbossFlag = 1;
-                    Texture2D finalBossTexture = Texture2D.FromStream(GraphicsDevice,
-                    new FileStream("Content/sprites/finalboss.png", FileMode.Open));
-                    finalboss = new FinalBoss(canvas, finalBossTexture, new Rectangle(100, 5, 100, 100));
-                    finalboss.movePattern();
-                }
+            if (seconds > 90 && finalbossFlag == 0)
+            {
+                finalbossFlag = 1;
+                Texture2D finalBossTexture = Texture2D.FromStream(GraphicsDevice,
+                new FileStream("Content/sprites/finalboss.png", FileMode.Open));
+                finalboss = new FinalBoss(canvas, finalBossTexture, new Rectangle(100, 5, 100, 100));
+                finalboss.movePattern();
+            }
             if (midbossFlag == 1)
             {
                 midboss.Update();
-         
-                if(gameTime.TotalGameTime.TotalSeconds < 75)
+
+                if (seconds < 75)
                 {   //we don't want bullets to continue shooting when the enemy has left the screen
                     //(enemy leaves screen at 75 seconds)
                     midboss.Shoot();
@@ -102,27 +115,27 @@ namespace BulletHell
             {
                 finalboss.Update();
                 //control different shooting directions:
-                if (gameTime.TotalGameTime.TotalSeconds <120 && shootPatternFlag ==0)
+                if (seconds < 120 && shootPatternFlag == 0)
                 {
                     shootPatternFlag = 1;
                     finalboss.shootMethod1();
                 }
-                else if(gameTime.TotalGameTime.TotalSeconds >120 && gameTime.TotalGameTime.TotalSeconds <130 && shootPatternFlag ==1)
+                else if (seconds > 120 && seconds < 130 && shootPatternFlag == 1)
                 {
                     shootPatternFlag = 2;
                     finalboss.shootMethod2();
                 }
-                else if (gameTime.TotalGameTime.TotalSeconds >130 && gameTime.TotalGameTime.TotalSeconds < 150 && shootPatternFlag ==2)
+                else if (seconds > 130 && seconds < 150 && shootPatternFlag == 2)
                 {
                     shootPatternFlag = 3;
                     finalboss.shootMethod3();
                 }
-                else if (gameTime.TotalGameTime.TotalSeconds > 150 && gameTime.TotalGameTime.TotalSeconds < 162 && shootPatternFlag == 3)
+                else if (seconds > 150 && seconds < 162 && shootPatternFlag == 3)
                 {
                     shootPatternFlag = 4;
                     finalboss.shootMethod4();
                 }
-                if (gameTime.TotalGameTime.TotalSeconds < 162)
+                if (seconds < 162)
                 {
                     finalboss.Shoot();
                 }
@@ -135,17 +148,17 @@ namespace BulletHell
             // TODO: Add your update logic here
 
             canvas.Update();
-            
+
             player.Update();
-            enemy.Update();
-            enemy.Shoot();
-            
+            enemy1.Update();
+            enemy1.Shoot();
+
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);            
+            GraphicsDevice.Clear(Color.CornflowerBlue);
             canvas.Draw();
             base.Draw(gameTime);
         }
