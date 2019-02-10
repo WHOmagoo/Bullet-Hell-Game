@@ -7,13 +7,18 @@ namespace BulletHell.GameEngine
 {
     public class Canvas
     {
-        private LinkedList<Entity> entities;
         private SpriteBatch spriteBatch;
 
-        //TODO right now this is using a singleton but we should probably update this to use observer pattern
-        
-        private static Canvas canvas;
+        //TODO: right now this is using a singleton but we should probably update this to use observer pattern
 
+        private static Canvas canvas;
+        private LinkedList<Entity> entities;
+
+        private Canvas(SpriteBatch spriteBatch)
+        {
+            this.spriteBatch = spriteBatch;
+            this.entities = new LinkedList<Entity>();
+        }
         public static bool makeCanvas(SpriteBatch spriteBatch)
         {
             bool madeNewCanvas = ReferenceEquals(canvas, null);
@@ -21,9 +26,12 @@ namespace BulletHell.GameEngine
             if (madeNewCanvas)
             {
                 canvas = new Canvas(spriteBatch);
+                return true;
             }
-
-            return true;
+            else
+            {
+                throw new Exception("Canvas singleton instance is already initialized");
+            }
         }
 
         public static Canvas getCanvas()
@@ -32,19 +40,13 @@ namespace BulletHell.GameEngine
             {
                 return canvas;
             }
-            
-            throw new NullReferenceException("The canvas was not constructed yet");
-        }
-        
-        private Canvas(SpriteBatch spriteBatch)
-        {
-            this.spriteBatch = spriteBatch;
-            this.entities = new LinkedList<Entity>();
+            throw new NullReferenceException("The canvas was not constructed yet. Call makeCanvas first.");
         }
         public void Draw()
         {
             spriteBatch.Begin();
-            foreach (Entity e in entities) {
+            foreach (Entity e in entities)
+            {
                 e.Draw(spriteBatch);
             }
             spriteBatch.End();
@@ -58,16 +60,16 @@ namespace BulletHell.GameEngine
             entities.Remove(entity);
         }
 
-        
-        //TODO fix this bodge
+
+        //TODO: fix this bodge
         public void Update()
         {
             foreach (var entity in entities)
             {
                 if (entity.GetType() == typeof(Bullet))
                 {
-                    Bullet b = (Bullet) entity;
-                    
+                    Bullet b = (Bullet)entity;
+
                     b.Update();
                 }
             }

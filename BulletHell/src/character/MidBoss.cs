@@ -12,12 +12,6 @@ namespace BulletHell.GameEngine
             InitializeEnemy();
         }
 
-        public MidBoss(Canvas canvas, Texture2D texture, Rectangle rect) : base(canvas, texture, rect, null, null)
-        {
-            InitializeEnemy();
-
-        }
-
         private void InitializeEnemy()
         {
             

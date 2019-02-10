@@ -56,6 +56,7 @@ namespace BulletHell
 
 
             player = new Player(canvas, playerTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - playerTexture.Width / 2, 300));
+            player.SetSize(72,100);
             enemy1 = new EnemyA(canvas, enemyATexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - enemyATexture.Width / 2, -100));
             // Entity e2 = new Entity(canvas, texture, new Rectangle(100,300,20,20));
             base.Initialize();
@@ -70,6 +71,7 @@ namespace BulletHell
 
         protected override void Update(GameTime gameTime)
         {
+            bool enemy2Flag = false;
 
             Clock.getClock().SetGameTime(gameTime);
 
@@ -80,16 +82,20 @@ namespace BulletHell
             //            Console.WriteLine("{0}, Game Time Elapsed since last draw: {1}", updates, gameTime.ElapsedGameTime);
 
 
-            if (seconds > 20)
+            if (seconds > 0 && !enemy2Flag)
             {
-                enemy2 = new EnemyB(canvas, enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - enemyBTexture.Width / 2, -100));
+                enemy2 = new EnemyB(canvas, enemyBTexture, new Vector2(200,100));
+                enemy2.SetSize(100,100);
+                enemy2Flag = true;
             }
             if (seconds > 48 && midbossFlag == 0)
             {
                 midbossFlag = 1;
                 Texture2D midBossTexture = Texture2D.FromStream(GraphicsDevice,
                 new FileStream("Content/sprites/midboss.png", FileMode.Open));
-                midboss = new MidBoss(canvas, midBossTexture, new Rectangle(100, 5, 100, 100));
+                // midboss = new MidBoss(canvas, midBossTexture, new Vector2(100,5), 100, 100);
+                midboss = new MidBoss(canvas, midBossTexture, new Vector2(100,5));
+                midboss.SetSize(100,100);
                 midboss.movePattern();
             }
             if (seconds > 90 && finalbossFlag == 0)
@@ -97,7 +103,9 @@ namespace BulletHell
                 finalbossFlag = 1;
                 Texture2D finalBossTexture = Texture2D.FromStream(GraphicsDevice,
                 new FileStream("Content/sprites/finalboss.png", FileMode.Open));
-                finalboss = new FinalBoss(canvas, finalBossTexture, new Rectangle(100, 5, 100, 100));
+                // finalboss = new FinalBoss(canvas, finalBossTexture, new Vector2(100, 5), 100, 100);
+                finalboss = new FinalBoss(canvas, finalBossTexture, new Vector2(100, 5));
+                finalboss.SetSize(100,100);
                 finalboss.movePattern();
             }
             if (midbossFlag == 1)

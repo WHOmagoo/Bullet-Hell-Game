@@ -14,6 +14,10 @@ namespace BulletHell.GameEngine
         internal Vector2 direction = Vector2.Zero;
         internal Vector2 speed = Vector2.Zero;
 
+        public Player(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(canvas, texture, startLocation)
+        {
+            InputControl.AssignPlayer(this);
+        }
         public void LoadContent(ContentManager theContentManager)
         {
             Location = new Vector2(startX, startY);
@@ -53,16 +57,6 @@ namespace BulletHell.GameEngine
             {
                 InputControl.MoveDown();
             }
-        }
-
-        public Player(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(canvas, texture, startLocation)
-        {
-            InputControl.AssignPlayer(this);
-        }
-
-        public Player(Canvas canvas, Texture2D texture, Rectangle rect) : base(canvas, texture, rect)
-        {
-            InputControl.AssignPlayer(this);
         }
     }
 }

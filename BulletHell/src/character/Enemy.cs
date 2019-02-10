@@ -8,14 +8,8 @@ namespace BulletHell.GameEngine
         protected Path path;
         protected Gun gunEquipped;
 
-        //need Gun class    TODO
-        public Enemy(Canvas canvas, Texture2D texture, Vector2 startLocation, Path p,Gun gun) : base(canvas, texture, startLocation)
-        {
-            gunEquipped = gun;
-            path = p;
-        }
-
-        public Enemy(Canvas canvas, Texture2D texture, Rectangle rect, Path p, Gun gun) : base(canvas, texture, rect)
+        public Enemy(Canvas canvas, Texture2D texture, Vector2 startLocation, Path p , Gun gun) 
+            : base(canvas, texture, startLocation)
         {
             gunEquipped = gun;
             path = p;

@@ -11,12 +11,6 @@ namespace BulletHell.GameEngine
         {
             InitializeEnemy();
         }
-
-        public EnemyB(Canvas canvas, Texture2D texture, Rectangle rect) : base(canvas, texture, rect, null, null)
-        {
-            InitializeEnemy();
-        }
-
         private void InitializeEnemy()
         {
             
