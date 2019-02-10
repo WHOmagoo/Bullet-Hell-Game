@@ -44,7 +44,6 @@ namespace BulletHell
         {
             if (ReferenceEquals(gameTime, null))
             {
-                Console.WriteLine("GameTime NULL");
                 return 0;
             }
             

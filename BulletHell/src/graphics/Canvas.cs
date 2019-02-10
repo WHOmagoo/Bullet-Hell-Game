@@ -74,5 +74,9 @@ namespace BulletHell.GameEngine
                 }
             }
         }
+        public Rectangle GetBounds()
+        {
+            return spriteBatch.GraphicsDevice.Viewport.Bounds;
+        }
     }
 }

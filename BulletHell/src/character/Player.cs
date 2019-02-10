@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,10 +15,15 @@ namespace BulletHell.GameEngine
         internal Vector2 direction = Vector2.Zero;
         internal Vector2 speed = Vector2.Zero;
 
+        Canvas canvas;
+        int slow = 0;
+
         public Player(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(canvas, texture, startLocation)
         {
+            this.canvas = canvas;
             InputControl.AssignPlayer(this);
         }
+
         public void LoadContent(ContentManager theContentManager)
         {
             Location = new Vector2(startX, startY);
@@ -25,35 +31,56 @@ namespace BulletHell.GameEngine
 
         public override void Update()
         {
+            float timeE = Clock.getClock().getTimeSinceLastUpdate();
+            float scale = 0.5F;
             KeyboardState currState = Keyboard.GetState();
             UpdateMove(currState);
+            if (slow == 1) timeE *= scale;
 
-            Location += direction * speed * Clock.getClock().getTimeSinceLastUpdate() / 50000;
-            
+            if (Rect.X + Rect.Width > canvas.GetBounds().Width)
+                Location = new Vector2(canvas.GetBounds().Width - Rect.Width - 1, Location.Y);
+            if (Rect.Y + Rect.Height > canvas.GetBounds().Height)
+                Location = new Vector2(Location.X, canvas.GetBounds().Height - Rect.Height - 1);
+
+            if (Location.X < 0) Location = new Vector2(1, Location.Y);
+            if (Location.Y < 0) Location = new Vector2(Location.X, 1);
+            else
+            {
+                Location += direction * speed * timeE / 50000;
+            }
             base.Update();
         }
-        
-        
-        //TODO refactor this so that this class subscribes to events from a controller class
+
+
+        //TODO: refactor this so that this class subscribes to events from a controller class
         private void UpdateMove(KeyboardState currState)
         {
             speed = Vector2.Zero;
             direction = Vector2.Zero;
 
-            if(currState.IsKeyDown(Keys.Left))
+            if (currState.IsKeyDown(Keys.LeftControl))
+            {
+                slow = 1;
+            }
+            else if (currState.IsKeyDown(Keys.RightControl))
+            {
+                slow = 0;
+            }
+
+            if (currState.IsKeyDown(Keys.Left))
             {
                 InputControl.MoveLeft();
             }
-            else if(currState.IsKeyDown(Keys.Right))
+            else if (currState.IsKeyDown(Keys.Right))
             {
                 InputControl.MoveRight();
             }
 
-            if(currState.IsKeyDown(Keys.Up))
+            if (currState.IsKeyDown(Keys.Up))
             {
                 InputControl.MoveUp();
             }
-            else if(currState.IsKeyDown(Keys.Down))
+            else if (currState.IsKeyDown(Keys.Down))
             {
                 InputControl.MoveDown();
             }
