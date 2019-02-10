@@ -24,7 +24,10 @@ namespace BulletHell.GameEngine
         {
             get { return rect; }
         }
-        //Will create entity with texture size equal to normal resolution.
+        /**  Will create entity with texture size equal to normal resolution. If no width or height passed in
+         *  then it will set to the normal resolution, else will go to specified resolution.
+         * */
+
         public Entity(Canvas canvas, Texture2D texture, Vector2 startLocation, int width = 0, int height = 0)
         {
             this.canvas = canvas;
@@ -40,16 +43,6 @@ namespace BulletHell.GameEngine
             }
             canvas.AddToDrawList(this);
         }
-
-        //Create entity with specific texture size given by rect.
-        // public Entity(Canvas canvas, Texture2D texture, Rectangle rect)
-        // {
-        //     this.canvas = canvas;
-        //     this.texture = texture; //Size should be held within texture for drawing
-        //     this.rect = rect;
-        //     this.location = new Vector2(rect.X, rect.Y);
-        //     canvas.AddToDrawList(this);
-        // }
 
         ~Entity()
         {
