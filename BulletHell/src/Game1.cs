@@ -56,9 +56,12 @@ namespace BulletHell
             GraphicsLoader.getGraphicsLoader().setGraphicsTexture(new FileStream("Content/sprites/bullet.png", FileMode.Open));
 
 
+            //Initialize characters
             player = new Player(canvas, playerTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - playerTexture.Width / 2, 300));
             player.SetSize(72, 100);
             enemy1 = new EnemyA(canvas, enemyATexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - enemyATexture.Width / 2, -100));
+            enemy2 = new EnemyB(canvas, enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - 50, -100));
+            enemy2.SetSize(100, 100);
             // enemy2 = new EnemyA(canvas, enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - enemyATexture.Width / 2, -100));
             // enemy2.SetSize(100, 100);
             // Entity e2 = new Entity(canvas, texture, new Rectangle(100,300,20,20));
@@ -85,15 +88,15 @@ namespace BulletHell
             //            Console.WriteLine("{0}, Game Time Elapsed since last draw: {1}", updates, gameTime.ElapsedGameTime);
 
 
-            if (seconds > 12 && !enemy2Flag)
+            if (seconds > 16 && !enemy2Flag)
             {
                 // enemy2 = new EnemyB(canvas, enemyBTexture, new Vector2(200, 100));
                 // enemy2.SetSize(100, 100);
-                enemy2 = new EnemyA(canvas, enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2, 0));
-                enemy2.SetSize(100, 100);
+                // enemy2 = new EnemyB(canvas, enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2, 0));
+                // enemy2.SetSize(100, 100);
                 enemy2Flag = true;
             }
-            if (seconds > 48 && midbossFlag == 0)
+            if (seconds > 44 && midbossFlag == 0)
             {
                 midbossFlag = 1;
                 Texture2D midBossTexture = Texture2D.FromStream(GraphicsDevice,
@@ -103,7 +106,7 @@ namespace BulletHell
                 midboss.SetSize(100, 100);
                 midboss.movePattern();
             }
-            if (seconds > 90 && finalbossFlag == 0)
+            if (seconds > 80 && finalbossFlag == 0)
             {
                 finalbossFlag = 1;
                 Texture2D finalBossTexture = Texture2D.FromStream(GraphicsDevice,
@@ -165,11 +168,11 @@ namespace BulletHell
             player.Update();
             enemy1.Update();
             enemy1.Shoot();
-            if (enemy2 != null)
+            if (enemy2Flag)
             {
                 enemy2.Update();
-                // enemy2.Shoot();
-                enemy2.Move(new Vector2(1,1));
+                enemy2.Shoot();
+                // enemy2.Move(new Vector2(1,1));
             }
 
             base.Update(gameTime);
