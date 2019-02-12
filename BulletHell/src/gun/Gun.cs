@@ -24,16 +24,16 @@ namespace BulletHell.GameEngine
             bulletTexture = texture;
         }
 
-        public abstract void shoot(Vector2 location);
+        public abstract void shoot(Vector2 location, long curTime);
         
-        public virtual void wasShot()
+        public virtual void wasShot(long curTime)
         {
-            lastShotTick = Clock.getClock().getTime();
+            lastShotTick = curTime;
         }
 
-        public bool canShoot()
+        public bool canShoot(long curTime)
         {
-            return lastShotTick + tickFireDelay < Clock.getClock().getTime();
+            return lastShotTick + tickFireDelay < curTime;
         }
     }
 

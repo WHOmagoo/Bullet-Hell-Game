@@ -10,10 +10,10 @@ namespace BulletHell.GameEngine
         {
         }
         
-        public override void shoot(Vector2 location){
-            if(canShoot())
+        public override void shoot(Vector2 location, long curTime){
+            if(canShoot(curTime))
             {
-                Bullet bullet =  makeBullet(location);
+                Bullet bullet =  makeBullet(location, curTime);
                 Collider collider = Collider.getCollider();
                 if(friendly)
                 {
@@ -24,13 +24,13 @@ namespace BulletHell.GameEngine
                     collider.addEnemyObject(bullet);
                 }
                 
-                base.wasShot();
+                base.wasShot(curTime);
             }
             
         }
 
-        private Bullet makeBullet(Vector2 location){
-            return new Bullet(damage, this.fireShape, Canvas.getCanvas(), bulletTexture, location);
+        private Bullet makeBullet(Vector2 location, long curTime){
+            return new Bullet(damage, this.fireShape, Canvas.getCanvas(), bulletTexture, location, curTime);
         }
     }
 

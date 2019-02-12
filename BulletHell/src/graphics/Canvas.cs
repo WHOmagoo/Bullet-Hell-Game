@@ -62,7 +62,7 @@ namespace BulletHell.GameEngine
 
 
         //TODO: fix this bodge
-        public void Update()
+        public void Update(long curTime)
         {
             foreach (var entity in entities)
             {
@@ -70,7 +70,7 @@ namespace BulletHell.GameEngine
                 {
                     Bullet b = (Bullet)entity;
 
-                    b.Update();
+                    b.Update(curTime);
                 }
             }
         }

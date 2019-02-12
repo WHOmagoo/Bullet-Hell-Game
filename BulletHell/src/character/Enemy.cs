@@ -15,15 +15,15 @@ namespace BulletHell.GameEngine
             path = p;
         }
 
-        public override void Update()
+        public override void Update(long curTime)
         {
-            this.Location = path.UpdateLocation();
-            base.Update();
+            this.Location = path.UpdateLocation(curTime);
+            base.Update(curTime);
         }
 
-        public void Shoot()
+        public void Shoot(long curTime)
         {
-            gunEquipped.shoot(Location);
+            gunEquipped.shoot(Location, curTime);
         }
     }
 }

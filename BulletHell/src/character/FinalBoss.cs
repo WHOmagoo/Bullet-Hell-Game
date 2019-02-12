@@ -7,16 +7,16 @@ namespace BulletHell.GameEngine
 {
     public class FinalBoss : Enemy
     {
-        public FinalBoss(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(canvas, texture, startLocation, null, null)
+        public FinalBoss(Canvas canvas, Texture2D texture, Vector2 startLocation, long curTime) : base(canvas, texture, startLocation, null, null)
         {
-            InitializeEnemy();
+            InitializeEnemy(curTime);
         }
-        private void InitializeEnemy()
+        private void InitializeEnemy(long curTime)
         {
-
+            movePattern(curTime);
         }
 
-        public void movePattern()
+        private void movePattern(long curTime)
         {
             ILocationEquation down = new LinearLocationEquation(Math.PI / 2, .08F);
             ILocationEquation stayStill = StayStill.getStayStill();
@@ -60,7 +60,7 @@ namespace BulletHell.GameEngine
             
             PiecewiseLocationEquation locationEquation = new PiecewiseLocationEquation(piecewiseLocationEquations);
 
-            this.path = new Path(locationEquation, Location, 0);
+            this.path = new Path(locationEquation, Location, 0, curTime);
 
             this.gunEquipped = new BasicGun(3, new LinearLocationEquation(Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, false);
         }

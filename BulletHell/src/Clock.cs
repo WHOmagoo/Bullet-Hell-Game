@@ -5,7 +5,6 @@ namespace BulletHell
 {
     public class Clock
     {
-        private static readonly Clock clock = new Clock();
         private GameTime gameTime;
         private bool isPaused;
         private TimeSpan timeLastPausedOccured;
@@ -19,7 +18,7 @@ namespace BulletHell
         private long timeSinceLastUpdate;
         
 
-        private Clock()
+        public Clock()
         {
             speedModifier = 1;
         }
@@ -52,12 +51,6 @@ namespace BulletHell
             var result =  (gameTime.TotalGameTime.Ticks - timeSpentPaused.Ticks) / TimeSpan.TicksPerMillisecond;
             // Console.WriteLine("Game Time result {0}", result);
             return result;
-        }
-
-
-        public static Clock getClock()
-        {
-            return clock;
         }
 
         public void Update()

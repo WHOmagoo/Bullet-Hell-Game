@@ -37,6 +37,8 @@ namespace BulletHell
         {
             // TODO: Add your initialization logic here
 
+            clock = new Clock();
+            
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Canvas.makeCanvas(spriteBatch);
@@ -59,12 +61,13 @@ namespace BulletHell
             //Initialize characters
             player = new Player(canvas, playerTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - playerTexture.Width / 2, 300));
             player.SetSize(72, 100);
-            enemy1 = new EnemyA(canvas, enemyATexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - enemyATexture.Width / 2, -100));
-            enemy2 = new EnemyB(canvas, enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - 50, -100));
+            enemy1 = new EnemyA(canvas, enemyATexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - enemyATexture.Width / 2, -100), clock.getTime());
+            enemy2 = new EnemyB(canvas, enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - 50, -100), clock.getTime());
             enemy2.SetSize(100, 100);
             // enemy2 = new EnemyA(canvas, enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - enemyATexture.Width / 2, -100));
             // enemy2.SetSize(100, 100);
             // Entity e2 = new Entity(canvas, texture, new Rectangle(100,300,20,20));
+            
             base.Initialize();
         }
 
@@ -74,14 +77,15 @@ namespace BulletHell
         }
 
         private int updates = 0;
+        private Clock clock;
 
         protected override void Update(GameTime gameTime)
         {
             bool enemy2Flag = false;
 
-            Clock.getClock().SetGameTime(gameTime);
+            clock.SetGameTime(gameTime);
 
-            Clock.getClock().Update();
+            clock.Update();
             double seconds = gameTime.TotalGameTime.TotalSeconds;
             // seconds = seconds * 2;
 
@@ -102,9 +106,8 @@ namespace BulletHell
                 Texture2D midBossTexture = Texture2D.FromStream(GraphicsDevice,
                 new FileStream("Content/sprites/midboss.png", FileMode.Open));
                 // midboss = new MidBoss(canvas, midBossTexture, new Vector2(100,5), 100, 100);
-                midboss = new MidBoss(canvas, midBossTexture, new Vector2(100, 5));
+                midboss = new MidBoss(canvas, midBossTexture, new Vector2(100, 5), clock.getTime());
                 midboss.SetSize(100, 100);
-                midboss.movePattern();
             }
             if (seconds > 80 && finalbossFlag == 0)
             {
@@ -112,24 +115,23 @@ namespace BulletHell
                 Texture2D finalBossTexture = Texture2D.FromStream(GraphicsDevice,
                 new FileStream("Content/sprites/finalboss.png", FileMode.Open));
                 // finalboss = new FinalBoss(canvas, finalBossTexture, new Vector2(100, 5), 100, 100);
-                finalboss = new FinalBoss(canvas, finalBossTexture, new Vector2(100, 5));
+                finalboss = new FinalBoss(canvas, finalBossTexture, new Vector2(100, 5), clock.getTime());
                 finalboss.SetSize(100, 100);
-                finalboss.movePattern();
             }
             if (midbossFlag == 1)
             {
-                midboss.Update();
+                midboss.Update(clock.getTime());
 
                 if (seconds < 75)
                 {   //we don't want bullets to continue shooting when the enemy has left the screen
                     //(enemy leaves screen at 75 seconds)
-                    midboss.Shoot();
+                    midboss.Shoot(clock.getTime());
                 }
 
             }
             if (finalbossFlag == 1)
             {
-                finalboss.Update();
+                finalboss.Update(clock.getTime());
                 //control different shooting directions:
                 if (seconds < 120 && shootPatternFlag == 0)
                 {
@@ -153,7 +155,7 @@ namespace BulletHell
                 }
                 if (seconds < 162)
                 {
-                    finalboss.Shoot();
+                    finalboss.Shoot(clock.getTime());
                 }
             }
 
@@ -163,15 +165,15 @@ namespace BulletHell
 
             // TODO: Add your update logic here
 
-            canvas.Update();
+            canvas.Update(clock.getTime());
 
-            player.Update();
-            enemy1.Update();
-            enemy1.Shoot();
+            player.Update(clock.getTime());
+            enemy1.Update(clock.getTime());
+            enemy1.Shoot(clock.getTime());
             if (enemy2Flag)
             {
-                enemy2.Update();
-                enemy2.Shoot();
+                enemy2.Update(clock.getTime());
+                enemy2.Shoot(clock.getTime());
                 // enemy2.Move(new Vector2(1,1));
             }
 

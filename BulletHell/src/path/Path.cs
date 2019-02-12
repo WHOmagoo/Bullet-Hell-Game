@@ -10,15 +10,15 @@ namespace BulletHell.GameEngine
         private double AngleOffset;
         private long StartTime;
         
-        public Path(ILocationEquation locationEquation, Vector2 initialLocation, double AngleOffset)
+        public Path(ILocationEquation locationEquation, Vector2 initialLocation, double AngleOffset, long startTime)
         {
             _locationEquation = locationEquation;
             Offset = initialLocation - locationEquation.GetLocation(0);
             this.AngleOffset = AngleOffset;
-            StartTime = Clock.getClock().getTime();
+            this.StartTime = startTime;
         }
 
-        public Path(Path path, Vector2 initialLocation, double AngleOffset)
+        public Path(Path path, Vector2 initialLocation, double AngleOffset, long startTime)
         {
             _locationEquation = path._locationEquation;
 
@@ -26,13 +26,11 @@ namespace BulletHell.GameEngine
 
             this.AngleOffset = AngleOffset;
 
-            this.StartTime = Clock.getClock().getTime();
+            this.StartTime = startTime;
         }
 
-        public Vector2 UpdateLocation()
+        public Vector2 UpdateLocation(long curTime)
         {
-            long curTime = Clock.getClock().getTime();
-
             Vector2 newLocationBeforeAngleOffset = _locationEquation.GetLocation(curTime - StartTime) + Offset;
 
             float newLocationX =

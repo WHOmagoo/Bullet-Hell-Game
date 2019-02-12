@@ -33,12 +33,12 @@ namespace BulletHell.GameEngine
             Location = new Vector2(startX, startY);
         }
 
-        public override void Update()
+        public override void Update(long curTime)
         {
-            float timeE = Clock.getClock().getTimeSinceLastUpdate();
+            float timeE = curTime;
             float scale = 0.5F;
             KeyboardState currState = Keyboard.GetState();
-            UpdateMove(currState);
+            UpdateMove(currState, curTime);
             if (slow == 1) timeE *= scale;
 
             if (Rect.X + Rect.Width > canvas.GetBounds().Width)
@@ -52,12 +52,12 @@ namespace BulletHell.GameEngine
             {
                 Location += direction * speed * timeE / 50000;
             }
-            base.Update();
+            base.Update(curTime);
         }
 
 
         //TODO: refactor this so that this class subscribes to events from a controller class
-        private void UpdateMove(KeyboardState currState)
+        private void UpdateMove(KeyboardState currState, long curTime)
         {
             speed = Vector2.Zero;
             direction = Vector2.Zero;
@@ -91,7 +91,7 @@ namespace BulletHell.GameEngine
 
             if (currState.IsKeyDown(Keys.Space))
             {
-                gun.shoot(Location);
+                gun.shoot(Location, curTime);
             }
         }
     }
