@@ -37,8 +37,5 @@ namespace BulletHell.GameEngine
             Player.speed.Y = 1;
             Player.direction.Y = moveD;
         }
-
-
-
     }
 }
