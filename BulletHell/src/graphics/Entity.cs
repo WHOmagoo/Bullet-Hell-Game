@@ -42,7 +42,6 @@ namespace BulletHell.GameEngine
             {
                 this.rect = new Rectangle((int)location.X, (int)location.Y, width, height);
             }
-            canvas.AddToDrawList(this);
         }
 
         ~Entity()
