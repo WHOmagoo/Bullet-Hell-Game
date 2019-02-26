@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,19 +12,15 @@ namespace BulletHell.GameEngine
         {
         }
         
-        public override void shoot(Vector2 location){
+        public override void Shoot(Vector2 location){
             if(canShoot())
             {
                 Bullet bullet =  makeBullet(location);
-                Collider collider = Collider.getCollider();
-                if(friendly)
-                {
-                    collider.addFriendlyObject(bullet);
-                }
-                else
-                {
-                    collider.addEnemyObject(bullet);
-                }
+                
+                List<Bullet> bullets = new List<Bullet>();
+                bullets.Add(bullet);
+                
+                OnShoot(bullets);
                 
                 base.wasShot();
             }
