@@ -6,7 +6,6 @@ namespace BulletHell.GameEngine
     public class Enemy : Character
     {
         protected Path path;
-        protected Gun gunEquipped;
 
         public Enemy(Canvas canvas, Texture2D texture, Vector2 startLocation, Path p , Gun gun) 
             : base(canvas, texture, startLocation)
@@ -23,7 +22,7 @@ namespace BulletHell.GameEngine
 
         public void Shoot()
         {
-            gunEquipped.shoot(Location);
+            gunEquipped.Shoot(Location);
         }
     }
 }
