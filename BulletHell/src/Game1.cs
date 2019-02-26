@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using BulletHell.GameEngine;
 using Microsoft.Xna.Framework;
@@ -23,6 +25,7 @@ namespace BulletHell
         private Enemy enemy2;
         private MidBoss midboss;
         private FinalBoss finalboss;
+        
         //Textures
         private Texture2D enemyBTexture;
 
@@ -59,15 +62,47 @@ namespace BulletHell
             //Initialize characters
             player = new Player(canvas, playerTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - playerTexture.Width / 2, 300));
             player.SetSize(72, 100);
+            player.PropertyChanged += OnWeaponChange;
+            player.gunEquipped.GunShotHandler += OnGunShot;
+            canvas.AddToDrawList(player);
+            
             enemy1 = new EnemyA(canvas, enemyATexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - enemyATexture.Width / 2, -100));
+            enemy1.PropertyChanged += OnWeaponChange;
+            enemy1.gunEquipped.GunShotHandler += OnGunShot;
+            canvas.AddToDrawList(enemy1);
+            
             enemy2 = new EnemyB(canvas, enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - 50, -100));
             enemy2.SetSize(100, 100);
+            enemy2.PropertyChanged += OnWeaponChange;
+            enemy2.gunEquipped.GunShotHandler += OnGunShot;
+            canvas.AddToDrawList(enemy2);
             // enemy2 = new EnemyA(canvas, enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - enemyATexture.Width / 2, -100));
             // enemy2.SetSize(100, 100);
             // Entity e2 = new Entity(canvas, texture, new Rectangle(100,300,20,20));
             base.Initialize();
         }
 
+        private void OnGunShot(object sender, BulletsCreatedEventArgs bullets)
+        {
+            foreach (Bullet bullet in bullets.Bullets)
+            {
+                canvas.AddToDrawList(bullet);
+            }
+        }
+
+        private void OnWeaponChange(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals(nameof(Gun)))
+            {
+                Character c = sender as Character;
+
+                if (!ReferenceEquals(c, null))
+                {
+                    c.gunEquipped.GunShotHandler += OnGunShot;
+                }
+            }
+        }
+       
         protected override void LoadContent()
         {
             // shuttle = Content.Load<Texture2D>("shuttle");
@@ -103,8 +138,11 @@ namespace BulletHell
                 new FileStream("Content/sprites/midboss.png", FileMode.Open));
                 // midboss = new MidBoss(canvas, midBossTexture, new Vector2(100,5), 100, 100);
                 midboss = new MidBoss(canvas, midBossTexture, new Vector2(100, 5));
+                canvas.AddToDrawList(midboss);
                 midboss.SetSize(100, 100);
                 midboss.movePattern();
+                midboss.PropertyChanged += OnWeaponChange;
+                midboss.gunEquipped.GunShotHandler += OnGunShot;
             }
             if (seconds > 80 && finalbossFlag == 0)
             {
@@ -115,6 +153,9 @@ namespace BulletHell
                 finalboss = new FinalBoss(canvas, finalBossTexture, new Vector2(100, 5));
                 finalboss.SetSize(100, 100);
                 finalboss.movePattern();
+                canvas.AddToDrawList(finalboss);
+                finalboss.PropertyChanged += OnWeaponChange;
+                finalboss.gunEquipped.GunShotHandler += OnGunShot;
             }
             if (midbossFlag == 1)
             {
