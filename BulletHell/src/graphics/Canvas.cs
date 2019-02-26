@@ -51,9 +51,18 @@ namespace BulletHell.GameEngine
             }
             spriteBatch.End();
         }
+        
+        
         public void AddToDrawList(Entity entity)
         {
-            entities.AddLast(entity);
+            if (!entities.Contains(entity))
+            {
+                entities.AddLast(entity);
+            }
+            else
+            {
+                Console.WriteLine("Duplicate added");
+            }
         }
         public void RemoveFromDrawList(Entity entity)
         {
@@ -74,6 +83,8 @@ namespace BulletHell.GameEngine
                 }
             }
         }
+        
+        
         public Rectangle GetBounds()
         {
             return spriteBatch.GraphicsDevice.Viewport.Bounds;
