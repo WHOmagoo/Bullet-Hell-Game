@@ -19,10 +19,5 @@ namespace BulletHell.GameEngine
             this.Location = path.UpdateLocation();
             base.Update();
         }
-
-        public void Shoot()
-        {
-            gunEquipped.Shoot(Location);
-        }
     }
 }
