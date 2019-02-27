@@ -46,6 +46,7 @@ namespace BulletHell.GameEngine
         private Boolean isColliding(GameObject g1, GameObject g2)
         {
             //TODO: Do hitbox logic stuff, still need to clarify
+            //Grab both hitboxes and run simple collision check?
             return false;
         }
 
@@ -63,7 +64,8 @@ namespace BulletHell.GameEngine
 
         private void onCollide(GameObject g1, GameObject g2)
         {
-            //TODO: Notify both gameobjects of collision
+            g1.onCollision(g2);
+            g2.onCollision(g1);
         }
     }
 }
