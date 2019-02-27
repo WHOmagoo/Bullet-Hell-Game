@@ -38,7 +38,7 @@ namespace BulletHell.GameEngine
             float timeE = Clock.getClock().getTimeSinceLastUpdate();
             float scale = 0.5F;
             KeyboardState currState = Keyboard.GetState();
-            UpdateMove(currState);
+            UpdateMove();
             if (slow == 1) timeE *= scale;
 
             if (Rect.X + Rect.Width > canvas.GetBounds().Width)
@@ -55,44 +55,82 @@ namespace BulletHell.GameEngine
             base.Update();
         }
 
-
-        //TODO: refactor this so that this class subscribes to events from a controller class
-        private void UpdateMove(KeyboardState currState)
+        //UPDATED - subscribes to events and moves in 8 directions
+        private void UpdateMove()
         {
             speed = Vector2.Zero;
             direction = Vector2.Zero;
 
-            if (currState.IsKeyDown(Keys.LeftControl))
-            {
-                slow = 1;
-            }
-            else if (currState.IsKeyDown(Keys.RightControl))
-            {
-                slow = 0;
-            }
+            Controller controller = new Controller();
+            controller.OnLeft += goLeft;
+            controller.OnRight += goRight;
+            controller.OnUp += goUp;
+            controller.OnDown += goDown;
+            controller.OnUpLeft += goUpLeft;
+            controller.OnUpRight += goUpRight;
+            controller.OnDownLeft += goDownLeft;
+            controller.OnDownRight += goDownRight;
+            controller.OnShoot += Shoot;
+            controller.OnSlow += goSlow;
+            controller.OnFast += goFast;
 
-            if (currState.IsKeyDown(Keys.Left))
-            {
-                InputControl.MoveLeft();
-            }
-            else if (currState.IsKeyDown(Keys.Right))
-            {
-                InputControl.MoveRight();
-            }
+            controller.Update();
+            
+        }
 
-            if (currState.IsKeyDown(Keys.Up))
-            {
-                InputControl.MoveUp();
-            }
-            else if (currState.IsKeyDown(Keys.Down))
-            {
-                InputControl.MoveDown();
-            }
+        private void goLeft(object sender, EventArgs e)
+        {
+            InputControl.MoveLeft();
+        }
 
-            if (currState.IsKeyDown(Keys.Space))
-            {
-                gun.shoot(Location);
-            }
+        private void goRight(object sender, EventArgs e)
+        {
+            InputControl.MoveRight();
+        }
+
+        private void goUp(object sender, EventArgs e)
+        {
+            InputControl.MoveUp();
+        }
+
+        private void goDown(object sender, EventArgs e)
+        {
+            InputControl.MoveDown();
+        }
+
+        private void goUpLeft(object sender, EventArgs e)
+        {
+            InputControl.MoveUpLeft();
+        }
+
+        private void goUpRight(object sender, EventArgs e)
+        {
+            InputControl.MoveUpRight();
+        }
+
+        private void goDownLeft(object sender, EventArgs e)
+        {
+            InputControl.MoveDownLeft();
+        }
+
+        private void goDownRight(object sender, EventArgs e)
+        {
+            InputControl.MoveDownRight();
+        }
+
+        private void Shoot(object sender, EventArgs e)
+        {
+            gun.shoot(Location);
+        }
+
+        private void goSlow(object sender, EventArgs e)
+        {
+            slow = 1;
+        }
+
+        private void goFast(object sender, EventArgs e)
+        {
+            slow = 0;
         }
     }
 }
