@@ -30,8 +30,8 @@ namespace BulletHell.GameEngine
             }
         }  //need Gun class
 
-        public Character(Canvas canvas, Texture2D texture, Vector2 startLocation, int width = 0, int height = 0) 
-            : base(canvas,texture,startLocation,width,height)
+        public Character(Texture2D texture, Vector2 startLocation, int width = 0, int height = 0) 
+            : base(texture,startLocation,width,height)
         {
             hitBox = false;
             healthPoints = 1000;    // just chose a random value of 1000 for now (value may depend on which character)
