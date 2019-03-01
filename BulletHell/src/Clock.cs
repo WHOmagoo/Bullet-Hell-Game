@@ -33,6 +33,11 @@ namespace BulletHell
             }
         }
 
+        public void setGameSpeed(long newModifier)
+        {
+            speedModifier = newModifier;
+        }
+
         public void resume()
         {
             isPaused = false;
@@ -40,6 +45,7 @@ namespace BulletHell
             timeLastPausedOccured = TimeSpan.Zero;
         }
         
+        //Returns the time in milliseconds
         public long getTime()
         {
             if (ReferenceEquals(gameTime, null))
@@ -75,7 +81,7 @@ namespace BulletHell
         {
             if (!ReferenceEquals(this.gameTime, gameTime))
             {
-                this.gameTime = gameTime;
+                this.gameTime = new GameTime(new TimeSpan(gameTime.TotalGameTime.Ticks * speedModifier), new TimeSpan(gameTime.ElapsedGameTime.Ticks * speedModifier));
             }
         }
     }
