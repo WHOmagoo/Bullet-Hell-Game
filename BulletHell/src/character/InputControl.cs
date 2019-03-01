@@ -37,5 +37,45 @@ namespace BulletHell.GameEngine
             Player.speed.Y = 1;
             Player.direction.Y = moveD;
         }
+
+        public static void MoveUpLeft()
+        {
+            //up
+            Player.speed.Y = 1;
+            Player.direction.Y = moveU;
+            //left
+            Player.speed.X = 1;
+            Player.direction.X = moveL;
+        }
+
+        public static void MoveUpRight()
+        {
+            //up
+            Player.speed.Y = 1;
+            Player.direction.Y = moveU;
+            //right
+            Player.speed.X = 1;
+            Player.direction.X = moveR;
+        }
+
+        public static void MoveDownLeft()
+        {
+            //down
+            Player.speed.Y = 1;
+            Player.direction.Y = moveD;
+            //left
+            Player.speed.X = 1;
+            Player.direction.X = moveL;
+        }
+
+        public static void MoveDownRight()
+        {
+            //down
+            Player.speed.Y = 1;
+            Player.direction.Y = moveD;
+            //right
+            Player.speed.X = 1;
+            Player.direction.X = moveR;
+        }
     }
 }
