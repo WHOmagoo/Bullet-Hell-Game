@@ -25,8 +25,11 @@ namespace BulletHell.GameEngine
 
             protected set
             {
-                _gunEquipped = value;
-                OnWeaponChanged(nameof(gunEquipped));
+                if (!ReferenceEquals(_gunEquipped, value))
+                {
+                    _gunEquipped = value;
+                    OnWeaponChanged(nameof(gunEquipped));
+                }
             }
         }  //need Gun class
 
@@ -39,8 +42,7 @@ namespace BulletHell.GameEngine
 
         public void Shoot()
         {
-            //need gun class   TODO
-            gunEquipped.Shoot(Location);
+            gunEquipped?.Shoot(Location);
         }
 
         public bool ShowHitbox
