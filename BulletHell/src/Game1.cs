@@ -17,6 +17,7 @@ namespace BulletHell
         // Texture2D shuttle;
         Player player;
 
+        bool enemy2Flag = false;
         int midbossFlag = 0;        //needed because we only want to create midboss once
         int finalbossFlag = 0;      //needed because we only want to create finalboss once
         int shootPatternFlag = 0;   //needed to keep track of which shooting pattern we should be on
@@ -42,8 +43,7 @@ namespace BulletHell
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Canvas.makeCanvas(spriteBatch);
-            canvas = Canvas.getCanvas();
+            canvas = new Canvas(spriteBatch);
             //Load textures
             Texture2D playerTexture = Texture2D.FromStream(GraphicsDevice,
                 new FileStream("Content/sprites/shuttle.png", FileMode.Open));
@@ -62,21 +62,17 @@ namespace BulletHell
             //Initialize characters
             player = new Player(canvas, playerTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - playerTexture.Width / 2, 300));
             player.SetSize(72, 100);
-            
-            enemy1 = new EnemyA(enemyATexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - enemyATexture.Width / 2, -100));
-            enemy2 = new EnemyB(enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - 50, -100));
             player.PropertyChanged += OnWeaponChange;
             player.gunEquipped.GunShotHandler += OnGunShot;
             canvas.AddToDrawList(player);
-            
+
+            enemy1 = new EnemyA(enemyATexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - enemyATexture.Width / 2, -100));
             enemy1.PropertyChanged += OnWeaponChange;
             enemy1.gunEquipped.GunShotHandler += OnGunShot;
             canvas.AddToDrawList(enemy1);
             
-            enemy2.SetSize(100, 100);
-            enemy2.PropertyChanged += OnWeaponChange;
-            enemy2.gunEquipped.GunShotHandler += OnGunShot;
-            canvas.AddToDrawList(enemy2);
+            Clock.getClock().setGameSpeed(7);
+
             // enemy2 = new EnemyA(canvas, enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - enemyATexture.Width / 2, -100));
             // enemy2.SetSize(100, 100);
             // Entity e2 = new Entity(canvas, texture, new Rectangle(100,300,20,20));
@@ -113,12 +109,11 @@ namespace BulletHell
 
         protected override void Update(GameTime gameTime)
         {
-            bool enemy2Flag = false;
 
             Clock.getClock().SetGameTime(gameTime);
 
             Clock.getClock().Update();
-            double seconds = gameTime.TotalGameTime.TotalSeconds;
+            double seconds = Clock.getClock().getTime() / 1000;
             // seconds = seconds * 2;
 
             //            Console.WriteLine("{0}, Game Time Elapsed since last draw: {1}", updates, gameTime.ElapsedGameTime);
@@ -126,11 +121,12 @@ namespace BulletHell
 
             if (seconds > 16 && !enemy2Flag)
             {
-                // enemy2 = new EnemyB(canvas, enemyBTexture, new Vector2(200, 100));
-                // enemy2.SetSize(100, 100);
-                // enemy2 = new EnemyB(canvas, enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2, 0));
-                // enemy2.SetSize(100, 100);
                 enemy2Flag = true;
+                enemy2 = new EnemyB(enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - 50, -100));
+                enemy2.SetSize(100, 100);
+                enemy2.PropertyChanged += OnWeaponChange;
+                enemy2.gunEquipped.GunShotHandler += OnGunShot;
+                canvas.AddToDrawList(enemy2);
             }
             if (seconds > 44 && midbossFlag == 0)
             {
@@ -141,6 +137,7 @@ namespace BulletHell
                 midboss = new MidBoss(midBossTexture, new Vector2(100, 5));
                 midboss.SetSize(100, 100);
                 midboss.movePattern();
+                canvas.AddToDrawList(midboss);
                 midboss.PropertyChanged += OnWeaponChange;
                 midboss.gunEquipped.GunShotHandler += OnGunShot;
             }
@@ -159,7 +156,6 @@ namespace BulletHell
             }
             if (midbossFlag == 1)
             {
-                midboss.Update();
 
                 if (seconds < 75)
                 {   //we don't want bullets to continue shooting when the enemy has left the screen
@@ -170,7 +166,7 @@ namespace BulletHell
             }
             if (finalbossFlag == 1)
             {
-                finalboss.Update();
+//                finalboss.Update();
                 //control different shooting directions:
                 if (seconds < 120 && shootPatternFlag == 0)
                 {
@@ -206,12 +202,12 @@ namespace BulletHell
 
             canvas.Update();
 
-            player.Update();
-            enemy1.Update();
+//            player.Update();
+//            enemy1.Update();
             enemy1.Shoot();
             if (enemy2Flag)
             {
-                enemy2.Update();
+//              
                 enemy2.Shoot();
                 // enemy2.Move(new Vector2(1,1));
             }
