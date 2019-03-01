@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using BulletHell.Annotations;
+//using BulletHell.Annotations;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -53,7 +53,7 @@ namespace BulletHell.GameEngine
 
     public class BulletsCreatedEventArgs : EventArgs
     {
-        public List<Bullet> Bullets { get; }
+        public List<Bullet> Bullets { get; private set; }
 
         public BulletsCreatedEventArgs(List<Bullet> bullets)
         {
