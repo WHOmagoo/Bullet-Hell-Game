@@ -7,7 +7,7 @@ namespace BulletHell.GameEngine
 {
     public class MidBoss : Enemy
     {
-        public MidBoss(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(canvas, texture, startLocation, null, null)
+        public MidBoss(Texture2D texture, Vector2 startLocation) : base(texture, startLocation, null, null)
         {
             InitializeEnemy();
         }

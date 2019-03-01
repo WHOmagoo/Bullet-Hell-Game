@@ -7,7 +7,7 @@ namespace BulletHell.GameEngine
 {
     public class FinalBoss : Enemy
     {
-        public FinalBoss(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(canvas, texture, startLocation, null, null)
+        public FinalBoss(Texture2D texture, Vector2 startLocation) : base(texture, startLocation, null, null)
         {
             InitializeEnemy();
         }

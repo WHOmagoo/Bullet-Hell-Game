@@ -8,8 +8,8 @@ namespace BulletHell.GameEngine
         protected Path path;
         protected Gun gunEquipped;
 
-        public Enemy(Canvas canvas, Texture2D texture, Vector2 startLocation, Path p , Gun gun) 
-            : base(canvas, texture, startLocation)
+        public Enemy(Texture2D texture, Vector2 startLocation, Path p , Gun gun) 
+            : base(texture, startLocation)
         {
             gunEquipped = gun;
             path = p;

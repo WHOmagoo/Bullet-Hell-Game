@@ -59,8 +59,8 @@ namespace BulletHell
             //Initialize characters
             player = new Player(canvas, playerTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - playerTexture.Width / 2, 300));
             player.SetSize(72, 100);
-            enemy1 = new EnemyA(canvas, enemyATexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - enemyATexture.Width / 2, -100));
-            enemy2 = new EnemyB(canvas, enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - 50, -100));
+            enemy1 = new EnemyA(enemyATexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - enemyATexture.Width / 2, -100));
+            enemy2 = new EnemyB(enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - 50, -100));
             enemy2.SetSize(100, 100);
             // enemy2 = new EnemyA(canvas, enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - enemyATexture.Width / 2, -100));
             // enemy2.SetSize(100, 100);
@@ -102,7 +102,7 @@ namespace BulletHell
                 Texture2D midBossTexture = Texture2D.FromStream(GraphicsDevice,
                 new FileStream("Content/sprites/midboss.png", FileMode.Open));
                 // midboss = new MidBoss(canvas, midBossTexture, new Vector2(100,5), 100, 100);
-                midboss = new MidBoss(canvas, midBossTexture, new Vector2(100, 5));
+                midboss = new MidBoss(midBossTexture, new Vector2(100, 5));
                 midboss.SetSize(100, 100);
                 midboss.movePattern();
             }
@@ -112,7 +112,7 @@ namespace BulletHell
                 Texture2D finalBossTexture = Texture2D.FromStream(GraphicsDevice,
                 new FileStream("Content/sprites/finalboss.png", FileMode.Open));
                 // finalboss = new FinalBoss(canvas, finalBossTexture, new Vector2(100, 5), 100, 100);
-                finalboss = new FinalBoss(canvas, finalBossTexture, new Vector2(100, 5));
+                finalboss = new FinalBoss(finalBossTexture, new Vector2(100, 5));
                 finalboss.SetSize(100, 100);
                 finalboss.movePattern();
             }

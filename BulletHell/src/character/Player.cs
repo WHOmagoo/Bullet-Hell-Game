@@ -20,7 +20,9 @@ namespace BulletHell.GameEngine
         Canvas canvas;
         int slow = 0;
 
-        public Player(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(canvas, texture, startLocation)
+        //TODO, implement removal of canvas from player class.
+        //TODO We need to store the bounds somehow or give the bounds to input control and have it only trigger when player is within the bounds.
+        public Player(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(texture, startLocation)
         {
             this.canvas = canvas;
             InputControl.AssignPlayer(this);
