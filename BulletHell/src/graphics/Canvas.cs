@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,77 +11,67 @@ namespace BulletHell.GameEngine
         private SpriteBatch spriteBatch;
 
         //TODO: right now this is using a singleton but we should probably update this to use observer pattern
+        
+        private LinkedList<GameObject> entities;
+        private LinkedList<GameObject> toAdd;
+        private LinkedList<GameObject> toRemove;
 
-        private static Canvas canvas;
-        private LinkedList<Entity> entities;
-
-        private Canvas(SpriteBatch spriteBatch)
+        public Canvas(SpriteBatch spriteBatch)
         {
             this.spriteBatch = spriteBatch;
-            this.entities = new LinkedList<Entity>();
+            this.entities = new LinkedList<GameObject>();
+            this.toAdd = new LinkedList<GameObject>();
+            this.toRemove = new LinkedList<GameObject>();
         }
-        public static bool makeCanvas(SpriteBatch spriteBatch)
-        {
-            bool madeNewCanvas = ReferenceEquals(canvas, null);
-
-            if (madeNewCanvas)
-            {
-                canvas = new Canvas(spriteBatch);
-                return true;
-            }
-            else
-            {
-                throw new Exception("Canvas singleton instance is already initialized");
-            }
-        }
-
-        public static Canvas getCanvas()
-        {
-            if (!ReferenceEquals(canvas, null))
-            {
-                return canvas;
-            }
-            throw new NullReferenceException("The canvas was not constructed yet. Call makeCanvas first.");
-        }
+        
         public void Draw()
         {
+            
             spriteBatch.Begin();
             foreach (Entity e in entities)
             {
                 e.Draw(spriteBatch);
             }
+
             spriteBatch.End();
         }
         
         
-        public void AddToDrawList(Entity entity)
+        public void AddToDrawList(GameObject entity)
         {
-            if (!entities.Contains(entity))
-            {
-                entities.AddLast(entity);
+            if (!entities.Contains(entity) && !toAdd.Contains(entity))
+            {    
+                
+                    toAdd.AddLast(entity);
             }
             else
             {
                 Console.WriteLine("Duplicate added");
             }
         }
-        public void RemoveFromDrawList(Entity entity)
+        public void RemoveFromDrawList(GameObject entity)
         {
             entities.Remove(entity);
         }
 
-
-        //TODO: fix this bodge
         public void Update()
         {
+            while (toRemove.Count > 0)
+            {
+                entities.Remove(toRemove.First.Value);
+                toRemove.RemoveFirst();
+            }
+            
             foreach (var entity in entities)
             {
-                if (entity.GetType() == typeof(Bullet))
-                {
-                    Bullet b = (Bullet)entity;
+                entity.Update();
+            }
 
-                    b.Update();
-                }
+            while ( toAdd.Count > 0)
+            {
+                entities.AddLast(toAdd.First.Value);
+                toAdd.First().Update();
+                toAdd.RemoveFirst();
             }
         }
         
