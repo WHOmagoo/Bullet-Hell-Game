@@ -4,7 +4,7 @@ namespace BulletHell.GameEngine {
     public class CollidingCircle : Hitbox {
         public float radius;
 
-        public CollidingCircle(Vector2 absLoc, Vector2 relLoc, float radius) : base(absLoc, relLoc)
+        public CollidingCircle(Vector2 parentLoc, Vector2 relLoc, float radius) : base(parentLoc, relLoc)
         {
             this.radius = radius;
         }

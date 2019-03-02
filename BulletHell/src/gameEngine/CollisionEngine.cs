@@ -1,4 +1,5 @@
-using System.Math;
+using System;
+// using System.Generic;
 namespace BulletHell.GameEngine
 {
     public partial class Hitbox
@@ -9,10 +10,14 @@ namespace BulletHell.GameEngine
 
             public static bool isColliding(Hitbox h1, Hitbox h2)
             {
-                //TODO: if elses to call corresponding function.
-                // if(h1.GetType().IsClass(CollidingRectangle))
-                //     return isColliding(h1,h2);
-                return false;
+                if (h1 is CollidingRectangle && h2 is CollidingRectangle)
+                    return isColliding((CollidingRectangle)h1, (CollidingRectangle)h2);
+                if (h1 is CollidingCircle && h2 is CollidingCircle)
+                    return isColliding((CollidingCircle)h1, (CollidingCircle)h2);
+                if (h1 is CollidingRectangle)
+                    return isColliding((CollidingRectangle)h1, (CollidingCircle)h2);
+                else
+                    return isColliding((CollidingRectangle)h2, (CollidingCircle)h1);
             }
 
             public static bool isColliding(CollidingRectangle r1, CollidingRectangle r2)
@@ -27,8 +32,23 @@ namespace BulletHell.GameEngine
             }
             public static bool isColliding(CollidingRectangle r, CollidingCircle c)
             {
-               int circleDistance.x = abs() 
+                //Change to int for efficiency?
+                float circleDistanceX = Math.Abs(c.absLoc.X - r.absLoc.X);
+                float circleDistanceY = Math.Abs(c.absLoc.Y - r.absLoc.Y);
 
+                if (circleDistanceX > (r.Width/2 + c.radius)) //Comparing float and int, will lose some precision
+                    return false;
+                if (circleDistanceY > (r.Height/2 + c.radius))
+                    return false;
+                
+                if (circleDistanceX <= (r.Width/2))
+                    return true;
+                if (circleDistanceY <= (r.Height/2))
+                    return true;
+
+                float cornerDistance_sq = (float)(Math.Pow((double)(circleDistanceX - r.Width/2), 2) +
+                    Math.Pow(circleDistanceY - r.Height/2, 2));
+                return (cornerDistance_sq <= Math.Pow(c.radius,2));
             }
 
         }
