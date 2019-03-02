@@ -7,11 +7,11 @@ using Microsoft.Xna.Framework;
 namespace BulletHell.GameEngine
 {
     // const int N_OF_TEAMS = 3;
-    enum TEAM { Friendly = 0, Enemy, Unassigned };
+    public enum TEAM { Friendly = 0, Enemy, Unassigned };
     public class CollisionManager
     {
         List<GameObject>[] teams;
-        const int N_OF_TEAMS = Enum.GetNames(TEAM).Length;
+        const int N_OF_TEAMS = 3; //= Enum.GetNames(TEAM).Length; //FIXME: make const and dynamically get nteams
 
         public CollisionManager()
         {
@@ -20,12 +20,12 @@ namespace BulletHell.GameEngine
 
         public void addToTeam(GameObject g, TEAM t)
         {
-            teams[t].Add(g);
+            teams[(int)t].Add(g);
         }
 
         public void removeFromTeam(GameObject g, TEAM t)
         {
-            teams[t].Remove(g);
+            teams[(int)t].Remove(g);
         }
 
         /**

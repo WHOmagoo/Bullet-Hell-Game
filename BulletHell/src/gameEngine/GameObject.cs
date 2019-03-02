@@ -16,5 +16,6 @@ namespace BulletHell.GameEngine
         // }
 
         public virtual void Update() {}
+        public virtual void onCollision(GameObject hitby) {}
     }
 }
