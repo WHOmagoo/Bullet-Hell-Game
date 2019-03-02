@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace BulletHell.GameEngine {
 
-    public abstract partial class Hitbox {
+    public abstract class Hitbox {
 
         public Vector2 absLoc {get{return relLoc+parentLoc;}}
         public Vector2 parentLoc; //Location of the GameObject's locations

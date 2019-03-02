@@ -83,79 +83,6 @@ namespace BulletHell
 
             Clock.getClock().Update();
             double seconds = gameTime.TotalGameTime.TotalSeconds;
-            // seconds = seconds * 2;
-
-            //            Console.WriteLine("{0}, Game Time Elapsed since last draw: {1}", updates, gameTime.ElapsedGameTime);
-
-
-            if (seconds > 16 && !enemy2Flag)
-            {
-                // enemy2 = new EnemyB(canvas, enemyBTexture, new Vector2(200, 100));
-                // enemy2.SetSize(100, 100);
-                // enemy2 = new EnemyB(canvas, enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2, 0));
-                // enemy2.SetSize(100, 100);
-                enemy2Flag = true;
-            }
-            if (seconds > 44 && midbossFlag == 0)
-            {
-                midbossFlag = 1;
-                Texture2D midBossTexture = Texture2D.FromStream(GraphicsDevice,
-                new FileStream("Content/sprites/midboss.png", FileMode.Open));
-                // midboss = new MidBoss(canvas, midBossTexture, new Vector2(100,5), 100, 100);
-                midboss = new MidBoss(canvas, midBossTexture, new Vector2(100, 5));
-                midboss.SetSize(100, 100);
-                midboss.movePattern();
-            }
-            if (seconds > 80 && finalbossFlag == 0)
-            {
-                finalbossFlag = 1;
-                Texture2D finalBossTexture = Texture2D.FromStream(GraphicsDevice,
-                new FileStream("Content/sprites/finalboss.png", FileMode.Open));
-                // finalboss = new FinalBoss(canvas, finalBossTexture, new Vector2(100, 5), 100, 100);
-                finalboss = new FinalBoss(canvas, finalBossTexture, new Vector2(100, 5));
-                finalboss.SetSize(100, 100);
-                finalboss.movePattern();
-            }
-            if (midbossFlag == 1)
-            {
-                midboss.Update();
-
-                if (seconds < 75)
-                {   //we don't want bullets to continue shooting when the enemy has left the screen
-                    //(enemy leaves screen at 75 seconds)
-                    midboss.Shoot();
-                }
-
-            }
-            if (finalbossFlag == 1)
-            {
-                finalboss.Update();
-                //control different shooting directions:
-                if (seconds < 120 && shootPatternFlag == 0)
-                {
-                    shootPatternFlag = 1;
-                    finalboss.shootMethod1();
-                }
-                else if (seconds > 120 && seconds < 130 && shootPatternFlag == 1)
-                {
-                    shootPatternFlag = 2;
-                    finalboss.shootMethod2();
-                }
-                else if (seconds > 130 && seconds < 150 && shootPatternFlag == 2)
-                {
-                    shootPatternFlag = 3;
-                    finalboss.shootMethod3();
-                }
-                else if (seconds > 150 && seconds < 162 && shootPatternFlag == 3)
-                {
-                    shootPatternFlag = 4;
-                    finalboss.shootMethod4();
-                }
-                if (seconds < 162)
-                {
-                    finalboss.Shoot();
-                }
-            }
 
             updates++;
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -164,16 +91,15 @@ namespace BulletHell
             // TODO: Add your update logic here
 
             canvas.Update();
-
             player.Update();
-            enemy1.Update();
-            enemy1.Shoot();
-            if (enemy2Flag)
-            {
-                enemy2.Update();
-                enemy2.Shoot();
-                // enemy2.Move(new Vector2(1,1));
-            }
+            // enemy1.Update();
+            // enemy1.Shoot();
+            // if (enemy2Flag)
+            // {
+            //     enemy2.Update();
+            //     enemy2.Shoot();
+            //     // enemy2.Move(new Vector2(1,1));
+            // }
 
             base.Update(gameTime);
         }

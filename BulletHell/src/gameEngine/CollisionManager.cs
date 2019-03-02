@@ -45,9 +45,7 @@ namespace BulletHell.GameEngine
 
         private Boolean isColliding(GameObject g1, GameObject g2)
         {
-            //TODO: Do hitbox logic stuff, still need to clarify
-            //Grab both hitboxes and run simple collision check?
-            return false;
+            return CollisionEngine.isColliding(g1.Hitbox, g2.Hitbox);
         }
 
         private void runCollisionsBetweenTeams(List<GameObject> t1, List<GameObject> t2)
