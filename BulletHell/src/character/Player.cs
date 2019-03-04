@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using BulletHell.Graphics;
 
 namespace BulletHellTests.GameEngine
 {
@@ -33,8 +34,9 @@ namespace BulletHellTests.GameEngine
             Location = new Vector2(startX, startY);
         }
 
-        public override void Update()
+        public override void Update() 
         {
+            base.Update();
             float timeE = Clock.getClock().getTimeSinceLastUpdate();
             float scale = 0.5F;
             KeyboardState currState = Keyboard.GetState();

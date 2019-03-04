@@ -7,25 +7,28 @@ using Microsoft.Xna.Framework;
 namespace BulletHell.GameEngine
 {
     // const int N_OF_TEAMS = 3;
-    enum TEAM { Friendly = 0, Enemy, Unassigned };
+    public enum TEAM { FRIENDLY = 0, ENEMY, UNASSIGNED}
     public class CollisionManager
     {
         List<GameObject>[] teams;
-        const int N_OF_TEAMS = Enum.GetNames(TEAM).Length;
+        const int N_OF_TEAMS = 3; //= Enum.GetNames(TEAM).Length; //FIXME: make const and dynamically get nteams
 
         public CollisionManager()
         {
             teams = new List<GameObject>[N_OF_TEAMS];
+            for (int i = 0; i < N_OF_TEAMS; i++) {
+                teams[i] = new List<GameObject>();
+            }
         }
 
         public void addToTeam(GameObject g, TEAM t)
         {
-            teams[t].Add(g);
+            teams[(int)t].Add(g);
         }
 
         public void removeFromTeam(GameObject g, TEAM t)
         {
-            teams[t].Remove(g);
+            teams[(int)t].Remove(g);
         }
 
         /**
@@ -45,9 +48,7 @@ namespace BulletHell.GameEngine
 
         private Boolean isColliding(GameObject g1, GameObject g2)
         {
-            //TODO: Do hitbox logic stuff, still need to clarify
-            //Grab both hitboxes and run simple collision check?
-            return false;
+            return CollisionEngine.isColliding(g1.Hitbox, g2.Hitbox);
         }
 
         private void runCollisionsBetweenTeams(List<GameObject> t1, List<GameObject> t2)

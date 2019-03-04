@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+<<<<<<< HEAD
 namespace BulletHellTests.GameEngine
+=======
+namespace BulletHell.Graphics
+>>>>>>> origin/drawingTool
 {
     public class Canvas
     {
@@ -44,12 +48,10 @@ namespace BulletHellTests.GameEngine
         }
         public void Draw()
         {
-            spriteBatch.Begin();
             foreach (Entity e in entities)
             {
                 e.Draw(spriteBatch);
             }
-            spriteBatch.End();
         }
         public void AddToDrawList(Entity entity)
         {
@@ -62,18 +64,18 @@ namespace BulletHellTests.GameEngine
 
 
         //TODO: fix this bodge
-        public void Update()
-        {
-            foreach (var entity in entities)
-            {
-                if (entity.GetType() == typeof(Bullet))
-                {
-                    Bullet b = (Bullet)entity;
+        // public void Update()
+        // {
+        //     foreach (var entity in entities)
+        //     {
+        //         if (entity.GetType() == typeof(Bullet))
+        //         {
+        //             Bullet b = (Bullet)entity;
 
-                    b.Update();
-                }
-            }
-        }
+        //             b.Update();
+        //         }
+        //     }
+        // }
         public Rectangle GetBounds()
         {
             return spriteBatch.GraphicsDevice.Viewport.Bounds;
