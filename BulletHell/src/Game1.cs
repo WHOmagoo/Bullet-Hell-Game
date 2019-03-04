@@ -4,6 +4,7 @@ using BulletHell.GameEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using BulletHell.Graphics;
 
 namespace BulletHell
 {
@@ -90,7 +91,7 @@ namespace BulletHell
 
             // TODO: Add your update logic here
 
-            canvas.Update();
+            // canvas.Update();
             player.Update();
             // enemy1.Update();
             // enemy1.Shoot();

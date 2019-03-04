@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.Graphics
 {
     public class Canvas
     {
@@ -62,18 +62,18 @@ namespace BulletHell.GameEngine
 
 
         //TODO: fix this bodge
-        public void Update()
-        {
-            foreach (var entity in entities)
-            {
-                if (entity.GetType() == typeof(Bullet))
-                {
-                    Bullet b = (Bullet)entity;
+        // public void Update()
+        // {
+        //     foreach (var entity in entities)
+        //     {
+        //         if (entity.GetType() == typeof(Bullet))
+        //         {
+        //             Bullet b = (Bullet)entity;
 
-                    b.Update();
-                }
-            }
-        }
+        //             b.Update();
+        //         }
+        //     }
+        // }
         public Rectangle GetBounds()
         {
             return spriteBatch.GraphicsDevice.Viewport.Bounds;
