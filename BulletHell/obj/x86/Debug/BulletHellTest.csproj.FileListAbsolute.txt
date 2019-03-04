@@ -1,2 +1,0 @@
-C:\Users\sinou\487sp19_c4\BulletHell\obj\x86\Debug\BulletHellTest.csprojAssemblyReference.cache
-C:\Users\sinou\487sp19_c4\BulletHell\obj\x86\Debug\BulletHellTest.csproj.CoreCompileInputs.cache

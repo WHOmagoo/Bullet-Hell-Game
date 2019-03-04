@@ -1,7 +1,0 @@
-Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/sinou/487sp19_c4/BulletHellTests/Content/sprites/bullet.png","C:/Users/sinou/487sp19_c4/BulletHellTests/Content/bin/DesktopGL/Content/sprites/bullet.xnb","TextureProcessor","Texture2DContent",773,13345,0.1283496
-"C:/Users/sinou/487sp19_c4/BulletHellTests/Content/sprites/enemyA.png","C:/Users/sinou/487sp19_c4/BulletHellTests/Content/bin/DesktopGL/Content/sprites/enemyA.xnb","TextureProcessor","Texture2DContent",2524,28885,0.0140709
-"C:/Users/sinou/487sp19_c4/BulletHellTests/Content/sprites/enemyB.png","C:/Users/sinou/487sp19_c4/BulletHellTests/Content/bin/DesktopGL/Content/sprites/enemyB.xnb","TextureProcessor","Texture2DContent",50917,3238005,0.1467791
-"C:/Users/sinou/487sp19_c4/BulletHellTests/Content/sprites/finalboss.png","C:/Users/sinou/487sp19_c4/BulletHellTests/Content/bin/DesktopGL/Content/sprites/finalboss.xnb","TextureProcessor","Texture2DContent",591908,3212885,0.1102951
-"C:/Users/sinou/487sp19_c4/BulletHellTests/Content/sprites/midboss.png","C:/Users/sinou/487sp19_c4/BulletHellTests/Content/bin/DesktopGL/Content/sprites/midboss.xnb","TextureProcessor","Texture2DContent",502877,5760085,0.1758157
-"C:/Users/sinou/487sp19_c4/BulletHellTests/Content/sprites/shuttle.png","C:/Users/sinou/487sp19_c4/BulletHellTests/Content/bin/DesktopGL/Content/sprites/shuttle.xnb","TextureProcessor","Texture2DContent",9105,125045,0.0188671
