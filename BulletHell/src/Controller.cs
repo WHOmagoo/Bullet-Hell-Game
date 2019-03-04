@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BulletHellTests.GameEngine
+namespace BulletHell.GameEngine
 {
     class Controller
     {

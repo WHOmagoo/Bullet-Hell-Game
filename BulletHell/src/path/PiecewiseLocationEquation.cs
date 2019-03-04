@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-namespace BulletHellTests.GameEngine
+namespace BulletHell.GameEngine
 {
     public class PiecewiseLocationEquation : ILocationEquation
     {

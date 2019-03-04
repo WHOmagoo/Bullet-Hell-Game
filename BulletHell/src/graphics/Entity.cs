@@ -2,11 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-<<<<<<< HEAD
-namespace BulletHellTests.GameEngine
-=======
-namespace BulletHell.Graphics
->>>>>>> origin/drawingTool
+namespace BulletHell.GameEngine
 {
     public class Entity
     {

@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace BulletHellTests.GameEngine
+namespace BulletHell.GameEngine
 {
     public class StayStill : ILocationEquation
     {

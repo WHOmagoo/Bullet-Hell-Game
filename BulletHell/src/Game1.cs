@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
-using BulletHellTests.GameEngine;
+using BulletHell.GameEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using BulletHell.Graphics;
 
-namespace BulletHellTests
+namespace BulletHell
 {
     public class Game1 : Game
     {

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 
 
-namespace BulletHellTests.GameEngine
+namespace BulletHell.GameEngine
 {
     class Sprite
     {

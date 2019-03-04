@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using BulletHellTests.GameEngine;
+using BulletHell.GameEngine;
 
-namespace BulletHellTests
+namespace BulletHell
 {
     public class Collider
     {

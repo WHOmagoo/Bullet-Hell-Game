@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using BulletHell.Graphics;
 
-namespace BulletHellTests.GameEngine
+namespace BulletHell.GameEngine
 {
     class Player : Character
     {

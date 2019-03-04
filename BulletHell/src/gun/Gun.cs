@@ -2,7 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BulletHellTests.GameEngine
+namespace BulletHell.GameEngine
 {
     public abstract class Gun
     {

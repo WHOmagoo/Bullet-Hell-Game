@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using BulletHell.Graphics;
 
-namespace BulletHellTests.GameEngine
+namespace BulletHell.GameEngine
 {
     public class Character : GameObject
     {

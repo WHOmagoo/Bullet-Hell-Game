@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 
-namespace BulletHellTests
+namespace BulletHell
 {
     public class Clock
     {
