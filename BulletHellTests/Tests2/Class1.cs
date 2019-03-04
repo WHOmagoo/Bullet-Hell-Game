@@ -26,6 +26,7 @@ namespace Tests
             Assert.AreEqual(0, result.Y, allowance);
         }
 
+
         [Test]
         public void TestLinearPathMovementInYDirection()
         {
