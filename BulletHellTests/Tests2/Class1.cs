@@ -51,6 +51,5 @@ namespace Tests
             Assert.AreEqual(5000, result.Y, allowance);
         }
 
-
     }
 }
