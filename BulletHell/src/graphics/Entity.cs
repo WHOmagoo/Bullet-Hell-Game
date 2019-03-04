@@ -53,7 +53,7 @@ namespace BulletHell.Graphics
             This function should only be called by Canvas.
             Draws the Entity on the screen with its texture and location.
         */
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, rect, Color.White);
         }

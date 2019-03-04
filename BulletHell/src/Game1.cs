@@ -15,7 +15,6 @@ namespace BulletHell
         SpriteBatch spriteBatch;
         // Texture2D shuttle;
         Player player;
-
         int midbossFlag = 0;        //needed because we only want to create midboss once
         int finalbossFlag = 0;      //needed because we only want to create finalboss once
         int shootPatternFlag = 0;   //needed to keep track of which shooting pattern we should be on
@@ -61,6 +60,7 @@ namespace BulletHell
             //Initialize characters
             player = new Player(canvas, playerTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - playerTexture.Width / 2, 300));
             player.SetSize(72, 100);
+            player.Hitbox = new CollidingRectangle(player.Location, new Vector2(0,0), 72, 100);
             enemy1 = new EnemyA(canvas, enemyATexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - enemyATexture.Width / 2, -100));
             enemy2 = new EnemyB(canvas, enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - 50, -100));
             enemy2.SetSize(100, 100);

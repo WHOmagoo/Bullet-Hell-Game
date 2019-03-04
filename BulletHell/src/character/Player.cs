@@ -34,8 +34,9 @@ namespace BulletHell.GameEngine
             Location = new Vector2(startX, startY);
         }
 
-        public override void Update()
+        public override void Update() 
         {
+            base.Update();
             float timeE = Clock.getClock().getTimeSinceLastUpdate();
             float scale = 0.5F;
             KeyboardState currState = Keyboard.GetState();
