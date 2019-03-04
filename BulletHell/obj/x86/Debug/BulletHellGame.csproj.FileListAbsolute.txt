@@ -1,0 +1,13 @@
+C:\Users\sinou\487sp19_c4\BulletHell\obj\x86\Debug\BulletHellGame.csprojAssemblyReference.cache
+C:\Users\sinou\487sp19_c4\BulletHell\obj\x86\Debug\BulletHellGame.csproj.CoreCompileInputs.cache
+C:\Users\sinou\487sp19_c4\BulletHell\bin\Debug\WindowsApplication.exe.config
+C:\Users\sinou\487sp19_c4\BulletHell\bin\Debug\WindowsApplication.exe
+C:\Users\sinou\487sp19_c4\BulletHell\bin\Debug\WindowsApplication.pdb
+C:\Users\sinou\487sp19_c4\BulletHell\bin\Debug\MonoGame.Framework.dll
+C:\Users\sinou\487sp19_c4\BulletHell\bin\Debug\MonoGame.Framework.dll.config
+C:\Users\sinou\487sp19_c4\BulletHell\obj\x86\Debug\BulletHellGame.csproj.CopyComplete
+C:\Users\sinou\487sp19_c4\BulletHell\obj\x86\Debug\WindowsApplication.exe
+C:\Users\sinou\487sp19_c4\BulletHell\obj\x86\Debug\WindowsApplication.pdb
+C:\Users\sinou\487sp19_c4\BulletHell\bin\Debug\nunit.framework.dll
+C:\Users\sinou\487sp19_c4\BulletHell\bin\Debug\nunit.framework.pdb
+C:\Users\sinou\487sp19_c4\BulletHell\bin\Debug\nunit.framework.xml
