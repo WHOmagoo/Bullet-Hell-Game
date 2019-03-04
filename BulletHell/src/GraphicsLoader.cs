@@ -2,7 +2,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BulletHell
+namespace BulletHellTests
 {
 
     public class GraphicsLoader

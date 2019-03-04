@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BulletHell.GameEngine
+namespace BulletHellTests.GameEngine
 {
     public static class Program
     {
