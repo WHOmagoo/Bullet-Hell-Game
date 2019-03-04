@@ -1,0 +1,102 @@
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{66BDBAF8-BB2F-4AB4-A5F5-E93BEC5300AF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>WindowsApplication</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>BulletHellTest</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="src\bullet\Bullet.cs" />
+    <Compile Include="src\character\Character.cs" />
+    <Compile Include="src\character\Enemy.cs" />
+    <Compile Include="src\character\EnemyA.cs" />
+    <Compile Include="src\character\EnemyB.cs" />
+    <Compile Include="src\character\FinalBoss.cs" />
+    <Compile Include="src\character\InputControl.cs" />
+    <Compile Include="src\character\MidBoss.cs" />
+    <Compile Include="src\character\Player.cs" />
+    <Compile Include="src\character\Sprite.cs" />
+    <Compile Include="src\Clock.cs" />
+    <Compile Include="src\Collider.cs" />
+    <Compile Include="src\Controller.cs" />
+    <Compile Include="src\Game1.cs" />
+    <Compile Include="src\GameObject.cs" />
+    <Compile Include="src\Globals.cs" />
+    <Compile Include="src\GraphicsLoader.cs" />
+    <Compile Include="src\graphics\Canvas.cs" />
+    <Compile Include="src\graphics\Entity.cs" />
+    <Compile Include="src\gun\BasicGun.cs" />
+    <Compile Include="src\gun\BasicShotgun.cs" />
+    <Compile Include="src\gun\Gun.cs" />
+    <Compile Include="src\path\ILocationEquation.cs" />
+    <Compile Include="src\path\LinearLocationEquation.cs" />
+    <Compile Include="src\path\Path.cs" />
+    <Compile Include="src\path\PiecewiseLocationEquation.cs" />
+    <Compile Include="src\path\SpiralLocationEquation.cs" />
+    <Compile Include="src\path\StayStill.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".vs\BulletHell\v15\.suo" />
+    <None Include=".vs\ProjectSettings.json" />
+    <None Include=".vs\slnx.sqlite" />
+    <None Include=".vs\VSWorkspaceState.json" />
+    <None Include="Content\.mgcontent" />
+    <None Include="Content\.mgstats" />
+    <None Include="Content\Content.mgcb" />
+    <None Include="Content\obj\Windows\.mgstats" />
+    <None Include="Content\shuttle.xnb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\sprites\bullet.png" />
+    <Content Include="Content\sprites\enemyA.png" />
+    <Content Include="Content\sprites\enemyB.png" />
+    <Content Include="Content\sprites\finalboss.png" />
+    <Content Include="Content\sprites\midboss.png" />
+    <Content Include="Content\sprites\shuttle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".vs\BulletHellTest\v15\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>
