@@ -44,12 +44,10 @@ namespace BulletHell.Graphics
         }
         public void Draw()
         {
-            spriteBatch.Begin();
             foreach (Entity e in entities)
             {
                 e.Draw(spriteBatch);
             }
-            spriteBatch.End();
         }
         public void AddToDrawList(Entity entity)
         {

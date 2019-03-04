@@ -55,6 +55,7 @@ namespace BulletHell
             // fileStream.Dispose(); may need to do this for the filestreams made here in constructors
             GraphicsLoader.makeGraphicsLoader(GraphicsDevice);
             GraphicsLoader.getGraphicsLoader().setGraphicsTexture(new FileStream("Content/sprites/bullet.png", FileMode.Open));
+            DrawingTool.Initialize(GraphicsDevice);
 
 
             //Initialize characters
@@ -108,7 +109,11 @@ namespace BulletHell
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            spriteBatch.Begin();
             canvas.Draw();
+            // DrawingTool.DrawLineSegment(spriteBatch, new Vector2(1,1), new Vector2(100,100), Color.White, 5);
+            DrawingTool.DrawRectangle(spriteBatch, new Rectangle(50, 50, 100, 300), Color.Red, 5);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
