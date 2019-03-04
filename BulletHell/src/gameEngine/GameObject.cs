@@ -1,14 +1,22 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using BulletHell.Graphics;
+using System.IO;
+using System;
 
 namespace BulletHell.GameEngine
 {
 
-    public abstract class GameObject : Entity
+    public class GameObject : Entity
     {
+        private int counter; //FIXME: Get rid of this later
         private Hitbox hitbox;
         public bool isHitboxVisible;
+        public override Vector2 Location {
+            get { return base.Location;}
+            set { base.Location = value; 
+                if (hitbox != null) hitbox.parentLoc = value;} //Update hitbox location on move
+        }
 
         public Hitbox Hitbox { get => hitbox; set => hitbox = value; }
 
@@ -23,11 +31,11 @@ namespace BulletHell.GameEngine
         // {
         // }
 
-        public virtual void Update() {
-            if (hitbox != null)
-                hitbox.parentLoc = Location;
+        public virtual void Update() {}
+        public virtual void onCollision(GameObject hitby) {
+            Console.WriteLine(counter + "I got hit by: " + hitby.ToString());
+            counter++;
         }
-        public virtual void onCollision(GameObject hitby) {}
         public override void Draw(SpriteBatch spriteBatch) 
         {
             base.Draw(spriteBatch);

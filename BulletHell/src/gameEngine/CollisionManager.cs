@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 namespace BulletHell.GameEngine
 {
     // const int N_OF_TEAMS = 3;
-    public enum TEAM { Friendly = 0, Enemy, Unassigned };
+    public enum TEAM { FRIENDLY = 0, ENEMY, UNASSIGNED}
     public class CollisionManager
     {
         List<GameObject>[] teams;
@@ -16,6 +16,9 @@ namespace BulletHell.GameEngine
         public CollisionManager()
         {
             teams = new List<GameObject>[N_OF_TEAMS];
+            for (int i = 0; i < N_OF_TEAMS; i++) {
+                teams[i] = new List<GameObject>();
+            }
         }
 
         public void addToTeam(GameObject g, TEAM t)

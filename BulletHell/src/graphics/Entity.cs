@@ -11,7 +11,7 @@ namespace BulletHell.Graphics
         private Vector2 location; //used to keep exact float position.
         private Canvas canvas;
 
-        public Vector2 Location
+        public virtual Vector2 Location
         {
             get { return location; }
             set
