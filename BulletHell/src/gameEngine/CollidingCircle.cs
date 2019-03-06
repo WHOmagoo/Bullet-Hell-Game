@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using BulletHell.Graphics;
 
 namespace BulletHell.GameEngine {
     public class CollidingCircle : Hitbox {
@@ -12,7 +13,7 @@ namespace BulletHell.GameEngine {
 
         public override void DrawHitbox(SpriteBatch spriteBatch, Color color, int lineWidth)
         {
-            throw new System.NotImplementedException();
+            DrawingTool.DrawCircle(spriteBatch, this._absLoc, radius, Color.Red, 1, 16);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 // using System.Generic;
 namespace BulletHell.GameEngine
 {
@@ -33,8 +34,11 @@ namespace BulletHell.GameEngine
         public static bool isColliding(CollidingRectangle r, CollidingCircle c)
         {
             //Change to int for efficiency?
-            float circleDistanceX = Math.Abs(c.absLoc.X - r.absLoc.X);
-            float circleDistanceY = Math.Abs(c.absLoc.Y - r.absLoc.Y);
+            Vector2 rLoc = new Vector2(r.absLoc.X + r.Width/2, r.absLoc.Y + r.Height/2);
+            float circleDistanceX = Math.Abs(c.absLoc.X - rLoc.X);
+            float circleDistanceY = Math.Abs(c.absLoc.Y - rLoc.Y);
+            // float circleDistanceX = Math.Abs(c.absLoc.X - r.absLoc.X);
+            // float circleDistanceY = Math.Abs(c.absLoc.Y - r.absLoc.Y);
 
             if (circleDistanceX > (r.Width / 2 + c.radius)) //Comparing float and int, will lose some precision
                 return false;

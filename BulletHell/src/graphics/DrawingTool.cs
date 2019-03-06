@@ -52,5 +52,21 @@ namespace BulletHell.Graphics
 
             DrawingTool.DrawPolygon(spriteBatch, vertex, color, lineWidth);
         }
+
+        public static void DrawCircle(SpriteBatch spritbatch, Vector2 center, float radius, Color color, int lineWidth, int segments = 16)
+        {
+
+            Vector2[] vertex = new Vector2[segments];
+
+            double increment = Math.PI * 2.0 / segments;
+            double theta = 0.0;
+
+            for (int i = 0; i < segments; i++)
+            {
+                vertex[i] = center + radius * new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta));
+                theta += increment;
+            }
+            DrawPolygon(spritbatch, vertex, color, lineWidth);
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace BulletHell
         // Texture2D shuttle;
         Player player;
         GameObject g1;
+        GameObject g2;
         int midbossFlag = 0;        //needed because we only want to create midboss once
         int finalbossFlag = 0;      //needed because we only want to create finalboss once
         int shootPatternFlag = 0;   //needed to keep track of which shooting pattern we should be on
@@ -64,13 +65,19 @@ namespace BulletHell
 
             player = new Player(canvas, playerTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - playerTexture.Width / 2, 300));
             player.SetSize(72, 100);
-            player.Hitbox = new CollidingRectangle(player.Location, new Vector2(0, 0), 72, 100);
+            // player.Hitbox = new CollidingRectangle(player.Location, new Vector2(0, 0), 72, 100);
+            player.Hitbox = new CollidingCircle(player.Location, new Vector2(player.Rect.Width/2, player.Rect.Height/2), 60);
 
             g1 = new GameObject(canvas, enemyATexture, new Vector2(200, 100), 100, 60);
             g1.Hitbox = new CollidingRectangle(g1.Location, new Vector2(0, 0), 100, 60);
 
+            g2 = new GameObject(canvas, enemyBTexture, new Vector2(400, 100), 100, 60);
+            g2.Hitbox = new CollidingCircle(g1.Location, new Vector2(g2.Rect.Width/2, g2.Rect.Height/2), 60);
+
             collisionManager.addToTeam(player, TEAM.FRIENDLY);
             collisionManager.addToTeam(g1, TEAM.ENEMY);
+            collisionManager.addToTeam(g2, TEAM.ENEMY);
+
 
             // enemy1 = new EnemyA(canvas, enemyATexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - enemyATexture.Width / 2, -100));
             // enemy2 = new EnemyB(canvas, enemyBTexture, new Vector2(GraphicsDevice.Viewport.Bounds.Width / 2 - 50, -100));
@@ -105,6 +112,7 @@ namespace BulletHell
             // canvas.Update();
             player.Update();
             g1.Move(new Vector2(.1f,.1f));
+            g2.Move(new Vector2(.1f,.1f));
             // enemy1.Update();
             // enemy1.Shoot();
             //     enemy2.Update();
@@ -122,6 +130,7 @@ namespace BulletHell
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
             canvas.Draw();
+            // DrawingTool.DrawCircle(spriteBatch, new Vector2(100,100), 30, Color.Red, 9);
             // DrawingTool.DrawLineSegment(spriteBatch, new Vector2(1,1), new Vector2(100,100), Color.White, 5);
             // DrawingTool.DrawRectangle(spriteBatch, new Rectangle(50, 50, 100, 300), Color.Red, 5);
             spriteBatch.End();
