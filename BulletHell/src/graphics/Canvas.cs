@@ -91,5 +91,26 @@ namespace BulletHell.GameEngine
         {
             return spriteBatch.GraphicsDevice.Viewport.Bounds;
         }
+
+        public void OnGunShot(object sender, BulletsCreatedEventArgs bullets)
+        {
+            foreach (Bullet bullet in bullets.Bullets)
+            {
+                AddToDrawList(bullet);
+            }
+        }
+
+        public void OnWeaponChange(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals(nameof(Gun)))
+            {
+                Character c = sender as Character;
+
+                if (!ReferenceEquals(c, null))
+                {
+                    c.gunEquipped.GunShotHandler += OnGunShot;
+                }
+            }
+        }
     }
 }
