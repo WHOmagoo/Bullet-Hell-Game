@@ -1,4 +1,7 @@
 using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using BulletHell.Annotations;
 using Microsoft.Xna.Framework;
 
 namespace BulletHell
@@ -19,9 +22,9 @@ namespace BulletHell
         private long timeSinceLastUpdate;
         
 
-        private Clock()
+        public Clock(long speedModifier = 1)
         {
-            speedModifier = 1;
+            this.speedModifier = speedModifier;
         }
         
         public void pause()
@@ -40,6 +43,7 @@ namespace BulletHell
             timeLastPausedOccured = TimeSpan.Zero;
         }
         
+        //Gets time in milliseconds
         public long getTime()
         {
             if (ReferenceEquals(gameTime, null))
@@ -60,23 +64,16 @@ namespace BulletHell
             return clock;
         }
 
-        public void Update()
+        public void UpdateTime(GameTime time)
         {
-            timeSinceLastUpdate = gameTime.ElapsedGameTime.Ticks;
-            ticksElapsed += gameTime.ElapsedGameTime.Ticks;
+            gameTime = time;
+            timeSinceLastUpdate = time.ElapsedGameTime.Ticks;
+            ticksElapsed += time.ElapsedGameTime.Ticks;
         }
 
         public long getTimeSinceLastUpdate()
         {
-            return timeSinceLastUpdate;
-        }
-
-        public void SetGameTime(GameTime gameTime)
-        {
-            if (!ReferenceEquals(this.gameTime, gameTime))
-            {
-                this.gameTime = gameTime;
-            }
+            return 10 * timeSinceLastUpdate / TimeSpan.TicksPerMillisecond;
         }
     }
 }
