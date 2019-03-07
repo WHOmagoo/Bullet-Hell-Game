@@ -28,7 +28,7 @@ namespace BulletHell.GameEngine
         }
 
         private Bullet makeBullet(Vector2 location){
-            return new Bullet(damage, this.fireShape, Canvas.getCanvas(), bulletTexture, location);
+            return new Bullet(damage, this.fireShape, bulletTexture, location);
         }
     }
 
