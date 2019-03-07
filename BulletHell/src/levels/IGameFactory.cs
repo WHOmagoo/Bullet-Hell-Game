@@ -3,7 +3,7 @@ using BulletHell.director;
 using BulletHell.GameEngine;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BulletHell
+namespace BulletHell.levels
 {
     public interface IGameFactory
     {
