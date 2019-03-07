@@ -1,5 +1,6 @@
 ﻿using System;
 using BulletHell.director;
+using BulletHell.levels;
 
 namespace BulletHell.GameEngine
 {
