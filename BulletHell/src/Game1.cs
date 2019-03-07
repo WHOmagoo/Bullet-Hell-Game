@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.IO;
 using BulletHell.director;
 using BulletHell.GameEngine;
+using BulletHell.levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
