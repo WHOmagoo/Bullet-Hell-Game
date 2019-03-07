@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BulletHell.GameEngine
 {
-    class Player : Character
+    public class Player : Character
     {
         const string name2 = "download";
         const int startX = 125;
@@ -18,7 +18,7 @@ namespace BulletHell.GameEngine
         Canvas canvas;
         int slow = 0;
 
-        public Player(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(canvas, texture, startLocation)
+        public Player(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(texture, startLocation)
         {
             this.canvas = canvas;
             InputControl.AssignPlayer(this);
