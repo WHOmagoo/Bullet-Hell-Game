@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,38 +11,19 @@ namespace BulletHell.GameEngine
         private SpriteBatch spriteBatch;
 
         //TODO: right now this is using a singleton but we should probably update this to use observer pattern
-
-        private static Canvas canvas;
+        
         private LinkedList<Entity> entities;
+        private LinkedList<Entity> enqueuBuf;
+        private LinkedList<Entity> dequeuBuf;
 
-        private Canvas(SpriteBatch spriteBatch)
+        public Canvas(SpriteBatch spriteBatch)
         {
             this.spriteBatch = spriteBatch;
             this.entities = new LinkedList<Entity>();
-        }
-        public static bool makeCanvas(SpriteBatch spriteBatch)
-        {
-            bool madeNewCanvas = ReferenceEquals(canvas, null);
-
-            if (madeNewCanvas)
-            {
-                canvas = new Canvas(spriteBatch);
-                return true;
-            }
-            else
-            {
-                throw new Exception("Canvas singleton instance is already initialized");
-            }
+            this.dequeuBuf = new LinkedList<Entity>();
+            this.enqueuBuf = new LinkedList<Entity>();
         }
 
-        public static Canvas getCanvas()
-        {
-            if (!ReferenceEquals(canvas, null))
-            {
-                return canvas;
-            }
-            throw new NullReferenceException("The canvas was not constructed yet. Call makeCanvas first.");
-        }
         public void Draw()
         {
             spriteBatch.Begin();
@@ -55,9 +37,9 @@ namespace BulletHell.GameEngine
         
         public void AddToDrawList(Entity entity)
         {
-            if (!entities.Contains(entity))
+            if (!entities.Contains(entity) && !enqueuBuf.Contains(entity))
             {
-                entities.AddLast(entity);
+                enqueuBuf.AddLast(entity);
             }
             else
             {
@@ -66,21 +48,41 @@ namespace BulletHell.GameEngine
         }
         public void RemoveFromDrawList(Entity entity)
         {
-            entities.Remove(entity);
+            dequeuBuf.AddLast(entity);
         }
 
 
-        //TODO: fix this bodge
         public void Update()
         {
             foreach (var entity in entities)
             {
-                if (entity.GetType() == typeof(Bullet))
-                {
-                    Bullet b = (Bullet)entity;
+                updateEntity(entity);
+            }
 
-                    b.Update();
-                }
+            while (enqueuBuf.First != null)
+            {
+                updateEntity(enqueuBuf.First.Value);
+                entities.AddLast(enqueuBuf.First.Value);
+                enqueuBuf.RemoveFirst();
+            }
+
+            while (dequeuBuf.First != null)
+            {
+                entities.Remove(dequeuBuf.First.Value);
+                dequeuBuf.RemoveFirst();
+            }
+        }
+
+        private void updateEntity(Entity entity)
+        {
+            GameObject cur = entity as GameObject;
+            if (cur != null)
+            {
+                cur.Update();
+                    
+                Enemy enemy = cur as Enemy;
+
+                enemy?.Shoot();
             }
         }
         
