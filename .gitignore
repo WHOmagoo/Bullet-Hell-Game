@@ -5,3 +5,5 @@ BulletHellTests/*
 BulletHell/*
 Documents/*
 Tests/*
+TestsB/Properties/*
+TestsB/packages.config
