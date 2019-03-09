@@ -2,4 +2,5 @@
 TestsB/bin/*
 TestsB/obj/*
 BulletHellTests/*
+BulletHell/*
 .gitignore
