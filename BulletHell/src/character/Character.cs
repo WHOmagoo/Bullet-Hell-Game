@@ -10,8 +10,8 @@ namespace BulletHell.GameEngine
 {
     public class Character : GameObject, INotifyPropertyChanged
     {
-        private int healthPoints;
-        private bool hitBox;    // bool representing whether or not to display hitbox
+        protected int healthPoints;
+        //protected Gun gunEquipped;  //need Gun class
 
         private Gun _gunEquipped;
 
@@ -34,7 +34,6 @@ namespace BulletHell.GameEngine
         public Character(Texture2D texture, Vector2 startLocation, int width = 0, int height = 0) 
             : base(texture,startLocation,width,height)
         {
-            hitBox = false;
             healthPoints = 1000;    // just chose a random value of 1000 for now (value may depend on which character)
         }
 
@@ -44,12 +43,6 @@ namespace BulletHell.GameEngine
             gunEquipped.Shoot(Location);
         }
 
-        public bool ShowHitbox
-        {
-            get { return hitBox; }
-            set { hitBox = value; }
-
-        }
 
         /*public OnHit(Bullet bullet)
         {
