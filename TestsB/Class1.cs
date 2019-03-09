@@ -83,7 +83,62 @@ namespace TestsB
     }
 
 
-    
+    [TestFixture]
+    public class TestCollision
+    {
+        [Test]
+        public void TestAdd()
+        {
+            CollisionManager cM = new CollisionManager();
+
+            GameObject g1 = new GameObject();
+            GameObject g2 = new GameObject();
+
+
+            cM.addToTeam(g1, TEAM.ENEMY);
+            cM.addToTeam(g2, TEAM.ENEMY);
+
+            int count = 0;
+
+            foreach(var item in cM.teams[1])
+            {
+                count++;
+            }
+
+            Assert.AreEqual(2, count);
+        }
+
+        [Test]
+        public void TestRemove()
+        {
+            CollisionManager cM = new CollisionManager();
+
+            GameObject g1 = new GameObject();
+            GameObject g2 = new GameObject();
+            GameObject g3 = new GameObject();
+
+
+            cM.addToTeam(g1, TEAM.ENEMY);
+            cM.addToTeam(g2, TEAM.ENEMY);
+            cM.addToTeam(g3, TEAM.ENEMY);
+
+            cM.removeFromTeam(g3, TEAM.ENEMY);
+            cM.removeFromTeam(g1, TEAM.ENEMY);
+
+            int count = 0;
+
+            foreach(var item in cM.teams[1])
+            {
+                count++;
+            }
+
+            Assert.AreEqual(1, count);
+
+        }
+
+  
+    }
+
 
 
 
