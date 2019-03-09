@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BulletHell.GameEngine
 {
-    class Player : Character
+    public class Player : Character
     {
         const string name2 = "download";
         const int startX = 125;
@@ -15,16 +15,14 @@ namespace BulletHell.GameEngine
         internal Vector2 direction = Vector2.Zero;
         internal Vector2 speed = Vector2.Zero;
 
-        private Gun gun;
-
         Canvas canvas;
         int slow = 0;
 
-        public Player(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(canvas, texture, startLocation)
+        public Player(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(texture, startLocation)
         {
             this.canvas = canvas;
             InputControl.AssignPlayer(this);
-            gun = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, true);
+            gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, true);
             
         }
 
@@ -91,7 +89,7 @@ namespace BulletHell.GameEngine
 
             if (currState.IsKeyDown(Keys.Space))
             {
-                gun.shoot(Location);
+                gunEquipped.Shoot(Location);
             }
         }
     }

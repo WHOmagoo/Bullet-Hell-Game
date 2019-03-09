@@ -7,17 +7,12 @@ namespace BulletHell.GameEngine
 {
     public class MidBoss : Enemy
     {
-        public MidBoss(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(canvas, texture, startLocation, null, null)
+        public MidBoss(Texture2D texture, Vector2 startLocation) : base(texture, startLocation, null, null)
         {
             InitializeEnemy();
         }
 
         private void InitializeEnemy()
-        {
-            
-        }
-
-        public void movePattern()
         {
             List<Tuple<ILocationEquation, long>> piecewiseLocationEquations2 = new List<Tuple<ILocationEquation, long>>();
 
@@ -59,7 +54,7 @@ namespace BulletHell.GameEngine
             
             PiecewiseLocationEquation locationEquation = new PiecewiseLocationEquation(piecewiseLocationEquations);
 
-            this.path = new Path(locationEquation, Location, 0);            
+            this.Path = new Path(locationEquation, Location, 0);          
         }
     }
 }

@@ -1,4 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using BulletHell.Annotations;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -14,6 +18,9 @@ namespace BulletHell.GameEngine
         private long lastShotTick;
         protected Boolean friendly;
         protected Texture2D bulletTexture;
+        public event EventHandler<BulletsCreatedEventArgs> GunShotHandler;
+
+
 
         public Gun(int damage, ILocationEquation shape, Texture2D texture, long delay, bool friend){
             this.damage = damage;
@@ -24,8 +31,9 @@ namespace BulletHell.GameEngine
             bulletTexture = texture;
         }
 
-        public abstract void shoot(Vector2 location);
-        
+        public abstract void Shoot(Vector2 location);
+
+
         public virtual void wasShot()
         {
             lastShotTick = Clock.getClock().getTime();
@@ -35,6 +43,23 @@ namespace BulletHell.GameEngine
         {
             return lastShotTick + tickFireDelay < Clock.getClock().getTime();
         }
+        
+        protected virtual void OnShoot(List<Bullet> bulletsCreated)
+        {
+            GunShotHandler?.Invoke(this, new BulletsCreatedEventArgs(bulletsCreated));
+        }
+
+    }
+
+    public class BulletsCreatedEventArgs : EventArgs
+    {
+        public List<Bullet> Bullets { get; }
+
+        public BulletsCreatedEventArgs(List<Bullet> bullets)
+        {
+            this.Bullets = bullets;
+        }
     }
 
 }
+

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,38 +11,19 @@ namespace BulletHell.GameEngine
         private SpriteBatch spriteBatch;
 
         //TODO: right now this is using a singleton but we should probably update this to use observer pattern
-
-        private static Canvas canvas;
+        
         private LinkedList<Entity> entities;
+        private LinkedList<Entity> enqueuBuf;
+        private LinkedList<Entity> dequeuBuf;
 
-        private Canvas(SpriteBatch spriteBatch)
+        public Canvas(SpriteBatch spriteBatch)
         {
             this.spriteBatch = spriteBatch;
             this.entities = new LinkedList<Entity>();
-        }
-        public static bool makeCanvas(SpriteBatch spriteBatch)
-        {
-            bool madeNewCanvas = ReferenceEquals(canvas, null);
-
-            if (madeNewCanvas)
-            {
-                canvas = new Canvas(spriteBatch);
-                return true;
-            }
-            else
-            {
-                throw new Exception("Canvas singleton instance is already initialized");
-            }
+            this.dequeuBuf = new LinkedList<Entity>();
+            this.enqueuBuf = new LinkedList<Entity>();
         }
 
-        public static Canvas getCanvas()
-        {
-            if (!ReferenceEquals(canvas, null))
-            {
-                return canvas;
-            }
-            throw new NullReferenceException("The canvas was not constructed yet. Call makeCanvas first.");
-        }
         public void Draw()
         {
             spriteBatch.Begin();
@@ -51,32 +33,84 @@ namespace BulletHell.GameEngine
             }
             spriteBatch.End();
         }
+        
+        
         public void AddToDrawList(Entity entity)
         {
-            entities.AddLast(entity);
+            if (!entities.Contains(entity) && !enqueuBuf.Contains(entity))
+            {
+                enqueuBuf.AddLast(entity);
+            }
+            else
+            {
+                Console.WriteLine("Duplicate added");
+            }
         }
         public void RemoveFromDrawList(Entity entity)
         {
-            entities.Remove(entity);
+            dequeuBuf.AddLast(entity);
         }
 
 
-        //TODO: fix this bodge
         public void Update()
         {
             foreach (var entity in entities)
             {
-                if (entity.GetType() == typeof(Bullet))
-                {
-                    Bullet b = (Bullet)entity;
+                updateEntity(entity);
+            }
 
-                    b.Update();
-                }
+            while (enqueuBuf.First != null)
+            {
+                updateEntity(enqueuBuf.First.Value);
+                entities.AddLast(enqueuBuf.First.Value);
+                enqueuBuf.RemoveFirst();
+            }
+
+            while (dequeuBuf.First != null)
+            {
+                entities.Remove(dequeuBuf.First.Value);
+                dequeuBuf.RemoveFirst();
             }
         }
+
+        private void updateEntity(Entity entity)
+        {
+            GameObject cur = entity as GameObject;
+            if (cur != null)
+            {
+                cur.Update();
+                    
+                Enemy enemy = cur as Enemy;
+
+                enemy?.Shoot();
+            }
+        }
+        
+        
         public Rectangle GetBounds()
         {
             return spriteBatch.GraphicsDevice.Viewport.Bounds;
+        }
+
+        public void OnGunShot(object sender, BulletsCreatedEventArgs bullets)
+        {
+            foreach (Bullet bullet in bullets.Bullets)
+            {
+                AddToDrawList(bullet);
+            }
+        }
+
+        public void OnWeaponChange(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName.Equals(nameof(Gun)))
+            {
+                Character c = sender as Character;
+
+                if (!ReferenceEquals(c, null))
+                {
+                    c.gunEquipped.GunShotHandler += OnGunShot;
+                }
+            }
         }
     }
 }

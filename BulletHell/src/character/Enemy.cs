@@ -5,11 +5,23 @@ namespace BulletHell.GameEngine
 {
     public class Enemy : Character
     {
-        protected Path path;
-        protected Gun gunEquipped;
+        private Path path;
 
-        public Enemy(Canvas canvas, Texture2D texture, Vector2 startLocation, Path p , Gun gun) 
-            : base(canvas, texture, startLocation)
+        protected Path Path
+        {
+            set
+            {
+                if (!ReferenceEquals(value, null))
+                {
+                    path = value;
+                }
+            }
+            
+            get { return path; }
+        }
+
+        public Enemy(Texture2D texture, Vector2 startLocation, Path p , Gun gun) 
+            : base(texture, startLocation)
         {
             gunEquipped = gun;
             path = p;
@@ -21,9 +33,9 @@ namespace BulletHell.GameEngine
             base.Update();
         }
 
-        public void Shoot()
+        public void changePath(Path path)
         {
-            gunEquipped.shoot(Location);
+            this.path = path;
         }
     }
 }

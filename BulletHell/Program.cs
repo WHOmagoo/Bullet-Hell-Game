@@ -1,4 +1,6 @@
 ﻿using System;
+using BulletHell.director;
+using BulletHell.levels;
 
 namespace BulletHell.GameEngine
 {
@@ -7,8 +9,12 @@ namespace BulletHell.GameEngine
         [STAThread]
         static void Main()
         {
-            using (var game = new Game1())
+            GameDirector gD = new GameDirector();
+
+            using (var game = new Game1(new GameDirectorLevel1Creator()))
+            {
                 game.Run();
+            }
         }
     }
 }

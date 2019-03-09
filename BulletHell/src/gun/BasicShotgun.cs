@@ -10,7 +10,7 @@ namespace BulletHell.GameEngine
         {
         }
 
-        public override void shoot(Vector2 location)
+        public override void Shoot(Vector2 location)
         {
             throw new NotImplementedException();
         }

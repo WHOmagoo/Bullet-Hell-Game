@@ -1,26 +1,47 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using BulletHell.Annotations;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace BulletHell.GameEngine
 {
-    public class Character : GameObject
+    public class Character : GameObject, INotifyPropertyChanged
     {
         private int healthPoints;
         private bool hitBox;    // bool representing whether or not to display hitbox
-        //protected Gun gunEquipped;  //need Gun class
 
-        public Character(Canvas canvas, Texture2D texture, Vector2 startLocation, int width = 0, int height = 0) 
-            : base(canvas,texture,startLocation,width,height)
+        private Gun _gunEquipped;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public Gun gunEquipped
+        {
+            get
+            {
+                return _gunEquipped;
+            }
+
+            protected set
+            {
+                _gunEquipped = value;
+                OnWeaponChanged(nameof(gunEquipped));
+            }
+        }  //need Gun class
+
+        public Character(Texture2D texture, Vector2 startLocation, int width = 0, int height = 0) 
+            : base(texture,startLocation,width,height)
         {
             hitBox = false;
             healthPoints = 1000;    // just chose a random value of 1000 for now (value may depend on which character)
         }
-        
-        /*public void Shoot()
+
+        public void Shoot()
         {
             //need gun class   TODO
-            gun.Shoot();
-        }*/
+            gunEquipped.Shoot(Location);
+        }
 
         public bool ShowHitbox
         {
@@ -35,5 +56,10 @@ namespace BulletHell.GameEngine
         }*/
 
 
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnWeaponChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
