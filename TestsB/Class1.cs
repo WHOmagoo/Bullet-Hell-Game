@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using BulletHell.GameEngine;
+using BulletHell.Graphics;
 using NUnit.Framework;
 
 namespace TestsB
@@ -80,19 +82,14 @@ namespace TestsB
         }
     }
 
-    [TestFixture]
-    public class TestCollision
-    {
-        
 
-        [Test]
-        public void TestHitbox()
-        {
-            CollisionManager cManager;
-            cManager = new CollisionManager();   
+    
 
 
-        }
-    }
+
+   
+    //Tests gun equipped/fired
+    //tests collisions
+    //tests movements
 
 }
