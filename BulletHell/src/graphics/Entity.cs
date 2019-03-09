@@ -2,7 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.Graphics
 {
     public class Entity
     {
@@ -10,7 +10,7 @@ namespace BulletHell.GameEngine
         private Rectangle rect; //used for drawing on canvas
         private Vector2 location; //used to keep exact float position.
 
-        public Vector2 Location
+        public virtual Vector2 Location
         {
             get { return location; }
             set
@@ -46,7 +46,7 @@ namespace BulletHell.GameEngine
             This function should only be called by Canvas.
             Draws the Entity on the screen with its texture and location.
         */
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, rect, Color.White);
         }

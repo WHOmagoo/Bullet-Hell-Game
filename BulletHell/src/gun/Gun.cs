@@ -54,7 +54,7 @@ namespace BulletHell.GameEngine
     public class BulletsCreatedEventArgs : EventArgs
     {
         public List<Bullet> Bullets { get; }
-
+    int damage;
         public BulletsCreatedEventArgs(List<Bullet> bullets)
         {
             this.Bullets = bullets;

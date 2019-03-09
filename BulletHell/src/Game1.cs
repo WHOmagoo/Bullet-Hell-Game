@@ -9,6 +9,7 @@ using BulletHell.levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using BulletHell.Graphics;
 
 namespace BulletHell
 {
@@ -64,7 +65,12 @@ namespace BulletHell
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            // spriteBatch.Begin();
             canvas.Draw();
+            // DrawingTool.DrawCircle(spriteBatch, new Vector2(100,100), 30, Color.Red, 9);
+            // DrawingTool.DrawLineSegment(spriteBatch, new Vector2(1,1), new Vector2(100,100), Color.White, 5);
+            // DrawingTool.DrawRectangle(spriteBatch, new Rectangle(50, 50, 100, 300), Color.Red, 5);
+            // spriteBatch.End();
             base.Draw(gameTime);
         }
     }

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+// using BulletHell.director;
+using BulletHell.GameEngine;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.Graphics
 {
     public class Canvas
     {
@@ -42,7 +44,7 @@ namespace BulletHell.GameEngine
                 enqueuBuf.AddLast(entity);
             }
             else
-            {
+            {    int damage;
                 Console.WriteLine("Duplicate added");
             }
         }
