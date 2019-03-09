@@ -1,2 +1,4 @@
 .vs/
+TestsB/bin/*
+TestsB/obj/*
 .gitignore
