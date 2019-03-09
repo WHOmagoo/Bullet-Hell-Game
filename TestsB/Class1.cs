@@ -139,12 +139,4 @@ namespace TestsB
   
     }
 
-
-
-
-   
-    //Tests gun equipped/fired
-    //tests collisions
-    //tests movements
-
 }
