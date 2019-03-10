@@ -28,7 +28,8 @@ namespace BulletHell.GameEngine
             PiecewiseLocationEquation locationEquation = new PiecewiseLocationEquation(piecewiseLocationEquations);
             
             this.Path = new Path(locationEquation, Location, 0);
-            this.gunEquipped = new BasicGun(3, new LinearLocationEquation(Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, false);
+            this.gunEquipped = new BasicGun(3, new LinearLocationEquation(Math.PI / 2, .15f), 
+                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 2000, false);
 //            this.path = new Path(right, Location, 0);
         }
     }

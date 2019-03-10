@@ -8,6 +8,7 @@ namespace BulletHell.levels
 {
     public interface IGameFactory
     {
-        Tuple<GameDirector, Canvas> makeGame(GraphicsDevice graphicsDevice);
+        // Tuple<GameDirector, Canvas, CollisionManager> makeGame(GraphicsDevice graphicsDevice);
+        BHGame makeGame();
     }
 }

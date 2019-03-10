@@ -10,11 +10,14 @@ namespace BulletHell.GameEngine
         static void Main()
         {
             GameDirector gD = new GameDirector();
+            IGameFactory gameFactory = new GameDirectorLevel1Creator();
+            GameManager.SetGame(gameFactory.makeGame());
 
-            using (var game = new Game1(new GameDirectorLevel1Creator()))
-            {
-                game.Run();
-            }
+            GameManager.RunGame();
+            // using (var game = new BHGame(new GameDirectorLevel1Creator()))
+            // {
+            //     game.Run();
+            // }
         }
     }
 }

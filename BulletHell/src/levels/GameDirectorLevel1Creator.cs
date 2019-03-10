@@ -10,10 +10,12 @@ namespace BulletHell.levels
 {
     public class GameDirectorLevel1Creator : IGameFactory
     {
-        public Tuple<GameDirector, Canvas> makeGame(GraphicsDevice graphicsDevice)
+        // public Tuple<GameDirector, Canvas, CollisionManager> makeGame(GraphicsDevice graphicsDevice)
+        public BHGame makeGame()
         {
             GameDirector director = new GameDirector();
             Canvas canvas = new Canvas(new SpriteBatch(graphicsDevice));
+            CollisionManager collisionManager = new CollisionManager();
             
             Texture2D playerTexture = Texture2D.FromStream(graphicsDevice,
                 new FileStream("Content/sprites/shuttle.png", FileMode.Open));
@@ -26,17 +28,21 @@ namespace BulletHell.levels
             
             Player player = new Player(canvas, playerTexture, new Vector2(graphicsDevice.Viewport.Bounds.Width / 2 - playerTexture.Width / 2, 300));
             player.SetSize(72, 100);
+            player.Hitbox = new CollidingCircle(player.Location, new Vector2(player.Rect.Width/2,player.Rect.Height/2), 25);
             player.PropertyChanged += canvas.OnWeaponChange;
             player.gunEquipped.GunShotHandler += canvas.OnGunShot;
+            collisionManager.addToTeam(player, TEAM.FRIENDLY);
             
             Enemy enemy1 = new EnemyA(enemyATexture, new Vector2(graphicsDevice.Viewport.Bounds.Width / 2 - enemyATexture.Width / 2, -100));
             enemy1.PropertyChanged += canvas.OnWeaponChange;
             enemy1.gunEquipped.GunShotHandler += canvas.OnGunShot;
+            collisionManager.addToTeam(enemy1, TEAM.ENEMY);
             
             Enemy enemy2 = new EnemyB(enemyBTexture, new Vector2(graphicsDevice.Viewport.Bounds.Width / 2 - 50, -100));
             enemy2.SetSize(100, 100);
             enemy2.PropertyChanged += canvas.OnWeaponChange;
             enemy2.gunEquipped.GunShotHandler += canvas.OnGunShot;
+            collisionManager.addToTeam(enemy2, TEAM.ENEMY);
 
 
             Texture2D midBossTexture = Texture2D.FromStream(graphicsDevice,
@@ -46,6 +52,7 @@ namespace BulletHell.levels
             midboss.SetSize(100, 100);
             midboss.PropertyChanged += canvas.OnWeaponChange;
             midboss.gunEquipped.GunShotHandler += canvas.OnGunShot;
+            collisionManager.addToTeam(midboss, TEAM.ENEMY);
 
 
             Texture2D finalBossTexture = Texture2D.FromStream(graphicsDevice,
@@ -56,6 +63,7 @@ namespace BulletHell.levels
             finalboss.movePattern();
             finalboss.PropertyChanged += canvas.OnWeaponChange;
             finalboss.gunEquipped.GunShotHandler += canvas.OnGunShot;
+            collisionManager.addToTeam(finalboss, TEAM.ENEMY);
 
             
             director.addEvent(0, new CreateEnemyEvent(canvas, enemy1));
@@ -64,7 +72,8 @@ namespace BulletHell.levels
             director.addEvent(44 * 10000, new CreateEnemyEvent(canvas, midboss));
             director.addEvent(80 * 10000, new CreateEnemyEvent(canvas, finalboss));
             
-            return new Tuple<GameDirector, Canvas>(director, canvas);
+            // return new Tuple<GameDirector, Canvas, CollisionManager>(director, canvas, collisionManager);
+            return new BHGame(canvas, director, collisionManager);
         }
     }
 
