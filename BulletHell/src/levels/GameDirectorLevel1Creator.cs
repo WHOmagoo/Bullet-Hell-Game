@@ -150,6 +150,7 @@ namespace BulletHell.levels
             HealthBar healthbar;
             healthbar = new HealthBar(healthBarTexture, new Vector2(400, 10));
             healthbar.SetSize(390, 40);
+            canvas.AddToDrawList(healthbar);
             return healthbar;
         }
         private LifeBar MakeLifeBar()
@@ -157,6 +158,7 @@ namespace BulletHell.levels
             LifeBar lifebar;
             lifebar = new LifeBar(lifeBarTexture, new Vector2(400, 10));
             lifebar.SetSize(390, 40);
+            canvas.AddToDrawList(lifebar);
             return lifebar;
         }
 
