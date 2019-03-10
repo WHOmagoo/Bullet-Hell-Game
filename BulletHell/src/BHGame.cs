@@ -47,6 +47,7 @@ namespace BulletHell
             GraphicsLoader.getGraphicsLoader().setGraphicsTexture(new FileStream("Content/sprites/bullet.png", FileMode.Open));
 
             SetGame(factory);
+            DrawingTool.Initialize(GraphicsDevice);
             
             base.Initialize();
         }
@@ -67,6 +68,7 @@ namespace BulletHell
 //            Clock.getClock().SetGameTime(gameTime);
             Clock.getClock().UpdateTime(gameTime);
             director.Update();
+            collisionManager.runCollisions();
             canvas.Update();
 
             base.Update(gameTime);

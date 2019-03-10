@@ -29,7 +29,11 @@ namespace BulletHell.GameEngine
         }
 
         private Bullet makeBullet(Vector2 location){
-            return new Bullet(damage, this.fireShape, bulletTexture, location);
+            Bullet b = new Bullet(damage, this.fireShape, bulletTexture, location);
+            b.SetSize(20,30);
+            b.Hitbox = new CollidingRectangle(b.Location, new Vector2(0,0), 20, 30);
+            BHGame.CollisionManager.addToTeam(b, TEAM.ENEMY);
+            return b;
         }
     }
 

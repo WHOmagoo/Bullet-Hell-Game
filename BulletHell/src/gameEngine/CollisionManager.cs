@@ -23,6 +23,8 @@ namespace BulletHell.GameEngine
 
         public void addToTeam(GameObject g, TEAM t)
         {
+            if (g.Hitbox == null)
+                throw new NullReferenceException("Gameobject doesn't have a hitbox for collision manager");
             teams[(int)t].Add(g);
         }
 

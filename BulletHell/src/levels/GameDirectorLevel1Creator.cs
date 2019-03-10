@@ -29,18 +29,20 @@ namespace BulletHell.levels
             player.SetSize(72, 100);
             player.PropertyChanged += canvas.OnWeaponChange;
             player.gunEquipped.GunShotHandler += canvas.OnGunShot;
+            player.Hitbox = new CollidingCircle(player.Location, new Vector2(player.Rect.Width/2,player.Rect.Height/2), 25);
             collisionManager.addToTeam(player, TEAM.FRIENDLY);
             
             Enemy enemy1 = new EnemyA(enemyATexture, new Vector2(graphicsDevice.Viewport.Bounds.Width / 2 - enemyATexture.Width / 2, -100));
             enemy1.PropertyChanged += canvas.OnWeaponChange;
             enemy1.gunEquipped.GunShotHandler += canvas.OnGunShot;
+            enemy1.Hitbox = new CollidingRectangle(enemy1.Location, new Vector2(0,0), 100, 50);
             collisionManager.addToTeam(enemy1, TEAM.ENEMY);
             
             Enemy enemy2 = new EnemyB(enemyBTexture, new Vector2(graphicsDevice.Viewport.Bounds.Width / 2 - 50, -100));
             enemy2.SetSize(100, 100);
             enemy2.PropertyChanged += canvas.OnWeaponChange;
             enemy2.gunEquipped.GunShotHandler += canvas.OnGunShot;
-            collisionManager.addToTeam(enemy1, TEAM.ENEMY);
+            // collisionManager.addToTeam(enemy1, TEAM.ENEMY);
 
             Texture2D midBossTexture = Texture2D.FromStream(graphicsDevice,
                 new FileStream("Content/sprites/midboss.png", FileMode.Open));
@@ -49,7 +51,7 @@ namespace BulletHell.levels
             midboss.SetSize(100, 100);
             midboss.PropertyChanged += canvas.OnWeaponChange;
             midboss.gunEquipped.GunShotHandler += canvas.OnGunShot;
-            collisionManager.addToTeam(midboss, TEAM.ENEMY);
+            // collisionManager.addToTeam(midboss, TEAM.ENEMY);
 
 
             Texture2D finalBossTexture = Texture2D.FromStream(graphicsDevice,
@@ -60,7 +62,7 @@ namespace BulletHell.levels
             finalboss.movePattern();
             finalboss.PropertyChanged += canvas.OnWeaponChange;
             finalboss.gunEquipped.GunShotHandler += canvas.OnGunShot;
-            collisionManager.addToTeam(finalboss, TEAM.ENEMY);
+            // collisionManager.addToTeam(finalboss, TEAM.ENEMY);
 
 
             director.addEvent(0, new CreateEnemyEvent(canvas, enemy1));
