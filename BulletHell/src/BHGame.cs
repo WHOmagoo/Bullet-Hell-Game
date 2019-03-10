@@ -13,19 +13,19 @@ using BulletHell.Graphics;
 
 namespace BulletHell
 {
-    public class Game1 : Game
+    public class BHGame : Game
     {
-        private GameDirector director;
-        private Canvas canvas;
-        private CollisionManager collisionManager;
+        private static GameDirector director;
+        private static Canvas canvas;
+        private static CollisionManager collisionManager;
 
+        public static GameDirector Director {get{return director;}}
+        public static Canvas Canvas {get{return canvas;}}
+
+        public static CollisionManager CollisionManager { get => collisionManager; }
         private IGameFactory factory;
-        public GameDirector Director {get{return director;}}
-        public Canvas Canvas {get{return canvas;}}
 
-        public CollisionManager CollisionManager { get => collisionManager; }
-
-        public Game1(IGameFactory factory)
+        public BHGame(IGameFactory factory)
         {
             new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -33,14 +33,20 @@ namespace BulletHell
             this.factory = factory;
         }
 
+        protected void SetGame(IGameFactory factory)
+        {
+            Tuple<GameDirector, Canvas, CollisionManager> result = factory.makeGame(GraphicsDevice);
+            director = result.Item1;
+            canvas = result.Item2;
+            collisionManager = result.Item3;
+        }
+
         protected override void Initialize()
         {
             GraphicsLoader.makeGraphicsLoader(GraphicsDevice);
             GraphicsLoader.getGraphicsLoader().setGraphicsTexture(new FileStream("Content/sprites/bullet.png", FileMode.Open));
 
-            Tuple<GameDirector, Canvas> result = factory.makeGame(GraphicsDevice);
-            director = result.Item1;
-            canvas = result.Item2;
+            SetGame(factory);
             
             base.Initialize();
         }

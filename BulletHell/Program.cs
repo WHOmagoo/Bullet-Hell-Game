@@ -11,7 +11,7 @@ namespace BulletHell.GameEngine
         {
             GameDirector gD = new GameDirector();
 
-            using (var game = new Game1(new GameDirectorLevel1Creator()))
+            using (var game = new BHGame(new GameDirectorLevel1Creator()))
             {
                 game.Run();
             }

@@ -16,7 +16,7 @@ namespace BulletHell
 
         private long speedModifier;
         
-        private Game1 game;
+        private BHGame game;
 
         private long ticksElapsed;
         private long timeSinceLastUpdate;

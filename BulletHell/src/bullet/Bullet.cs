@@ -14,7 +14,7 @@ namespace BulletHell.GameEngine
         {
             this.damage = damage;
             this.pathToFollow = new Path(locationEquation, startLocation, 0);
-            Game1.CollisionManager.addToTeam(this, TEAM.ENEMY);
+            BHGame.CollisionManager.addToTeam(this, TEAM.ENEMY);
         }
 
         public override void Update()
