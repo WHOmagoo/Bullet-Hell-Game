@@ -14,27 +14,10 @@ namespace BulletHell.GameEngine
         }
         private void InitializeEnemy()
         {
-            
-            ILocationEquation down = new LinearLocationEquation(Math.PI / 2, .04F);
-            ILocationEquation stayStill = StayStill.getStayStill();
-            ILocationEquation left = new LinearLocationEquation(Math.PI, .06F);
-            
-            List<Tuple<ILocationEquation, long>> piecewiseLocationEquations = new List<Tuple<ILocationEquation, long>>();
-            
-            piecewiseLocationEquations.Add(new Tuple<ILocationEquation, long>(stayStill, 1000 * 10));
-            piecewiseLocationEquations.Add(new Tuple<ILocationEquation, long>(down, 1000 * 5));
-            piecewiseLocationEquations.Add(new Tuple<ILocationEquation, long>(stayStill, 1000 * 7));
-            piecewiseLocationEquations.Add(new Tuple<ILocationEquation, long>(left, 1000 * 100));
-            
-            PiecewiseLocationEquation locationEquation = new PiecewiseLocationEquation(piecewiseLocationEquations);
-            
-            this.Path = new Path(locationEquation, Location, 0);
-            this.gunEquipped = new BasicGun(3, new LinearLocationEquation(Math.PI / 2, 1), 
-            //FIXME: Director should assign Gun
-            GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, TEAM.ENEMY);
-            // this.gunEquipped = new BasicGun(3, new SpiralLocationEquation(1,1,.01f), 
-            //     GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, false);
-//            this.path = new Path(right, Location, 0);
+            // this.gunEquipped = new BasicGun(3, new LinearLocationEquation(Math.PI / 2, 1), 
+            //     GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, TEAM.ENEMY);
+            this.gunEquipped = new BasicGun(1, new SpiralLocationEquation(1,1,.1f), 
+                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 5000, TEAM.ENEMY);
         }
     }
 }
