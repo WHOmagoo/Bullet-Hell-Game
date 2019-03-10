@@ -23,7 +23,6 @@ namespace BulletHell.GameEngine
         {
             this.canvas = canvas;
             InputControl.AssignPlayer(this);
-            //FIXME: Director assign gun
             gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), 
                 GraphicsLoader.getGraphicsLoader().getBulletTexture(), 500, TEAM.FRIENDLY);
             
@@ -152,6 +151,11 @@ namespace BulletHell.GameEngine
                 //OnDead(this, EventArgs.Empty);
             }
 
+        }
+
+        protected override void TakeDamage(int damage)
+        {
+            updateHealth();
         }
 
         protected override void Die()
