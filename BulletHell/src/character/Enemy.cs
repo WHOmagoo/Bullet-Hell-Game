@@ -45,6 +45,10 @@ namespace BulletHell.GameEngine
         {
             this.path = path;
         }
+        public void ResetPath()
+        {
+            this.path.Reset();
+        }
 
     }
 }

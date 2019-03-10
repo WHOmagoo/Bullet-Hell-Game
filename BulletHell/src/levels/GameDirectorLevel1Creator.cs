@@ -43,7 +43,7 @@ namespace BulletHell.levels
 
             // Enemy e1 = MakeEnemy('a', 0, new Vector2(500,0));
             Enemy e1 = MakeEnemy('a', 0, topMiddle);
-            Enemy e2 = MakeEnemy('b', 0, topMiddle);
+            Enemy e2 = MakeEnemy('a', 0, new Vector2(0,0));
 
             // Enemy enemy2 = new EnemyB(enemyBTexture, new Vector2(graphicsDevice.Viewport.Bounds.Width / 2 - 50, -100));
             // enemy2.SetSize(100, 100);
@@ -72,11 +72,11 @@ namespace BulletHell.levels
             // collisionManager.addToTeam(finalboss, TEAM.ENEMY);
 
 
-            director.addEvent(0, new CreateEnemyEvent(canvas, e1));
+            director.addEvent(0, new CreateEnemyEvent(collisionManager, canvas, e1));
             director.addEvent(0, new PlayerEnter(canvas, player));
-            director.addEvent(15 * 10000, new CreateEnemyEvent(canvas, e2));
-            director.addEvent(44 * 10000, new CreateEnemyEvent(canvas, midboss));
-            director.addEvent(80 * 10000, new CreateEnemyEvent(canvas, finalboss));
+            director.addEvent(15 * 10000, new CreateEnemyEvent(collisionManager, canvas, e2));
+            director.addEvent(44 * 10000, new CreateEnemyEvent(collisionManager, canvas, midboss));
+            director.addEvent(80 * 10000, new CreateEnemyEvent(collisionManager, canvas, finalboss));
 
             return new Tuple<GameDirector, Canvas, CollisionManager>(director, canvas, collisionManager);
         }
@@ -100,7 +100,6 @@ namespace BulletHell.levels
 
             e.PropertyChanged += canvas.OnWeaponChange;
             e.gunEquipped.GunShotHandler += canvas.OnGunShot;
-            collisionManager.addToTeam(e, TEAM.ENEMY);
             
             GameEngine.Path p = MakePath(0, startLocation);
             e.SetPath(p);
