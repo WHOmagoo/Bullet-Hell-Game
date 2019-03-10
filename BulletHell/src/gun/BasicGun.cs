@@ -9,7 +9,7 @@ namespace BulletHell.GameEngine
     public class BasicGun : Gun
     {
 
-        public BasicGun(int damage, ILocationEquation shape, Texture2D texture, long delay, bool friend) : base(damage, shape, texture, delay, friend)
+        public BasicGun(int damage, ILocationEquation shape, Texture2D texture, long delay, TEAM team) : base(damage, shape, texture, delay, team)
         {
         }
         
@@ -29,10 +29,10 @@ namespace BulletHell.GameEngine
         }
 
         private Bullet makeBullet(Vector2 location){
-            Bullet b = new Bullet(damage, this.fireShape, bulletTexture, location);
+            Bullet b = new Bullet(damage, this.fireShape, bulletTexture, location, team);
             b.SetSize(20,30);
             b.Hitbox = new CollidingRectangle(b.Location, new Vector2(0,0), 20, 30);
-            BHGame.CollisionManager.addToTeam(b, TEAM.ENEMY);
+            BHGame.CollisionManager.addToTeam(b, team);
             return b;
         }
     }

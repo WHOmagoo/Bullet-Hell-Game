@@ -23,7 +23,9 @@ namespace BulletHell.GameEngine
         {
             this.canvas = canvas;
             InputControl.AssignPlayer(this);
-            gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, true);
+            //FIXME: Director assign gun
+            gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), 
+                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 5000, TEAM.FRIENDLY);
             
             // gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, true);
 

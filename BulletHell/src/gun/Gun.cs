@@ -16,18 +16,18 @@ namespace BulletHell.GameEngine
         protected ILocationEquation fireShape;
         private readonly long tickFireDelay;
         private long lastShotTick;
-        protected Boolean friendly;
+        protected TEAM team;
         protected Texture2D bulletTexture;
         public event EventHandler<BulletsCreatedEventArgs> GunShotHandler;
 
 
 
-        public Gun(int damage, ILocationEquation shape, Texture2D texture, long delay, bool friend){
+        public Gun(int damage, ILocationEquation shape, Texture2D texture, long delay, TEAM team){
             this.damage = damage;
             fireShape = shape;
             tickFireDelay = delay;
             lastShotTick = 0;
-            friendly = friend;
+            this.team = team;
             bulletTexture = texture;
         }
 

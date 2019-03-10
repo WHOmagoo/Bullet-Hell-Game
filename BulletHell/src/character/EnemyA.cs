@@ -28,8 +28,9 @@ namespace BulletHell.GameEngine
             PiecewiseLocationEquation locationEquation = new PiecewiseLocationEquation(piecewiseLocationEquations);
             
             this.Path = new Path(locationEquation, Location, 0);
+            //FIXME: Director should assign gun
             this.gunEquipped = new BasicGun(3, new LinearLocationEquation(Math.PI / 2, .15f), 
-                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 2000, false);
+                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 2000, TEAM.ENEMY);
 //            this.path = new Path(right, Location, 0);
         }
     }

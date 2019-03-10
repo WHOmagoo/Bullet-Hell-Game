@@ -28,7 +28,8 @@ namespace BulletHell.GameEngine
             piecewiseLocationEquations2.Add(new Tuple<ILocationEquation, long>(downrightbullet, 1000 * 3));
             
             //this.gunEquipped = new BasicGun(3, new LinearLocationEquation(Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, false);
-            this.gunEquipped = new BasicGun(3, new PiecewiseLocationEquation(piecewiseLocationEquations2), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, false);
+            this.gunEquipped = new BasicGun(3, new PiecewiseLocationEquation(piecewiseLocationEquations2), 
+                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, TEAM.ENEMY);
             
             ILocationEquation down = new LinearLocationEquation(Math.PI / 2, .08F);
             ILocationEquation stayStill = StayStill.getStayStill();

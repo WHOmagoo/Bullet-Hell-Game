@@ -63,7 +63,8 @@ namespace BulletHell.GameEngine
 
             this.Path = new Path(locationEquation, Location, 0);
 
-            this.gunEquipped = new BasicGun(3, new LinearLocationEquation(Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, false);
+            this.gunEquipped = new BasicGun(3, new LinearLocationEquation(Math.PI / 2, 1), 
+                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, TEAM.ENEMY);
         }
 
         //shooting methods: (will cause bullets to shoot in different directions)
@@ -72,28 +73,32 @@ namespace BulletHell.GameEngine
             List<Tuple<ILocationEquation, long>> piecewiseLocationEquations2 = new List<Tuple<ILocationEquation, long>>();
             ILocationEquation downleftbullet = new LinearLocationEquation((3 * Math.PI) / 4, .50F);
             piecewiseLocationEquations2.Add(new Tuple<ILocationEquation, long>(downleftbullet, 1000 * 3));            
-            this.gunEquipped = new BasicGun(3, new PiecewiseLocationEquation(piecewiseLocationEquations2), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, false);
+            this.gunEquipped = new BasicGun(3, new PiecewiseLocationEquation(piecewiseLocationEquations2), 
+                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, TEAM.ENEMY);
         }
         public void shootMethod2()
         {
             List<Tuple<ILocationEquation, long>> piecewiseLocationEquations2 = new List<Tuple<ILocationEquation, long>>();
             ILocationEquation downrightbullet = new LinearLocationEquation((Math.PI) / 4, .50F);
             piecewiseLocationEquations2.Add(new Tuple<ILocationEquation, long>(downrightbullet, 1000 * 3));            
-            this.gunEquipped = new BasicGun(3, new PiecewiseLocationEquation(piecewiseLocationEquations2), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, false);
+            this.gunEquipped = new BasicGun(3, new PiecewiseLocationEquation(piecewiseLocationEquations2), 
+                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, TEAM.ENEMY);
         }
         public void shootMethod3()
         {
             List<Tuple<ILocationEquation, long>> piecewiseLocationEquations2 = new List<Tuple<ILocationEquation, long>>();
             ILocationEquation downbullet = new LinearLocationEquation(Math.PI / 2, .50F);
             piecewiseLocationEquations2.Add(new Tuple<ILocationEquation, long>(downbullet, 1000 * 3));
-            this.gunEquipped = new BasicGun(3, new PiecewiseLocationEquation(piecewiseLocationEquations2), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, false);
+            this.gunEquipped = new BasicGun(3, new PiecewiseLocationEquation(piecewiseLocationEquations2), 
+                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, TEAM.ENEMY);
         }
         public void shootMethod4()
         {
             List<Tuple<ILocationEquation, long>> piecewiseLocationEquations2 = new List<Tuple<ILocationEquation, long>>();
             ILocationEquation diagonalleftbullet = new LinearLocationEquation((7 * Math.PI) / 6, .50F);
             piecewiseLocationEquations2.Add(new Tuple<ILocationEquation, long>(diagonalleftbullet, 1000 * 3));
-            this.gunEquipped = new BasicGun(3, new PiecewiseLocationEquation(piecewiseLocationEquations2), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, false);
+            this.gunEquipped = new BasicGun(3, new PiecewiseLocationEquation(piecewiseLocationEquations2), 
+                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, TEAM.ENEMY);
         }
     }
 }

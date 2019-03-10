@@ -6,7 +6,7 @@ namespace BulletHell.GameEngine
 {
     public class BasicShotgun : Gun 
     {
-        public BasicShotgun(int damage, ILocationEquation shape, Texture2D texture, int delay, bool friend) : base(damage, shape, texture, delay, friend)
+        public BasicShotgun(int damage, ILocationEquation shape, Texture2D texture, int delay, TEAM team) : base(damage, shape, texture, delay, team)
         {
         }
 
