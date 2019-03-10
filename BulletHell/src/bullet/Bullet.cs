@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
+using BulletHell;
 
 namespace BulletHell.GameEngine
 {
@@ -14,6 +14,7 @@ namespace BulletHell.GameEngine
         {
             this.damage = damage;
             this.pathToFollow = new Path(locationEquation, startLocation, 0);
+            Game1.CollisionManager.addToTeam(this, TEAM.ENEMY);
         }
 
         public override void Update()

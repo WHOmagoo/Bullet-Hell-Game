@@ -17,9 +17,13 @@ namespace BulletHell
     {
         private GameDirector director;
         private Canvas canvas;
+        private CollisionManager collisionManager;
 
         private IGameFactory factory;
+        public GameDirector Director {get{return director;}}
+        public Canvas Canvas {get{return canvas;}}
 
+        public CollisionManager CollisionManager { get => collisionManager; }
 
         public Game1(IGameFactory factory)
         {
