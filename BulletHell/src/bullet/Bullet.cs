@@ -8,6 +8,7 @@ namespace BulletHell.GameEngine
     {
         int damage;
         Path pathToFollow;
+        public int Damage {get => damage;}
         private TEAM team;
 
         //TODO decide if we should take in ILocationEquation and make a path or accept a Path object within bullet
@@ -26,7 +27,6 @@ namespace BulletHell.GameEngine
 
         public override void onCollision(GameObject hitby)
         {
-            base.onCollision(hitby);
             BHGame.CollisionManager.removeFromTeam(this, team);
             BHGame.Canvas.RemoveFromDrawList(this);
         }

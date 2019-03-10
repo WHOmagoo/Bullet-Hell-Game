@@ -8,7 +8,7 @@ using BulletHell.Graphics;
 
 namespace BulletHell.GameEngine
 {
-    public class Character : GameObject, INotifyPropertyChanged
+    public abstract class Character : GameObject, INotifyPropertyChanged
     {
         protected int healthPoints;
         //protected Gun gunEquipped;  //need Gun class
@@ -42,13 +42,28 @@ namespace BulletHell.GameEngine
             //need gun class   TODO
             gunEquipped.Shoot(Location);
         }
+        protected abstract void Die();
 
-
-        /*public OnHit(Bullet bullet)
+        protected virtual void CheckHealth()
         {
-            //need bullet class     TODO
-        }*/
+            Console.WriteLine("health: " + healthPoints);
+            if (healthPoints <= 0)
+                Die();
+        }
+        protected virtual void TakeDamage(int damage)
+        {
+            healthPoints -= damage;
+            CheckHealth();
+        }
 
+        public override void onCollision(GameObject hitby)
+        {
+            if(hitby is Bullet)
+            {
+                Bullet b = hitby as Bullet;
+                TakeDamage(b.Damage);
+            }
+        } 
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnWeaponChanged([CallerMemberName] string propertyName = null)

@@ -25,7 +25,7 @@ namespace BulletHell.GameEngine
             InputControl.AssignPlayer(this);
             //FIXME: Director assign gun
             gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), 
-                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 5000, TEAM.FRIENDLY);
+                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 500, TEAM.FRIENDLY);
             
             // gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, true);
 
@@ -152,6 +152,11 @@ namespace BulletHell.GameEngine
                 //OnDead(this, EventArgs.Empty);
             }
 
+        }
+
+        protected override void Die()
+        {
+            BHGame.CollisionManager.removeFromTeam(this, TEAM.FRIENDLY);
         }
     }
 }

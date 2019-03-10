@@ -24,6 +24,7 @@ namespace BulletHell.GameEngine
         public Enemy(Texture2D texture, Vector2 startLocation, Path p , Gun gun) 
             : base(texture, startLocation)
         {
+            healthPoints = 10;
             gunEquipped = gun;
             path = p;
         }
@@ -34,9 +35,16 @@ namespace BulletHell.GameEngine
             base.Update();
         }
 
+        protected override void Die()
+        {
+            BHGame.CollisionManager.removeFromTeam(this, TEAM.ENEMY);
+            BHGame.Canvas.RemoveFromDrawList(this);
+        }
+
         public void changePath(Path path)
         {
             this.path = path;
         }
+
     }
 }
