@@ -27,6 +27,8 @@ namespace BulletHell.GameEngine
 
         public override void onCollision(GameObject hitby)
         {
+            if (hitby is Bullet)
+                return;
             BHGame.CollisionManager.removeFromTeam(this, team);
             BHGame.Canvas.RemoveFromDrawList(this);
         }

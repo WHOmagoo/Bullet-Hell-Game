@@ -5,18 +5,18 @@ namespace BulletHell.director
 {
     public class CreateEnemyEvent : DirectorEvent
     {
-        private Canvas game;
+        private Canvas canvas;
         private Enemy enemy;
         
-        public CreateEnemyEvent(Canvas game, Enemy enemy)
+        public CreateEnemyEvent(Canvas canvas, Enemy enemy)
         {
-            this.game = game;
+            this.canvas = canvas;
             this.enemy = enemy;
         }
 
         public override void Execute()
         {
-            game.AddToDrawList(enemy);
+            canvas.AddToDrawList(enemy);
         }
     }
 }

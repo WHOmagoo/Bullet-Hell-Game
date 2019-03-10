@@ -22,9 +22,9 @@ namespace BulletHell.GameEngine
 
 
 
-        public Gun(int damage, ILocationEquation shape, Texture2D texture, long delay, TEAM team){
+        public Gun(int damage, ILocationEquation fireShape, Texture2D texture, long delay, TEAM team){
             this.damage = damage;
-            fireShape = shape;
+            this.fireShape = fireShape;
             tickFireDelay = delay;
             lastShotTick = 0;
             this.team = team;

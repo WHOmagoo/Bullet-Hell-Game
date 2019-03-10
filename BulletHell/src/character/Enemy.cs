@@ -41,7 +41,7 @@ namespace BulletHell.GameEngine
             BHGame.Canvas.RemoveFromDrawList(this);
         }
 
-        public void changePath(Path path)
+        public void SetPath(Path path)
         {
             this.path = path;
         }
