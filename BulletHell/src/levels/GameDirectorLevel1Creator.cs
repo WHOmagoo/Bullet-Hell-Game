@@ -16,6 +16,8 @@ namespace BulletHell.levels
         private Texture2D enemyBTexture;
         private Texture2D midBossTexture;
         private Texture2D finalBossTexture;
+        private Texture2D healthBarTexture;
+        private Texture2D lifeBarTexture;
         private Canvas canvas;
         private GameDirector director;
         private CollisionManager collisionManager;
@@ -43,7 +45,12 @@ namespace BulletHell.levels
             Enemy midboss = MakeMidBoss();
             Enemy finalboss = MakeFinalBoss();
 
-            director.addEvent(0, new PlayerEnter(canvas, player));
+            HealthBar healthbar= MakeHealthBar();
+            LifeBar lifebar=MakeLifeBar();
+
+            player.OnHit += lifebar.Update;     //update life bar
+
+        director.addEvent(0, new PlayerEnter(canvas, player));
             director.addEvent(0, new CreateEnemyEvent(collisionManager, canvas, e1));
             director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e2));
             director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e3));
@@ -138,6 +145,20 @@ namespace BulletHell.levels
             finalboss.Hitbox = new CollidingRectangle(finalboss.Location, new Vector2(0,0), 100, 100);
             return finalboss;
         }
+        private HealthBar MakeHealthBar()
+        {
+            HealthBar healthbar;
+            healthbar = new HealthBar(healthBarTexture, new Vector2(400, 10));
+            healthbar.SetSize(390, 40);
+            return healthbar;
+        }
+        private LifeBar MakeLifeBar()
+        {
+            LifeBar lifebar;
+            lifebar = new LifeBar(lifeBarTexture, new Vector2(400, 10));
+            lifebar.SetSize(390, 40);
+            return lifebar;
+        }
 
         private void LoadTextures(GraphicsDevice graphicsDevice)
         {
@@ -155,6 +176,12 @@ namespace BulletHell.levels
 
             finalBossTexture = Texture2D.FromStream(graphicsDevice,
                 new FileStream("Content/sprites/finalboss.png", FileMode.Open));
+
+            healthBarTexture = Texture2D.FromStream(graphicsDevice,
+                new FileStream("Content/sprites/healthBar.png", FileMode.Open));
+
+            lifeBarTexture = Texture2D.FromStream(graphicsDevice,
+                new FileStream("Content/sprites/lifeBar.png", FileMode.Open));
         }
     }
 

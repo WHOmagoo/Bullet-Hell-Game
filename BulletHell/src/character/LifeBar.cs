@@ -18,19 +18,20 @@ namespace BulletHell.GameEngine
         private int fullHeight;
         private int currentHealth;
 
-        public LifeBar(ContentManager content, Texture2D lifeBarTexture, Vector2 startLocation) : base(lifeBarTexture, startLocation)
+        public LifeBar(Texture2D lifeBarTexture, Vector2 startLocation) : base(lifeBarTexture, startLocation)
         {
             position = new Vector2(100, 100);
-            LoadContent(content, lifeBarTexture);
+            //LoadContent(content, lifeBarTexture);
+            lifeBar = lifeBarTexture;
             fullHealth = 390;   //width of HealthBar
             fullHeight = 40;    //height of HealthBar
             currentHealth =fullHealth;
         }
-        private void LoadContent(ContentManager content, Texture2D lifeBarTexture)
-        {
-            lifeBar = lifeBarTexture;
-        }
-        public void Update()
+        //private void LoadContent(ContentManager content, Texture2D lifeBarTexture)
+        //{
+        //    lifeBar = lifeBarTexture;
+        //}
+        public void Update(object sender, EventArgs e)
         {
             currentHealth -= 39;
             SetSize(currentHealth, fullHeight);

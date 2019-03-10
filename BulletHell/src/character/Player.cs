@@ -16,6 +16,8 @@ namespace BulletHell.GameEngine
         internal Vector2 direction = Vector2.Zero;
         internal Vector2 speed = Vector2.Zero;
 
+        public event EventHandler OnHit;
+
         Canvas canvas;
         int slow = 0;
 
@@ -148,9 +150,8 @@ namespace BulletHell.GameEngine
             if (healthPoints == 0)
             {
                 //respawn
-                //OnDead(this, EventArgs.Empty);
             }
-
+            OnHit(this, EventArgs.Empty);
         }
 
         protected override void TakeDamage(int damage)
