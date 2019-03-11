@@ -49,6 +49,7 @@ namespace BulletHell.levels
             director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e3));
             director.addEvent(20 * 10000, new CreateEnemyEvent(collisionManager, canvas, midboss));
             director.addEvent(40 * 10000, new CreateEnemyEvent(collisionManager, canvas, finalboss));
+            director.addEvent(125 * 10000, new GameWinEvent());
 
             return new Tuple<GameDirector, Canvas, CollisionManager>(director, canvas, collisionManager);
         }
