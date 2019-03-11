@@ -69,7 +69,14 @@ namespace BulletHell
             Clock.getClock().UpdateTime(gameTime);
             director.Update();
             collisionManager.runCollisions();
-            canvas.Update();
+            bool playerIsDead= canvas.Update();
+
+            if (playerIsDead)
+            {
+                //TODO make an onscreen prompt for this
+                Console.WriteLine("Game Over!");
+                SetGame(factory);
+            }
 
             base.Update(gameTime);
         }
