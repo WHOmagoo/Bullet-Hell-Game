@@ -33,6 +33,7 @@ namespace BulletHell.GameEngine
             
             // gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, true);
 
+            //TODO make this be a parameter
             healthPoints = 10;      //player lives
         }
 
@@ -157,7 +158,6 @@ namespace BulletHell.GameEngine
             }
 
         }
-
         public override void onCollision(GameObject hitby)
         {
             if (!invulnerable)
