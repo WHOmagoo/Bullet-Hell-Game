@@ -164,6 +164,7 @@ namespace BulletHell.GameEngine
         {
             if (!invulnerable)
             {
+                OnHit(this, EventArgs.Empty);
                 startInvulnerability();
                 base.onCollision(hitby);
                 Location = respawnLocation;
@@ -191,7 +192,6 @@ namespace BulletHell.GameEngine
             Thread.Sleep(5000);
             invulnerable = false;
             Console.WriteLine("Can now take damage again");
-            OnHit(this, EventArgs.Empty);
         }
 
         protected override void TakeDamage(int damage)
