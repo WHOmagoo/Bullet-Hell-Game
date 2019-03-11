@@ -15,9 +15,8 @@ namespace BulletHell.Graphics
         private LinkedList<Entity> entities;
         private LinkedList<Entity> enqueuBuf;
         private LinkedList<Entity> dequeuBuf;
-        private Player player;
 
-        public event EventHandler OnPlayerDeath;
+        public event EventHandler PlayerDeathHandler;
 
         public Canvas(SpriteBatch spriteBatch)
         {
@@ -43,14 +42,6 @@ namespace BulletHell.Graphics
             if (!entities.Contains(entity) && !enqueuBuf.Contains(entity))
             {
                 enqueuBuf.AddLast(entity);
-
-                if (player == null)
-                {
-                    if (entity is Player p)
-                    {
-                        this.player = p;
-                    }
-                }
             }
             else
             {    int damage;
@@ -64,7 +55,7 @@ namespace BulletHell.Graphics
         }
 
 
-        public bool Update()
+        public void Update()
         {
             foreach (var entity in entities)
             {
@@ -83,8 +74,6 @@ namespace BulletHell.Graphics
                 entities.Remove(dequeuBuf.First.Value);
                 dequeuBuf.RemoveFirst();
             }
-
-            return player.Lives <= 0;
         }
 
         private void updateEntity(Entity entity)
@@ -125,6 +114,11 @@ namespace BulletHell.Graphics
                     c.gunEquipped.GunShotHandler += OnGunShot;
                 }
             }
+        }
+
+        public void OnPlayerDeath(object sender, EventArgs e)
+        {
+            PlayerDeathHandler?.Invoke(sender, e);
         }
     }
 }
