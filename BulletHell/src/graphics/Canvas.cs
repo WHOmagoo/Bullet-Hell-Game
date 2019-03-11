@@ -11,12 +11,13 @@ namespace BulletHell.Graphics
     public class Canvas
     {
         private SpriteBatch spriteBatch;
-
-        //TODO: right now this is using a singleton but we should probably update this to use observer pattern
-        
+ 
         private LinkedList<Entity> entities;
         private LinkedList<Entity> enqueuBuf;
         private LinkedList<Entity> dequeuBuf;
+        private Player player;
+
+        public event EventHandler OnPlayerDeath;
 
         public Canvas(SpriteBatch spriteBatch)
         {
@@ -42,19 +43,28 @@ namespace BulletHell.Graphics
             if (!entities.Contains(entity) && !enqueuBuf.Contains(entity))
             {
                 enqueuBuf.AddLast(entity);
+
+                if (player == null)
+                {
+                    if (entity is Player p)
+                    {
+                        this.player = p;
+                    }
+                }
             }
             else
             {    int damage;
                 Console.WriteLine("Duplicate added");
             }
         }
+
         public void RemoveFromDrawList(Entity entity)
         {
             dequeuBuf.AddLast(entity);
         }
 
 
-        public void Update()
+        public bool Update()
         {
             foreach (var entity in entities)
             {
@@ -73,6 +83,8 @@ namespace BulletHell.Graphics
                 entities.Remove(dequeuBuf.First.Value);
                 dequeuBuf.RemoveFirst();
             }
+
+            return player.Lives <= 0;
         }
 
         private void updateEntity(Entity entity)
