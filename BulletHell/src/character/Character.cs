@@ -1,39 +1,74 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using BulletHell.Annotations;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using BulletHell.Graphics;
 
 namespace BulletHell.GameEngine
 {
-    public class Character : GameObject
+    public abstract class Character : GameObject, INotifyPropertyChanged
     {
-        private int healthPoints;
-        private bool hitBox;    // bool representing whether or not to display hitbox
+        protected int healthPoints;
         //protected Gun gunEquipped;  //need Gun class
 
-        public Character(Canvas canvas, Texture2D texture, Vector2 startLocation, int width = 0, int height = 0) 
-            : base(canvas,texture,startLocation,width,height)
+        private Gun _gunEquipped;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public Gun gunEquipped
         {
-            hitBox = false;
+            get
+            {
+                return _gunEquipped;
+            }
+
+            set
+            {
+                _gunEquipped = value;
+                OnWeaponChanged(nameof(gunEquipped));
+            }
+        }  //need Gun class
+
+        public Character(Texture2D texture, Vector2 startLocation, int width = 0, int height = 0) 
+            : base(texture,startLocation,width,height)
+        {
             healthPoints = 1000;    // just chose a random value of 1000 for now (value may depend on which character)
         }
-        
-        /*public void Shoot()
+
+        public void Shoot()
         {
             //need gun class   TODO
-            gun.Shoot();
-        }*/
+            gunEquipped.Shoot(Location);
+        }
+        protected abstract void Die();
 
-        public bool ShowHitbox
+        protected virtual void CheckHealth()
         {
-            get { return hitBox; }
-            set { hitBox = value; }
-
+            Console.WriteLine("health: " + healthPoints);
+            if (healthPoints <= 0)
+                Die();
+        }
+        protected virtual void TakeDamage(int damage)
+        {
+            healthPoints -= damage;
+            CheckHealth();
         }
 
-        /*public OnHit(Bullet bullet)
+        public override void onCollision(GameObject hitby)
         {
-            //need bullet class     TODO
-        }*/
+            if(hitby is Bullet)
+            {
+                Bullet b = hitby as Bullet;
+                TakeDamage(b.Damage);
+            }
+        } 
 
-
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnWeaponChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

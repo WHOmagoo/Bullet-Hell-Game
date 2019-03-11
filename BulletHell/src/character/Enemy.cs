@@ -1,16 +1,30 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using BulletHell.Graphics;
 
 namespace BulletHell.GameEngine
 {
     public class Enemy : Character
     {
-        protected Path path;
-        protected Gun gunEquipped;
+        private Path path;
 
-        public Enemy(Canvas canvas, Texture2D texture, Vector2 startLocation, Path p , Gun gun) 
-            : base(canvas, texture, startLocation)
+        protected Path Path
         {
+            set
+            {
+                if (!ReferenceEquals(value, null))
+                {
+                    path = value;
+                }
+            }
+            
+            get { return path; }
+        }
+
+        public Enemy(Texture2D texture, Vector2 startLocation, Path p , Gun gun) 
+            : base(texture, startLocation)
+        {
+            healthPoints = 10;
             gunEquipped = gun;
             path = p;
         }
@@ -21,9 +35,20 @@ namespace BulletHell.GameEngine
             base.Update();
         }
 
-        public void Shoot()
+        protected override void Die()
         {
-            gunEquipped.shoot(Location);
+            BHGame.CollisionManager.removeFromTeam(this, TEAM.ENEMY);
+            BHGame.Canvas.RemoveFromDrawList(this);
         }
+
+        public void SetPath(Path path)
+        {
+            this.path = path;
+        }
+        public void ResetPath()
+        {
+            this.path.Reset();
+        }
+
     }
 }

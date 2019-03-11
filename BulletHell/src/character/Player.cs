@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using BulletHell.Graphics;
 
 namespace BulletHell.GameEngine
 {
-    class Player : Character
+    public class Player : Character
     {
         const string name2 = "download";
         const int startX = 125;
@@ -14,18 +16,27 @@ namespace BulletHell.GameEngine
 
         internal Vector2 direction = Vector2.Zero;
         internal Vector2 speed = Vector2.Zero;
+        private Vector2 respawnLocation;
 
-        private Gun gun;
+        public event EventHandler OnHit;
 
         Canvas canvas;
         int slow = 0;
 
-        public Player(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(canvas, texture, startLocation)
+        public event EventHandler DeathEvent;
+
+        public Player(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(texture, startLocation)
         {
+            this.respawnLocation = startLocation;
             this.canvas = canvas;
             InputControl.AssignPlayer(this);
-            gun = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, true);
+            gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), 
+                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 500, TEAM.FRIENDLY);
             
+            // gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, true);
+
+            //TODO make this be a parameter
+            healthPoints = 10;      //player lives
         }
 
         public void LoadContent(ContentManager theContentManager)
@@ -33,12 +44,18 @@ namespace BulletHell.GameEngine
             Location = new Vector2(startX, startY);
         }
 
+        public int Lives
+        {
+            get { return healthPoints; }
+        }
+
         public override void Update()
         {
+            base.Update();
             float timeE = Clock.getClock().getTimeSinceLastUpdate();
             float scale = 0.5F;
             KeyboardState currState = Keyboard.GetState();
-            UpdateMove(currState);
+            UpdateMove();
             if (slow == 1) timeE *= scale;
 
             if (Rect.X + Rect.Width > canvas.GetBounds().Width)
@@ -55,44 +72,141 @@ namespace BulletHell.GameEngine
             base.Update();
         }
 
-
-        //TODO: refactor this so that this class subscribes to events from a controller class
-        private void UpdateMove(KeyboardState currState)
+        
+        private void UpdateMove()
         {
             speed = Vector2.Zero;
             direction = Vector2.Zero;
 
-            if (currState.IsKeyDown(Keys.LeftControl))
+            Controller controller = new Controller();
+            controller.OnLeft += goLeft;
+            controller.OnRight += goRight;
+            controller.OnUp += goUp;
+            controller.OnDown += goDown;
+            controller.OnUpLeft += goUpLeft;
+            controller.OnUpRight += goUpRight;
+            controller.OnDownLeft += goDownLeft;
+            controller.OnDownRight += goDownRight;
+            controller.OnShoot += Shoot;
+            controller.OnSlow += goSlow;
+            controller.OnFast += goFast;
+
+            controller.Update();
+            
+        }
+
+        private void goLeft(object sender, EventArgs e)
+        {
+            InputControl.MoveLeft();
+        }
+
+        private void goRight(object sender, EventArgs e)
+        {
+            InputControl.MoveRight();
+        }
+
+        private void goUp(object sender, EventArgs e)
+        {
+            InputControl.MoveUp();
+        }
+
+        private void goDown(object sender, EventArgs e)
+        {
+            InputControl.MoveDown();
+        }
+
+        private void goUpLeft(object sender, EventArgs e)
+        {
+            // InputControl.MoveUpLeft();
+        }
+
+        private void goUpRight(object sender, EventArgs e)
+        {
+            // InputControl.MoveUpRight();
+        }
+
+        private void goDownLeft(object sender, EventArgs e)
+        {
+            // InputControl.MoveDownLeft();
+        }
+
+        private void goDownRight(object sender, EventArgs e)
+        {
+            // InputControl.MoveDownRight();
+        }
+
+        private void Shoot(object sender, EventArgs e)
+        {
+            gunEquipped.Shoot(Location);
+        }
+
+        private void goSlow(object sender, EventArgs e)
+        {
+            slow = 1;
+        }
+
+        private void goFast(object sender, EventArgs e)
+        {
+            slow = 0;
+        }
+
+        public void updateHealth()
+        {
+            healthPoints -= 1;
+            if (healthPoints == 0)
             {
-                slow = 1;
-            }
-            else if (currState.IsKeyDown(Keys.RightControl))
-            {
-                slow = 0;
+                //respawn
+                CreateDeathEvent();
             }
 
-            if (currState.IsKeyDown(Keys.Left))
+        }
+        public override void onCollision(GameObject hitby)
+        {
+            if (!invulnerable)
             {
-                InputControl.MoveLeft();
+                OnHit(this, EventArgs.Empty);
+                startInvulnerability();
+                base.onCollision(hitby);
+                Location = respawnLocation;
+                Console.WriteLine("Player Health: " + healthPoints);
             }
-            else if (currState.IsKeyDown(Keys.Right))
-            {
-                InputControl.MoveRight();
-            }
+        }
 
-            if (currState.IsKeyDown(Keys.Up))
+        private Thread t;
+        private volatile bool invulnerable = false;
+        private void startInvulnerability()
+        {
+            if (invulnerable)
             {
-                InputControl.MoveUp();
+                t.Abort();
             }
-            else if (currState.IsKeyDown(Keys.Down))
-            {
-                InputControl.MoveDown();
-            }
+            
+            t = new Thread(invulnerableRunner);
+            t.Start();
+        }
 
-            if (currState.IsKeyDown(Keys.Space))
-            {
-                gun.shoot(Location);
-            }
+        private void invulnerableRunner()
+        {
+            Console.WriteLine("Invulnerable");
+            invulnerable = true;
+            Thread.Sleep(5000);
+            invulnerable = false;
+            Console.WriteLine("Can now take damage again");
+        }
+
+        protected override void TakeDamage(int damage)
+        {
+            updateHealth();
+        }
+
+        private void CreateDeathEvent()
+        {
+            DeathEvent?.Invoke(this, new EventArgs());
+        }
+
+        protected override void Die()
+        {
+            BHGame.CollisionManager.removeFromTeam(this, TEAM.FRIENDLY);
         }
     }
 }

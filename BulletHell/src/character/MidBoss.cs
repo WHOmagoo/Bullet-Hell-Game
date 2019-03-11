@@ -2,22 +2,18 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using BulletHell.Graphics;
 
 namespace BulletHell.GameEngine
 {
     public class MidBoss : Enemy
     {
-        public MidBoss(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(canvas, texture, startLocation, null, null)
+        public MidBoss(Texture2D texture, Vector2 startLocation) : base(texture, startLocation, null, null)
         {
             InitializeEnemy();
         }
 
         private void InitializeEnemy()
-        {
-            
-        }
-
-        public void movePattern()
         {
             List<Tuple<ILocationEquation, long>> piecewiseLocationEquations2 = new List<Tuple<ILocationEquation, long>>();
 
@@ -32,7 +28,8 @@ namespace BulletHell.GameEngine
             piecewiseLocationEquations2.Add(new Tuple<ILocationEquation, long>(downrightbullet, 1000 * 3));
             
             //this.gunEquipped = new BasicGun(3, new LinearLocationEquation(Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, false);
-            this.gunEquipped = new BasicGun(3, new PiecewiseLocationEquation(piecewiseLocationEquations2), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, false);
+            this.gunEquipped = new BasicGun(3, new PiecewiseLocationEquation(piecewiseLocationEquations2), 
+                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, TEAM.ENEMY);
             
             ILocationEquation down = new LinearLocationEquation(Math.PI / 2, .08F);
             ILocationEquation stayStill = StayStill.getStayStill();
@@ -59,7 +56,7 @@ namespace BulletHell.GameEngine
             
             PiecewiseLocationEquation locationEquation = new PiecewiseLocationEquation(piecewiseLocationEquations);
 
-            this.path = new Path(locationEquation, Location, 0);            
+            this.Path = new Path(locationEquation, Location, 0);          
         }
     }
 }

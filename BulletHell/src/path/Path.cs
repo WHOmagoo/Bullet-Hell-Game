@@ -45,5 +45,13 @@ namespace BulletHell.GameEngine
             
             return new Vector2(newLocationX, newLocationY);
         }
+
+        /*
+            Resets the start time to current time
+         */
+        public void Reset()
+        {
+            this.StartTime = Clock.getClock().getTime();
+        }
     }
 }

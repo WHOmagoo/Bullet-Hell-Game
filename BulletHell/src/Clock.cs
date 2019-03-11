@@ -1,4 +1,7 @@
 using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using BulletHell.Annotations;
 using Microsoft.Xna.Framework;
 
 namespace BulletHell
@@ -13,15 +16,15 @@ namespace BulletHell
 
         private long speedModifier;
         
-        private Game1 game;
+        private BHGame game;
 
         private long ticksElapsed;
         private long timeSinceLastUpdate;
         
 
-        private Clock()
+        public Clock(long speedModifier = 1)
         {
-            speedModifier = 1;
+            this.speedModifier = speedModifier;
         }
         
         public void pause()
@@ -40,6 +43,7 @@ namespace BulletHell
             timeLastPausedOccured = TimeSpan.Zero;
         }
         
+        //Gets time in milliseconds
         public long getTime()
         {
             if (ReferenceEquals(gameTime, null))
@@ -48,10 +52,16 @@ namespace BulletHell
             }
             
             //10,000,000 ticks per second
-            
-            var result =  (gameTime.TotalGameTime.Ticks - timeSpentPaused.Ticks) / TimeSpan.TicksPerMillisecond;
+
+            var result = ticksElapsed / TimeSpan.TicksPerMillisecond;
+//            (gameTime.TotalGameTime.Ticks - timeSpentPaused.Ticks) / TimeSpan.TicksPerMillisecond;
             // Console.WriteLine("Game Time result {0}", result);
             return result;
+        }
+
+        public void setSpeedModifier(long modifier)
+        {
+            this.speedModifier = modifier;
         }
 
 
@@ -60,23 +70,16 @@ namespace BulletHell
             return clock;
         }
 
-        public void Update()
+        public void UpdateTime(GameTime time)
         {
-            timeSinceLastUpdate = gameTime.ElapsedGameTime.Ticks;
-            ticksElapsed += gameTime.ElapsedGameTime.Ticks;
+            gameTime = time;
+            timeSinceLastUpdate = time.ElapsedGameTime.Ticks * speedModifier;
+            ticksElapsed += time.ElapsedGameTime.Ticks * speedModifier;
         }
 
         public long getTimeSinceLastUpdate()
         {
-            return timeSinceLastUpdate;
-        }
-
-        public void SetGameTime(GameTime gameTime)
-        {
-            if (!ReferenceEquals(this.gameTime, gameTime))
-            {
-                this.gameTime = gameTime;
-            }
+            return 10 * timeSinceLastUpdate / TimeSpan.TicksPerMillisecond;
         }
     }
 }
