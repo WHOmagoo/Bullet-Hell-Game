@@ -38,6 +38,7 @@ namespace BulletHell
             Tuple<GameDirector, Canvas, CollisionManager> result = factory.makeGame(GraphicsDevice);
             director = result.Item1;
             canvas = result.Item2;
+            canvas.PlayerDeathHandler += OnPlayerDeath;
             collisionManager = result.Item3;
         }
 
@@ -72,6 +73,13 @@ namespace BulletHell
             canvas.Update();
 
             base.Update(gameTime);
+        }
+
+        private void OnPlayerDeath(object sender, EventArgs e)
+        {
+            //TODO make an onscreen prompt for this
+            Console.WriteLine("Game Over!");
+            SetGame(factory);
         }
 
         protected override void Draw(GameTime gameTime)

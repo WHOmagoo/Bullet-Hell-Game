@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
@@ -15,14 +16,18 @@ namespace BulletHell.GameEngine
 
         internal Vector2 direction = Vector2.Zero;
         internal Vector2 speed = Vector2.Zero;
+        private Vector2 respawnLocation;
 
         public event EventHandler OnHit;
 
         Canvas canvas;
         int slow = 0;
 
+        public event EventHandler DeathEvent;
+
         public Player(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(texture, startLocation)
         {
+            this.respawnLocation = startLocation;
             this.canvas = canvas;
             InputControl.AssignPlayer(this);
             gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), 
@@ -30,6 +35,7 @@ namespace BulletHell.GameEngine
             
             // gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, true);
 
+            //TODO make this be a parameter
             healthPoints = 10;      //player lives
         }
 
@@ -150,13 +156,52 @@ namespace BulletHell.GameEngine
             if (healthPoints == 0)
             {
                 //respawn
+                CreateDeathEvent();
             }
+
+        }
+        public override void onCollision(GameObject hitby)
+        {
+            if (!invulnerable)
+            {
+                startInvulnerability();
+                base.onCollision(hitby);
+                Location = respawnLocation;
+                Console.WriteLine("Player Health: " + healthPoints);
+            }
+        }
+
+        private Thread t;
+        private volatile bool invulnerable = false;
+        private void startInvulnerability()
+        {
+            if (invulnerable)
+            {
+                t.Abort();
+            }
+            
+            t = new Thread(invulnerableRunner);
+            t.Start();
+        }
+
+        private void invulnerableRunner()
+        {
+            Console.WriteLine("Invulnerable");
+            invulnerable = true;
+            Thread.Sleep(5000);
+            invulnerable = false;
+            Console.WriteLine("Can now take damage again");
             OnHit(this, EventArgs.Empty);
         }
 
         protected override void TakeDamage(int damage)
         {
             updateHealth();
+        }
+
+        private void CreateDeathEvent()
+        {
+            DeathEvent?.Invoke(this, new EventArgs());
         }
 
         protected override void Die()

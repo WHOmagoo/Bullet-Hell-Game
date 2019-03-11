@@ -11,12 +11,12 @@ namespace BulletHell.Graphics
     public class Canvas
     {
         private SpriteBatch spriteBatch;
-
-        //TODO: right now this is using a singleton but we should probably update this to use observer pattern
-        
+ 
         private LinkedList<Entity> entities;
         private LinkedList<Entity> enqueuBuf;
         private LinkedList<Entity> dequeuBuf;
+
+        public event EventHandler PlayerDeathHandler;
 
         public Canvas(SpriteBatch spriteBatch)
         {
@@ -48,6 +48,7 @@ namespace BulletHell.Graphics
                 Console.WriteLine("Duplicate added");
             }
         }
+
         public void RemoveFromDrawList(Entity entity)
         {
             dequeuBuf.AddLast(entity);
@@ -113,6 +114,11 @@ namespace BulletHell.Graphics
                     c.gunEquipped.GunShotHandler += OnGunShot;
                 }
             }
+        }
+
+        public void OnPlayerDeath(object sender, EventArgs e)
+        {
+            PlayerDeathHandler?.Invoke(sender, e);
         }
     }
 }

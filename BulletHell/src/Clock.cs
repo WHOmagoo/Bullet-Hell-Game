@@ -52,10 +52,16 @@ namespace BulletHell
             }
             
             //10,000,000 ticks per second
-            
-            var result =  (gameTime.TotalGameTime.Ticks - timeSpentPaused.Ticks) / TimeSpan.TicksPerMillisecond;
+
+            var result = ticksElapsed / TimeSpan.TicksPerMillisecond;
+//            (gameTime.TotalGameTime.Ticks - timeSpentPaused.Ticks) / TimeSpan.TicksPerMillisecond;
             // Console.WriteLine("Game Time result {0}", result);
             return result;
+        }
+
+        public void setSpeedModifier(long modifier)
+        {
+            this.speedModifier = modifier;
         }
 
 
@@ -67,8 +73,8 @@ namespace BulletHell
         public void UpdateTime(GameTime time)
         {
             gameTime = time;
-            timeSinceLastUpdate = time.ElapsedGameTime.Ticks;
-            ticksElapsed += time.ElapsedGameTime.Ticks;
+            timeSinceLastUpdate = time.ElapsedGameTime.Ticks * speedModifier;
+            ticksElapsed += time.ElapsedGameTime.Ticks * speedModifier;
         }
 
         public long getTimeSinceLastUpdate()

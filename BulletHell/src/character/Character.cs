@@ -24,7 +24,7 @@ namespace BulletHell.GameEngine
                 return _gunEquipped;
             }
 
-            protected set
+            set
             {
                 _gunEquipped = value;
                 OnWeaponChanged(nameof(gunEquipped));
