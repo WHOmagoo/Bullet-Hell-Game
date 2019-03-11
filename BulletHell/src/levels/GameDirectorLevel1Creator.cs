@@ -43,6 +43,8 @@ namespace BulletHell.levels
             Enemy midboss = MakeMidBoss();
             Enemy finalboss = MakeFinalBoss();
 
+            player.DeathEvent += canvas.OnPlayerDeath;
+
             director.addEvent(0, new PlayerEnter(canvas, player));
             director.addEvent(0, new CreateEnemyEvent(collisionManager, canvas, e1));
             director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e2));
@@ -124,6 +126,7 @@ namespace BulletHell.levels
         {
             MidBoss midboss = new MidBoss(midBossTexture, new Vector2(100, 5));
             midboss.SetSize(100, 100);
+            midboss.gunEquipped = new BasicShotgun((float) Math.PI / 2, (float) (Math.PI / 9), 1, new LinearLocationEquation((float) -Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 2500, TEAM.ENEMY);
             midboss.PropertyChanged += canvas.OnWeaponChange;
             midboss.gunEquipped.GunShotHandler += canvas.OnGunShot;
             midboss.Hitbox = new CollidingRectangle(midboss.Location, new Vector2(0,0), 100, 100);
