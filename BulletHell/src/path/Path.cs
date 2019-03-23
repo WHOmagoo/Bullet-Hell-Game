@@ -33,7 +33,7 @@ namespace BulletHell.GameEngine
         {
             long curTime = Clock.getClock().getTime();
 
-            Vector2 newLocationBeforeAngleOffset = _locationEquation.GetLocation(curTime - StartTime) + Offset;
+            Vector2 newLocationBeforeAngleOffset = _locationEquation.GetLocation(curTime - StartTime);
 
             float newLocationX =
                 (float)(newLocationBeforeAngleOffset.X * Math.Cos(AngleOffset) -
@@ -43,7 +43,7 @@ namespace BulletHell.GameEngine
                 (float)(newLocationBeforeAngleOffset.X * Math.Sin(AngleOffset) +
                         newLocationBeforeAngleOffset.Y * Math.Cos(AngleOffset));
             
-            return new Vector2(newLocationX, newLocationY);
+            return new Vector2(newLocationX, newLocationY) + Offset;
         }
 
         /*
