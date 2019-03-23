@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using BulletHell.Graphics;
 using System.IO;
 using System.Collections.Generic;
+using Path = BulletHell.GameEngine.Path;
 
 namespace BulletHell.levels
 {
@@ -25,6 +26,7 @@ namespace BulletHell.levels
         private int SCREEN_HEIGHT;
 
         private enum MOVEMENT { DOWN_RIGHT, DOWN_LEFT }
+        
         public Tuple<GameDirector, Canvas, CollisionManager> makeGame(GraphicsDevice graphicsDevice)
         {
             director = new GameDirector();
@@ -38,6 +40,16 @@ namespace BulletHell.levels
 
             Vector2 topMiddle = new Vector2(SCREEN_WIDTH / 2, -100);
 
+            //Testing of sin wave movement
+            Enemy sin = new EnemyA(enemyATexture, topMiddle);
+            sin.PropertyChanged += canvas.OnWeaponChange;
+            sin.gunEquipped.GunShotHandler += canvas.OnGunShot;
+            ILocationEquation sinEquation = new SinusoidalLocationEquation(16, 200, 25, .0001);
+            Path sinPath = new Path(sinEquation, sin.Location, Math.PI / 2);
+            sin.SetPath(sinPath);
+            sin.Hitbox = new CollidingRectangle(sin.Location, new Vector2(0, 0), 100, 72);
+            
+            
             Player player = MakePlayer();
             Enemy e1 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, topMiddle);
             Enemy e2 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, new Vector2(SCREEN_WIDTH / 4, -100));
@@ -54,6 +66,7 @@ namespace BulletHell.levels
             player.DeathEvent += canvas.OnPlayerDeath;
 
             director.addEvent(0, new PlayerEnter(canvas, player));
+            director.addEvent(0, new CreateEnemyEvent(collisionManager, canvas, sin));
             director.addEvent(0, new CreateEnemyEvent(collisionManager, canvas, e1));
             director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e2));
             director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e3));
