@@ -19,6 +19,7 @@ namespace BulletHell.levels
         private Texture2D finalBossTexture;
         private Texture2D healthBarTexture;
         private Texture2D lifeBarTexture;
+        private Texture2D bulletTexture;
         private Canvas canvas;
         private GameDirector director;
         private CollisionManager collisionManager;
@@ -202,6 +203,9 @@ namespace BulletHell.levels
 
             lifeBarTexture = Texture2D.FromStream(graphicsDevice,
                 new FileStream("Content/sprites/lifeBar.png", FileMode.Open));
+
+            bulletTexture = Texture2D.FromStream(graphicsDevice,
+                new FileStream("Content/sprites/bullet.png", FileMode.Open));
         }
     }
 
