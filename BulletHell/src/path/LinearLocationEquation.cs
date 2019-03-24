@@ -13,10 +13,10 @@ namespace BulletHell.GameEngine
         /// </summary>
         /// <param name="angle">An angle, measured in radians. </param>
         /// <param name="speed">The speed at which the object should move in units per millisecond</param>
-        public LinearLocationEquation(double angle, float speed)
+        public LinearLocationEquation(double angle, double speed)
         {
-            xGrowRate = (float) Math.Cos(angle) * speed;
-            yGrowRate = (float) Math.Sin(angle) * speed;
+            xGrowRate = (float) (Math.Cos(angle) * speed);
+            yGrowRate = (float) (Math.Sin(angle) * speed);
         }
         
         /// <summary>
