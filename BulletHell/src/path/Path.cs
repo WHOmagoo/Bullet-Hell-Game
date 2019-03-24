@@ -10,6 +10,13 @@ namespace BulletHell.GameEngine
         private double AngleOffset;
         private long StartTime;
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="locationEquation"> The ILocationEquation to use to update the location</param>
+        /// <param name="initialLocation"> The starting location of the object</param>
+        /// <param name="AngleOffset"> The input angle should be in radians and will go clockwise starting in the x direction</param>
+        
         public Path(ILocationEquation locationEquation, Vector2 initialLocation, double AngleOffset)
         {
             _locationEquation = locationEquation;
@@ -33,17 +40,10 @@ namespace BulletHell.GameEngine
         {
             long curTime = Clock.getClock().getTime();
 
-            Vector2 newLocationBeforeAngleOffset = _locationEquation.GetLocation(curTime - StartTime) + Offset;
-
-            float newLocationX =
-                (float)(newLocationBeforeAngleOffset.X * Math.Cos(AngleOffset) -
-                        newLocationBeforeAngleOffset.Y * Math.Sin(AngleOffset));
+            Vector2 newLocation = _locationEquation.GetLocation(curTime - StartTime);
+            newLocation = VectorRotation.RotateVector(AngleOffset, newLocation);
             
-            float newLocationY =
-                (float)(newLocationBeforeAngleOffset.X * Math.Sin(AngleOffset) +
-                        newLocationBeforeAngleOffset.Y * Math.Cos(AngleOffset));
-            
-            return new Vector2(newLocationX, newLocationY);
+            return newLocation + Offset;
         }
 
         /*

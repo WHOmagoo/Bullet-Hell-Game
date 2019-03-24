@@ -9,6 +9,7 @@ namespace BulletHell.GameEngine
     public class BasicGun : Gun
     {
 
+        //TODO allow guns to spawn bullets at an offset from the location given to it in Shoot()s
         public BasicGun(int damage, ILocationEquation fireShape, Texture2D texture, long delay, TEAM team) : base(damage, fireShape, texture, delay, team)
         {
         }
