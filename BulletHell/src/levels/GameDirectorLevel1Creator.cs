@@ -75,16 +75,16 @@ namespace BulletHell.levels
             director.addEvent(0, new PlayerEnter(canvas, player));
             /******************Wave 1************************* */
             // director.addEvent(0, new CreateEnemyEvent(collisionManager, canvas, e1));
-            director.addEvent(0 * 10000, new CreateEnemyEvent(collisionManager, canvas, e5));
-            director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e2));
-            director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e3));
-            director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e4));
-            /******************Wave 2************************* */
-            director.addEvent(25 * 10000, new CreateEnemyEvent(collisionManager, canvas, e6));
-            director.addEvent(25 * 10000, new CreateEnemyEvent(collisionManager, canvas, e7));
-            director.addEvent(25 * 10000, new CreateEnemyEvent(collisionManager, canvas, e8));
-            director.addEvent(30 * 10000, new CreateEnemyEvent(collisionManager, canvas, e10));
-            director.addEvent(30 * 10000, new CreateEnemyEvent(collisionManager, canvas, e11));
+            // director.addEvent(0 * 10000, new CreateEnemyEvent(collisionManager, canvas, e5));
+            // director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e2));
+            // director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e3));
+            // director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e4));
+            // /******************Wave 2************************* */
+            // director.addEvent(25 * 10000, new CreateEnemyEvent(collisionManager, canvas, e6));
+            // director.addEvent(25 * 10000, new CreateEnemyEvent(collisionManager, canvas, e7));
+            // director.addEvent(25 * 10000, new CreateEnemyEvent(collisionManager, canvas, e8));
+            // director.addEvent(30 * 10000, new CreateEnemyEvent(collisionManager, canvas, e10));
+            // director.addEvent(30 * 10000, new CreateEnemyEvent(collisionManager, canvas, e11));
             /******************MidBoss******************** */
             director.addEvent(0 * 10000, new CreateEnemyEvent(collisionManager, canvas, midboss));
             /******************Wave 3********************* */

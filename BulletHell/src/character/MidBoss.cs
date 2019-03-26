@@ -21,8 +21,8 @@ namespace BulletHell.GameEngine
             guns = new Gun[3];
             guns[0] = new BasicGun(1, new SinusoidalLocationEquation(90, 110, 200), 
                 GraphicsLoader.getGraphicsLoader().getBulletTexture(), 2000, TEAM.ENEMY, Math.PI/2);
-            guns[1] = new BasicShotgun((float) Math.PI / 2, (float) (Math.PI / 9), 1,
-                   new  SinusoidalLocationEquation(90, 110, 200) , GraphicsLoader.getGraphicsLoader().getBulletTexture(), 2500, TEAM.ENEMY);
+            guns[1] = new SurroundShotGun(16, (float) Math.PI / 2, (float) (Math.PI / 9), 1,
+                   new  SinusoidalLocationEquation(90, 110, 200) , GraphicsLoader.getGraphicsLoader().getBulletTexture(), 3500, TEAM.ENEMY);
         }
 
         private void InitializeEnemy()
