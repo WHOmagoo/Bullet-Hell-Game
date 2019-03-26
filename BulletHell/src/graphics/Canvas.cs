@@ -50,9 +50,21 @@ namespace BulletHell.Graphics
             b2.Draw(spriteBatch);
             foreach (Entity e in entities)
             {
-                e.Draw(spriteBatch);
+                if(e is Player)
+                {
+                    Player x = e as Player;                    
+                    if(x.drawSp)
+                    {
+                        x.Draw(spriteBatch);
+                    }
+
+                }
+                else
+                {
+                    e.Draw(spriteBatch);
+                }
+                //e.Draw(spriteBatch);
             }
-            
             
             spriteBatch.End();
         }
@@ -80,6 +92,7 @@ namespace BulletHell.Graphics
         {
             b1.Update(0, -1);
             b2.Update(0, -1);
+
             foreach (var entity in entities)
             {
                 updateEntity(entity);

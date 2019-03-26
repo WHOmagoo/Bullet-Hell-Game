@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Timers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
@@ -174,11 +175,21 @@ namespace BulletHell.GameEngine
 
         private Thread t;
         private volatile bool invulnerable = false;
+        public bool drawSp = true;
+        public System.Timers.Timer myT = new System.Timers.Timer();
+   
+        private void myEv(object source, ElapsedEventArgs e)
+        {
+            drawSp = !drawSp;
+        }
+
+
         private void startInvulnerability()
         {
             if (invulnerable)
             {
                 t.Abort();
+                //drawSp = true;
             }
             
             t = new Thread(invulnerableRunner);
@@ -189,8 +200,16 @@ namespace BulletHell.GameEngine
         {
             Console.WriteLine("Invulnerable");
             invulnerable = true;
+            myT.Elapsed += new ElapsedEventHandler(myEv);
+            myT.AutoReset = true;
+            myT.Interval = 100;
+            myT.Start();
             Thread.Sleep(5000);
             invulnerable = false;
+            myT.Stop();
+            myT.Dispose();
+            myT = new System.Timers.Timer();
+            drawSp = true;
             Console.WriteLine("Can now take damage again");
         }
 
