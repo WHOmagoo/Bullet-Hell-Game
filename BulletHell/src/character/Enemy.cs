@@ -21,8 +21,9 @@ namespace BulletHell.GameEngine
             get { return path; }
         }
 
-        public Enemy(Texture2D texture, Vector2 startLocation, Path p , Gun gun) 
-            : base(texture, startLocation)
+        //FIXME: Add guard code for path being null
+        public Enemy(Texture2D texture, Path p , Gun gun) 
+            : base(texture, p.InitialLocation)
         {
             healthPoints = 10;
             gunEquipped = gun;
