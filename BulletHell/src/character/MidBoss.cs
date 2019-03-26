@@ -15,6 +15,7 @@ namespace BulletHell.GameEngine
 
         private void InitializeEnemy()
         {
+            healthPoints = 30;
             List<Tuple<ILocationEquation, long>> piecewiseLocationEquations2 = new List<Tuple<ILocationEquation, long>>();
 
             ILocationEquation downrightbullet = new LinearLocationEquation((Math.PI) / 4, .50F);

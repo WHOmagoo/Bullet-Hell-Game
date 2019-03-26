@@ -20,14 +20,14 @@ namespace BulletHell.levels
         private Texture2D healthBarTexture;
         private Texture2D lifeBarTexture;
         private Texture2D bulletTexture;
+        private Texture2D enemyCTexture;
         private Canvas canvas;
         private GameDirector director;
         private CollisionManager collisionManager;
         private int SCREEN_WIDTH;
         private int SCREEN_HEIGHT;
 
-        private enum MOVEMENT { DOWN_RIGHT, DOWN_LEFT }
-        
+        private enum MOVEMENT { DOWN_RIGHT, DOWN_LEFT, ZIGZAG_DOWN, SIN_DOWN } 
         public Tuple<GameDirector, Canvas, CollisionManager> makeGame(GraphicsDevice graphicsDevice)
         {
             director = new GameDirector();
@@ -40,21 +40,26 @@ namespace BulletHell.levels
             LoadTextures(graphicsDevice);
 
             Vector2 topMiddle = new Vector2(SCREEN_WIDTH / 2, -100);
+            Vector2 topLeft = new Vector2(SCREEN_WIDTH / 4, -100);
+            Vector2 topRight = new Vector2(3 * SCREEN_WIDTH / 4, -100);
 
-            //Testing of sin wave movement
-            Enemy sin = new EnemyA(enemyATexture, topMiddle);
-            sin.PropertyChanged += canvas.OnWeaponChange;
-            sin.gunEquipped.GunShotHandler += canvas.OnGunShot;
-            ILocationEquation sinEquation = new SinusoidalLocationEquation(16, 200, 25, .0001);
-            Path sinPath = new Path(sinEquation, sin.Location, Math.PI / 2);
-            sin.SetPath(sinPath);
-            sin.Hitbox = new CollidingRectangle(sin.Location, new Vector2(0, 0), 100, 72);
-            
-            
             Player player = MakePlayer();
-            Enemy e1 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, topMiddle);
+            //Wave 1 enemies
+            // Enemy e1 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, topMiddle);
+            // Enemy e1 = MakeEnemy('c', MOVEMENT.DOWN_RIGHT, topMiddle);
             Enemy e2 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, new Vector2(SCREEN_WIDTH / 4, -100));
             Enemy e3 = MakeEnemy('a', MOVEMENT.DOWN_LEFT, new Vector2(3 * SCREEN_WIDTH / 4, -100));
+            Enemy e4 = MakeEnemy('a', MOVEMENT.SIN_DOWN, topMiddle);
+            Enemy e5 = MakeEnemy('b', MOVEMENT.ZIGZAG_DOWN, topLeft);
+            //Wave 2 enemies
+            Enemy e6 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, new Vector2(SCREEN_WIDTH / 4, -100));
+            Enemy e7 = MakeEnemy('a', MOVEMENT.DOWN_LEFT, new Vector2(3 * SCREEN_WIDTH / 4, -100));
+            Enemy e8 = MakeEnemy('c', MOVEMENT.DOWN_RIGHT, topMiddle);
+            Enemy e9 = MakeEnemy('b', MOVEMENT.ZIGZAG_DOWN, topMiddle);
+            Enemy e10 = MakeEnemy('b', MOVEMENT.ZIGZAG_DOWN, topRight);
+            Enemy e11 = MakeEnemy('b', MOVEMENT.ZIGZAG_DOWN, topLeft);
+
+            //Bosses
             Enemy midboss = MakeMidBoss();
             Enemy finalboss = MakeFinalBoss();
 
@@ -67,12 +72,23 @@ namespace BulletHell.levels
             player.DeathEvent += canvas.OnPlayerDeath;
 
             director.addEvent(0, new PlayerEnter(canvas, player));
-            director.addEvent(0, new CreateEnemyEvent(collisionManager, canvas, sin));
-            director.addEvent(0, new CreateEnemyEvent(collisionManager, canvas, e1));
+            /******************Wave 1************************* */
+            // director.addEvent(0, new CreateEnemyEvent(collisionManager, canvas, e1));
+            director.addEvent(0 * 10000, new CreateEnemyEvent(collisionManager, canvas, e5));
             director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e2));
             director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e3));
-            director.addEvent(20 * 10000, new CreateEnemyEvent(collisionManager, canvas, midboss));
-            director.addEvent(40 * 10000, new CreateEnemyEvent(collisionManager, canvas, finalboss));
+            director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e4));
+            /******************Wave 2************************* */
+            director.addEvent(25 * 10000, new CreateEnemyEvent(collisionManager, canvas, e6));
+            director.addEvent(25 * 10000, new CreateEnemyEvent(collisionManager, canvas, e7));
+            director.addEvent(25 * 10000, new CreateEnemyEvent(collisionManager, canvas, e8));
+            director.addEvent(30 * 10000, new CreateEnemyEvent(collisionManager, canvas, e10));
+            director.addEvent(30 * 10000, new CreateEnemyEvent(collisionManager, canvas, e11));
+            /******************MidBoss******************** */
+            director.addEvent(60 * 10000, new CreateEnemyEvent(collisionManager, canvas, midboss));
+            /******************Wave 3********************* */
+            /******************Final Boss***************** */
+            director.addEvent(80 * 10000, new CreateEnemyEvent(collisionManager, canvas, finalboss));
             director.addEvent(125 * 10000, new GameWinEvent());
 
             return new Tuple<GameDirector, Canvas, CollisionManager>(director, canvas, collisionManager);
@@ -91,6 +107,14 @@ namespace BulletHell.levels
                 e = new EnemyB(enemyBTexture, startLocation);
                 e.SetSize(100, 100);
                 e.Hitbox = new CollidingRectangle(e.Location, new Vector2(0, 0), 100, 100);
+            }
+            else if (enemyType == 'c')
+            {
+                e = new EnemyC(enemyCTexture, startLocation);
+                e.SetSize(150, 150);
+                // e.Hitbox = new CollidingRectangle(e.Location, new Vector2(0, 0), 100, 100);
+                e.Hitbox = new CollidingCircle(e.Location, new Vector2(e.Rect.Width/2, e.Rect.Height/2), 55);
+
             }
             else
                 throw new NotImplementedException();
@@ -129,6 +153,18 @@ namespace BulletHell.levels
                 PiecewiseLocationEquation locationEquation = new PiecewiseLocationEquation(piecewiseLocationEquations);
                 return new GameEngine.Path(locationEquation, location, 0);
 
+            }
+            else if (movementType == MOVEMENT.ZIGZAG_DOWN)
+            {
+                ILocationEquation zigZag = new ZigZag(Math.PI / 16, .1F, 3000, Math.PI - Math.PI / 16, .1F, 3000);
+                Path sinPath = new Path(zigZag, location, 0);
+                return sinPath;
+            }
+            else if (movementType == MOVEMENT.SIN_DOWN)
+            {
+                ILocationEquation sinEquation = new SinusoidalLocationEquation(10, 200, 25, .0001);
+                Path sinPath = new Path(sinEquation, location, Math.PI / 2);
+                return sinPath;
             }
             throw new NotImplementedException();
         }
@@ -203,9 +239,10 @@ namespace BulletHell.levels
 
             lifeBarTexture = Texture2D.FromStream(graphicsDevice,
                 new FileStream("Content/sprites/lifeBar.png", FileMode.Open));
-
             bulletTexture = Texture2D.FromStream(graphicsDevice,
                 new FileStream("Content/sprites/bullet.png", FileMode.Open));
+            enemyCTexture = Texture2D.FromStream(graphicsDevice,
+                new FileStream("Content/sprites/octopus.png", FileMode.Open));
         }
     }
 

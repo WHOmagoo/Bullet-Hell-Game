@@ -14,6 +14,7 @@ namespace BulletHell.GameEngine
         }
         private void InitializeEnemy()
         {
+            healthPoints = 30;
 
         }
 

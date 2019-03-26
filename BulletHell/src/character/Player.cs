@@ -36,7 +36,7 @@ namespace BulletHell.GameEngine
             // gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, true);
 
             //TODO make this be a parameter
-            healthPoints = 10;      //player lives
+            healthPoints = 3;      //player lives
         }
 
         public void LoadContent(ContentManager theContentManager)
@@ -165,6 +165,7 @@ namespace BulletHell.GameEngine
             if (!invulnerable)
             {
                 OnHit(this, EventArgs.Empty);
+                updateHealth();
                 startInvulnerability();
                 base.onCollision(hitby);
                 Location = respawnLocation;

@@ -5,6 +5,7 @@ namespace BulletHell.GameEngine
 {
     public class Path
     {
+        public Vector2 InitialLocation {get;}
         private ILocationEquation _locationEquation;
         private Vector2 Offset;
         private double AngleOffset;
@@ -20,6 +21,7 @@ namespace BulletHell.GameEngine
         public Path(ILocationEquation locationEquation, Vector2 initialLocation, double AngleOffset)
         {
             _locationEquation = locationEquation;
+            InitialLocation = initialLocation;
             Offset = initialLocation - locationEquation.GetLocation(0);
             this.AngleOffset = AngleOffset;
             StartTime = Clock.getClock().getTime();
