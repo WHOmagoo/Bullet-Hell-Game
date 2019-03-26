@@ -189,26 +189,30 @@ namespace BulletHell.GameEngine
             if (invulnerable)
             {
                 t.Abort();
-                //drawSp = true;
             }
             
             t = new Thread(invulnerableRunner);
             t.Start();
+        }
+        
+        //create new timer on every collision to make player "blink"
+        private void newTimer()
+        {
+            myT = new System.Timers.Timer();
+            myT.Elapsed += new ElapsedEventHandler(myEv);
+            myT.AutoReset = true;
+            myT.Interval = 100; //can change for "blink" interval
+            myT.Start();
         }
 
         private void invulnerableRunner()
         {
             Console.WriteLine("Invulnerable");
             invulnerable = true;
-            myT.Elapsed += new ElapsedEventHandler(myEv);
-            myT.AutoReset = true;
-            myT.Interval = 100;
-            myT.Start();
+            newTimer();
             Thread.Sleep(5000);
             invulnerable = false;
-            myT.Stop();
             myT.Dispose();
-            myT = new System.Timers.Timer();
             drawSp = true;
             Console.WriteLine("Can now take damage again");
         }
