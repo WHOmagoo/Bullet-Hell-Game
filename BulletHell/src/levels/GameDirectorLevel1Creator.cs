@@ -18,6 +18,7 @@ namespace BulletHell.levels
         private Texture2D finalBossTexture;
         private Texture2D healthBarTexture;
         private Texture2D lifeBarTexture;
+
         private Canvas canvas;
         private GameDirector director;
         private CollisionManager collisionManager;
@@ -38,6 +39,7 @@ namespace BulletHell.levels
 
             Vector2 topMiddle = new Vector2(SCREEN_WIDTH / 2, -100);
 
+        
             Player player = MakePlayer();
             Enemy e1 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, topMiddle);
             Enemy e2 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, new Vector2(SCREEN_WIDTH / 4, -100));
@@ -47,10 +49,11 @@ namespace BulletHell.levels
 
             HealthBar healthbar= MakeHealthBar();
             LifeBar lifebar=MakeLifeBar();
+            
 
             player.OnHit += lifebar.Update;     //update life bar
 
-        director.addEvent(0, new PlayerEnter(canvas, player));
+            director.addEvent(0, new PlayerEnter(canvas, player));
             player.DeathEvent += canvas.OnPlayerDeath;
 
             director.addEvent(0, new PlayerEnter(canvas, player));
@@ -167,6 +170,8 @@ namespace BulletHell.levels
             return lifebar;
         }
 
+       
+
         private void LoadTextures(GraphicsDevice graphicsDevice)
         {
             playerTexture = Texture2D.FromStream(graphicsDevice,
@@ -189,6 +194,8 @@ namespace BulletHell.levels
 
             lifeBarTexture = Texture2D.FromStream(graphicsDevice,
                 new FileStream("Content/sprites/lifeBar.png", FileMode.Open));
+            
+           
         }
     }
 

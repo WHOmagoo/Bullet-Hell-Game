@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data.SqlClient;
 using System.IO;
 using BulletHell.director;
 using BulletHell.GameEngine;
@@ -24,6 +23,9 @@ namespace BulletHell
 
         public static CollisionManager CollisionManager { get => collisionManager; }
         private IGameFactory factory;
+
+       
+
 
         public BHGame(IGameFactory factory)
         {
@@ -56,6 +58,8 @@ namespace BulletHell
         protected override void LoadContent()
         {
             // shuttle = Content.Load<Texture2D>("shuttle");
+            //scroll1 = new Scroll(Content.Load<Texture2D>("Content/sprites/star.png"), new Rectangle(0,0,800,480));
+            //scroll2 = new Scroll(Content.Load<Texture2D>("Content/sprites/star.png"), new Rectangle(0, 800, 800, 480));
         }
 
         private int updates = 0;

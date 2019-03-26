@@ -5,22 +5,38 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 // using BulletHell.director;
 using BulletHell.GameEngine;
+using System.IO;
+
+
 
 namespace BulletHell.Graphics
 {
     public class Canvas
     {
         private SpriteBatch spriteBatch;
- 
         private LinkedList<Entity> entities;
         private LinkedList<Entity> enqueuBuf;
         private LinkedList<Entity> dequeuBuf;
-
+        Background b1;
+        Background b2;
+        
         public event EventHandler PlayerDeathHandler;
 
         public Canvas(SpriteBatch spriteBatch)
         {
             this.spriteBatch = spriteBatch;
+            
+            
+            Texture2D scrolling2 = Texture2D.FromStream(spriteBatch.GraphicsDevice,
+                new FileStream("Content/sprites/star.png", FileMode.Open));
+            Texture2D scrolling1 = Texture2D.FromStream(spriteBatch.GraphicsDevice,
+                new FileStream("Content/sprites/star2.png", FileMode.Open));
+
+
+
+            this.b1 = new Background(scrolling1, new Vector2(0, 0));
+            this.b2 = new Background(scrolling2, new Vector2(700, 0));
+
             this.entities = new LinkedList<Entity>();
             this.dequeuBuf = new LinkedList<Entity>();
             this.enqueuBuf = new LinkedList<Entity>();
@@ -29,10 +45,15 @@ namespace BulletHell.Graphics
         public void Draw()
         {
             spriteBatch.Begin();
+            b1.Draw(spriteBatch);
+           
+            b2.Draw(spriteBatch);
             foreach (Entity e in entities)
             {
                 e.Draw(spriteBatch);
             }
+            
+            
             spriteBatch.End();
         }
         
@@ -57,6 +78,8 @@ namespace BulletHell.Graphics
 
         public void Update()
         {
+            b1.Update(0, -1);
+            b2.Update(0, -1);
             foreach (var entity in entities)
             {
                 updateEntity(entity);
@@ -74,6 +97,9 @@ namespace BulletHell.Graphics
                 entities.Remove(dequeuBuf.First.Value);
                 dequeuBuf.RemoveFirst();
             }
+
+          
+
         }
 
         private void updateEntity(Entity entity)
@@ -81,6 +107,7 @@ namespace BulletHell.Graphics
             GameObject cur = entity as GameObject;
             if (cur != null)
             {
+
                 cur.Update();
                     
                 Enemy enemy = cur as Enemy;
