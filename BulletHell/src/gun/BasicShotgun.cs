@@ -29,39 +29,26 @@ namespace BulletHell.GameEngine
         private List<Bullet> makeBullets(Vector2 location)
         {
             List<Bullet> result = new List<Bullet>();
-            List<Path> paths = new List<Path>();
 
             Path pathLeftDiag = new Path(fireShape, location, Math.PI / 8);
             Path pathRightDiag = new Path(fireShape, location, -Math.PI / 8);
             Path pathDown = new Path(fireShape, location, 0);
 
-            // Bullet bullet;
-            Bullet b;
-
-            for (double i = 0; i < 2 * Math.PI; i += Math.PI / 8)
-            {
-                Path p = new Path(fireShape, location, i);
-                b = new Bullet(damage, p, bulletTexture, team);
-                b.SetSize(20, 30);
-                b.Hitbox = new CollidingRectangle(b.Location, new Vector2(0, 0), 20, 30);
-                BHGame.CollisionManager.addToTeam(b, team);
-                result.Add(b);
-            }
-            // Bullet b = new Bullet(damage, pathLeftDiag, bulletTexture, team);
-            // b.SetSize(20, 30);
-            // b.Hitbox = new CollidingRectangle(b.Location, new Vector2(0, 0), 20, 30);
-            // BHGame.CollisionManager.addToTeam(b, team);
-            // result.Add(b);
-            // b = new Bullet(damage, pathRightDiag, bulletTexture, team);
-            // b.SetSize(20, 30);
-            // b.Hitbox = new CollidingRectangle(b.Location, new Vector2(0, 0), 20, 30);
-            // BHGame.CollisionManager.addToTeam(b, team);
-            // result.Add(b);
-            // b = new Bullet(damage, pathDown, bulletTexture, team);
-            // b.SetSize(20, 30);
-            // b.Hitbox = new CollidingRectangle(b.Location, new Vector2(0, 0), 20, 30);
-            // BHGame.CollisionManager.addToTeam(b, team);
-            // result.Add(b);
+            Bullet b = new Bullet(damage, pathLeftDiag, bulletTexture, team);
+            b.SetSize(20, 30);
+            b.Hitbox = new CollidingRectangle(b.Location, new Vector2(0, 0), 20, 30);
+            BHGame.CollisionManager.addToTeam(b, team);
+            result.Add(b);
+            b = new Bullet(damage, pathRightDiag, bulletTexture, team);
+            b.SetSize(20, 30);
+            b.Hitbox = new CollidingRectangle(b.Location, new Vector2(0, 0), 20, 30);
+            BHGame.CollisionManager.addToTeam(b, team);
+            result.Add(b);
+            b = new Bullet(damage, pathDown, bulletTexture, team);
+            b.SetSize(20, 30);
+            b.Hitbox = new CollidingRectangle(b.Location, new Vector2(0, 0), 20, 30);
+            BHGame.CollisionManager.addToTeam(b, team);
+            result.Add(b);
 
             // Bullet b = new Bullet(damage, new LinearLocationEquation(direction, .1F), bulletTexture, location, team);
             // b.SetSize(20,30);
