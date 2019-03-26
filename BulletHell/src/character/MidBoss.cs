@@ -8,9 +8,21 @@ namespace BulletHell.GameEngine
 {
     public class MidBoss : Enemy
     {
+        private Gun[] guns;
         public MidBoss(Texture2D texture, Vector2 startLocation) : base(texture, startLocation, null, null)
         {
+            setGuns();
             InitializeEnemy();
+            this.gunEquipped = guns[1];
+        }
+
+        private void setGuns()
+        {
+            guns = new Gun[3];
+            guns[0] = new BasicGun(1, new SinusoidalLocationEquation(90, 110, 200), 
+                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 2000, TEAM.ENEMY, Math.PI/2);
+            guns[1] = new BasicShotgun((float) Math.PI / 2, (float) (Math.PI / 9), 1,
+                   new  SinusoidalLocationEquation(90, 110, 200) , GraphicsLoader.getGraphicsLoader().getBulletTexture(), 2500, TEAM.ENEMY);
         }
 
         private void InitializeEnemy()
@@ -29,8 +41,6 @@ namespace BulletHell.GameEngine
             piecewiseLocationEquations2.Add(new Tuple<ILocationEquation, long>(downrightbullet, 1000 * 3));
             
             //this.gunEquipped = new BasicGun(3, new LinearLocationEquation(Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, false);
-            this.gunEquipped = new BasicGun(3, new PiecewiseLocationEquation(piecewiseLocationEquations2), 
-                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, TEAM.ENEMY);
             
             ILocationEquation down = new LinearLocationEquation(Math.PI / 2, .08F);
             ILocationEquation stayStill = StayStill.getStayStill();

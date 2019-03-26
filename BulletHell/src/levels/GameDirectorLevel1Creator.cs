@@ -39,21 +39,22 @@ namespace BulletHell.levels
 
             LoadTextures(graphicsDevice);
 
-            Vector2 topMiddle = new Vector2(SCREEN_WIDTH / 2, -100);
-            Vector2 topLeft = new Vector2(SCREEN_WIDTH / 4, -100);
-            Vector2 topRight = new Vector2(3 * SCREEN_WIDTH / 4, -100);
+            int offset = 50;
+            Vector2 topMiddle = new Vector2(SCREEN_WIDTH / 2 - offset, -100);
+            Vector2 topLeft = new Vector2(SCREEN_WIDTH / 4 - offset, -100);
+            Vector2 topRight = new Vector2(3 * SCREEN_WIDTH / 4 - offset, -100);
 
             Player player = MakePlayer();
             //Wave 1 enemies
             // Enemy e1 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, topMiddle);
             // Enemy e1 = MakeEnemy('c', MOVEMENT.DOWN_RIGHT, topMiddle);
-            Enemy e2 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, new Vector2(SCREEN_WIDTH / 4, -100));
-            Enemy e3 = MakeEnemy('a', MOVEMENT.DOWN_LEFT, new Vector2(3 * SCREEN_WIDTH / 4, -100));
+            Enemy e2 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, topLeft);
+            Enemy e3 = MakeEnemy('a', MOVEMENT.DOWN_LEFT, topRight);
             Enemy e4 = MakeEnemy('a', MOVEMENT.SIN_DOWN, topMiddle);
             Enemy e5 = MakeEnemy('b', MOVEMENT.ZIGZAG_DOWN, topLeft);
             //Wave 2 enemies
-            Enemy e6 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, new Vector2(SCREEN_WIDTH / 4, -100));
-            Enemy e7 = MakeEnemy('a', MOVEMENT.DOWN_LEFT, new Vector2(3 * SCREEN_WIDTH / 4, -100));
+            Enemy e6 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, topLeft);
+            Enemy e7 = MakeEnemy('a', MOVEMENT.DOWN_LEFT, topRight);
             Enemy e8 = MakeEnemy('c', MOVEMENT.DOWN_RIGHT, topMiddle);
             Enemy e9 = MakeEnemy('b', MOVEMENT.ZIGZAG_DOWN, topMiddle);
             Enemy e10 = MakeEnemy('b', MOVEMENT.ZIGZAG_DOWN, topRight);
@@ -85,7 +86,7 @@ namespace BulletHell.levels
             director.addEvent(30 * 10000, new CreateEnemyEvent(collisionManager, canvas, e10));
             director.addEvent(30 * 10000, new CreateEnemyEvent(collisionManager, canvas, e11));
             /******************MidBoss******************** */
-            director.addEvent(60 * 10000, new CreateEnemyEvent(collisionManager, canvas, midboss));
+            director.addEvent(0 * 10000, new CreateEnemyEvent(collisionManager, canvas, midboss));
             /******************Wave 3********************* */
             /******************Final Boss***************** */
             director.addEvent(80 * 10000, new CreateEnemyEvent(collisionManager, canvas, finalboss));
@@ -184,7 +185,7 @@ namespace BulletHell.levels
         {
             MidBoss midboss = new MidBoss(midBossTexture, new Vector2(100, 5));
             midboss.SetSize(100, 100);
-            midboss.gunEquipped = new BasicShotgun((float) Math.PI / 2, (float) (Math.PI / 9), 1, new LinearLocationEquation((float) -Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 2500, TEAM.ENEMY);
+            // midboss.gunEquipped = new BasicShotgun((float) Math.PI / 2, (float) (Math.PI / 9), 1, new LinearLocationEquation((float) -Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 2500, TEAM.ENEMY);
             midboss.PropertyChanged += canvas.OnWeaponChange;
             midboss.gunEquipped.GunShotHandler += canvas.OnGunShot;
             midboss.Hitbox = new CollidingRectangle(midboss.Location, new Vector2(0,0), 100, 100);

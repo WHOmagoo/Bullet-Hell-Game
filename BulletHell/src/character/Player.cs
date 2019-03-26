@@ -27,6 +27,7 @@ namespace BulletHell.GameEngine
 
         public Player(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(texture, startLocation)
         {
+            invulnerable = true;
             this.respawnLocation = startLocation;
             this.canvas = canvas;
             InputControl.AssignPlayer(this);
