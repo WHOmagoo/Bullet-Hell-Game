@@ -31,8 +31,8 @@ namespace BulletHell.GameEngine
             }
         }  //need Gun class
 
-        public Character(Texture2D texture, Vector2 startLocation, int width = 0, int height = 0) 
-            : base(texture,startLocation,width,height)
+        public Character(Texture2D texture, Vector2 startLocation, int width = 0, int height = 0)
+            : base(texture, startLocation, width, height)
         {
             healthPoints = 1000;    // just chose a random value of 1000 for now (value may depend on which character)
         }
@@ -58,12 +58,12 @@ namespace BulletHell.GameEngine
 
         public override void onCollision(GameObject hitby)
         {
-            if(hitby is Bullet)
+            if (hitby is Bullet)
             {
                 Bullet b = hitby as Bullet;
                 TakeDamage(b.Damage);
             }
-        } 
+        }
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnWeaponChanged([CallerMemberName] string propertyName = null)

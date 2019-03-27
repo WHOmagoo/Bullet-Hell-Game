@@ -19,8 +19,8 @@ namespace BulletHell
         private static Canvas canvas;
         private static CollisionManager collisionManager;
 
-        public static GameDirector Director {get{return director;}}
-        public static Canvas Canvas {get{return canvas;}}
+        public static GameDirector Director { get { return director; } }
+        public static Canvas Canvas { get { return canvas; } }
 
         public static CollisionManager CollisionManager { get => collisionManager; }
         private IGameFactory factory;
@@ -49,10 +49,10 @@ namespace BulletHell
 
             SetGame(factory);
             DrawingTool.Initialize(GraphicsDevice);
-            
+
             base.Initialize();
         }
-       
+
         protected override void LoadContent()
         {
             // shuttle = Content.Load<Texture2D>("shuttle");
@@ -62,11 +62,11 @@ namespace BulletHell
 
         protected override void Update(GameTime gameTime)
         {
-            
-            
+
+
             bool enemy2Flag = false;
 
-//            Clock.getClock().SetGameTime(gameTime);
+            //            Clock.getClock().SetGameTime(gameTime);
             Clock.getClock().UpdateTime(gameTime);
             director.Update();
             collisionManager.runCollisions();

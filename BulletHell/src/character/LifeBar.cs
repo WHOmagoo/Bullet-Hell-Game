@@ -7,7 +7,7 @@ using BulletHell.Graphics;
 
 namespace BulletHell.GameEngine
 {
-    class LifeBar : GameObject
+    public class LifeBar : GameObject
     {
         //This class is in charge of displaying the green bar whose width decreases are the
         //player's health declines
@@ -18,14 +18,18 @@ namespace BulletHell.GameEngine
         private int fullHeight;
         private int currentHealth;
 
-        public LifeBar(Texture2D lifeBarTexture, Vector2 startLocation) : base(lifeBarTexture, startLocation)
+        private Path path;
+
+        public LifeBar(Texture2D lifeBarTexture, Vector2 startLocation, Path p,int maxhealth,int maxheight) : base(lifeBarTexture, startLocation)
         {
             position = new Vector2(100, 100);
             //LoadContent(content, lifeBarTexture);
             lifeBar = lifeBarTexture;
-            fullHealth = 390;   //width of HealthBar
-            fullHeight = 40;    //height of HealthBar
-            currentHealth =fullHealth;
+            fullHealth = maxhealth;   //width of HealthBar
+            fullHeight = maxheight;    //height of HealthBar
+            currentHealth = fullHealth;
+
+            path = p;
         }
         //private void LoadContent(ContentManager content, Texture2D lifeBarTexture)
         //{
@@ -33,9 +37,39 @@ namespace BulletHell.GameEngine
         //}
         public void Update(object sender, EventArgs e)
         {
-            currentHealth -= 39;
+            currentHealth -= (fullHealth/10);
             SetSize(currentHealth, fullHeight);
         }
-        
+        public void isDead(object sender, EventArgs e)
+        {
+            BHGame.Canvas.RemoveFromDrawList(this);
+        }
+        protected Path Path
+        {
+            set
+            {
+                if (!ReferenceEquals(value, null))
+                {
+                    path = value;
+                }
+            }
+
+            get { return path; }
+        }
+        public override void Update()
+        {
+            this.Location = path.UpdateLocation();
+            base.Update();
+        }
+
+        public void SetPath(Path path)
+        {
+            this.path = path;
+        }
+        public void ResetPath()
+        {
+            this.path.Reset();
+        }
+
     }
 }
