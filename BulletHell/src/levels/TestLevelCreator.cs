@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using BulletHell.Graphics;
 using System.IO;
 using System.Collections.Generic;
+using BulletHell.controls;
 using Path = BulletHell.GameEngine.Path;
 
 namespace BulletHell.levels
@@ -28,7 +29,7 @@ namespace BulletHell.levels
 
         private enum MOVEMENT { DOWN_RIGHT, DOWN_LEFT }
         
-        public Tuple<GameDirector, Canvas, CollisionManager> makeGame(GraphicsDevice graphicsDevice)
+        public Tuple<GameDirector, Canvas, CollisionManager> makeGame(GraphicsDevice graphicsDevice, Controller controller)
         {
             director = new GameDirector();
             canvas = new Canvas(new SpriteBatch(graphicsDevice));
@@ -68,7 +69,7 @@ namespace BulletHell.levels
             sin.Hitbox = new CollidingRectangle(sin.Location, new Vector2(0, 0), 100, 72);
             SubscribeEnemy(sin);
             
-            Player player = MakePlayer();
+            Player player = MakePlayer(controller);
 
             HealthBar healthbar= MakeHealthBar();
             LifeBar lifebar=MakeLifeBar();
@@ -91,9 +92,9 @@ namespace BulletHell.levels
             e.gunEquipped.GunShotHandler += canvas.OnGunShot;
         }
 
-        private Player MakePlayer()
+        private Player MakePlayer(Controller controller)
         {
-            Player player = new Player(canvas, playerTexture, new Vector2(SCREEN_WIDTH / 2 - playerTexture.Width / 2, 300));
+            Player player = new Player(canvas, playerTexture, new Vector2(SCREEN_WIDTH / 2 - playerTexture.Width / 2, 300), controller);
             player.SetSize(72, 100);
             player.PropertyChanged += canvas.OnWeaponChange;
             player.gunEquipped.GunShotHandler += canvas.OnGunShot;
