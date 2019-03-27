@@ -59,6 +59,13 @@ namespace BulletHell.levels
             Enemy e9 = MakeEnemy('b', MOVEMENT.ZIGZAG_DOWN, topMiddle);
             Enemy e10 = MakeEnemy('b', MOVEMENT.ZIGZAG_DOWN, topRight);
             Enemy e11 = MakeEnemy('b', MOVEMENT.ZIGZAG_DOWN, topLeft);
+            //Wave 3 enemies
+            Enemy e12 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, topLeft);
+            Enemy e13 = MakeEnemy('a', MOVEMENT.DOWN_LEFT, topRight);
+            Enemy e14 = MakeEnemy('c', MOVEMENT.DOWN_RIGHT, topMiddle);
+            Enemy e15 = MakeEnemy('b', MOVEMENT.ZIGZAG_DOWN, topMiddle);
+            Enemy e16 = MakeEnemy('b', MOVEMENT.ZIGZAG_DOWN, topRight);
+            Enemy e17 = MakeEnemy('b', MOVEMENT.ZIGZAG_DOWN, topLeft);
 
             //Bosses
             Enemy midboss = MakeMidBoss();
@@ -75,21 +82,26 @@ namespace BulletHell.levels
             director.addEvent(0, new PlayerEnter(canvas, player));
             /******************Wave 1************************* */
             // director.addEvent(0, new CreateEnemyEvent(collisionManager, canvas, e1));
-            // director.addEvent(0 * 10000, new CreateEnemyEvent(collisionManager, canvas, e5));
-            // director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e2));
-            // director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e3));
-            // director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e4));
-            // /******************Wave 2************************* */
-            // director.addEvent(25 * 10000, new CreateEnemyEvent(collisionManager, canvas, e6));
-            // director.addEvent(25 * 10000, new CreateEnemyEvent(collisionManager, canvas, e7));
-            // director.addEvent(25 * 10000, new CreateEnemyEvent(collisionManager, canvas, e8));
-            // director.addEvent(30 * 10000, new CreateEnemyEvent(collisionManager, canvas, e10));
-            // director.addEvent(30 * 10000, new CreateEnemyEvent(collisionManager, canvas, e11));
+            director.addEvent(0 * 10000, new CreateEnemyEvent(collisionManager, canvas, e5));
+            director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e2));
+            director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e3));
+            director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e4));
+            /******************Wave 2************************* */
+            director.addEvent(25 * 10000, new CreateEnemyEvent(collisionManager, canvas, e6));
+            director.addEvent(25 * 10000, new CreateEnemyEvent(collisionManager, canvas, e7));
+            director.addEvent(25 * 10000, new CreateEnemyEvent(collisionManager, canvas, e8));
+            director.addEvent(30 * 10000, new CreateEnemyEvent(collisionManager, canvas, e10));
+            director.addEvent(30 * 10000, new CreateEnemyEvent(collisionManager, canvas, e11));
             /******************MidBoss******************** */
-            director.addEvent(0 * 10000, new CreateEnemyEvent(collisionManager, canvas, midboss));
+            director.addEvent(45 * 10000, new CreateEnemyEvent(collisionManager, canvas, midboss));
             /******************Wave 3********************* */
+            director.addEvent(70 * 10000, new CreateEnemyEvent(collisionManager, canvas, e12));
+            director.addEvent(70 * 10000, new CreateEnemyEvent(collisionManager, canvas, e13));
+            director.addEvent(70 * 10000, new CreateEnemyEvent(collisionManager, canvas, e14));
+            director.addEvent(70 * 10000, new CreateEnemyEvent(collisionManager, canvas, e15));
+            director.addEvent(70 * 10000, new CreateEnemyEvent(collisionManager, canvas, e16));
             /******************Final Boss***************** */
-            director.addEvent(80 * 10000, new CreateEnemyEvent(collisionManager, canvas, finalboss));
+            director.addEvent(90 * 10000, new CreateEnemyEvent(collisionManager, canvas, finalboss));
             director.addEvent(125 * 10000, new GameWinEvent());
 
             return new Tuple<GameDirector, Canvas, CollisionManager>(director, canvas, collisionManager);

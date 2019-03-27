@@ -14,7 +14,7 @@ namespace BulletHell.GameEngine
         }
         private void InitializeEnemy()
         {
-            healthPoints = 30;
+            healthPoints = 50;
 
         }
 
@@ -64,8 +64,10 @@ namespace BulletHell.GameEngine
 
             this.Path = new Path(locationEquation, Location, 0);
 
-            this.gunEquipped = new BasicGun(3, new LinearLocationEquation(Math.PI / 2, 1), 
-                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, TEAM.ENEMY);
+            this.gunEquipped = new SurroundShotGun(16, (float) Math.PI / 2, (float) (Math.PI / 9), 1,
+                   new  SinusoidalLocationEquation(90, 110, 200) , GraphicsLoader.getGraphicsLoader().getBulletTexture(), 3500, TEAM.ENEMY);
+            // this.gunEquipped = new BasicGun(3, new LinearLocationEquation(Math.PI / 2, 1), 
+            //     GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, TEAM.ENEMY);
         }
 
         //shooting methods: (will cause bullets to shoot in different directions)

@@ -9,23 +9,46 @@ namespace BulletHell.GameEngine
     public class MidBoss : Enemy
     {
         private Gun[] guns;
+        private int curGunIndex;
         public MidBoss(Texture2D texture, Vector2 startLocation) : base(texture, startLocation, null, null)
         {
             setGuns();
             InitializeEnemy();
-            this.gunEquipped = guns[2];
         }
 
         private void setGuns()
         {
-            guns = new Gun[3];
-            guns[0] = new BasicGun(1, new SinusoidalLocationEquation(90, 110, 200), 
-                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 2000, TEAM.ENEMY, Math.PI/2);
-            guns[1] = new SurroundShotGun(16, (float) Math.PI / 2, (float) (Math.PI / 9), 1,
+            guns = new Gun[2];
+            // guns[0] = new BasicGun(1, new SinusoidalLocationEquation(90, 110, 200), 
+            //     GraphicsLoader.getGraphicsLoader().getBulletTexture(), 2000, TEAM.ENEMY, Math.PI/2);
+            guns[0] = new SurroundShotGun(16, (float) Math.PI / 2, (float) (Math.PI / 9), 1,
                    new  SinusoidalLocationEquation(90, 110, 200) , GraphicsLoader.getGraphicsLoader().getBulletTexture(), 3500, TEAM.ENEMY);
-            guns[2] = new BasicShotgun((float) Math.PI / 2, (float) (Math.PI / 9), 1,
-                   new  SinusoidalLocationEquation(90, 110, 200) , GraphicsLoader.getGraphicsLoader().getBulletTexture(), 3500, TEAM.ENEMY);
+            guns[1] = new BasicShotgun((float) Math.PI / 2, (float) (Math.PI / 9), 1,
+                //    new  ZigZag(Math.PI / 4, .1F, 200, Math.PI - Math.PI / 4, .1F, 200), 
+                    new LinearLocationEquation(Math.PI/2, .2),
+                   GraphicsLoader.getGraphicsLoader().getBulletTexture(), 3500, TEAM.ENEMY);
+            curGunIndex = 0;
+            this.gunEquipped = guns[curGunIndex];
         }
+
+        // private void swapWeapons()
+        // {
+        //     Console.WriteLine("swap weapons");
+        //     curGunIndex++;
+        //     curGunIndex = (curGunIndex >= guns.Length ? 0 : curGunIndex);
+        //     this.gunEquipped = guns[curGunIndex];
+        // }
+
+        //FIXME: For some reason doesn't shoot after weapon change
+        // public override void Update()
+        // {
+        //     base.Update();
+        //     if (healthPoints < 20)
+        //     {
+        //         this.gunEquipped = guns[0];
+        //         Console.WriteLine("changed to 0");
+        //     }
+        // }
 
         private void InitializeEnemy()
         {
