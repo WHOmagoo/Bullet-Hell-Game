@@ -15,73 +15,79 @@ namespace BulletHell.controls
         public event EventHandler OnFast;
         public event EventHandler OnDown;
         public event EventHandler OnRebind;
+        public event EventHandler OnPause;
+        public event EventHandler OnUnpause;
 
         private Dictionary<Keys, Action> bindings;
 
-        private bool slow = false;
+        private bool slow;
+        private bool pause;
         
         private string[] Names;
         private Action[] Events;
         private Keys[] DefaultKeys;
+
+        private Keys pauseKey;
+        private bool pauseKeyHeld;
         
         public Controller(Dictionary<string, Keys> bindingsIn = null)
         {
             //Initialize default key bindings
-            string[] tmp = {"left", "right", "up", "down", "shoot", "slow", "rebindkeys"};
+            string[] tmp = {"left", "right", "up", "down", "shoot", "slow", "rebindkeys", "pause"};
             Names = tmp;
             
-            Action[] tmp2 = {_OnLeft, _OnRight, _OnUp, _OnDown, _OnShoot, _OnSlow, _OnRebind};
+            Action[] tmp2 = {_OnLeft, _OnRight, _OnUp, _OnDown, _OnShoot, _OnSlow, _OnRebind, _OnPause};
             Events = tmp2;
             
-            Keys[] tmp3 = {Keys.Left, Keys.Right, Keys.Up, Keys.Down, Keys.Space, Keys.LeftControl, Keys.F5};
+            Keys[] tmp3 = {Keys.Left, Keys.Right, Keys.Up, Keys.Down, Keys.Space, Keys.LeftControl, Keys.F5, Keys.Escape};
             DefaultKeys = tmp3;
 
+            bindKeys(bindingsIn);            
+        }
+
+        public void bindKeys(Dictionary<string, Keys> bindingsIn)
+        {
             if (ReferenceEquals(bindingsIn, null))
             {
                 loadDefaultBindings();
             }
             else
             {
-                bindKeys(bindingsIn);   
-            }            
-        }
+                var bindingsCopy = bindings;
 
-        public void bindKeys(Dictionary<string, Keys> bindingsIn)
-        {
-            var bindingsCopy = bindings;
-
-            try
-            {         
-                bindings = new Dictionary<Keys, Action>();
-                for (int i = 0; i < Names.Length; i++)
+                try
                 {
-                    if (bindingsIn.ContainsKey(Names[i]))
+                    bindings = new Dictionary<Keys, Action>();
+                    for (int i = 0; i < Names.Length; i++)
                     {
-                        addBinding(bindingsIn[Names[i]], Events[i]);   
+                        if (bindingsIn.ContainsKey(Names[i]))
+                        {
+                            addBinding(bindingsIn[Names[i]], Events[i]);
+                        }
+                        else
+                        {
+                            //Load default binding for this action
+                            addBinding(DefaultKeys[i], Events[i]);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    if (ReferenceEquals(null, bindingsCopy))
+                    {
+                        //No previous bindings loaded
+                        loadDefaultBindings();
+                        throw new Exception(e.Message + " Default bindings have been loaded");
                     }
                     else
                     {
-                        //Load default binding for this action
-                        addBinding(DefaultKeys[i], Events[i]);
+                        //Reload old bindings
+                        bindings = bindingsCopy;
+                        throw new Exception(e.Message + " Bindings remain unchanged");
                     }
                 }
             }
-            catch (Exception e)
-            {
-                if (ReferenceEquals(null, bindingsCopy))
-                {
-                    //No previous bindings loaded
-                    loadDefaultBindings();
-                    throw new Exception(e.Message + " Default bindings have been loaded");
-                }
-                else
-                {
-                    //Reload old bindings
-                    bindings = bindingsCopy;
-                    throw new Exception(e.Message + " Bindings remain unchanged");
-                }
-            }
-            
+
         }
 
         private void loadDefaultBindings()
@@ -95,7 +101,7 @@ namespace BulletHell.controls
             }
         }
 
-        //Throws an error
+        //Throws an error if keys are bound incorrectly
         private void addBinding(Keys key, Action action)
         {
             if (ReferenceEquals(action, OnRebind))
@@ -103,6 +109,10 @@ namespace BulletHell.controls
                 
             } else if (!bindings.ContainsKey(key))
             {
+                if (action == _OnPause)
+                {
+                    pauseKey = key;
+                }
                 bindings.Add(key, action);
             } else if (bindings[key] == action)
             {
@@ -131,9 +141,37 @@ namespace BulletHell.controls
                 }
             }
 
+            if (currState.IsKeyUp(pauseKey))
+            {
+                pauseKeyHeld = false;
+            }
+
             if (wasSlow && !slow)
             {
                 _OnFast();
+            }
+        }
+
+        private void _OnUnpause()
+        {
+            pause = false;
+            OnUnpause?.Invoke(this, EventArgs.Empty);
+        }
+        
+        private void _OnPause()
+        {
+            if (!pauseKeyHeld)
+            {
+                pauseKeyHeld = true;
+                if (pause)
+                {
+                    _OnUnpause();
+                }
+                else
+                {
+                    pause = true;
+                    OnPause?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using BulletHell.Annotations;
 using BulletHell.controls;
 using BulletHell.director;
 using BulletHell.GameEngine;
@@ -28,6 +29,8 @@ namespace BulletHell
 
         public static bool gameOver;
         public static bool won;
+        private bool paused;
+
         public BHGame(IGameFactory factory, Controller controller)
         {
             new GraphicsDeviceManager(this);
@@ -35,6 +38,8 @@ namespace BulletHell
             IsMouseVisible = true;
             this.factory = factory;
             this.controller = controller;
+            controller.OnPause += OnPause;
+            controller.OnUnpause += OnUnpause;
         }
 
         protected void SetGame(IGameFactory factory)
@@ -44,6 +49,7 @@ namespace BulletHell
             canvas = result.Item2;
             canvas.PlayerDeathHandler += OnPlayerDeath;
             collisionManager = result.Item3;
+//            controller.OnPause += Clock.getClock().OnPause;
         }
 
         protected override void Initialize()
@@ -74,7 +80,7 @@ namespace BulletHell
            controller.Update(); 
             
             bool enemy2Flag = false;
-            if (!gameOver) {
+            if (!gameOver && !paused) {
                 //            Clock.getClock().SetGameTime(gameTime);
                 Clock.getClock().UpdateTime(gameTime);
                 director.Update();
@@ -83,7 +89,12 @@ namespace BulletHell
 
                 base.Update(gameTime);
             }
-            else {
+            else if(paused)
+            {
+                //Do nothing
+            }
+            else
+            {
                 KeyboardState currState = Keyboard.GetState();
                 if (currState.IsKeyDown(Keys.Enter))
                 {
@@ -125,6 +136,19 @@ namespace BulletHell
             canvas.Draw();
             // spriteBatch.End();
             base.Draw(gameTime);
+
+        }
+
+        private void OnPause(object sender, EventArgs e)
+        {
+            paused = true;
+            Console.WriteLine("Paused");
+        }
+
+        private void OnUnpause(object sender, EventArgs e)
+        {
+            paused = false;
+            Console.WriteLine("Unpaused");
 
         }
     }

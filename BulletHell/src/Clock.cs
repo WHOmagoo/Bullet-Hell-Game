@@ -9,16 +9,14 @@ namespace BulletHell
     public class Clock
     {
         private static readonly Clock clock = new Clock();
-        private GameTime gameTime;
         private bool isPaused;
-        private TimeSpan timeLastPausedOccured;
-        private TimeSpan timeSpentPaused = TimeSpan.Zero;
 
         private long speedModifier;
-        
+
         private BHGame game;
 
         private long ticksElapsed;
+        private long timeSpentPaused;
         private long timeSinceLastUpdate;
         
 
@@ -27,30 +25,24 @@ namespace BulletHell
             this.speedModifier = speedModifier;
         }
         
-        public void pause()
-        {
-            if (!isPaused)
-            {
-                isPaused = true;
-                timeLastPausedOccured = gameTime.TotalGameTime;
-            }
-        }
-
-        public void resume()
-        {
-            isPaused = false;
-            timeSpentPaused = new TimeSpan(timeSpentPaused.Ticks + timeLastPausedOccured.Ticks);
-            timeLastPausedOccured = TimeSpan.Zero;
-        }
+//        public void pause()
+//        {
+//            if (!isPaused)
+//            {
+//                Console.WriteLine("Paused game");
+//              //  isPaused = true;
+//            }
+//        }
+//
+//        public void resume()
+//        {
+//            Console.WriteLine("Resumed game");
+//          //  isPaused = false;
+//        }
         
         //Gets time in milliseconds
         public long getTime()
         {
-            if (ReferenceEquals(gameTime, null))
-            {
-                return 0;
-            }
-            
             //10,000,000 ticks per second
 
             var result = ticksElapsed / TimeSpan.TicksPerMillisecond;
@@ -72,14 +64,34 @@ namespace BulletHell
 
         public void UpdateTime(GameTime time)
         {
-            gameTime = time;
             timeSinceLastUpdate = time.ElapsedGameTime.Ticks * speedModifier;
-            ticksElapsed += time.ElapsedGameTime.Ticks * speedModifier;
+            
+            if (isPaused)
+            {
+                
+                timeSpentPaused += timeSinceLastUpdate;
+            }
+            else
+            {
+                ticksElapsed += timeSinceLastUpdate;
+            }
         }
 
         public long getTimeSinceLastUpdate()
         {
             return 10 * timeSinceLastUpdate / TimeSpan.TicksPerMillisecond;
         }
+
+//        public void OnPause(object sender, EventArgs e)
+//        {
+//            if (isPaused)
+//            {
+//                resume();
+//            }
+//            else
+//            {
+//                pause();
+//            }
+//        }
     }
 }
