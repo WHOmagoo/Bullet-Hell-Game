@@ -123,7 +123,7 @@ namespace BulletHell.levels
             {
                 e = new EnemyB(enemyBTexture, startLocation);
                 e.SetSize(100, 100);
-                e.Hitbox = new CollidingRectangle(e.Location, new Vector2(0, 0), 100, 100);
+                e.Hitbox = new CollidingRectangle(e.Location, new Vector2(8, 0), 85, 90);
             }
             else if (enemyType == 'c')
             {
@@ -244,8 +244,10 @@ namespace BulletHell.levels
             enemyATexture = Texture2D.FromStream(graphicsDevice,
                 new FileStream("Content/sprites/enemyA.png", FileMode.Open));
 
+            // enemyBTexture = Texture2D.FromStream(graphicsDevice,
+            //     new FileStream("Content/sprites/enemyB.png", FileMode.Open));
             enemyBTexture = Texture2D.FromStream(graphicsDevice,
-                new FileStream("Content/sprites/enemyB.png", FileMode.Open));
+                new FileStream("Content/sprites/white-ghost.png", FileMode.Open));
 
             midBossTexture = Texture2D.FromStream(graphicsDevice,
                 new FileStream("Content/sprites/midboss.png", FileMode.Open));
