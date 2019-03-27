@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using BulletHell.controls;
 using BulletHell.director;
 using BulletHell.GameEngine;
 using BulletHell.levels;
@@ -23,21 +24,20 @@ namespace BulletHell
 
         public static CollisionManager CollisionManager { get => collisionManager; }
         private IGameFactory factory;
+        private Controller controller;
 
-       
-
-
-        public BHGame(IGameFactory factory)
+        public BHGame(IGameFactory factory, Controller controller)
         {
             new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             this.factory = factory;
+            this.controller = controller;
         }
 
         protected void SetGame(IGameFactory factory)
         {
-            Tuple<GameDirector, Canvas, CollisionManager> result = factory.makeGame(GraphicsDevice);
+            Tuple<GameDirector, Canvas, CollisionManager> result = factory.makeGame(GraphicsDevice, controller);
             director = result.Item1;
             canvas = result.Item2;
             canvas.PlayerDeathHandler += OnPlayerDeath;
@@ -66,7 +66,7 @@ namespace BulletHell
 
         protected override void Update(GameTime gameTime)
         {
-            
+           controller.Update(); 
             
             bool enemy2Flag = false;
 

@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using BulletHell.Graphics;
 using System.IO;
 using System.Collections.Generic;
+using BulletHell.controls;
 using Path = BulletHell.GameEngine.Path;
 
 namespace BulletHell.levels
@@ -28,7 +29,8 @@ namespace BulletHell.levels
         private int SCREEN_HEIGHT;
 
         private enum MOVEMENT { DOWN_RIGHT, DOWN_LEFT, ZIGZAG_DOWN, SIN_DOWN } 
-        public Tuple<GameDirector, Canvas, CollisionManager> makeGame(GraphicsDevice graphicsDevice)
+        
+        public Tuple<GameDirector, Canvas, CollisionManager> makeGame(GraphicsDevice graphicsDevice, Controller controller)
         {
             director = new GameDirector();
             canvas = new Canvas(new SpriteBatch(graphicsDevice));
@@ -45,7 +47,7 @@ namespace BulletHell.levels
             Vector2 topRight = new Vector2(3 * SCREEN_WIDTH / 4 - offset, -100);
 
         
-            Player player = MakePlayer();
+            Player player = MakePlayer(controller);
             //Wave 1 enemies
             // Enemy e1 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, topMiddle);
             // Enemy e1 = MakeEnemy('c', MOVEMENT.DOWN_RIGHT, topMiddle);
@@ -184,9 +186,9 @@ namespace BulletHell.levels
             throw new NotImplementedException();
         }
 
-        private Player MakePlayer()
+        private Player MakePlayer(Controller controller)
         {
-            Player player = new Player(canvas, playerTexture, new Vector2(SCREEN_WIDTH / 2 - playerTexture.Width / 2, 300));
+            Player player = new Player(canvas, playerTexture, new Vector2(SCREEN_WIDTH / 2 - playerTexture.Width / 2, 300), controller);
             player.SetSize(72, 100);
             player.PropertyChanged += canvas.OnWeaponChange;
             player.gunEquipped.GunShotHandler += canvas.OnGunShot;

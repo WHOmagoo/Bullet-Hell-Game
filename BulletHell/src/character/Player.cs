@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Timers;
+using BulletHell.controls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
@@ -26,7 +27,7 @@ namespace BulletHell.GameEngine
 
         public event EventHandler DeathEvent;
 
-        public Player(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(texture, startLocation)
+        public Player(Canvas canvas, Texture2D texture, Vector2 startLocation, Controller controller) : base(texture, startLocation)
         {
             invulnerable = true;
             this.respawnLocation = startLocation;
@@ -39,6 +40,18 @@ namespace BulletHell.GameEngine
 
             //TODO make this be a parameter
             healthPoints = 3;      //player lives
+            subscribeToController(controller);
+        }
+
+        private void subscribeToController(Controller controller)
+        {
+            controller.OnLeft += goLeft;
+            controller.OnRight += goRight;
+            controller.OnUp += goUp;
+            controller.OnShoot += Shoot;
+            controller.OnSlow += goSlow;
+            controller.OnFast += goFast;
+            controller.OnDown += goDown;
         }
 
         public void LoadContent(ContentManager theContentManager)
@@ -56,8 +69,7 @@ namespace BulletHell.GameEngine
             base.Update();
             float timeE = Clock.getClock().getTimeSinceLastUpdate();
             float scale = 0.5F;
-            KeyboardState currState = Keyboard.GetState();
-            UpdateMove();
+            
             if (slow == 1) timeE *= scale;
 
             if (Rect.X + Rect.Width > canvas.GetBounds().Width)
@@ -71,30 +83,11 @@ namespace BulletHell.GameEngine
             {
                 Location += direction * speed * timeE / 50000;
             }
-            base.Update();
-        }
-
-        
-        private void UpdateMove()
-        {
-            speed = Vector2.Zero;
-            direction = Vector2.Zero;
-
-            Controller controller = new Controller();
-            controller.OnLeft += goLeft;
-            controller.OnRight += goRight;
-            controller.OnUp += goUp;
-            controller.OnDown += goDown;
-            controller.OnUpLeft += goUpLeft;
-            controller.OnUpRight += goUpRight;
-            controller.OnDownLeft += goDownLeft;
-            controller.OnDownRight += goDownRight;
-            controller.OnShoot += Shoot;
-            controller.OnSlow += goSlow;
-            controller.OnFast += goFast;
-
-            controller.Update();
             
+            direction = Vector2.Zero;
+            speed = Vector2.Zero;
+
+            base.Update();
         }
 
         private void goLeft(object sender, EventArgs e)
@@ -115,26 +108,6 @@ namespace BulletHell.GameEngine
         private void goDown(object sender, EventArgs e)
         {
             InputControl.MoveDown();
-        }
-
-        private void goUpLeft(object sender, EventArgs e)
-        {
-            // InputControl.MoveUpLeft();
-        }
-
-        private void goUpRight(object sender, EventArgs e)
-        {
-            // InputControl.MoveUpRight();
-        }
-
-        private void goDownLeft(object sender, EventArgs e)
-        {
-            // InputControl.MoveDownLeft();
-        }
-
-        private void goDownRight(object sender, EventArgs e)
-        {
-            // InputControl.MoveDownRight();
         }
 
         private void Shoot(object sender, EventArgs e)
