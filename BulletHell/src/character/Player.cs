@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Timers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
@@ -176,6 +177,15 @@ namespace BulletHell.GameEngine
 
         private Thread t;
         private volatile bool invulnerable = false;
+        public bool drawSp = true;
+        public System.Timers.Timer myT = new System.Timers.Timer();
+   
+        private void myEv(object source, ElapsedEventArgs e)
+        {
+            drawSp = !drawSp;
+        }
+
+
         private void startInvulnerability()
         {
             if (invulnerable)
@@ -186,13 +196,26 @@ namespace BulletHell.GameEngine
             t = new Thread(invulnerableRunner);
             t.Start();
         }
+        
+        //create new timer on every collision to make player "blink"
+        private void newTimer()
+        {
+            myT = new System.Timers.Timer();
+            myT.Elapsed += new ElapsedEventHandler(myEv);
+            myT.AutoReset = true;
+            myT.Interval = 100; //can change for "blink" interval
+            myT.Start();
+        }
 
         private void invulnerableRunner()
         {
             Console.WriteLine("Invulnerable");
             invulnerable = true;
+            newTimer();
             Thread.Sleep(5000);
             invulnerable = false;
+            myT.Dispose();
+            drawSp = true;
             Console.WriteLine("Can now take damage again");
         }
 

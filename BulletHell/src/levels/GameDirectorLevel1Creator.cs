@@ -44,6 +44,7 @@ namespace BulletHell.levels
             Vector2 topLeft = new Vector2(SCREEN_WIDTH / 4 - offset, -100);
             Vector2 topRight = new Vector2(3 * SCREEN_WIDTH / 4 - offset, -100);
 
+        
             Player player = MakePlayer();
             //Wave 1 enemies
             // Enemy e1 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, topMiddle);
@@ -73,10 +74,11 @@ namespace BulletHell.levels
 
             HealthBar healthbar= MakeHealthBar();
             LifeBar lifebar=MakeLifeBar();
+            
 
             player.OnHit += lifebar.Update;     //update life bar
 
-        director.addEvent(0, new PlayerEnter(canvas, player));
+            director.addEvent(0, new PlayerEnter(canvas, player));
             player.DeathEvent += canvas.OnPlayerDeath;
 
             director.addEvent(0, new PlayerEnter(canvas, player));
@@ -229,6 +231,8 @@ namespace BulletHell.levels
             canvas.AddToDrawList(lifebar);
             return lifebar;
         }
+
+       
 
         private void LoadTextures(GraphicsDevice graphicsDevice)
         {
