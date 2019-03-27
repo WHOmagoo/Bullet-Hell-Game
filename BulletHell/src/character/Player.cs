@@ -210,7 +210,7 @@ namespace BulletHell.GameEngine
             Console.WriteLine("Invulnerable");
             invulnerable = true;
             newTimer();
-            Thread.Sleep(5000);
+            Thread.Sleep(500);
             invulnerable = false;
             myT.Dispose();
             drawSp = true;

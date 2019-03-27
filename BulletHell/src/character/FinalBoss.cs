@@ -100,5 +100,15 @@ namespace BulletHell.GameEngine
             this.gunEquipped = new BasicGun(3, new PiecewiseLocationEquation(piecewiseLocationEquations2), 
                 GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, TEAM.ENEMY);
         }
+
+        protected override void CheckHealth()
+        {
+            Console.WriteLine("health: " + healthPoints);
+            if (healthPoints <= 0)
+            {
+                Die();
+                BHGame.OnWinCondition();
+            }
+        }
     }
 }
