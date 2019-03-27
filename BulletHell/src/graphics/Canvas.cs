@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 // using BulletHell.director;
 using BulletHell.GameEngine;
@@ -19,6 +20,9 @@ namespace BulletHell.Graphics
         private LinkedList<Entity> dequeuBuf;
         Background b1;
         Background b2;
+        string message;
+        bool hasMessage;
+        static SpriteFont _font;
         
         public event EventHandler PlayerDeathHandler;
 
@@ -32,14 +36,13 @@ namespace BulletHell.Graphics
             Texture2D scrolling1 = Texture2D.FromStream(spriteBatch.GraphicsDevice,
                 new FileStream("Content/sprites/star2.png", FileMode.Open));
 
-
-
             this.b1 = new Background(scrolling1, new Vector2(0, 0));
             this.b2 = new Background(scrolling2, new Vector2(700, 0));
 
             this.entities = new LinkedList<Entity>();
             this.dequeuBuf = new LinkedList<Entity>();
             this.enqueuBuf = new LinkedList<Entity>();
+            this.hasMessage = false;
         }
 
         public void Draw()
@@ -65,8 +68,12 @@ namespace BulletHell.Graphics
                 }
                 //e.Draw(spriteBatch);
             }
-            
-            spriteBatch.End();
+            if (hasMessage)
+            {
+                spriteBatch.DrawString(_font, message, new Vector2(50, 275), Color.White);
+            }
+
+                spriteBatch.End();
         }
         
         
@@ -77,7 +84,7 @@ namespace BulletHell.Graphics
                 enqueuBuf.AddLast(entity);
             }
             else
-            {    int damage;
+            {    
                 Console.WriteLine("Duplicate added");
             }
         }
@@ -156,9 +163,28 @@ namespace BulletHell.Graphics
             }
         }
 
+
         public void OnPlayerDeath(object sender, EventArgs e)
         {
             PlayerDeathHandler?.Invoke(sender, e);
         }
+
+        public static void SetFont(SpriteFont font)
+        {
+            _font = font;
+        }
+
+        public void SetMessage(string message)
+        {
+            this.message = message;
+            hasMessage = true;
+        }
+
+        public void TurnOffMessage()
+        {
+            hasMessage = false;
+        }
+
+
     }
 }

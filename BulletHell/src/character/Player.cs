@@ -29,7 +29,7 @@ namespace BulletHell.GameEngine
 
         public Player(Canvas canvas, Texture2D texture, Vector2 startLocation, Controller controller) : base(texture, startLocation)
         {
-            invulnerable = true;
+            // invulnerable = true;
             this.respawnLocation = startLocation;
             this.canvas = canvas;
             InputControl.AssignPlayer(this);
@@ -128,6 +128,7 @@ namespace BulletHell.GameEngine
         public void updateHealth()
         {
             healthPoints -= 1;
+            Console.WriteLine("Player health: " + healthPoints);
             if (healthPoints == 0)
             {
                 //respawn
@@ -137,6 +138,7 @@ namespace BulletHell.GameEngine
         }
         public override void onCollision(GameObject hitby)
         {
+            Console.WriteLine("hitby: " + hitby);
             if (!invulnerable)
             {
                 OnHit(this, EventArgs.Empty);
@@ -144,7 +146,7 @@ namespace BulletHell.GameEngine
                 startInvulnerability();
                 base.onCollision(hitby);
                 Location = respawnLocation;
-                Console.WriteLine("Player Health: " + healthPoints);
+                // Console.WriteLine("Player Health: " + healthPoints);
             }
         }
 
@@ -166,6 +168,7 @@ namespace BulletHell.GameEngine
                 t.Abort();
             }
             
+            invulnerable = true;
             t = new Thread(invulnerableRunner);
             t.Start();
         }
@@ -183,9 +186,9 @@ namespace BulletHell.GameEngine
         private void invulnerableRunner()
         {
             Console.WriteLine("Invulnerable");
-            invulnerable = true;
+            // invulnerable = true;
             newTimer();
-            Thread.Sleep(5000);
+            Thread.Sleep(1000);
             invulnerable = false;
             myT.Dispose();
             drawSp = true;
@@ -194,7 +197,8 @@ namespace BulletHell.GameEngine
 
         protected override void TakeDamage(int damage)
         {
-            updateHealth();
+            // updateHealth();
+            //do nothing already handled in oncollision FIXME: Clean this system up
         }
 
         private void CreateDeathEvent()

@@ -26,6 +26,8 @@ namespace BulletHell
         private IGameFactory factory;
         private Controller controller;
 
+        public static bool gameOver;
+        public static bool won;
         public BHGame(IGameFactory factory, Controller controller)
         {
             new GraphicsDeviceManager(this);
@@ -51,12 +53,15 @@ namespace BulletHell
 
             SetGame(factory);
             DrawingTool.Initialize(GraphicsDevice);
-            
+            SpriteFont font = Content.Load<SpriteFont>("SplashFont");
+            Canvas.SetFont(font);
+
             base.Initialize();
         }
        
         protected override void LoadContent()
         {
+
             // shuttle = Content.Load<Texture2D>("shuttle");
             //scroll1 = new Scroll(Content.Load<Texture2D>("Content/sprites/star.png"), new Rectangle(0,0,800,480));
             //scroll2 = new Scroll(Content.Load<Texture2D>("Content/sprites/star.png"), new Rectangle(0, 800, 800, 480));
@@ -69,21 +74,48 @@ namespace BulletHell
            controller.Update(); 
             
             bool enemy2Flag = false;
+            if (!gameOver) {
+                //            Clock.getClock().SetGameTime(gameTime);
+                Clock.getClock().UpdateTime(gameTime);
+                director.Update();
+                collisionManager.runCollisions();
+                canvas.Update();
 
-//            Clock.getClock().SetGameTime(gameTime);
-            Clock.getClock().UpdateTime(gameTime);
-            director.Update();
-            collisionManager.runCollisions();
-            canvas.Update();
-
-            base.Update(gameTime);
+                base.Update(gameTime);
+            }
+            else {
+                KeyboardState currState = Keyboard.GetState();
+                if (currState.IsKeyDown(Keys.Enter))
+                {
+                    Console.WriteLine("start over");
+                    SetGame(factory);
+                    gameOver = false;
+                    won = false;
+                    canvas.TurnOffMessage();
+                }
+                else if (currState.IsKeyDown(Keys.Escape))
+                {
+                    System.Environment.Exit(0);
+                }
+            }
         }
 
         private void OnPlayerDeath(object sender, EventArgs e)
         {
             //TODO make an onscreen prompt for this
             Console.WriteLine("Game Over!");
-            SetGame(factory);
+            //SetGame(factory);
+            gameOver = true;
+            won = false;
+            canvas.SetMessage("Game Over! Press Enter to play again or ESC to leave");
+        }
+
+        public static void OnWinCondition()
+        {
+            Console.WriteLine("Winner!");
+            gameOver = true;
+            won = true;
+            canvas.SetMessage("Nice Win! Press Enter to play again or ESC to leave");
         }
 
         protected override void Draw(GameTime gameTime)
@@ -93,6 +125,7 @@ namespace BulletHell
             canvas.Draw();
             // spriteBatch.End();
             base.Draw(gameTime);
+
         }
     }
 }
