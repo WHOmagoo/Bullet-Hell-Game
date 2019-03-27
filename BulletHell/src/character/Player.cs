@@ -138,7 +138,7 @@ namespace BulletHell.GameEngine
         }
         public override void onCollision(GameObject hitby)
         {
-            Console.WriteLine("hitby: " + hitby);
+            // Console.WriteLine("hitby: " + hitby);
             if (!invulnerable)
             {
                 OnHit(this, EventArgs.Empty);
@@ -188,7 +188,7 @@ namespace BulletHell.GameEngine
             Console.WriteLine("Invulnerable");
             // invulnerable = true;
             newTimer();
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
             invulnerable = false;
             myT.Dispose();
             drawSp = true;
