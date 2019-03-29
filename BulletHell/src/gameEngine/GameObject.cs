@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using BulletHell.Graphics;
-using System.IO;
 using System;
 
 namespace BulletHell.GameEngine
@@ -39,8 +38,8 @@ namespace BulletHell.GameEngine
         public override void Draw(SpriteBatch spriteBatch) 
         {
             base.Draw(spriteBatch);
-            if (hitbox != null && isHitboxVisible)
-                hitbox.DrawHitbox(spriteBatch, Color.Red, 1);
+            if (isHitboxVisible)
+                hitbox?.DrawHitbox(spriteBatch, Color.Red, 1);
         }
     }
 }
