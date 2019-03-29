@@ -24,6 +24,7 @@ namespace BulletHell.Graphics
             float length = Vector2.Distance(point1, point2);
             // Texture2D blankTexture = new Texture2D(graphicsDevice, 1, 1);
 
+            blankTexture.SetData(new[]{color});
             spriteBatch.Draw(blankTexture, point1, null, color,
                 angle, Vector2.Zero, new Vector2(length, lineWidth),
                 SpriteEffects.None, 0f);
