@@ -2,9 +2,9 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using BulletHell.Annotations;
+using BulletHell.bullet;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
 
 namespace BulletHell.GameEngine
 {

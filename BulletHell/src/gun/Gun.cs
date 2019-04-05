@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using BulletHell.Annotations;
+using BulletHell.bullet;
+using BulletHell.gun;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

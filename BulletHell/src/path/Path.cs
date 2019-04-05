@@ -1,7 +1,7 @@
-using System;
+using BulletHell.GameEngine;
 using Microsoft.Xna.Framework;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.path
 {
     public class Path
     {

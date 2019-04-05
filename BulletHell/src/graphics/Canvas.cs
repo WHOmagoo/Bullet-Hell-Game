@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
+using BulletHell.bullet;
+using BulletHell.GameEngine;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 // using BulletHell.director;
-using BulletHell.GameEngine;
-using System.IO;
-
 
 
 namespace BulletHell.Graphics

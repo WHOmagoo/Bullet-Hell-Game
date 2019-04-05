@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using BulletHell.path;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
 
 namespace BulletHell.GameEngine
 {

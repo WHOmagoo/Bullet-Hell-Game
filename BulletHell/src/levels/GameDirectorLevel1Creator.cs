@@ -1,13 +1,13 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
+using BulletHell.controls;
 using BulletHell.director;
 using BulletHell.GameEngine;
+using BulletHell.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
-using System.IO;
-using System.Collections.Generic;
-using BulletHell.controls;
-using Path = BulletHell.GameEngine.Path;
+using Path = BulletHell.path.Path;
 
 namespace BulletHell.levels
 {
@@ -139,12 +139,12 @@ namespace BulletHell.levels
             e.PropertyChanged += canvas.OnWeaponChange;
             e.gunEquipped.GunShotHandler += canvas.OnGunShot;
 
-            GameEngine.Path p = MakePath(movementType, startLocation);
+            Path p = MakePath(movementType, startLocation);
             e.SetPath(p);
             return e;
         }
 
-        private GameEngine.Path MakePath(MOVEMENT movementType, Vector2 location)
+        private Path MakePath(MOVEMENT movementType, Vector2 location)
         {
             if (movementType == MOVEMENT.DOWN_RIGHT)
             {
@@ -156,7 +156,7 @@ namespace BulletHell.levels
                 piecewiseLocationEquations.Add(new Tuple<ILocationEquation, long>(stayStill, 1000 * 7));
                 piecewiseLocationEquations.Add(new Tuple<ILocationEquation, long>(right, 1000 * 100));
                 PiecewiseLocationEquation locationEquation = new PiecewiseLocationEquation(piecewiseLocationEquations);
-                return new GameEngine.Path(locationEquation, location, 0);
+                return new Path(locationEquation, location, 0);
             }
             else if (movementType == MOVEMENT.DOWN_LEFT)
             {
@@ -168,7 +168,7 @@ namespace BulletHell.levels
                 piecewiseLocationEquations.Add(new Tuple<ILocationEquation, long>(stayStill, 1000 * 7));
                 piecewiseLocationEquations.Add(new Tuple<ILocationEquation, long>(left, 1000 * 100));
                 PiecewiseLocationEquation locationEquation = new PiecewiseLocationEquation(piecewiseLocationEquations);
-                return new GameEngine.Path(locationEquation, location, 0);
+                return new Path(locationEquation, location, 0);
 
             }
             else if (movementType == MOVEMENT.ZIGZAG_DOWN)
