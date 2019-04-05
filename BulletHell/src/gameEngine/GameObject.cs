@@ -11,6 +11,7 @@ namespace BulletHell.GameEngine
         private int counter; //FIXME: Get rid of this later
         private Hitbox hitbox;
         public bool isHitboxVisible;
+        public bool isSpriteVisible;
         public override Vector2 Location {
             get { return base.Location;}
             set { base.Location = value; 
@@ -23,6 +24,7 @@ namespace BulletHell.GameEngine
             : base(texture, startLocation, width, height)
         {
             isHitboxVisible = true; //Probably default to false after testing
+            isSpriteVisible = true;
             hitbox = null;
         }
 
@@ -37,7 +39,8 @@ namespace BulletHell.GameEngine
         }
         public override void Draw(SpriteBatch spriteBatch) 
         {
-            base.Draw(spriteBatch);
+            if (isSpriteVisible)
+                base.Draw(spriteBatch);
             if (isHitboxVisible)
                 hitbox?.DrawHitbox(spriteBatch, Color.Red, 1);
         }
