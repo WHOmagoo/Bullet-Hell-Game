@@ -7,6 +7,7 @@ using BulletHell.Graphics;
 using System.IO;
 using System.Collections.Generic;
 using BulletHell.controls;
+using BulletHell.Pickups;
 using Path = BulletHell.GameEngine.Path;
 
 namespace BulletHell.levels
@@ -20,6 +21,7 @@ namespace BulletHell.levels
         private Texture2D finalBossTexture;
         private Texture2D healthBarTexture;
         private Texture2D lifeBarTexture;
+        private Texture2D mushroomTexture;
         private Canvas canvas;
         private GameDirector director;
         private int SCREEN_WIDTH;
@@ -71,6 +73,12 @@ namespace BulletHell.levels
             
             Player player = MakePlayer(controller);
 
+            //Pickup testing
+            LifePickup pickup = new LifePickup(mushroomTexture, new Vector2(200,200), 80, 80);
+            pickup.Hitbox = new CollidingCircle(pickup.Location, new Vector2(pickup.Rect.Width/2, pickup.Rect.Height/2), pickup.Rect.Width/2);
+            canvas.AddToDrawList(pickup);
+            collisionManager.addToTeam(pickup, TEAM.ENEMY);
+
             HealthBar healthbar= MakeHealthBar();
             LifeBar lifebar=MakeLifeBar();
 
@@ -101,7 +109,7 @@ namespace BulletHell.levels
             player.Hitbox = new CollidingCircle(player.Location, new Vector2(player.Rect.Width / 2, player.Rect.Height / 2), 15);
             
 //          Comment below to make player invulnerable permanently for testing
-//            collisionManager.addToTeam(player, TEAM.FRIENDLY);
+           collisionManager.addToTeam(player, TEAM.FRIENDLY);
             
             return player;
         }
@@ -148,6 +156,8 @@ namespace BulletHell.levels
             
             bulletTexture = Texture2D.FromStream(graphicsDevice,
                 new FileStream("Content/sprites/bullet.png", FileMode.Open));
+            mushroomTexture = Texture2D.FromStream(graphicsDevice,
+                new FileStream("Content/sprites/mushroom-1up.png", FileMode.Open));
         }
     }
 

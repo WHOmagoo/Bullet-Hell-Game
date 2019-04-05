@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using BulletHell.Graphics;
+using BulletHell.Pickups;
 
 namespace BulletHell.GameEngine
 {
@@ -62,6 +63,7 @@ namespace BulletHell.GameEngine
         public int Lives
         {
             get { return healthPoints; }
+            set { healthPoints = value; }
         }
 
         public override void Update()
@@ -139,7 +141,7 @@ namespace BulletHell.GameEngine
         public override void onCollision(GameObject hitby)
         {
             // Console.WriteLine("hitby: " + hitby);
-            if (!invulnerable)
+            if (!invulnerable && !(hitby is Pickup))
             {
                 OnHit(this, EventArgs.Empty);
                 updateHealth();
