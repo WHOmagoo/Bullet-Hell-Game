@@ -33,6 +33,12 @@ namespace BulletHell.GameEngine
             bulletTexture = texture;
         }
 
+        public Gun(long delay, BulletFactory factory)
+        {
+            //TODO change implementation of Gun to use this
+            throw new NotImplementedException();
+        }
+
         public abstract void Shoot(Vector2 location);
 
 
