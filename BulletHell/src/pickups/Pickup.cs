@@ -14,6 +14,7 @@ namespace BulletHell.Pickups {
             {
                 onPickup((Player)hitby);
                 BHGame.Canvas.RemoveFromDrawList(this);
+                BHGame.CollisionManager.removeFromTeam(this, TEAM.ENEMY);
             }
         }
 

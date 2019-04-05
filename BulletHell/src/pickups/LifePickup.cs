@@ -1,6 +1,7 @@
 using BulletHell.GameEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace BulletHell.Pickups {
     public class LifePickup : Pickup
@@ -11,7 +12,7 @@ namespace BulletHell.Pickups {
 
         protected override void onPickup(Player player)
         {
-            player.Lives++;
+            player.Lives += 1;
         }
     }
 }
