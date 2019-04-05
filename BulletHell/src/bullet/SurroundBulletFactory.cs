@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BulletHell.gun;
 using BulletHell.GameEngine;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BulletHell.bullet
 {
@@ -21,7 +22,7 @@ namespace BulletHell.bullet
             this.bulletsToSpawn = bulletsToSpawn;
         }
         
-        public override List<Bullet> makeBullets(Vector2 location, TEAM team, double angleOffset = 0)
+        public override List<Bullet> makeBullets(Vector2 location, Texture2D bulletTexture, TEAM team, double angleOffset)
         {
             List<Bullet> result = new List<Bullet>();
 
@@ -29,7 +30,7 @@ namespace BulletHell.bullet
             double increment = Math.PI / (amountOfBullets/2d);
             for (double i = 0; i < 2 * Math.PI; i += increment)
             {
-                List<Bullet> bulletsCreated = bulletsToSpawn.makeBullets(location, team, angleOffset);
+                List<Bullet> bulletsCreated = bulletsToSpawn.makeBullets(location, bulletTexture, team, angleOffset);
 
                 result.AddRange(bulletsCreated);
                 
