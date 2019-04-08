@@ -5,22 +5,24 @@ namespace BulletHell.GameEngine
 {
     public class SpiralLocationEquation : ILocationEquation
     {
-        private float x;
-        private float y;
-        private float a; //starting angle of spiral
-        private float b; //outward spiral scalar. ie 
-        private float speed;
+        private double angularVelocity;
+        private double spiralGrowthRate;
+        private double spiralOffset;
 
         /// <summary>
-        ///     Creates a new LinearEquation using parametric form
+        ///     Create a spiral location equation, the item will spiral out from where it started using a fixed angular velocity
+        ///     and fixed growth rate. A low spiral growth rate would best used for guns when enemies that are centered on the screen.
+        ///     A larger spiral growth rate can be used on weapons for enemies that are moving because the bullets will be
+        ///     farther apart and the player can thread the gaps between bullets.
         /// </summary>
-        /// <param name="angle">An angle, measured in radians. </param>
-        /// <param name="speed">The speed at which the object should move in units per millisecond</param>
-        public SpiralLocationEquation(float a, float b, float speed)
+        /// <param name="angularVelocity">The angular velocity of the item in radians per second </param>
+        /// <param name="spiralGrowthRate">The growth rate of the circle that our time will trace in pixels per second</param>
+        /// <param name="spiralOffset">An offset to make growth at the beginning go faster </param>
+        public SpiralLocationEquation(double angularVelocity, double spiralGrowthRate, double spiralOffset = 0)
         {
-            this.a = a;
-            this.b = b;
-            this.speed = speed;
+            this.angularVelocity = angularVelocity;
+            this.spiralGrowthRate = spiralGrowthRate;
+            this.spiralOffset = spiralOffset;
         }
         
         /// <summary>   
@@ -31,10 +33,14 @@ namespace BulletHell.GameEngine
         /// <returns> A tuple of the new location of an object on the specified equation after the amount of ticks that have elapsed</returns>
         public Vector2 GetLocation(long ticksElapsed)
         {
-            long t = ticksElapsed;
-            x = (float)((b + (float)t) * Math.Cos((double)((float)t + a)));
-            y = (float)((b + (float)t) * Math.Sin((double)((float)t + a)));
-            return new Vector2(x * speed, y * speed);
+            double distanceFromCenter = spiralGrowthRate * (ticksElapsed / 1000.0) + spiralOffset;
+            double angle = ticksElapsed * angularVelocity / 1000.0;
+
+            float x = (float) Math.Round(Math.Cos(angle) * distanceFromCenter);
+            float y = (float) Math.Round(Math.Sin(angle) * distanceFromCenter);
+            
+            return new Vector2(x, y);
+
         }
     }
 }

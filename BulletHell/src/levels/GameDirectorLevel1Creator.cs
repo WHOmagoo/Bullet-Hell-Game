@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Graphics;
 using BulletHell.Graphics;
 using System.IO;
 using System.Collections.Generic;
+using BulletHell.controls;
+using Path = BulletHell.GameEngine.Path;
 
 namespace BulletHell.levels
 {
@@ -18,15 +20,17 @@ namespace BulletHell.levels
         private Texture2D finalBossTexture;
         private Texture2D healthBarTexture;
         private Texture2D lifeBarTexture;
-
+        private Texture2D bulletTexture;
+        private Texture2D enemyCTexture;
         private Canvas canvas;
         private GameDirector director;
         private CollisionManager collisionManager;
         private int SCREEN_WIDTH;
         private int SCREEN_HEIGHT;
 
-        private enum MOVEMENT { DOWN_RIGHT, DOWN_LEFT }
-        public Tuple<GameDirector, Canvas, CollisionManager> makeGame(GraphicsDevice graphicsDevice)
+        private enum MOVEMENT { DOWN_RIGHT, DOWN_LEFT, ZIGZAG_DOWN, SIN_DOWN } 
+        
+        public Tuple<GameDirector, Canvas, CollisionManager> makeGame(GraphicsDevice graphicsDevice, Controller controller)
         {
             director = new GameDirector();
             canvas = new Canvas(new SpriteBatch(graphicsDevice));
@@ -37,13 +41,36 @@ namespace BulletHell.levels
 
             LoadTextures(graphicsDevice);
 
-            Vector2 topMiddle = new Vector2(SCREEN_WIDTH / 2, -100);
+            int offset = 50;
+            Vector2 topMiddle = new Vector2(SCREEN_WIDTH / 2 - offset, -100);
+            Vector2 topLeft = new Vector2(SCREEN_WIDTH / 4 - offset, -100);
+            Vector2 topRight = new Vector2(3 * SCREEN_WIDTH / 4 - offset, -100);
 
         
-            Player player = MakePlayer();
-            Enemy e1 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, topMiddle);
-            Enemy e2 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, new Vector2(SCREEN_WIDTH / 4, -100));
-            Enemy e3 = MakeEnemy('a', MOVEMENT.DOWN_LEFT, new Vector2(3 * SCREEN_WIDTH / 4, -100));
+            Player player = MakePlayer(controller);
+            //Wave 1 enemies
+            // Enemy e1 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, topMiddle);
+            // Enemy e1 = MakeEnemy('c', MOVEMENT.DOWN_RIGHT, topMiddle);
+            Enemy e2 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, topLeft);
+            Enemy e3 = MakeEnemy('a', MOVEMENT.DOWN_LEFT, topRight);
+            Enemy e4 = MakeEnemy('a', MOVEMENT.SIN_DOWN, topMiddle);
+            Enemy e5 = MakeEnemy('b', MOVEMENT.ZIGZAG_DOWN, topLeft);
+            //Wave 2 enemies
+            Enemy e6 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, topLeft);
+            Enemy e7 = MakeEnemy('a', MOVEMENT.DOWN_LEFT, topRight);
+            Enemy e8 = MakeEnemy('c', MOVEMENT.DOWN_RIGHT, topMiddle);
+            Enemy e9 = MakeEnemy('b', MOVEMENT.ZIGZAG_DOWN, topMiddle);
+            Enemy e10 = MakeEnemy('b', MOVEMENT.ZIGZAG_DOWN, topRight);
+            Enemy e11 = MakeEnemy('b', MOVEMENT.ZIGZAG_DOWN, topLeft);
+            //Wave 3 enemies
+            Enemy e12 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, topLeft);
+            Enemy e13 = MakeEnemy('a', MOVEMENT.DOWN_LEFT, topRight);
+            Enemy e14 = MakeEnemy('c', MOVEMENT.DOWN_RIGHT, topMiddle);
+            Enemy e15 = MakeEnemy('b', MOVEMENT.ZIGZAG_DOWN, topMiddle);
+            Enemy e16 = MakeEnemy('b', MOVEMENT.ZIGZAG_DOWN, topRight);
+            Enemy e17 = MakeEnemy('b', MOVEMENT.ZIGZAG_DOWN, topLeft);
+
+            //Bosses
             Enemy midboss = MakeMidBoss();
             Enemy finalboss = MakeFinalBoss();
 
@@ -57,11 +84,28 @@ namespace BulletHell.levels
             player.DeathEvent += canvas.OnPlayerDeath;
 
             director.addEvent(0, new PlayerEnter(canvas, player));
-            director.addEvent(0, new CreateEnemyEvent(collisionManager, canvas, e1));
+            /******************Wave 1************************* */
+            // director.addEvent(0, new CreateEnemyEvent(collisionManager, canvas, e1));
+            director.addEvent(0 * 10000, new CreateEnemyEvent(collisionManager, canvas, e5));
             director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e2));
             director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e3));
-            director.addEvent(20 * 10000, new CreateEnemyEvent(collisionManager, canvas, midboss));
-            director.addEvent(40 * 10000, new CreateEnemyEvent(collisionManager, canvas, finalboss));
+            director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e4));
+            /******************Wave 2************************* */
+            director.addEvent(25 * 10000, new CreateEnemyEvent(collisionManager, canvas, e6));
+            director.addEvent(25 * 10000, new CreateEnemyEvent(collisionManager, canvas, e7));
+            director.addEvent(25 * 10000, new CreateEnemyEvent(collisionManager, canvas, e8));
+            director.addEvent(30 * 10000, new CreateEnemyEvent(collisionManager, canvas, e10));
+            director.addEvent(30 * 10000, new CreateEnemyEvent(collisionManager, canvas, e11));
+            /******************MidBoss******************** */
+            director.addEvent(45 * 10000, new CreateEnemyEvent(collisionManager, canvas, midboss));
+            /******************Wave 3********************* */
+            director.addEvent(70 * 10000, new CreateEnemyEvent(collisionManager, canvas, e12));
+            director.addEvent(70 * 10000, new CreateEnemyEvent(collisionManager, canvas, e13));
+            director.addEvent(70 * 10000, new CreateEnemyEvent(collisionManager, canvas, e14));
+            director.addEvent(70 * 10000, new CreateEnemyEvent(collisionManager, canvas, e15));
+            director.addEvent(70 * 10000, new CreateEnemyEvent(collisionManager, canvas, e16));
+            /******************Final Boss***************** */
+            director.addEvent(90 * 10000, new CreateEnemyEvent(collisionManager, canvas, finalboss));
             director.addEvent(125 * 10000, new GameWinEvent());
 
             return new Tuple<GameDirector, Canvas, CollisionManager>(director, canvas, collisionManager);
@@ -79,7 +123,15 @@ namespace BulletHell.levels
             {
                 e = new EnemyB(enemyBTexture, startLocation);
                 e.SetSize(100, 100);
-                e.Hitbox = new CollidingRectangle(e.Location, new Vector2(0, 0), 100, 100);
+                e.Hitbox = new CollidingRectangle(e.Location, new Vector2(8, 0), 85, 90);
+            }
+            else if (enemyType == 'c')
+            {
+                e = new EnemyC(enemyCTexture, startLocation);
+                e.SetSize(150, 150);
+                // e.Hitbox = new CollidingRectangle(e.Location, new Vector2(0, 0), 100, 100);
+                e.Hitbox = new CollidingCircle(e.Location, new Vector2(e.Rect.Width/2, e.Rect.Height/2), 55);
+
             }
             else
                 throw new NotImplementedException();
@@ -119,12 +171,24 @@ namespace BulletHell.levels
                 return new GameEngine.Path(locationEquation, location, 0);
 
             }
+            else if (movementType == MOVEMENT.ZIGZAG_DOWN)
+            {
+                ILocationEquation zigZag = new ZigZag(Math.PI / 16, .1F, 3000, Math.PI - Math.PI / 16, .1F, 3000);
+                Path sinPath = new Path(zigZag, location, 0);
+                return sinPath;
+            }
+            else if (movementType == MOVEMENT.SIN_DOWN)
+            {
+                ILocationEquation sinEquation = new SinusoidalLocationEquation(10, 200, 25, .0001);
+                Path sinPath = new Path(sinEquation, location, Math.PI / 2);
+                return sinPath;
+            }
             throw new NotImplementedException();
         }
 
-        private Player MakePlayer()
+        private Player MakePlayer(Controller controller)
         {
-            Player player = new Player(canvas, playerTexture, new Vector2(SCREEN_WIDTH / 2 - playerTexture.Width / 2, 300));
+            Player player = new Player(canvas, playerTexture, new Vector2(SCREEN_WIDTH / 2 - playerTexture.Width / 2, 300), controller);
             player.SetSize(72, 100);
             player.PropertyChanged += canvas.OnWeaponChange;
             player.gunEquipped.GunShotHandler += canvas.OnGunShot;
@@ -137,7 +201,7 @@ namespace BulletHell.levels
         {
             MidBoss midboss = new MidBoss(midBossTexture, new Vector2(100, 5));
             midboss.SetSize(100, 100);
-            midboss.gunEquipped = new BasicShotgun((float) Math.PI / 2, (float) (Math.PI / 9), 1, new LinearLocationEquation((float) -Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 2500, TEAM.ENEMY);
+            // midboss.gunEquipped = new BasicShotgun((float) Math.PI / 2, (float) (Math.PI / 9), 1, new LinearLocationEquation((float) -Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 2500, TEAM.ENEMY);
             midboss.PropertyChanged += canvas.OnWeaponChange;
             midboss.gunEquipped.GunShotHandler += canvas.OnGunShot;
             midboss.Hitbox = new CollidingRectangle(midboss.Location, new Vector2(0,0), 100, 100);
@@ -180,8 +244,10 @@ namespace BulletHell.levels
             enemyATexture = Texture2D.FromStream(graphicsDevice,
                 new FileStream("Content/sprites/enemyA.png", FileMode.Open));
 
+            // enemyBTexture = Texture2D.FromStream(graphicsDevice,
+            //     new FileStream("Content/sprites/enemyB.png", FileMode.Open));
             enemyBTexture = Texture2D.FromStream(graphicsDevice,
-                new FileStream("Content/sprites/enemyB.png", FileMode.Open));
+                new FileStream("Content/sprites/white-ghost.png", FileMode.Open));
 
             midBossTexture = Texture2D.FromStream(graphicsDevice,
                 new FileStream("Content/sprites/midboss.png", FileMode.Open));
@@ -194,8 +260,10 @@ namespace BulletHell.levels
 
             lifeBarTexture = Texture2D.FromStream(graphicsDevice,
                 new FileStream("Content/sprites/lifeBar.png", FileMode.Open));
-            
-           
+            bulletTexture = Texture2D.FromStream(graphicsDevice,
+                new FileStream("Content/sprites/bullet.png", FileMode.Open));
+            enemyCTexture = Texture2D.FromStream(graphicsDevice,
+                new FileStream("Content/sprites/octopus.png", FileMode.Open));
         }
     }
 

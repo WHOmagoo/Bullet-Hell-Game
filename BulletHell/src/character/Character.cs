@@ -40,7 +40,8 @@ namespace BulletHell.GameEngine
         public void Shoot()
         {
             //need gun class   TODO
-            gunEquipped.Shoot(Location);
+            if(!ReferenceEquals(null, gunEquipped))
+                gunEquipped.Shoot(Location);
         }
         protected abstract void Die();
 

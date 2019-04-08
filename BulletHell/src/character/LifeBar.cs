@@ -33,7 +33,7 @@ namespace BulletHell.GameEngine
         //}
         public void Update(object sender, EventArgs e)
         {
-            currentHealth -= 39;
+            currentHealth -= 390 / 3;
             SetSize(currentHealth, fullHeight);
         }
         
