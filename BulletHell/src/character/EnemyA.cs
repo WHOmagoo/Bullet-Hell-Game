@@ -8,7 +8,7 @@ namespace BulletHell.GameEngine
 {
     public class EnemyA : Enemy
     {
-        public EnemyA(Texture2D texture) : base(texture, null, null)
+        public EnemyA(Texture2D texture, Path p) : base(texture, p, null)
         {
             InitializeEnemy();
         }
@@ -29,7 +29,7 @@ namespace BulletHell.GameEngine
             PiecewiseLocationEquation locationEquation = new PiecewiseLocationEquation(piecewiseLocationEquations);
             //FIXME: Let Director give gun?
             this.gunEquipped = new BasicGun(3, new LinearLocationEquation(Math.PI / 2, .10f), 
-                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 3000, TEAM.ENEMY);
+                GraphicsLoader.getGraphicsLoader().getTexture("bullet"), 3000, TEAM.ENEMY);
 
             // this.Path = new Path(locationEquation, Location, 0);
 //            this.path = new Path(right, Location, 0);

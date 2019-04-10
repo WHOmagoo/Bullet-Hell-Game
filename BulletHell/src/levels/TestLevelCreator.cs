@@ -63,10 +63,9 @@ namespace BulletHell.levels
 //            SubscribeEnemy(sin);
             
             //Testing of zigzag movement
-            Enemy sin = new EnemyA(enemyATexture, new Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2));
             ILocationEquation zigZag = new ZigZag(Math.PI / 8, .1F, 1000, Math.PI - Math.PI / 8, .1F, 1000);
-            Path sinPath = new Path(zigZag, sin.Location, 0);
-            sin.SetPath(sinPath);
+            Path sinPath = new Path(zigZag, new Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2), 0);
+            Enemy sin = new EnemyA(enemyATexture, sinPath);
             sin.gunEquipped = new BasicGun(1, new SpiralLocationEquation(Math.PI / 2 - .3, 10, 50), bulletTexture, 1000, TEAM.ENEMY);
             sin.Hitbox = new CollidingRectangle(sin.Location, new Vector2(0, 0), 100, 72);
             SubscribeEnemy(sin);

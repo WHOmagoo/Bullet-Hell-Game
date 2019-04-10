@@ -14,23 +14,30 @@ namespace BulletHell
 
         private GraphicsLoader(GraphicsDevice g)
         {
+            textureTable = new Hashtable();
             this.graphicsDevice = g;
-            this.LoadTextures(g);
+            this.LoadAllTextures(g);
         }
 
 
-        //TODO make check if graphics loader is already initialized
-        public static GraphicsLoader getGraphicsLoader(GraphicsDevice g)
+        public static GraphicsLoader getGraphicsLoader()
         {
-            if (graphicsLoader == null)
-                graphicsLoader = new GraphicsLoader(g);
+            if(graphicsLoader == null)
+                throw new System.ArgumentException("Must make graphics loader and pass in GraphicsDevice");
+            return graphicsLoader;
+        }
+        //TODO make check if graphics loader is already initialized
+        public static GraphicsLoader makeGraphicsLoader(GraphicsDevice g)
+        {
+            if (graphicsLoader != null)
+                throw new System.ArgumentException("GraphicsLoader already made");
+            graphicsLoader = new GraphicsLoader(g);
             return graphicsLoader;
         }
 
         public Texture2D getTexture(string textureName)
         {
-
-            return null;
+            return (Texture2D)textureTable[textureName];
         }
 
         public bool addTexture(string name, string path)
@@ -48,7 +55,7 @@ namespace BulletHell
             }
         }
 
-        private void LoadTextures(GraphicsDevice graphicsDevice)
+        private void LoadAllTextures(GraphicsDevice graphicsDevice)
         {
             addTexture("player", "Content/sprites/shuttle.png");
             addTexture("enemyA", "Content/sprites/enemyA.png");

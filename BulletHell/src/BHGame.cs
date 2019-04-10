@@ -54,8 +54,8 @@ namespace BulletHell
 
         protected override void Initialize()
         {
-            GraphicsLoader.makeGraphicsLoader(GraphicsDevice);
-            GraphicsLoader.getGraphicsLoader().setGraphicsTexture(new FileStream("Content/sprites/bullet.png", FileMode.Open));
+            // GraphicsLoader.makeGraphicsLoader(GraphicsDevice);
+            // GraphicsLoader.getGraphicsLoader().setGraphicsTexture(new FileStream("Content/sprites/bullet.png", FileMode.Open));
 
             SetGame(factory);
             DrawingTool.Initialize(GraphicsDevice);

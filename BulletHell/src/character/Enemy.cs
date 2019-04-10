@@ -22,7 +22,7 @@ namespace BulletHell.GameEngine
             get { return path; }
         }
 
-        public Enemy(Texture2D texture, Path p , Gun gun) 
+        public Enemy(Texture2D texture, Path p , Gun gun = null) 
             : base(texture, p.InitialLocation)
         {
             healthPoints = 10;
