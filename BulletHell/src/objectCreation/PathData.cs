@@ -1,8 +1,8 @@
 namespace BulletHell.ObjectCreation {
     public struct PathData {
-        string pathType;
-        int pathDuration; //Milliseconds
-        double angleOffset; //Radians
-        double speed; //(ratio) 1 being normal
+        public string equationType;
+        public long pathDuration; //Milliseconds
+        public double angleOffset; //Radians
+        public double speed; //(ratio) 1 being normal
     }
 }
