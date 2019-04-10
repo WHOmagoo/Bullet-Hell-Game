@@ -14,8 +14,8 @@ namespace BulletHell.GameEngine
             {
                 if (!ReferenceEquals(value, null))
                 {
-
                     path = value;
+                    Location = path.InitialLocation;
                 }
             }
             
