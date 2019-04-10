@@ -1,3 +1,4 @@
+using System.Collections;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,75 +9,56 @@ namespace BulletHell
     public class GraphicsLoader
     {
         private GraphicsDevice graphicsDevice;
-
-        private Texture2D bulletTexture;
-        private Texture2D playerTexture;
-        private Texture2D enemyATexture;
-        private Texture2D enemyBTexture;
-        private Texture2D midBossTexture;
-        private Texture2D finalBossTexture;
-        private Texture2D healthBarTexture;
-        private Texture2D lifeBarTexture;
-        private Texture2D enemyCTexture;
-
         private static GraphicsLoader graphicsLoader;
+        private Hashtable textureTable;
 
         private GraphicsLoader(GraphicsDevice g)
         {
             this.graphicsDevice = g;
+            this.LoadTextures(g);
         }
 
-        
+
         //TODO make check if graphics loader is already initialized
-        public static bool makeGraphicsLoader(GraphicsDevice g)
+        public static GraphicsLoader getGraphicsLoader(GraphicsDevice g)
         {
-            graphicsLoader = new GraphicsLoader(g);
-
-            return true;
-        }
-
-        public static GraphicsLoader getGraphicsLoader()
-        {
+            if (graphicsLoader == null)
+                graphicsLoader = new GraphicsLoader(g);
             return graphicsLoader;
         }
-        
-        public void setGraphicsTexture(FileStream stream)
+
+        public Texture2D getTexture(string textureName)
         {
-            bulletTexture = Texture2D.FromStream(graphicsDevice, stream);    
+
+            return null;
         }
 
-        public Texture2D getBulletTexture()
+        public bool addTexture(string name, string path)
         {
-            return bulletTexture;
+            Texture2D t = Texture2D.FromStream(graphicsDevice, new FileStream(path, FileMode.Open));
+            try
+            {
+                textureTable.Add(name, t);
+                return true;
+            }
+            catch
+            {
+                //Already in table
+                return false;
+            }
         }
+
         private void LoadTextures(GraphicsDevice graphicsDevice)
         {
-            playerTexture = Texture2D.FromStream(graphicsDevice,
-                new FileStream("Content/sprites/shuttle.png", FileMode.Open));
-
-            enemyATexture = Texture2D.FromStream(graphicsDevice,
-                new FileStream("Content/sprites/enemyA.png", FileMode.Open));
-
-            // enemyBTexture = Texture2D.FromStream(graphicsDevice,
-            //     new FileStream("Content/sprites/enemyB.png", FileMode.Open));
-            enemyBTexture = Texture2D.FromStream(graphicsDevice,
-                new FileStream("Content/sprites/white-ghost.png", FileMode.Open));
-
-            midBossTexture = Texture2D.FromStream(graphicsDevice,
-                new FileStream("Content/sprites/midboss.png", FileMode.Open));
-
-            finalBossTexture = Texture2D.FromStream(graphicsDevice,
-                new FileStream("Content/sprites/finalboss.png", FileMode.Open));
-
-            healthBarTexture = Texture2D.FromStream(graphicsDevice,
-                new FileStream("Content/sprites/healthBar.png", FileMode.Open));
-
-            lifeBarTexture = Texture2D.FromStream(graphicsDevice,
-                new FileStream("Content/sprites/lifeBar.png", FileMode.Open));
-            bulletTexture = Texture2D.FromStream(graphicsDevice,
-                new FileStream("Content/sprites/bullet.png", FileMode.Open));
-            enemyCTexture = Texture2D.FromStream(graphicsDevice,
-                new FileStream("Content/sprites/octopus.png", FileMode.Open));
+            addTexture("player", "Content/sprites/shuttle.png");
+            addTexture("enemyA", "Content/sprites/enemyA.png");
+            addTexture("enemyB", "Content/sprites/white-ghost.png");
+            addTexture("enemyC", "Content/sprites/octopus.png");
+            addTexture("midBoss", "Content/sprites/midboss.png");
+            addTexture("finalBoss", "Content/sprites/finalboss.png");
+            addTexture("healthBar", "Content/sprites/healthBar.png");
+            addTexture("lifeBar", "Content/sprites/lifeBar.png");
+            addTexture("bullet", "Content/sprites/bullet.png");
         }
     }
 }
