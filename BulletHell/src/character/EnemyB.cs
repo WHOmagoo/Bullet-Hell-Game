@@ -8,7 +8,7 @@ namespace BulletHell.GameEngine
 {
     public class EnemyB : Enemy
     {
-        public EnemyB(Texture2D texture, Vector2 startLocation) : base(texture, startLocation, null, null)
+        public EnemyB(Texture2D texture) : base(texture, startLocation, null, null)
         {
             InitializeEnemy();
         }
