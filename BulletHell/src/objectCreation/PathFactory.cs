@@ -17,7 +17,7 @@ namespace BulletHell.ObjectCreation
         public Path makePath(Vector2 startLocation, PathData pathData)
         {
             ILocationEquation locationEquation = getEquation(pathData.equationType);
-            Path p = new Path(locationEquation, startLocation, pathData.angleOffset, pathData.speed);
+            Path p = new BasicPath(locationEquation, startLocation, pathData.angleOffset, pathData.speed);
             return p;
         }
         public Path makePath(Vector2 startLocation, List<PathData> pathData)
