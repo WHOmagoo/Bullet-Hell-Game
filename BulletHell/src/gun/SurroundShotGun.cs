@@ -37,7 +37,7 @@ namespace BulletHell.GameEngine
             double increment = Math.PI / (amountOfBullets/2d);
             for (double i = 0; i < 2 * Math.PI; i += increment)
             {
-                Path p = new Path(fireShape, location, i);
+                Path p = new BasicPath(fireShape, location, i);
                 b = new Bullet(damage, p, bulletTexture, team);
                 b.SetSize(20, 30);
                 b.Hitbox = new CollidingRectangle(b.Location, new Vector2(0, 0), 20, 30);

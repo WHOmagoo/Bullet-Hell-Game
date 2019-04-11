@@ -22,7 +22,7 @@ namespace BulletHell.GameEngine
                 {
                     if (string.Equals(args[i+1], "test", StringComparison.OrdinalIgnoreCase))
                     {
-                        factory = new TestLevelCreeator();
+                        factory = new TestLevelCreator();
                     } else if (string.Equals(args[i+1], "level1"))
                     {
                         factory = new GameDirectorLevel1Creator();

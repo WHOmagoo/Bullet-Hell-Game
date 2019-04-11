@@ -31,9 +31,9 @@ namespace BulletHell.GameEngine
         {
             List<Bullet> result = new List<Bullet>();
 
-            Path pathLeftDiag = new Path(fireShape, location, Math.PI / 8);
-            Path pathRightDiag = new Path(fireShape, location, -Math.PI / 8);
-            Path pathDown = new Path(fireShape, location, 0);
+            Path pathLeftDiag = new BasicPath(fireShape, location, Math.PI / 8);
+            Path pathRightDiag = new BasicPath(fireShape, location, -Math.PI / 8);
+            Path pathDown = new BasicPath(fireShape, location, 0);
 
             Bullet b = new Bullet(damage, pathLeftDiag, bulletTexture, team);
             b.SetSize(20, 30);

@@ -21,12 +21,12 @@ namespace BulletHell.ObjectCreation {
         public Enemy makeEnemy(string textureName, int health, Vector2 startingLocation, List<PathData> pathData, string gun)
         {
             Path p = pathFactory.makePath(startingLocation, pathData);
-            return makeEnemy(textureName, health, startingLocation, p, gun);
+            return makeEnemy(textureName, health, p, gun);
         }
         public Enemy makeEnemy(string textureName, int health, Vector2 startingLocation, PathData pathData, string gun)
         {
             Path p = pathFactory.makePath(startingLocation, pathData);
-            return makeEnemy(textureName, health, startingLocation, p, gun);
+            return makeEnemy(textureName, health, p, gun);
         }
 
         private Enemy makeEnemy(string textureName, int health, Path path, string gunType)
@@ -34,6 +34,7 @@ namespace BulletHell.ObjectCreation {
             Texture2D texture = GraphicsLoader.getGraphicsLoader().getTexture(textureName);
             Gun gun = gunFactory.makeGun(gunType);
             Enemy enemy = new Enemy(texture, path, gun);
+            enemy.Hitbox = new CollidingRectangle(enemy.Location, Vector2.Zero, 20, 20);
             return enemy;
         }
     }

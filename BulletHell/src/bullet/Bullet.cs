@@ -15,7 +15,7 @@ namespace BulletHell.GameEngine
         public Bullet(int damage, ILocationEquation locationEquation, Texture2D texture, Vector2 startLocation, TEAM team) : base(texture, startLocation)
         {
             this.damage = damage;
-            this.pathToFollow = new Path(locationEquation, startLocation, 0);
+            this.pathToFollow = new BasicPath(locationEquation, startLocation, 0);
             this.team = team;
             // BHGame.CollisionManager.addToTeam(this, TEAM.ENEMY);
         }

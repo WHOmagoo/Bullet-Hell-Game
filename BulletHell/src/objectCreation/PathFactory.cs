@@ -12,6 +12,7 @@ namespace BulletHell.ObjectCreation
         private Hashtable equationTable;
         public PathFactory()
         {
+            equationTable = new Hashtable();
             loadEquationTable();
         }
         public Path makePath(Vector2 startLocation, PathData pathData)

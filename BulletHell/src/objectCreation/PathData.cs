@@ -4,5 +4,13 @@ namespace BulletHell.ObjectCreation {
         public long pathDuration; //Milliseconds
         public double angleOffset; //Radians
         public double speed; //(ratio) 1 being normal
+
+        public PathData(string equationType, long pathDuration, double angleOffset, double speed)
+        {
+            this.equationType = equationType;
+            this.pathDuration = pathDuration;
+            this.angleOffset = angleOffset;
+            this.speed = speed;
+        }
     }
 }

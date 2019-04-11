@@ -6,6 +6,7 @@ namespace BulletHell.GameEngine
     public interface Path
     {
 
+        Vector2 InitialLocation {get;}
         Vector2 UpdateLocation();
 
         /*
