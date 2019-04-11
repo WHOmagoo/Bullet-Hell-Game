@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using BulletHell.bullet;
+using BulletHell.gameEngine;
 using BulletHell.GameEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BulletHell.gun
+namespace BulletHell.bullet.AbstractFactory
 {
     public abstract class BulletFactory
     {

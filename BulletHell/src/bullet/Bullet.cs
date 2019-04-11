@@ -1,3 +1,4 @@
+using BulletHell.gameEngine;
 using BulletHell.GameEngine;
 using BulletHell.path;
 using Microsoft.Xna.Framework;
