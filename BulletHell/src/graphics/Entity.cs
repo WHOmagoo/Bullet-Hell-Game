@@ -6,7 +6,7 @@ namespace BulletHell.Graphics
 {
     public class Entity
     {
-        private Texture2D texture;
+        protected Texture2D texture;
         private Rectangle rect; //used for drawing on canvas
         private Vector2 location; //used to keep exact float position.
 

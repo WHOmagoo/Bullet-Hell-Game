@@ -23,7 +23,6 @@ namespace BulletHell.GameEngine
         public Vector2 InitialLocation {get;}
         private Vector2 curLocation;
         private LinkedList<Piece> pieces;
-        private double _speedRatio;
         private Vector2 Offset;
         private double AngleOffset;
         private long StartTime;
@@ -38,6 +37,7 @@ namespace BulletHell.GameEngine
         public PiecewisePath(Vector2 initialLocation)
         {
             // locationEquations = new LinkedList<ILocationEquation>();
+            pieces = new LinkedList<Piece>();
             InitialLocation = initialLocation;
             curLocation = initialLocation;
             // Offset = initialLocation - locationEquation.GetLocation(0);
@@ -59,10 +59,10 @@ namespace BulletHell.GameEngine
         public Vector2 UpdateLocation()
         {
             //FIXME: For efficiency store the last position and time and do relative calculations from last path used
-            long curTime = (long)(Clock.getClock().getTime() * _speedRatio);
+            long curTime = (long)(Clock.getClock().getTime());
             long relativeTime = curTime - StartTime;
             Vector2 addLocation = Vector2.Zero;
-            Vector2 location = Vector2.Zero;
+            Vector2 location = InitialLocation;
 
             LinkedListNode<Piece> curPiece = pieces.First;
             while(curPiece != null && curPiece.Value.duration < relativeTime)
@@ -70,40 +70,18 @@ namespace BulletHell.GameEngine
                 addLocation = curPiece.Value.equation.GetLocation(curPiece.Value.duration);
                 addLocation = VectorRotation.RotateVector(curPiece.Value.angleOffset, addLocation);
                 location += addLocation;
-                relativeTime -= curPiece.Value.duration;
+                relativeTime -= (long)(curPiece.Value.duration * (1/curPiece.Value.speed));
                 curPiece = curPiece.Next;
             }
-            //Reached the end of the paths. do nothing
-            if(curPiece == null)
+            //Haven't reached the end else nothing will happen.
+            if(curPiece != null)
             {
-            }
-            else
-            {
-                addLocation = curPiece.Value.equation.GetLocation(relativeTime);
+                addLocation = curPiece.Value.equation.GetLocation((long)(relativeTime*curPiece.Value.speed));
                 addLocation = VectorRotation.RotateVector(curPiece.Value.angleOffset, addLocation);
                 location += addLocation;
+                // Console.WriteLine(location);
             }
             return location;
-
-            // Vector2 result = Vector2.Zero;
-
-            // int loop = 0;
-            // foreach (var equationAndTimePair in equationAndTimePairs)
-            // {
-            //     if (ticksCheckedInList + equationAndTimePair.Item2 > ticksElapsed)
-            //     {
-            //         result += equationAndTimePair.Item1.GetLocation(ticksElapsed - ticksCheckedInList);
-            //         break;
-            //     }
-
-            //     ticksCheckedInList += equationAndTimePair.Item2;
-            //     result += equationAndTimePair.Item1.GetLocation(equationAndTimePair.Item2);
-            // }
-
-            // Vector2 newLocation = _locationEquation.GetLocation(curTime - StartTime);
-            // newLocation = VectorRotation.RotateVector(AngleOffset, newLocation);
-            
-            // return newLocation + Offset;
         }
 
         /*

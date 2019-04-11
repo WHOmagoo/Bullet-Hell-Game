@@ -30,6 +30,13 @@ namespace BulletHell.GameEngine
             path = p;
         }
 
+        public Enemy(Enemy e) : base(e.texture, e.Path.InitialLocation)
+        {
+            gunEquipped = e.gunEquipped;
+            healthPoints = e.healthPoints;
+            path = e.Path;
+        }
+
         public override void Update()
         {
             this.Location = path.UpdateLocation();
