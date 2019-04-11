@@ -1,9 +1,10 @@
 using System;
 using BulletHell.controls;
 using BulletHell.director;
+using BulletHell.gameEngine;
+using BulletHell.graphics;
 using BulletHell.GameEngine;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
 
 namespace BulletHell.levels
 {

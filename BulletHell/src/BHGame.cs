@@ -5,12 +5,13 @@ using System.IO;
 using BulletHell.Annotations;
 using BulletHell.controls;
 using BulletHell.director;
+using BulletHell.gameEngine;
+using BulletHell.graphics;
 using BulletHell.GameEngine;
 using BulletHell.levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using BulletHell.Graphics;
 
 namespace BulletHell
 {
@@ -59,8 +60,8 @@ namespace BulletHell
 
             SetGame(factory);
             DrawingTool.Initialize(GraphicsDevice);
-            SpriteFont font = Content.Load<SpriteFont>("SplashFont");
-            Canvas.SetFont(font);
+//            SpriteFont font = Content.Load<SpriteFont>("SplashFont");
+//            Canvas.SetFont(font);
 
             base.Initialize();
         }

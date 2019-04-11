@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using BulletHell.bullet;
-using BulletHell.gun;
+using BulletHell.bullet.AbstractFactory;
+using BulletHell.gameEngine;
+using BulletHell.path;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.gun
 {
     public abstract class Gun
     {

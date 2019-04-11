@@ -1,9 +1,13 @@
 using System;
 using System.IO;
+using BulletHell.character;
 using BulletHell.controls;
 using BulletHell.director;
+using BulletHell.gameEngine;
+using BulletHell.graphics;
+using BulletHell.gun;
 using BulletHell.GameEngine;
-using BulletHell.Graphics;
+using BulletHell.path;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Path = BulletHell.path.Path;

@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using BulletHell.bullet;
+using BulletHell.gameEngine;
 using BulletHell.path;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 //using System.Windows.Media;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.gun
 {
     public class BasicShotgun : Gun
     {

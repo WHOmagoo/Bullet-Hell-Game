@@ -2,13 +2,15 @@
 using System.Threading;
 using System.Timers;
 using BulletHell.controls;
+using BulletHell.gameEngine;
+using BulletHell.graphics;
+using BulletHell.gun;
+using BulletHell.path;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.character
 {
     public class Player : Character
     {

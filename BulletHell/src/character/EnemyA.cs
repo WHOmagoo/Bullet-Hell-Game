@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using BulletHell.gameEngine;
+using BulletHell.graphics;
+using BulletHell.gun;
+using BulletHell.path;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.character
 {
     public class EnemyA : Enemy
     {

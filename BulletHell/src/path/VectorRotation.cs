@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.path
 {
     internal class VectorRotation
     {

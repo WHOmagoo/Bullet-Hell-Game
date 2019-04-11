@@ -1,4 +1,4 @@
-namespace BulletHell.GameEngine
+namespace BulletHell.character
 {
     class InputControl
     {

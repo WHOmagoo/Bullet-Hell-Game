@@ -1,8 +1,7 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BulletHell.Graphics
+namespace BulletHell.graphics
 {
     public class Entity
     {
