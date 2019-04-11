@@ -19,9 +19,8 @@ namespace BulletHell.levels
         private Texture2D enemyBTexture;
         private Texture2D midBossTexture;
         private Texture2D finalBossTexture;
-        private Texture2D healthBarTexture;
-        private Texture2D lifeBarTexture;
         private Texture2D mushroomTexture;
+        private Texture2D heartTexture;
         private Canvas canvas;
         private GameDirector director;
         private int SCREEN_WIDTH;
@@ -69,6 +68,7 @@ namespace BulletHell.levels
             sin.SetPath(sinPath);
             sin.gunEquipped = new BasicGun(1, new SpiralLocationEquation(Math.PI / 2 - .3, 10, 50), bulletTexture, 1000, TEAM.ENEMY);
             sin.Hitbox = new CollidingRectangle(sin.Location, new Vector2(0, 0), 100, 72);
+            sin.healthbar = new HealthBar(sin.Location, new Vector2(8, 0), 85, 90, sin.Health);
             SubscribeEnemy(sin);
             
             Player player = MakePlayer(controller);
@@ -78,11 +78,8 @@ namespace BulletHell.levels
             pickup.Hitbox = new CollidingCircle(pickup.Location, new Vector2(pickup.Rect.Width/2, pickup.Rect.Height/2), pickup.Rect.Width/2);
             canvas.AddToDrawList(pickup);
             collisionManager.addToTeam(pickup, TEAM.ENEMY);
-
-            HealthBar healthbar= MakeHealthBar();
-            LifeBar lifebar=MakeLifeBar();
-
-            player.OnHit += lifebar.Update;     //update life bar
+            
+            
 
         director.addEvent(0, new PlayerEnter(canvas, player));
             player.DeathEvent += canvas.OnPlayerDeath;
@@ -102,7 +99,7 @@ namespace BulletHell.levels
 
         private Player MakePlayer(Controller controller)
         {
-            Player player = new Player(canvas, playerTexture, new Vector2(SCREEN_WIDTH / 2 - playerTexture.Width / 2, 300), controller);
+            Player player = new Player(canvas, playerTexture, new Vector2(SCREEN_WIDTH / 2 - playerTexture.Width / 2, 300), controller,heartTexture);
             player.SetSize(72, 100);
             player.PropertyChanged += canvas.OnWeaponChange;
             player.gunEquipped.GunShotHandler += canvas.OnGunShot;
@@ -114,22 +111,6 @@ namespace BulletHell.levels
             return player;
         }
 
-        private HealthBar MakeHealthBar()
-        {
-            HealthBar healthbar;
-            healthbar = new HealthBar(healthBarTexture, new Vector2(400, 10));
-            healthbar.SetSize(390, 40);
-            canvas.AddToDrawList(healthbar);
-            return healthbar;
-        }
-        private LifeBar MakeLifeBar()
-        {
-            LifeBar lifebar;
-            lifebar = new LifeBar(lifeBarTexture, new Vector2(400, 10));
-            lifebar.SetSize(390, 40);
-            canvas.AddToDrawList(lifebar);
-            return lifebar;
-        }
 
         private void LoadTextures(GraphicsDevice graphicsDevice)
         {
@@ -147,17 +128,14 @@ namespace BulletHell.levels
 
             finalBossTexture = Texture2D.FromStream(graphicsDevice,
                 new FileStream("Content/sprites/finalboss.png", FileMode.Open));
-
-            healthBarTexture = Texture2D.FromStream(graphicsDevice,
-                new FileStream("Content/sprites/healthBar.png", FileMode.Open));
-
-            lifeBarTexture = Texture2D.FromStream(graphicsDevice,
-                new FileStream("Content/sprites/lifeBar.png", FileMode.Open));
+            
             
             bulletTexture = Texture2D.FromStream(graphicsDevice,
                 new FileStream("Content/sprites/bullet.png", FileMode.Open));
             mushroomTexture = Texture2D.FromStream(graphicsDevice,
                 new FileStream("Content/sprites/mushroom-1up.png", FileMode.Open));
+            heartTexture = Texture2D.FromStream(graphicsDevice,
+                new FileStream("Content/sprites/heart.png", FileMode.Open));
         }
     }
 

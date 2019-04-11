@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using BulletHell.Graphics;
 using BulletHell.Pickups;
+using System.Collections.Generic;
 
 namespace BulletHell.GameEngine
 {
@@ -21,26 +22,32 @@ namespace BulletHell.GameEngine
         internal Vector2 speed = Vector2.Zero;
         private Vector2 respawnLocation;
 
-        public event EventHandler OnHit;
+        private Texture2D heartTexture;
+        public Heart heart;
+        public List<Heart> hearts;
+        public int heartStartLoc;   //needed for placement of the hearts onto the screen
 
         Canvas canvas;
         int slow = 0;
 
         public event EventHandler DeathEvent;
 
-        public Player(Canvas canvas, Texture2D texture, Vector2 startLocation, Controller controller) : base(texture, startLocation)
+        public Player(Canvas canvas, Texture2D texture, Vector2 startLocation, Controller controller, Texture2D heart_texture) : base(texture, startLocation)
         {
-            // invulnerable = true;
+            //invulnerable = true;
             this.respawnLocation = startLocation;
             this.canvas = canvas;
             InputControl.AssignPlayer(this);
             gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), 
                 GraphicsLoader.getGraphicsLoader().getBulletTexture(), 500, TEAM.FRIENDLY);
-            
-            // gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, true);
 
-            //TODO make this be a parameter
-            healthPoints = 3;      //player lives
+            // gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, true);
+            
+            healthPoints = 5;      //player lives
+
+            MakeHearts(heart_texture);
+            AddHearts(healthPoints);
+
             subscribeToController(controller);
         }
 
@@ -53,6 +60,27 @@ namespace BulletHell.GameEngine
             controller.OnSlow += goSlow;
             controller.OnFast += goFast;
             controller.OnDown += goDown;
+        }
+
+        public void MakeHearts(Texture2D heart_texture)
+        {
+            heartTexture = heart_texture;
+            hearts = new List<Heart>();
+            heartStartLoc = 730;
+        }
+
+        public void AddHearts(int numAdded)
+        {
+            int i = 0;
+            
+            for (i = 0; i < numAdded; i++)
+            {
+                heart = new Heart(heartTexture, new Vector2(heartStartLoc, 6), 50, 50);
+                hearts.Add(heart);
+                canvas.AddToDrawList(heart);
+                heartStartLoc -= 50;
+            }
+
         }
 
         public void LoadContent(ContentManager theContentManager)
@@ -127,28 +155,14 @@ namespace BulletHell.GameEngine
             slow = 0;
         }
 
-        public void updateHealth()
-        {
-            healthPoints -= 1;
-            Console.WriteLine("Player health: " + healthPoints);
-            if (healthPoints == 0)
-            {
-                //respawn
-                CreateDeathEvent();
-            }
-
-        }
         public override void onCollision(GameObject hitby)
         {
             // Console.WriteLine("hitby: " + hitby);
             if (!invulnerable && !(hitby is Pickup))
             {
-                OnHit(this, EventArgs.Empty);
-                updateHealth();
                 startInvulnerability();
                 base.onCollision(hitby);
                 Location = respawnLocation;
-                // Console.WriteLine("Player Health: " + healthPoints);
             }
         }
 
@@ -199,8 +213,30 @@ namespace BulletHell.GameEngine
 
         protected override void TakeDamage(int damage)
         {
-            // updateHealth();
-            //do nothing already handled in oncollision FIXME: Clean this system up
+            int i = 1;
+            while (i <= damage)
+            {
+                healthPoints -= 1;
+                if (healthPoints >= 0)
+                {
+                    BHGame.Canvas.RemoveFromDrawList(hearts[hearts.Count - 1]);
+                    hearts.Remove(hearts[hearts.Count - 1]);
+                    heartStartLoc += 50;    //in case we need to add hearts later when a mushroom is picked up
+                }
+                i++;
+            }
+            if (healthPoints <= 0)
+            {
+                CreateDeathEvent();
+            }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if (isSpriteVisible)
+                base.Draw(spriteBatch);
+            if (isHitboxVisible)
+                hitbox?.DrawHitbox(spriteBatch, Color.Red, 1);
         }
 
         private void CreateDeathEvent()
