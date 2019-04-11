@@ -59,6 +59,7 @@ namespace BulletHell.GameEngine
         public Vector2 UpdateLocation()
         {
             //FIXME: For efficiency store the last position and time and do relative calculations from last path used
+            //FIXME: Get speed to work
             long curTime = (long)(Clock.getClock().getTime());
             long relativeTime = curTime - StartTime;
             Vector2 addLocation = Vector2.Zero;
@@ -70,13 +71,13 @@ namespace BulletHell.GameEngine
                 addLocation = curPiece.Value.equation.GetLocation(curPiece.Value.duration);
                 addLocation = VectorRotation.RotateVector(curPiece.Value.angleOffset, addLocation);
                 location += addLocation;
-                relativeTime -= (long)(curPiece.Value.duration * (1/curPiece.Value.speed));
+                relativeTime -= (long)(curPiece.Value.duration);
                 curPiece = curPiece.Next;
             }
             //Haven't reached the end else nothing will happen.
             if(curPiece != null)
             {
-                addLocation = curPiece.Value.equation.GetLocation((long)(relativeTime*curPiece.Value.speed));
+                addLocation = curPiece.Value.equation.GetLocation((long)(relativeTime));
                 addLocation = VectorRotation.RotateVector(curPiece.Value.angleOffset, addLocation);
                 location += addLocation;
                 // Console.WriteLine(location);
