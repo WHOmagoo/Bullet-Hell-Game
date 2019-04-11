@@ -9,9 +9,6 @@ namespace BulletHell.GameEngine
 {
     public class HealthBar
     {
-        //This class is in charch of displaying the red bar
-        //we don't need an update funtion for this class because it will not need to change at all
-
         public Rectangle _bar;
         public Rectangle _green_bar;
         protected Vector2 _absLoc;
