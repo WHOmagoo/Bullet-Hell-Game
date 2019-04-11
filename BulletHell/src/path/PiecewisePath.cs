@@ -11,6 +11,14 @@ namespace BulletHell.GameEngine
             public long duration;
             public double angleOffset;
             public double speed;
+
+            public Piece(ILocationEquation equation, long duration, double angleOffset, double speed)
+            {
+                this.equation = equation;
+                this.duration = duration;
+                this.angleOffset = angleOffset;
+                this.speed = speed;
+            }
         }
         public Vector2 InitialLocation {get;}
         private Vector2 curLocation;
@@ -29,7 +37,7 @@ namespace BulletHell.GameEngine
         
         public PiecewisePath(Vector2 initialLocation)
         {
-            locationEquations = new LinkedList<ILocationEquation>();
+            // locationEquations = new LinkedList<ILocationEquation>();
             InitialLocation = initialLocation;
             curLocation = initialLocation;
             // Offset = initialLocation - locationEquation.GetLocation(0);
@@ -44,50 +52,58 @@ namespace BulletHell.GameEngine
         /// <param name="speed"></param> Speed ratio, 1 is normal speed.
         public void AddToPath(ILocationEquation equation, long duration, double angleOffset, double speed)
         {
-            // locationEquations.AddLast()
+            Piece p = new Piece(equation, duration, angleOffset, speed);
+            pieces.AddLast(p);
         }
 
         public Vector2 UpdateLocation()
         {
-            //FIXME:
+            //FIXME: For efficiency store the last position and time and do relative calculations from last path used
             long curTime = (long)(Clock.getClock().getTime() * _speedRatio);
             long relativeTime = curTime - StartTime;
+            Vector2 addLocation = Vector2.Zero;
+            Vector2 location = Vector2.Zero;
 
             LinkedListNode<Piece> curPiece = pieces.First;
             while(curPiece != null && curPiece.Value.duration < relativeTime)
             {
+                addLocation = curPiece.Value.equation.GetLocation(curPiece.Value.duration);
+                addLocation = VectorRotation.RotateVector(curPiece.Value.angleOffset, addLocation);
+                location += addLocation;
                 relativeTime -= curPiece.Value.duration;
                 curPiece = curPiece.Next;
             }
             //Reached the end of the paths. do nothing
             if(curPiece == null)
             {
-
             }
             else
             {
-
+                addLocation = curPiece.Value.equation.GetLocation(relativeTime);
+                addLocation = VectorRotation.RotateVector(curPiece.Value.angleOffset, addLocation);
+                location += addLocation;
             }
+            return location;
 
-            Vector2 result = Vector2.Zero;
+            // Vector2 result = Vector2.Zero;
 
-            int loop = 0;
-            foreach (var equationAndTimePair in equationAndTimePairs)
-            {
-                if (ticksCheckedInList + equationAndTimePair.Item2 > ticksElapsed)
-                {
-                    result += equationAndTimePair.Item1.GetLocation(ticksElapsed - ticksCheckedInList);
-                    break;
-                }
+            // int loop = 0;
+            // foreach (var equationAndTimePair in equationAndTimePairs)
+            // {
+            //     if (ticksCheckedInList + equationAndTimePair.Item2 > ticksElapsed)
+            //     {
+            //         result += equationAndTimePair.Item1.GetLocation(ticksElapsed - ticksCheckedInList);
+            //         break;
+            //     }
 
-                ticksCheckedInList += equationAndTimePair.Item2;
-                result += equationAndTimePair.Item1.GetLocation(equationAndTimePair.Item2);
-            }
+            //     ticksCheckedInList += equationAndTimePair.Item2;
+            //     result += equationAndTimePair.Item1.GetLocation(equationAndTimePair.Item2);
+            // }
 
-            Vector2 newLocation = _locationEquation.GetLocation(curTime - StartTime);
-            newLocation = VectorRotation.RotateVector(AngleOffset, newLocation);
+            // Vector2 newLocation = _locationEquation.GetLocation(curTime - StartTime);
+            // newLocation = VectorRotation.RotateVector(AngleOffset, newLocation);
             
-            return newLocation + Offset;
+            // return newLocation + Offset;
         }
 
         /*

@@ -22,16 +22,13 @@ namespace BulletHell.ObjectCreation
         }
         public Path makePath(Vector2 startLocation, List<PathData> pathData)
         {
-            //FIXME: Change to linked list for efficiency
-            List < Tuple<ILocationEquation, long> > locationEquations = new LinkedList < Tuple<ILocationEquation, long> >();
-            foreach (var data in pathData)
+            PiecewisePath p = new PiecewisePath(startLocation);
+            foreach (var pData in pathData)
             {
-                ILocationEquation locationEquation = getEquation(data.equationType);
-                locationEquations.Add(new Tuple<ILocationEquation, long>(locationEquation, data.pathDuration));
+                ILocationEquation equation = getEquation(pData.equationType);
+                p.AddToPath(equation, pData.pathDuration, pData.angleOffset, pData.speed);
             }
-            PiecewiseLocationEquation piecewiseEquation = new PiecewiseLocationEquation(locationEquations);
-            Path p = new Path(piecewiseEquation, startLocation, pathData[0].angleOffset, pathData[0].speed);
-            throw new NotImplementedException();
+            return p;
         }
 
         private ILocationEquation getEquation(string equation)
