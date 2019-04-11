@@ -16,7 +16,6 @@ namespace BulletHell.GameEngine
         {
             _heart_texture = texture;
         }
-        //working on drawing heart to screen
         
     }
 }
