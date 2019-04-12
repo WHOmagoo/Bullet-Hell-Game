@@ -7,7 +7,9 @@ using BulletHell.Graphics;
 using System.IO;
 using System.Collections.Generic;
 using BulletHell.controls;
+using BulletHell.Pickups;
 using Path = BulletHell.GameEngine.Path;
+
 
 namespace BulletHell.levels
 {
@@ -21,7 +23,10 @@ namespace BulletHell.levels
         private Texture2D healthBarTexture;
         private Texture2D lifeBarTexture;
         private Texture2D bulletTexture;
+        private Texture2D fastTexture;
+        private Texture2D mushroomTexture;
         private Texture2D enemyCTexture;
+        private Texture2D flowerTexture;
         private Canvas canvas;
         private GameDirector director;
         private CollisionManager collisionManager;
@@ -36,8 +41,8 @@ namespace BulletHell.levels
             canvas = new Canvas(new SpriteBatch(graphicsDevice));
             collisionManager = new CollisionManager();
 
-            SCREEN_WIDTH = graphicsDevice.Viewport.Bounds.Width;
-            SCREEN_HEIGHT = graphicsDevice.Viewport.Bounds.Height;
+            Globals.SCREEN_WIDTH = SCREEN_WIDTH = graphicsDevice.Viewport.Bounds.Width;
+            Globals.SCREEN_HEIGHT = SCREEN_HEIGHT = graphicsDevice.Viewport.Bounds.Height;
 
             LoadTextures(graphicsDevice);
 
@@ -48,6 +53,8 @@ namespace BulletHell.levels
 
         
             Player player = MakePlayer(controller);
+            //Hitbox hb = new CollidingRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+            //Hitbox hb = 
             //Wave 1 enemies
             // Enemy e1 = MakeEnemy('a', MOVEMENT.DOWN_RIGHT, topMiddle);
             // Enemy e1 = MakeEnemy('c', MOVEMENT.DOWN_RIGHT, topMiddle);
@@ -76,20 +83,31 @@ namespace BulletHell.levels
 
             HealthBar healthbar= MakeHealthBar();
             LifeBar lifebar=MakeLifeBar();
+
+            //test life pickup
+            LifePickup lpickup = MakePickup();
+            FastPickup fpick = MakeFastPickup();
+            DamagePickup dpickup = MakeDamagePickup();
             
 
             player.OnHit += lifebar.Update;     //update life bar
 
             director.addEvent(0, new PlayerEnter(canvas, player));
             player.DeathEvent += canvas.OnPlayerDeath;
+            //e5.onDeath += canvas.OnEnemyDeath;
 
             director.addEvent(0, new PlayerEnter(canvas, player));
+            director.addEvent(0 * 10000, new CreateFastPickupEvent(collisionManager, canvas, fpick));
             /******************Wave 1************************* */
             // director.addEvent(0, new CreateEnemyEvent(collisionManager, canvas, e1));
             director.addEvent(0 * 10000, new CreateEnemyEvent(collisionManager, canvas, e5));
             director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e2));
             director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e3));
             director.addEvent(5 * 10000, new CreateEnemyEvent(collisionManager, canvas, e4));
+            //director.addEvent(10 * 10000, new CreateLifePickupEvent(collisionManager, canvas, lpickup));
+            director.addEvent(10 * 10000, new CreateDamagePickupEvent(collisionManager, canvas, dpickup));
+            //director.
+
             /******************Wave 2************************* */
             director.addEvent(25 * 10000, new CreateEnemyEvent(collisionManager, canvas, e6));
             director.addEvent(25 * 10000, new CreateEnemyEvent(collisionManager, canvas, e7));
@@ -233,8 +251,30 @@ namespace BulletHell.levels
             canvas.AddToDrawList(lifebar);
             return lifebar;
         }
+        
+        private LifePickup MakePickup()
+        {
+            LifePickup pickup = new LifePickup(mushroomTexture, new Vector2(200, 200), 80, 80);
+            pickup.Hitbox = new CollidingCircle(pickup.Location, new Vector2(pickup.Rect.Width / 2, pickup.Rect.Height / 2), pickup.Rect.Width / 2);
+            //canvas.AddToDrawList(pickup);
+            //collisionManager.addToTeam(pickup, TEAM.ENEMY);
+            return pickup;
+        } 
 
-       
+        private FastPickup MakeFastPickup()
+        {
+            FastPickup p2 = new FastPickup(fastTexture, new Vector2(200, 200), 80, 80);
+            p2.Hitbox = new CollidingCircle(p2.Location, new Vector2(p2.Rect.Width / 2, p2.Rect.Height / 2), p2.Rect.Width / 2);
+            return p2;
+        }
+
+        private DamagePickup MakeDamagePickup()
+        {
+            DamagePickup p2 = new DamagePickup(flowerTexture, new Vector2(200, 200), 80, 80);
+            p2.Hitbox = new CollidingCircle(p2.Location, new Vector2(p2.Rect.Width / 2, p2.Rect.Height / 2), p2.Rect.Width / 2);
+            return p2;
+        }
+
 
         private void LoadTextures(GraphicsDevice graphicsDevice)
         {
@@ -260,10 +300,21 @@ namespace BulletHell.levels
 
             lifeBarTexture = Texture2D.FromStream(graphicsDevice,
                 new FileStream("Content/sprites/lifeBar.png", FileMode.Open));
+            
+            /*
             bulletTexture = Texture2D.FromStream(graphicsDevice,
-                new FileStream("Content/sprites/bullet.png", FileMode.Open));
+                new FileStream("Content/sprites/shuttle.png", FileMode.Open)); */
             enemyCTexture = Texture2D.FromStream(graphicsDevice,
                 new FileStream("Content/sprites/octopus.png", FileMode.Open));
+            
+            mushroomTexture = Texture2D.FromStream(graphicsDevice,
+               new FileStream("Content/sprites/mushroom-1up.png", FileMode.Open));
+
+            fastTexture = Texture2D.FromStream(graphicsDevice,
+                new FileStream("Content/sprites/gold-mushroom.png", FileMode.Open));
+
+            flowerTexture = Texture2D.FromStream(graphicsDevice,
+                new FileStream("Content/sprites/fire-flower.png", FileMode.Open));
         }
     }
 

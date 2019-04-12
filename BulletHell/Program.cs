@@ -13,6 +13,7 @@ namespace BulletHell.GameEngine
 
             //Default case goes here
             IGameFactory factory = new GameDirectorLevel1Creator();
+            //IGameFactory factory = new TestLevelCreeator();
             Controller controller = new Controller();
             
             

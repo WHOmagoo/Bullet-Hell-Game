@@ -1,12 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using BulletHell.Graphics;
+using System;
+using BulletHell.Pickups;
 
 namespace BulletHell.GameEngine
 {
     public class Enemy : Character
     {
         private Path path;
+
+        public EventHandler onDeath;
 
         protected Path Path
         {
@@ -35,11 +39,21 @@ namespace BulletHell.GameEngine
             base.Update();
         }
 
+        private void CreateDeathEvent()
+        {
+            onDeath?.Invoke(this, new EventArgs());
+        }
+
+
         protected override void Die()
         {
+            //CreateDeathEvent();
+            //CreatePickupEvent();
             BHGame.CollisionManager.removeFromTeam(this, TEAM.ENEMY);
             BHGame.Canvas.RemoveFromDrawList(this);
         }
+
+
 
         public void SetPath(Path path)
         {

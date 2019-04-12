@@ -24,7 +24,7 @@ namespace BulletHell.GameEngine
         public event EventHandler OnHit;
 
         Canvas canvas;
-        int slow = 0;
+        public int slow = 0;
 
         public event EventHandler DeathEvent;
 
@@ -71,8 +71,11 @@ namespace BulletHell.GameEngine
             base.Update();
             float timeE = Clock.getClock().getTimeSinceLastUpdate();
             float scale = 0.5F;
-            
+            float scale2 = 2.0F;
+
+            //timeE = timeE * scale * slow;
             if (slow == 1) timeE *= scale;
+            if (slow == 2) timeE *= scale2;
 
             if (Rect.X + Rect.Width > canvas.GetBounds().Width)
                 Location = new Vector2(canvas.GetBounds().Width - Rect.Width - 1, Location.Y);
@@ -153,7 +156,7 @@ namespace BulletHell.GameEngine
         }
 
         private Thread t;
-        private volatile bool invulnerable = false;
+        public volatile bool invulnerable = false;
         public bool drawSp = true;
         public System.Timers.Timer myT = new System.Timers.Timer();
    

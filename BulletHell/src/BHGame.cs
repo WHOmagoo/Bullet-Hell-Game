@@ -121,6 +121,7 @@ namespace BulletHell
             canvas.SetMessage("Game Over! Press Enter to play again or ESC to leave");
         }
 
+
         public static void OnWinCondition()
         {
             Console.WriteLine("Winner!");
