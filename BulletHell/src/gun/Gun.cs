@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BulletHell.bullet;
-using BulletHell.bullet.AbstractFactory;
+using BulletHell.bullet.factory;
 using BulletHell.gameEngine;
 using BulletHell.path;
 using Microsoft.Xna.Framework;
@@ -41,6 +41,7 @@ namespace BulletHell.gun
             throw new NotImplementedException();
         }
 
+        //TODO allow to set angle when shooting so that making a gun can be the same for both enemies and players
         public abstract void Shoot(Vector2 location);
 
 
