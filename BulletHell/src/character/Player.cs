@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Timers;
+using BulletHell.bullet.factory;
 using BulletHell.controls;
 using BulletHell.gameEngine;
 using BulletHell.graphics;
@@ -35,10 +36,7 @@ namespace BulletHell.character
             this.respawnLocation = startLocation;
             this.canvas = canvas;
             InputControl.AssignPlayer(this);
-            gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), 
-                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 500, TEAM.FRIENDLY);
-            
-            // gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, true);
+            gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getBulletTexture(), BulletFactoryFactory.make("basic"), TEAM.ENEMY, - Math.PI / 2);
 
             //TODO make this be a parameter
             healthPoints = 3;      //player lives

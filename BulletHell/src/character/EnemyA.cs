@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BulletHell.bullet.factory;
 using BulletHell.gameEngine;
 using BulletHell.graphics;
 using BulletHell.gun;
@@ -31,8 +32,8 @@ namespace BulletHell.character
             
             PiecewiseLocationEquation locationEquation = new PiecewiseLocationEquation(piecewiseLocationEquations);
             //FIXME: Let Director give gun?
-            this.gunEquipped = new BasicGun(3, new LinearLocationEquation(Math.PI / 2, .10f), 
-                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 3000, TEAM.ENEMY);
+            this.gunEquipped = new Gun(3, GraphicsLoader.getGraphicsLoader().getBulletTexture(), BulletFactoryFactory.make("basic"), TEAM.ENEMY, Math.PI / 2);//new BasicGun(3, new LinearLocationEquation(Math.PI / 2, .10f), 
+//                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 3000, TEAM.ENEMY);
 
             // this.Path = new Path(locationEquation, Location, 0);
 //            this.path = new Path(right, Location, 0);
