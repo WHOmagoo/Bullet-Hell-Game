@@ -1,12 +1,12 @@
 using System;
 using System.IO;
+using BulletHell.bullet.factory;
 using BulletHell.character;
 using BulletHell.controls;
 using BulletHell.director;
 using BulletHell.gameEngine;
 using BulletHell.graphics;
 using BulletHell.gun;
-using BulletHell.GameEngine;
 using BulletHell.path;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -68,7 +68,7 @@ namespace BulletHell.levels
             ILocationEquation zigZag = new ZigZag(Math.PI / 8, .1F, 1000, Math.PI - Math.PI / 8, .1F, 1000);
             Path sinPath = new Path(zigZag, sin.Location, 0);
             sin.SetPath(sinPath);
-            sin.gunEquipped = new BasicGun(1, new SpiralLocationEquation(Math.PI / 2 - .3, 10, 50), bulletTexture, 1000, TEAM.ENEMY);
+            sin.gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getBulletTexture(), BulletFactoryFactory.make("basic"), TEAM.ENEMY); //new BasicGun(1, new SpiralLocationEquation(Math.PI / 2 - .3, 10, 50), bulletTexture, 1000, TEAM.ENEMY));
             sin.Hitbox = new CollidingRectangle(sin.Location, new Vector2(0, 0), 100, 72);
             SubscribeEnemy(sin);
             
@@ -99,9 +99,13 @@ namespace BulletHell.levels
         {
             Player player = new Player(canvas, playerTexture, new Vector2(SCREEN_WIDTH / 2 - playerTexture.Width / 2, 300), controller);
             player.SetSize(72, 100);
+            player.gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getBulletTexture(),
+                BulletFactoryFactory.make("surround"), TEAM.FRIENDLY);
             player.PropertyChanged += canvas.OnWeaponChange;
             player.gunEquipped.GunShotHandler += canvas.OnGunShot;
             player.Hitbox = new CollidingCircle(player.Location, new Vector2(player.Rect.Width / 2, player.Rect.Height / 2), 15);
+            
+            player.gunEquipped.GunShotHandler += canvas.OnGunShot;
             
 //          Comment below to make player invulnerable permanently for testing
 //            collisionManager.addToTeam(player, TEAM.FRIENDLY);
