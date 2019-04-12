@@ -74,10 +74,11 @@ namespace BulletHell.levels
             Player player = MakePlayer(controller);
 
             //Pickup testing
+            /*
             LifePickup pickup = new LifePickup(mushroomTexture, new Vector2(200,200), 80, 80);
             pickup.Hitbox = new CollidingCircle(pickup.Location, new Vector2(pickup.Rect.Width/2, pickup.Rect.Height/2), pickup.Rect.Width/2);
             canvas.AddToDrawList(pickup);
-            collisionManager.addToTeam(pickup, TEAM.ENEMY);
+            collisionManager.addToTeam(pickup, TEAM.ENEMY); */
 
             HealthBar healthbar= MakeHealthBar();
             LifeBar lifebar=MakeLifeBar();
@@ -155,7 +156,7 @@ namespace BulletHell.levels
                 new FileStream("Content/sprites/lifeBar.png", FileMode.Open));
             
             bulletTexture = Texture2D.FromStream(graphicsDevice,
-                new FileStream("Content/sprites/bullet.png", FileMode.Open));
+                new FileStream("Content/sprites/bullet.png", FileMode.Open)); 
             mushroomTexture = Texture2D.FromStream(graphicsDevice,
                 new FileStream("Content/sprites/mushroom-1up.png", FileMode.Open));
         }
