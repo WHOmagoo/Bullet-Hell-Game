@@ -21,7 +21,10 @@ namespace BulletHell.director
         {
             enemy.ResetPath();
             canvas.AddToDrawList(enemy);
-            collisionManager.addToTeam(enemy, TEAM.ENEMY);
+            if (!ReferenceEquals(collisionManager, null))
+            {
+                collisionManager.addToTeam(enemy, TEAM.ENEMY);
+            }
         }
     }
 }

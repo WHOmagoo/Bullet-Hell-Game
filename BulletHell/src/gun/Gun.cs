@@ -18,13 +18,16 @@ namespace BulletHell.GameEngine
         private long lastShotTick;
         protected TEAM team;
         protected Texture2D bulletTexture;
+        protected double fireAngleOffset;
         public event EventHandler<BulletsCreatedEventArgs> GunShotHandler;
 
 
 
-        public Gun(int damage, ILocationEquation fireShape, Texture2D texture, long delay, TEAM team){
+        //FIXME: Group fireangle and fireshape to similar location to avoid confusion
+        public Gun(int damage, ILocationEquation fireShape, Texture2D texture, long delay, TEAM team, double fireAngleOffset = 0){
             this.damage = damage;
             this.fireShape = fireShape;
+            this.fireAngleOffset = fireAngleOffset;
             tickFireDelay = delay;
             lastShotTick = 0;
             this.team = team;
@@ -54,7 +57,7 @@ namespace BulletHell.GameEngine
     public class BulletsCreatedEventArgs : EventArgs
     {
         public List<Bullet> Bullets { get; }
-    int damage;
+        int damage;
         public BulletsCreatedEventArgs(List<Bullet> bullets)
         {
             this.Bullets = bullets;

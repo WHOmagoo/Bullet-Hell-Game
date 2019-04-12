@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading;
 using System.Timers;
+using BulletHell.controls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using BulletHell.Graphics;
+using BulletHell.Pickups;
 
 namespace BulletHell.GameEngine
 {
@@ -26,18 +28,31 @@ namespace BulletHell.GameEngine
 
         public event EventHandler DeathEvent;
 
-        public Player(Canvas canvas, Texture2D texture, Vector2 startLocation) : base(texture, startLocation)
+        public Player(Canvas canvas, Texture2D texture, Vector2 startLocation, Controller controller) : base(texture, startLocation)
         {
+            // invulnerable = true;
             this.respawnLocation = startLocation;
             this.canvas = canvas;
             InputControl.AssignPlayer(this);
             gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), 
-                GraphicsLoader.getGraphicsLoader().getBulletTexture(), 500, TEAM.FRIENDLY);
+                GraphicsLoader.getGraphicsLoader().getTexture("bullet"), 500, TEAM.FRIENDLY);
             
             // gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, true);
 
             //TODO make this be a parameter
-            healthPoints = 10;      //player lives
+            healthPoints = 3;      //player lives
+            subscribeToController(controller);
+        }
+
+        private void subscribeToController(Controller controller)
+        {
+            controller.OnLeft += goLeft;
+            controller.OnRight += goRight;
+            controller.OnUp += goUp;
+            controller.OnShoot += Shoot;
+            controller.OnSlow += goSlow;
+            controller.OnFast += goFast;
+            controller.OnDown += goDown;
         }
 
         public void LoadContent(ContentManager theContentManager)
@@ -48,6 +63,7 @@ namespace BulletHell.GameEngine
         public int Lives
         {
             get { return healthPoints; }
+            set { healthPoints = value; }
         }
 
         public override void Update()
@@ -55,8 +71,7 @@ namespace BulletHell.GameEngine
             base.Update();
             float timeE = Clock.getClock().getTimeSinceLastUpdate();
             float scale = 0.5F;
-            KeyboardState currState = Keyboard.GetState();
-            UpdateMove();
+            
             if (slow == 1) timeE *= scale;
 
             if (Rect.X + Rect.Width > canvas.GetBounds().Width)
@@ -70,30 +85,11 @@ namespace BulletHell.GameEngine
             {
                 Location += direction * speed * timeE / 50000;
             }
-            base.Update();
-        }
-
-        
-        private void UpdateMove()
-        {
-            speed = Vector2.Zero;
-            direction = Vector2.Zero;
-
-            Controller controller = new Controller();
-            controller.OnLeft += goLeft;
-            controller.OnRight += goRight;
-            controller.OnUp += goUp;
-            controller.OnDown += goDown;
-            controller.OnUpLeft += goUpLeft;
-            controller.OnUpRight += goUpRight;
-            controller.OnDownLeft += goDownLeft;
-            controller.OnDownRight += goDownRight;
-            controller.OnShoot += Shoot;
-            controller.OnSlow += goSlow;
-            controller.OnFast += goFast;
-
-            controller.Update();
             
+            direction = Vector2.Zero;
+            speed = Vector2.Zero;
+
+            base.Update();
         }
 
         private void goLeft(object sender, EventArgs e)
@@ -116,26 +112,6 @@ namespace BulletHell.GameEngine
             InputControl.MoveDown();
         }
 
-        private void goUpLeft(object sender, EventArgs e)
-        {
-            // InputControl.MoveUpLeft();
-        }
-
-        private void goUpRight(object sender, EventArgs e)
-        {
-            // InputControl.MoveUpRight();
-        }
-
-        private void goDownLeft(object sender, EventArgs e)
-        {
-            // InputControl.MoveDownLeft();
-        }
-
-        private void goDownRight(object sender, EventArgs e)
-        {
-            // InputControl.MoveDownRight();
-        }
-
         private void Shoot(object sender, EventArgs e)
         {
             gunEquipped.Shoot(Location);
@@ -154,6 +130,7 @@ namespace BulletHell.GameEngine
         public void updateHealth()
         {
             healthPoints -= 1;
+            Console.WriteLine("Player health: " + healthPoints);
             if (healthPoints == 0)
             {
                 //respawn
@@ -163,13 +140,15 @@ namespace BulletHell.GameEngine
         }
         public override void onCollision(GameObject hitby)
         {
-            if (!invulnerable)
+            // Console.WriteLine("hitby: " + hitby);
+            if (!invulnerable && !(hitby is Pickup))
             {
                 OnHit(this, EventArgs.Empty);
+                updateHealth();
                 startInvulnerability();
                 base.onCollision(hitby);
                 Location = respawnLocation;
-                Console.WriteLine("Player Health: " + healthPoints);
+                // Console.WriteLine("Player Health: " + healthPoints);
             }
         }
 
@@ -191,6 +170,7 @@ namespace BulletHell.GameEngine
                 t.Abort();
             }
             
+            invulnerable = true;
             t = new Thread(invulnerableRunner);
             t.Start();
         }
@@ -208,9 +188,9 @@ namespace BulletHell.GameEngine
         private void invulnerableRunner()
         {
             Console.WriteLine("Invulnerable");
-            invulnerable = true;
+            // invulnerable = true;
             newTimer();
-            Thread.Sleep(500);
+            Thread.Sleep(2000);
             invulnerable = false;
             myT.Dispose();
             drawSp = true;
@@ -219,7 +199,8 @@ namespace BulletHell.GameEngine
 
         protected override void TakeDamage(int damage)
         {
-            updateHealth();
+            // updateHealth();
+            //do nothing already handled in oncollision FIXME: Clean this system up
         }
 
         private void CreateDeathEvent()

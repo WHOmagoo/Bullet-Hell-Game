@@ -117,9 +117,6 @@ namespace BulletHell.Graphics
                 entities.Remove(dequeuBuf.First.Value);
                 dequeuBuf.RemoveFirst();
             }
-
-          
-
         }
 
         private void updateEntity(Entity entity)

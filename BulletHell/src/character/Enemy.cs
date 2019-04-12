@@ -15,18 +15,26 @@ namespace BulletHell.GameEngine
                 if (!ReferenceEquals(value, null))
                 {
                     path = value;
+                    Location = path.InitialLocation;
                 }
             }
             
             get { return path; }
         }
 
-        public Enemy(Texture2D texture, Vector2 startLocation, Path p , Gun gun) 
-            : base(texture, startLocation)
+        public Enemy(Texture2D texture, Path p , Gun gun = null) 
+            : base(texture, p.InitialLocation)
         {
             healthPoints = 10;
             gunEquipped = gun;
             path = p;
+        }
+
+        public Enemy(Enemy e) : base(e.texture, e.Path.InitialLocation)
+        {
+            gunEquipped = e.gunEquipped;
+            healthPoints = e.healthPoints;
+            path = e.Path;
         }
 
         public override void Update()

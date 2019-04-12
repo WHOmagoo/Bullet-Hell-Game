@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using BulletHell.Annotations;
+using BulletHell.controls;
 using BulletHell.director;
 using BulletHell.GameEngine;
 using BulletHell.levels;
@@ -23,35 +25,40 @@ namespace BulletHell
 
         public static CollisionManager CollisionManager { get => collisionManager; }
         private IGameFactory factory;
+        private Controller controller;
 
         public static bool gameOver;
         public static bool won;
+        private bool paused;
 
         public static  Dictionary<string, GameEngine.Enemy> EnemyPrefabs;
 
 
-
-        public BHGame(IGameFactory factory)
+        public BHGame(IGameFactory factory, Controller controller)
         {
             new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             this.factory = factory;
+            this.controller = controller;
+            controller.OnPause += OnPause;
+            controller.OnUnpause += OnUnpause;
         }
 
         protected void SetGame(IGameFactory factory)
         {
-            Tuple<GameDirector, Canvas, CollisionManager> result = factory.makeGame(GraphicsDevice);
+            Tuple<GameDirector, Canvas, CollisionManager> result = factory.makeGame(GraphicsDevice, controller);
             director = result.Item1;
             canvas = result.Item2;
             canvas.PlayerDeathHandler += OnPlayerDeath;
             collisionManager = result.Item3;
+//            controller.OnPause += Clock.getClock().OnPause;
         }
 
         protected override void Initialize()
         {
-            GraphicsLoader.makeGraphicsLoader(GraphicsDevice);
-            GraphicsLoader.getGraphicsLoader().setGraphicsTexture(new FileStream("Content/sprites/bullet.png", FileMode.Open));
+            // GraphicsLoader.makeGraphicsLoader(GraphicsDevice);
+            // GraphicsLoader.getGraphicsLoader().setGraphicsTexture(new FileStream("Content/sprites/bullet.png", FileMode.Open));
 
             SetGame(factory);
             DrawingTool.Initialize(GraphicsDevice);
@@ -73,10 +80,10 @@ namespace BulletHell
 
         protected override void Update(GameTime gameTime)
         {
-            
+           controller.Update(); 
             
             bool enemy2Flag = false;
-            if (!gameOver) {
+            if (!gameOver && !paused) {
                 //            Clock.getClock().SetGameTime(gameTime);
                 Clock.getClock().UpdateTime(gameTime);
                 director.Update();
@@ -85,7 +92,12 @@ namespace BulletHell
 
                 base.Update(gameTime);
             }
-            else {
+            else if(paused)
+            {
+                //Do nothing
+            }
+            else
+            {
                 KeyboardState currState = Keyboard.GetState();
                 if (currState.IsKeyDown(Keys.Enter))
                 {
@@ -122,11 +134,24 @@ namespace BulletHell
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
             // spriteBatch.Begin();
             canvas.Draw();
             // spriteBatch.End();
             base.Draw(gameTime);
+
+        }
+
+        private void OnPause(object sender, EventArgs e)
+        {
+            paused = true;
+            Console.WriteLine("Paused");
+        }
+
+        private void OnUnpause(object sender, EventArgs e)
+        {
+            paused = false;
+            Console.WriteLine("Unpaused");
 
         }
     }
