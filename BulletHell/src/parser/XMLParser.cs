@@ -4,6 +4,7 @@ using System.Xml.Linq;
 using System.Xml;
 using Microsoft.Xna.Framework;
 using BulletHell.ObjectCreation;
+using BulletHell.GameEngine;
 
 namespace BulletHell
 {
@@ -11,10 +12,12 @@ namespace BulletHell
     {
         List<Encounter> encounterList;
         XmlDocument level;
+        EnemyFactory enemyFactory;
 
         public XMLParser(string filename)
         {
             level.LoadXml(filename);
+            enemyFactory = new EnemyFactory();
         }
 
         public void Parse(){
@@ -26,7 +29,7 @@ namespace BulletHell
                 if(!Int32.TryParse(enemy["health"].Value, out health)) {
                     health = 3;
                 }
-                string sptite = enemy["spite"].Value;
+                string sprite = enemy["sprite"].Value;
                 string gun = enemy["gun"].Value;
                 List<PathData> complexPath = new List<PathData>();
                 
@@ -44,13 +47,11 @@ namespace BulletHell
                     if(!Int32.TryParse(part["speed"].Value, out speed)){
                         speed = 0;
                     }
-
-
                     complexPath.Add(new PathData(part["type"].Value, duration, 
                                         offset, speed));
                 }
-                //BHGame.EnemyPrefabs.Add(); //TODO: register that bitch
-
+                Enemy e = enemyFactory.makeEnemy(sprite, health, Vector2.Zero, complexPath, gun);
+                BHGame.EnemyPrefabs.Add(name, e);
             }
 
             XmlNodeList Encounters = level.DocumentElement.SelectNodes("/Level/Encounters");
