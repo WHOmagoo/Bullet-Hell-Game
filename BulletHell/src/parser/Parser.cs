@@ -5,8 +5,7 @@ namespace BulletHell
 {
     public interface Parser
     {
-        Dictionary<string, GameEngine.Enemy> getEnemyPrefabs();
-        Wave[] getWaves();
+        List<Encounter>  getEncounterList();
         void Parse();
 
     }

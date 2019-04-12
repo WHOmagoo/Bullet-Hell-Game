@@ -27,6 +27,8 @@ namespace BulletHell
         public static bool gameOver;
         public static bool won;
 
+        public static  Dictionary<string, GameEngine.Enemy> EnemyPrefabs;
+
 
 
         public BHGame(IGameFactory factory)
