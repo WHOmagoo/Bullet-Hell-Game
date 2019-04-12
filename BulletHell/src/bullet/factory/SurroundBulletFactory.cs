@@ -29,7 +29,7 @@ namespace BulletHell.bullet.factory
             double increment = Math.PI / (amountOfBullets/2d);
             for (double i = 0; i < 2 * Math.PI; i += increment)
             {
-                List<Bullet> bulletsCreated = bulletsToSpawn.makeBullets(location, bulletTexture, team, angleOffset);
+                List<Bullet> bulletsCreated = bulletsToSpawn.makeBullets(location, bulletTexture, team, i);
 
                 result.AddRange(bulletsCreated);
                 
