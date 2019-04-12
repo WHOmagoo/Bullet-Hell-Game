@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Xml;
 using Microsoft.Xna.Framework;
+using BulletHell.ObjectCreation;
 
 namespace BulletHell
 {
@@ -22,7 +23,7 @@ namespace BulletHell
             foreach(XmlNode enemy in Header){
                 string name = enemy["typename"].Value;
                 int health;
-                if(!Int32.TryParse(enemy["health"].Value, out health){
+                if(!Int32.TryParse(enemy["health"].Value, out health)) {
                     health = 3;
                 }
                 string sptite = enemy["spite"].Value;
