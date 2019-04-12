@@ -17,7 +17,11 @@ namespace BulletHell.bullet.factory
 
         public override List<Bullet> makeBullets(Vector2 location, Texture2D bulletTexture, TEAM team, double angleOffset = 0)
         {
-            return new List<Bullet>(new []{new Bullet(1, path, bulletTexture, location, team)});
+            Bullet created = new Bullet(1, new RotatedLocationEquation(path, angleOffset), bulletTexture, location, team);
+            created.SetSize(20, 30);
+            created.Hitbox = new CollidingRectangle(created.Location, new Vector2(0, 0), 20, 30);
+            BHGame.CollisionManager.addToTeam(created, team);
+            return new List<Bullet>(new []{created});
         }
     }
 }
