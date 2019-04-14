@@ -7,7 +7,9 @@ using BulletHell.Graphics;
 using System.IO;
 using System.Collections.Generic;
 using BulletHell.controls;
+using BulletHell.Pickups;
 using Path = BulletHell.GameEngine.Path;
+
 
 namespace BulletHell.levels
 {

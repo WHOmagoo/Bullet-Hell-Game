@@ -19,5 +19,7 @@ namespace BulletHell.Pickups {
         }
 
         protected abstract void onPickup(Player player);
+
+        
     }
 }

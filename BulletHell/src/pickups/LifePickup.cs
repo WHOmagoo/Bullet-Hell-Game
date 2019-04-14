@@ -14,5 +14,6 @@ namespace BulletHell.Pickups {
         {
             player.Lives += 1;
         }
+
     }
 }

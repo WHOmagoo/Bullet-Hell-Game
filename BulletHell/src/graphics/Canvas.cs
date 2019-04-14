@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 // using BulletHell.director;
 using BulletHell.GameEngine;
 using System.IO;
+using BulletHell.Pickups;
 
 
 
@@ -23,8 +24,11 @@ namespace BulletHell.Graphics
         string message;
         bool hasMessage;
         static SpriteFont _font;
-        
+
+        LifePickup lp;
+
         public event EventHandler PlayerDeathHandler;
+        public event EventHandler EnemyDeathHandler;
 
         public Canvas(SpriteBatch spriteBatch)
         {
@@ -35,7 +39,11 @@ namespace BulletHell.Graphics
                 new FileStream("Content/sprites/star.png", FileMode.Open));
             Texture2D scrolling1 = Texture2D.FromStream(spriteBatch.GraphicsDevice,
                 new FileStream("Content/sprites/star2.png", FileMode.Open));
-
+            /*
+            Texture2D mushtext = Texture2D.FromStream(spriteBatch.GraphicsDevice, new FileStream("Content/sprites/mushroom-1up.png", FileMode.Open));
+            this.lp = new LifePickup(mushtext, new Vector2(200, 200), 80, 80);
+            this.lp.Hitbox = new CollidingCircle(lp.Location, new Vector2(lp.Rect.Width / 2, lp.Rect.Height / 2), lp.Rect.Width / 2);
+            */
             this.b1 = new Background(scrolling1, new Vector2(0, 0));
             this.b2 = new Background(scrolling2, new Vector2(700, 0));
 
@@ -64,6 +72,7 @@ namespace BulletHell.Graphics
                 }
                 else
                 {
+                    
                     e.Draw(spriteBatch);
                 }
                 //e.Draw(spriteBatch);
@@ -92,6 +101,7 @@ namespace BulletHell.Graphics
         public void RemoveFromDrawList(Entity entity)
         {
             dequeuBuf.AddLast(entity);
+            entity = null;
         }
 
 
@@ -102,6 +112,29 @@ namespace BulletHell.Graphics
 
             foreach (var entity in entities)
             {
+                //need to change so bullets delete from top too
+                if(entity is Bullet || entity is Enemy)
+                {
+                    if (entity.Location.Y > 500)
+                    {
+                        RemoveFromDrawList(entity);
+                        
+                    }
+                    if(entity.Location.X > 785 || entity.Location.X < -100)
+                    {
+                        RemoveFromDrawList(entity);
+                    }
+                    /*
+                    if (entity is Bullet)
+                    {
+                        if (entity.Location.Y < 0)
+                        {
+                            RemoveFromDrawList(entity);
+                        }
+                    } */
+                }
+                
+                
                 updateEntity(entity);
             }
 
@@ -166,6 +199,8 @@ namespace BulletHell.Graphics
             PlayerDeathHandler?.Invoke(sender, e);
         }
 
+
+  
         public static void SetFont(SpriteFont font)
         {
             _font = font;

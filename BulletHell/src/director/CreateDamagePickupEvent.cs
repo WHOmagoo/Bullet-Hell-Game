@@ -1,31 +1,30 @@
-using System;
+﻿using System;
 using BulletHell.GameEngine;
 using BulletHell.Graphics;
-
+using BulletHell.Pickups;
 namespace BulletHell.director
 {
-    public class RemoveEnemyEvent : DirectorEvent
+    public class CreateDamagePickupEvent : DirectorEvent
     {
         private Canvas canvas;
-        private Enemy enemy;
+        private DamagePickup damagep;
         private CollisionManager collisionManager;
 
-        public RemoveEnemyEvent(CollisionManager collisionManager, Canvas canvas, Enemy enemy)
+        public CreateDamagePickupEvent(CollisionManager collisionManager, Canvas canvas, DamagePickup lp)
         {
             this.canvas = canvas;
-            this.enemy = enemy;
+            this.damagep = lp;
             this.collisionManager = collisionManager;
         }
 
         public override void Execute()
         {
-            enemy.ResetPath();
-            canvas.RemoveFromDrawList(enemy);
+
+            canvas.AddToDrawList(damagep);
             if (!ReferenceEquals(collisionManager, null))
             {
-                collisionManager.removeFromTeam(enemy, TEAM.ENEMY);
+                collisionManager.addToTeam(damagep, TEAM.ENEMY);
             }
         }
-
     }
 }
