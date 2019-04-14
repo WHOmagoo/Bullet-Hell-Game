@@ -25,6 +25,7 @@ namespace BulletHell.GameEngine
         }
 
         public HealthBar healthbar { get => _healthbar; set => _healthbar = value; }
+        public int Health { get => healthPoints;}
 
         public EventHandler onDeath;
 

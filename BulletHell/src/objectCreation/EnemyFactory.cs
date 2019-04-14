@@ -35,6 +35,7 @@ namespace BulletHell.ObjectCreation {
             Gun gun = gunFactory.makeGun(gunType);
             Enemy enemy = new Enemy(texture, path, gun);
             enemy.Hitbox = new CollidingRectangle(enemy.Location, Vector2.Zero, 20, 20);
+            enemy.healthbar = new HealthBar(enemy.Location, new Vector2(8, 0), 85, 90, enemy.Health);
             return enemy;
         }
     }
