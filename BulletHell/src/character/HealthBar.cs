@@ -53,6 +53,7 @@ namespace BulletHell.GameEngine
         public void UpdateHealth(int damage)
         {
             _green_bar.Width += damage * _one_life;
+            //can add lives or subtract lives depending if damage is positive or negative
         }
 
     }

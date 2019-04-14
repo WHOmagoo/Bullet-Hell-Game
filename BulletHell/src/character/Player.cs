@@ -214,17 +214,23 @@ namespace BulletHell.GameEngine
         protected override void TakeDamage(int damage)
         {
             int i = 1;
-            while (i <= damage)
-            {
-                healthPoints -= 1;
-                if (healthPoints >= 0)
-                {
-                    BHGame.Canvas.RemoveFromDrawList(hearts[hearts.Count - 1]);
-                    hearts.Remove(hearts[hearts.Count - 1]);
-                    heartStartLoc += 50;    //in case we need to add hearts later when a mushroom is picked up
-                }
-                i++;
-            }
+            //while (i <= damage)
+            //{
+            //    healthPoints -= 1;
+            //    if (healthPoints >= 0)
+            //    {
+            //        BHGame.Canvas.RemoveFromDrawList(hearts[hearts.Count - 1]);
+            //        hearts.Remove(hearts[hearts.Count - 1]);
+            //        heartStartLoc += 50;    //in case we need to add hearts later when a mushroom is picked up
+            //    }
+            //    i++;
+            //}
+            healthPoints -= 1;
+            BHGame.Canvas.RemoveFromDrawList(hearts[hearts.Count - 1]);
+            hearts.Remove(hearts[hearts.Count - 1]);
+            heartStartLoc += 50;    //in case we need to add hearts later when a mushroom is picked up
+
+
             if (healthPoints <= 0)
             {
                 CreateDeathEvent();
