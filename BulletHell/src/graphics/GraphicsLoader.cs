@@ -63,8 +63,9 @@ namespace BulletHell
             addTexture("enemyC", "Content/sprites/octopus.png");
             addTexture("midBoss", "Content/sprites/midboss.png");
             addTexture("finalBoss", "Content/sprites/finalboss.png");
-            addTexture("healthBar", "Content/sprites/healthBar.png");
-            addTexture("lifeBar", "Content/sprites/lifeBar.png");
+            addTexture("heart", "Content/sprites/heart.png");
+            // addTexture("healthBar", "Content/sprites/healthBar.png");
+            // addTexture("lifeBar", "Content/sprites/lifeBar.png");
             addTexture("bullet", "Content/sprites/bullet.png");
         }
     }

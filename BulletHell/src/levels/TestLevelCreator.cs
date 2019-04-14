@@ -40,6 +40,8 @@ namespace BulletHell.levels
             Vector2 topLeft = new Vector2(SCREEN_WIDTH / 4 - offset, -100);
             Vector2 topRight = new Vector2(3 * SCREEN_WIDTH / 4 - offset, -100);
 
+            // sin.healthbar = new HealthBar(sin.Location, new Vector2(8, 0), 85, 90, sin.Health);
+
             Player player = MakePlayer(controller);
             director.addEvent(0, new PlayerEnter(canvas, player));
             player.DeathEvent += canvas.OnPlayerDeath;
@@ -64,8 +66,9 @@ namespace BulletHell.levels
         private Player MakePlayer(Controller controller)
         {
             Texture2D playerTexture = graphicsLoader.getTexture("player");
+            Texture2D heartTexture = graphicsLoader.getTexture("heart");
             // Texture2D playerTexture = null;
-            Player player = new Player(canvas, playerTexture, new Vector2(SCREEN_WIDTH / 2 - playerTexture.Width / 2, 300), controller);
+            Player player = new Player(canvas, playerTexture, new Vector2(SCREEN_WIDTH / 2 - playerTexture.Width / 2, 300), controller, heartTexture);
             player.SetSize(72, 100);
             player.PropertyChanged += canvas.OnWeaponChange;
             player.gunEquipped.GunShotHandler += canvas.OnGunShot;
