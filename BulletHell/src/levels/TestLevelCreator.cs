@@ -1,14 +1,22 @@
 using System;
+using System.IO;
+using BulletHell.bullet.factory;
+using BulletHell.character;
+using BulletHell.controls;
 using BulletHell.director;
-using BulletHell.GameEngine;
+using BulletHell.gameEngine;
+using BulletHell.graphics;
+using BulletHell.gun;
+using BulletHell.path;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
+// using BulletHell.Graphics;
 using System.IO;
 using System.Collections.Generic;
 using BulletHell.controls;
 using BulletHell.ObjectCreation;
-using Path = BulletHell.GameEngine.Path;
+// using Path = BulletHell.GameEngine.Path;
+using Path = BulletHell.path.Path;
 
 namespace BulletHell.levels
 {
@@ -70,6 +78,8 @@ namespace BulletHell.levels
             // Texture2D playerTexture = null;
             Player player = new Player(canvas, playerTexture, new Vector2(SCREEN_WIDTH / 2 - playerTexture.Width / 2, 300), controller, heartTexture);
             player.SetSize(72, 100);
+            player.gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getBulletTexture(),
+                BulletFactoryFactory.make("surround"), TEAM.FRIENDLY);
             player.PropertyChanged += canvas.OnWeaponChange;
             player.gunEquipped.GunShotHandler += canvas.OnGunShot;
             player.Hitbox = new CollidingCircle(player.Location, new Vector2(player.Rect.Width / 2, player.Rect.Height / 2), 15);

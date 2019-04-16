@@ -1,9 +1,8 @@
 using System;
-using System.Numerics;
 using Microsoft.Xna.Framework;
-using Vector2 = Microsoft.Xna.Framework.Vector2;
+
 // using System.Generic;
-namespace BulletHell.GameEngine
+namespace BulletHell.gameEngine
 {
 
     public static class CollisionEngine

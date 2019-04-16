@@ -1,10 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BulletHell.gameEngine;
+using BulletHell.gun;
+using BulletHell.path;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
+// using BulletHell.Graphics;
+using BulletHell.bullet;
 using System;
 using BulletHell.Pickups;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.character
 {
     public class Enemy : Character
     {

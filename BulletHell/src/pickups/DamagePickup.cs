@@ -1,4 +1,8 @@
-﻿using BulletHell.GameEngine;
+﻿using BulletHell.character;
+using BulletHell.gameEngine;
+using BulletHell.GameEngine;
+using BulletHell.graphics;
+using BulletHell.path;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

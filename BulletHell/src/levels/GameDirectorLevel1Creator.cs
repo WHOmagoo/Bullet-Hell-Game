@@ -1,14 +1,22 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
+using BulletHell.character;
+using BulletHell.controls;
 using BulletHell.director;
+using BulletHell.gameEngine;
+using BulletHell.graphics;
 using BulletHell.GameEngine;
+using BulletHell.path;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
+// using BulletHell.Graphics;
 using System.IO;
 using System.Collections.Generic;
 using BulletHell.controls;
 using BulletHell.Pickups;
-using Path = BulletHell.GameEngine.Path;
+// using Path = BulletHell.GameEngine.Path;
+using Path = BulletHell.path.Path;
 
 
 namespace BulletHell.levels

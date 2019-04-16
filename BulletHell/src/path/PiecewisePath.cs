@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BulletHell.path;
 using Microsoft.Xna.Framework;
 
 namespace BulletHell.GameEngine

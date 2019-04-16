@@ -1,11 +1,9 @@
-﻿using System;
+﻿using BulletHell.gameEngine;
+using BulletHell.graphics;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.character
 {
     public class HealthBar
     {

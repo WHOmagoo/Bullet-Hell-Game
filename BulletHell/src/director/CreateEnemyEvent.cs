@@ -1,6 +1,8 @@
 using System;
+using BulletHell.character;
+using BulletHell.gameEngine;
+using BulletHell.graphics;
 using BulletHell.GameEngine;
-using BulletHell.Graphics;
 
 namespace BulletHell.director
 {

@@ -1,8 +1,8 @@
+using BulletHell.graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
 
-namespace BulletHell.GameEngine {
+namespace BulletHell.gameEngine {
     public class CollidingCircle : Hitbox {
         public float radius;
 

@@ -1,19 +1,19 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using BulletHell.Annotations;
+using BulletHell.bullet;
+using BulletHell.bullet.factory;
+using BulletHell.gameEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.gun
 {
-    public abstract class Gun
+    public class Gun
     {
 
         protected int damage;
         //Bullet bulletNegative;
-        protected ILocationEquation fireShape;
+        protected BulletFactory fireShape;
         private readonly long tickFireDelay;
         private long lastShotTick;
         protected TEAM team;
@@ -21,20 +21,22 @@ namespace BulletHell.GameEngine
         protected double fireAngleOffset;
         public event EventHandler<BulletsCreatedEventArgs> GunShotHandler;
 
-
-
-        //FIXME: Group fireangle and fireshape to similar location to avoid confusion
-        public Gun(int damage, ILocationEquation fireShape, Texture2D texture, long delay, TEAM team, double fireAngleOffset = 0){
-            this.damage = damage;
-            this.fireShape = fireShape;
-            this.fireAngleOffset = fireAngleOffset;
-            tickFireDelay = delay;
-            lastShotTick = 0;
+        public Gun(long delay, Texture2D texture, BulletFactory factory, TEAM team, double fireAngleOffset = Math.PI / 2)
+        {
+            this.bulletTexture = texture;
+            this.tickFireDelay = delay * 1000;
+            this.fireShape = factory;
             this.team = team;
-            bulletTexture = texture;
+            this.fireAngleOffset = fireAngleOffset;
         }
-
-        public abstract void Shoot(Vector2 location);
+        public void Shoot(Vector2 location)
+        {
+            if (canShoot())
+            {
+                OnShoot(fireShape.makeBullets(location, bulletTexture, team, fireAngleOffset));
+                wasShot();
+            }
+        }
 
 
         public virtual void wasShot()

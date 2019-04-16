@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Threading;
 using System.Timers;
+using BulletHell.bullet.factory;
 using BulletHell.controls;
+using BulletHell.gameEngine;
+using BulletHell.graphics;
+using BulletHell.gun;
+using BulletHell.path;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
 using BulletHell.Pickups;
 using System.Collections.Generic;
+using BulletHell.GameEngine;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.character
 {
     public class Player : Character
     {
@@ -38,8 +42,8 @@ namespace BulletHell.GameEngine
             this.respawnLocation = startLocation;
             this.canvas = canvas;
             InputControl.AssignPlayer(this);
-            gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), 
-                GraphicsLoader.getGraphicsLoader().getTexture("bullet"), 500, TEAM.FRIENDLY);
+            // gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), 
+            //     GraphicsLoader.getGraphicsLoader().getTexture("bullet"), 500, TEAM.FRIENDLY);
             
             // gunEquipped = new BasicGun(1, new LinearLocationEquation(-Math.PI / 2, 1), GraphicsLoader.getGraphicsLoader().getBulletTexture(), 1000, true);
             
@@ -47,6 +51,7 @@ namespace BulletHell.GameEngine
 
             MakeHearts(heart_texture);
             AddHearts(healthPoints);
+            gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getTexture("bullet"), BulletFactoryFactory.make("basic"), TEAM.ENEMY, - Math.PI / 2);
 
             subscribeToController(controller);
         }

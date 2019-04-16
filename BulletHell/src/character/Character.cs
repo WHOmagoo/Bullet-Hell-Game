@@ -2,11 +2,13 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using BulletHell.Annotations;
+using BulletHell.bullet;
+using BulletHell.gameEngine;
+using BulletHell.gun;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.character
 {
     public abstract class Character : GameObject, INotifyPropertyChanged
     {

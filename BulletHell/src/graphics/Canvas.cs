@@ -1,17 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
+using BulletHell.background;
+using BulletHell.bullet;
+using BulletHell.character;
+using BulletHell.gameEngine;
+using BulletHell.gun;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 // using BulletHell.director;
 using BulletHell.GameEngine;
 using System.IO;
 using BulletHell.Pickups;
 
+// using BulletHell.director;
 
 
-namespace BulletHell.Graphics
+namespace BulletHell.graphics
 {
     public class Canvas
     {
