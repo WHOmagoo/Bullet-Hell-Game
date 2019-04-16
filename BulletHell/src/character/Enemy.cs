@@ -47,10 +47,10 @@ namespace BulletHell.character
             get { return path; }
         }
 
-        public Enemy(Texture2D texture, Path p , Gun gun = null) 
+        public Enemy(Texture2D texture, Path p , int health, Gun gun = null) 
             : base(texture, p.InitialLocation)
         {
-            healthPoints = 10;
+            healthPoints = health;
             gunEquipped = gun;
             path = p;
 
@@ -71,9 +71,11 @@ namespace BulletHell.character
 
         public Enemy(Enemy e, Vector2 startLocation) : base(e.texture, startLocation)
         {
+            hitbox = e.hitbox;
             gunEquipped = e.gunEquipped;
             healthPoints = e.healthPoints;
             path = e.Path;
+            path.ResetAt(startLocation);
         }
 
         public override void Update()
@@ -106,6 +108,7 @@ namespace BulletHell.character
         {
             this.path.Reset();
         }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);

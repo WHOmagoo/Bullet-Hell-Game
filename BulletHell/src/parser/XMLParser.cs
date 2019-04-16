@@ -17,6 +17,7 @@ namespace BulletHell
 
         public XMLParser(string filename)
         {
+            encounterList = new List<Encounter>();
             level = new XmlDocument();
             level.Load(filename);
             enemyFactory = new EnemyFactory();
@@ -25,34 +26,37 @@ namespace BulletHell
         public void Parse(){
             PrefabRepo prefabRepo = PrefabRepo.getPrefabRepo();
             prefabRepo.emptyEnemyPrefabs();
-            XmlNodeList Header = level.DocumentElement.SelectNodes("/Level/Header");
+            XmlNodeList Header = level.DocumentElement.SelectNodes("/level/Header/prefab");
             foreach(XmlNode enemy in Header){
-                string name = enemy["typename"].Value;
+                string name = enemy["name"].InnerText;
                 int health;
-                if(!Int32.TryParse(enemy["health"].Value, out health)) {
+                if(!Int32.TryParse(enemy["health"].InnerText, out health)) {
                     health = 3;
                 }
-                string sprite = enemy["sprite"].Value;
-                string gun = enemy["gun"].Value;
+                string sprite = enemy["sprite"].InnerText;
+                string gun = enemy["gun"].InnerText;
                 List<PathData> complexPath = new List<PathData>();
                 
-                XmlNode path = enemy["path"];
+                XmlNodeList path = enemy["path"].ChildNodes;
                 foreach(XmlNode part in path){
                     int duration;
                     double offset;
                     int speed;
-                    if(!Int32.TryParse(part["duration"].Value, out duration)){
+                    if(!Int32.TryParse(part["dur"].InnerText, out duration)){
                         duration = 0;
                     }
-                    if(!Double.TryParse(part["offset"].Value, out offset)){
+                    if(!Double.TryParse(part["offset"].InnerText, out offset)){
                         offset = 0;
                     }
-                    if(!Int32.TryParse(part["speed"].Value, out speed)){
+                    if(!Int32.TryParse(part["speed"].InnerText, out speed)){
                         speed = 0;
                     }
-                    complexPath.Add(new PathData(part["type"].Value, duration, 
+                    complexPath.Add(new PathData(part["type"].InnerText, duration, 
                                         offset, speed));
                 }
+                Console.WriteLine(name);
+                Console.WriteLine(gun);
+                Console.WriteLine(health);
                 Enemy e = enemyFactory.makeEnemy(sprite, health, Vector2.Zero, complexPath, gun);
                 try
                 {
@@ -64,20 +68,20 @@ namespace BulletHell
                 }
             }
 
-            XmlNodeList Encounters = level.DocumentElement.SelectNodes("/Level/Encounters");
+            XmlNodeList Encounters = level.DocumentElement.SelectNodes("/level/Encounters/encounter");
             foreach(XmlNode encounter in Encounters){
-                string type = encounter["type"].Value;
+                string type = encounter["type"].InnerText;
                 int time;
                 double xlocal, ylocal;
-                if(!Int32.TryParse(encounter["time"].Value, out time)){
+                if(!Int32.TryParse(encounter["time"].InnerText, out time)){
                     time = 0;
                 }
 
-                if(!Double.TryParse(encounter["location"]["x"].Value, out xlocal)){
+                if(!Double.TryParse(encounter["location"]["x"].InnerText, out xlocal)){
                     xlocal = 0;
                 }
 
-                if(!Double.TryParse(encounter["location"]["y"].Value, out ylocal)){
+                if(!Double.TryParse(encounter["location"]["y"].InnerText, out ylocal)){
                     ylocal = 0;
                 }
 

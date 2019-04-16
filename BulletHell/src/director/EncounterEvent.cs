@@ -3,6 +3,7 @@ using BulletHell.character;
 using BulletHell.gameEngine;
 using BulletHell.GameEngine;
 using BulletHell.graphics;
+using Microsoft.Xna.Framework;
 
 namespace BulletHell.director
 {
@@ -21,9 +22,11 @@ namespace BulletHell.director
 
         public override void Execute()
         {
+            Rectangle screen = canvas.GetBounds();
             PrefabRepo prefabRepo = PrefabRepo.getPrefabRepo();
-            Enemy enemy = new Enemy(prefabRepo.getEnemyPrefab(encounter.enemyType));
-            enemy.ResetPath();
+            Enemy enemy = new Enemy(prefabRepo.getEnemyPrefab(encounter.enemyType), 
+                new Vector2(encounter.locationPercentages.X * screen.Width, encounter.locationPercentages.Y * screen.Height));
+
             canvas.AddToDrawList(enemy);
             if (!ReferenceEquals(collisionManager, null))
             {

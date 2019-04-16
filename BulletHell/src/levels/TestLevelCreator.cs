@@ -43,6 +43,11 @@ namespace BulletHell.levels
 
             xmlParser.Parse();
             List<Encounter> encounters = xmlParser.getEncounterList();
+            foreach(var encounter in encounters)
+            {
+                EncounterEvent encounterEvent = new EncounterEvent(collisionManager, canvas, encounter);
+                director.addEvent(encounter.timeInMS, encounterEvent);
+            }
 
 
             SCREEN_WIDTH = graphicsDevice.Viewport.Bounds.Width;
@@ -60,18 +65,18 @@ namespace BulletHell.levels
             director.addEvent(0, new PlayerEnter(canvas, player));
             player.DeathEvent += canvas.OnPlayerDeath;
 
-            PathData pData1 = new PathData("linear", 4000, 0, .1);
-            PathData pData2 = new PathData("sinusoidal", 5000, 3*Math.PI/2, 1);
-            PathData pData3 = new PathData("linear", 4000, 3*Math.PI/2, .1);
-            List<PathData> pData = new List<PathData>();
-            pData.Add(pData1);
-            pData.Add(pData2);
-            pData.Add(pData3);
-            Enemy e1 = enemyFactory.makeEnemy("enemyA", 10, new Vector2(50,50), pData, null);
+            // PathData pData1 = new PathData("linear", 4000, 0, .1);
+            // PathData pData2 = new PathData("sinusoidal", 5000, 3*Math.PI/2, 1);
+            // PathData pData3 = new PathData("linear", 4000, 3*Math.PI/2, .1);
+            // List<PathData> pData = new List<PathData>();
+            // pData.Add(pData1);
+            // pData.Add(pData2);
+            // pData.Add(pData3);
+            // Enemy e1 = enemyFactory.makeEnemy("enemyA", 10, new Vector2(50,50), pData, null);
 
             director.addEvent(0, new PlayerEnter(canvas, player));
             /******************Wave 1************************* */
-            director.addEvent(0, new CreateEnemyEvent(collisionManager, canvas, e1));
+            // director.addEvent(0, new CreateEnemyEvent(collisionManager, canvas, e1));
 
             return new Tuple<GameDirector, Canvas, CollisionManager>(director, canvas, collisionManager);
         }

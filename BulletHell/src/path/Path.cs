@@ -21,6 +21,7 @@ namespace BulletHell.path
         public void ResetAt(Vector2 newStartingLocation)
         {
             _initialLocation = newStartingLocation;
+            Reset();
         }
     }
 }
