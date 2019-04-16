@@ -57,7 +57,7 @@ namespace BulletHell
 
         private void LoadAllTextures(GraphicsDevice graphicsDevice)
         {
-            addTexture("player", "Content/sprites/shuttle.png");
+            addTexture("player", "Content/sprites/ship.png");
             addTexture("enemyA", "Content/sprites/enemyA.png");
             addTexture("enemyB", "Content/sprites/white-ghost.png");
             addTexture("enemyC", "Content/sprites/octopus.png");
@@ -66,7 +66,9 @@ namespace BulletHell
             addTexture("heart", "Content/sprites/heart.png");
             // addTexture("healthBar", "Content/sprites/healthBar.png");
             // addTexture("lifeBar", "Content/sprites/lifeBar.png");
-            addTexture("bullet", "Content/sprites/bullet.png");
+            addTexture("bullet", "Content/sprites/laser2.png");
+            addTexture("dmgPickup", "Content/sprites/fire-flower.png");
+            addTexture("fastPickup", "Content/sprites/gold-mushroom.png");
         }
     }
 }

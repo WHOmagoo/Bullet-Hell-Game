@@ -4,12 +4,14 @@ using BulletHell;
 using BulletHell.GameEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using BulletHell.Pickups;
 
 namespace BulletHell.ObjectCreation {
     public class EnemyFactory
     {
         private PathFactory pathFactory;
         private GunFactory gunFactory;
+
         public EnemyFactory(PathFactory pathFactory = null) 
         {
             if(pathFactory == null)

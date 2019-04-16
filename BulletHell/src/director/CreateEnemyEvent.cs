@@ -9,6 +9,9 @@ namespace BulletHell.director
         private Canvas canvas;
         private Enemy enemy;
         private CollisionManager collisionManager;
+
+        //---------------Set to create object on death
+
         
         public CreateEnemyEvent(CollisionManager collisionManager, Canvas canvas, Enemy enemy)
         {

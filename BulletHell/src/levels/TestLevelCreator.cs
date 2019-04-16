@@ -8,6 +8,7 @@ using System.IO;
 using System.Collections.Generic;
 using BulletHell.controls;
 using BulletHell.ObjectCreation;
+using BulletHell.Pickups;
 using Path = BulletHell.GameEngine.Path;
 
 namespace BulletHell.levels
@@ -29,7 +30,7 @@ namespace BulletHell.levels
             canvas = new Canvas(new SpriteBatch(graphicsDevice));
             collisionManager = new CollisionManager();
             graphicsLoader = GraphicsLoader.makeGraphicsLoader(graphicsDevice);
-            EnemyFactory enemyFactory = new EnemyFactory(); 
+            EnemyFactory enemyFactory = new EnemyFactory();
 
             SCREEN_WIDTH = graphicsDevice.Viewport.Bounds.Width;
             SCREEN_HEIGHT = graphicsDevice.Viewport.Bounds.Height;
@@ -47,17 +48,30 @@ namespace BulletHell.levels
             player.DeathEvent += canvas.OnPlayerDeath;
 
             PathData pData1 = new PathData("linear", 4000, 0, .1);
-            PathData pData2 = new PathData("sinusoidal", 5000, 3*Math.PI/2, 1);
-            PathData pData3 = new PathData("linear", 4000, 3*Math.PI/2, .1);
+            PathData pData2 = new PathData("sinusoidal", 5000, 3 * Math.PI / 2, 1);
+            PathData pData3 = new PathData("linear", 4000, 3 * Math.PI / 2, .1);
             List<PathData> pData = new List<PathData>();
             pData.Add(pData1);
             pData.Add(pData2);
             pData.Add(pData3);
-            Enemy e1 = enemyFactory.makeEnemy("enemyA", 10, new Vector2(50,50), pData, null);
+            Enemy e1 = enemyFactory.makeEnemy("enemyA", 1, new Vector2(50, 50), pData1, null);
+            Enemy e2 = enemyFactory.makeEnemy("enemyA", 1, new Vector2(50, 50), pData1, null);
+            Enemy e3 = enemyFactory.makeEnemy("enemyA", 1, new Vector2(50, 50), pData1, null);
+            Enemy e4 = enemyFactory.makeEnemy("enemyA", 1, new Vector2(50, 50), pData1, null);
+
 
             director.addEvent(0, new PlayerEnter(canvas, player));
             /******************Wave 1************************* */
             director.addEvent(0, new CreateEnemyEvent(collisionManager, canvas, e1));
+            director.addEvent(10 * 1000, new CreateEnemyEvent(collisionManager, canvas, e2));
+            director.addEvent(70 * 1000, new CreateEnemyEvent(collisionManager, canvas, e3));
+            director.addEvent(90 * 1000, new CreateEnemyEvent(collisionManager, canvas, e4));
+
+            //FastPickup fp = MakeFastPickup();
+            //DamagePickup dp = MakeDamagePickup();
+            //director.addEvent(20 * 1000, new CreateFastPickupEvent(collisionManager, canvas, fp));
+            //director.addEvent(1000, new CreateDamagePickupEvent(collisionManager, canvas, dp));
+
 
             return new Tuple<GameDirector, Canvas, CollisionManager>(director, canvas, collisionManager);
         }
@@ -75,6 +89,24 @@ namespace BulletHell.levels
             player.Hitbox = new CollidingCircle(player.Location, new Vector2(player.Rect.Width / 2, player.Rect.Height / 2), 15);
             collisionManager.addToTeam(player, TEAM.FRIENDLY);
             return player;
+        }
+
+        private FastPickup MakeFastPickup()
+        {
+            Texture2D fastTexture = graphicsLoader.getTexture("fastPickup");
+            FastPickup fp = new FastPickup(fastTexture, new Vector2(200, 200), 80, 80);
+            fp.Hitbox = new CollidingCircle(fp.Location, new Vector2(fp.Rect.Width / 2, fp.Rect.Height / 2), 15);
+            collisionManager.addToTeam(fp, TEAM.ENEMY);
+            return fp;
+        }
+
+        private DamagePickup MakeDamagePickup()
+        {
+            Texture2D dmgTexture = graphicsLoader.getTexture("dmgPickup");
+            DamagePickup dp = new DamagePickup(dmgTexture, new Vector2(100, 400), 80, 80);
+            dp.Hitbox = new CollidingCircle(dp.Location, new Vector2(dp.Rect.Width / 2, dp.Rect.Height / 2), 15);
+            collisionManager.addToTeam(dp, TEAM.ENEMY);
+            return dp;
         }
     }
 }

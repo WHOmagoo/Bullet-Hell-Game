@@ -15,8 +15,10 @@ namespace BulletHell.GameEngine
             IGameFactory factory = new GameDirectorLevel1Creator();
             //IGameFactory factory = new TestLevelCreeator();
             Controller controller = new Controller();
+            //factory = new GameDirectorLevel1Creator();
+            factory = new TestLevelCreator();
             
-            
+          
             for (int i = 0; i < args.Length; i++)
             {
                 if (string.Equals(args[i], "-level", StringComparison.CurrentCultureIgnoreCase))
