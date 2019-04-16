@@ -19,9 +19,6 @@ namespace BulletHell.path
             yGrowRate = (float) (Math.Sin(angle) * speed);
         }
 
-        public LinearLocationEquation(double angle, double speed) : this(angle, speed)
-        {
-        }
 
         /// <summary>
         ///     Returns the location that an object should be at after a certain amount of ticks have occured

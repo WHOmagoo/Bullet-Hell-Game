@@ -5,6 +5,7 @@ using System.Xml;
 using Microsoft.Xna.Framework;
 using BulletHell.ObjectCreation;
 using BulletHell.GameEngine;
+using BulletHell.character;
 
 namespace BulletHell
 {
