@@ -12,6 +12,7 @@ using BulletHell.levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using BulletHell.character;
 
 namespace BulletHell
 {
@@ -32,7 +33,7 @@ namespace BulletHell
         public static bool won;
         private bool paused;
 
-        public static  Dictionary<string, GameEngine.Enemy> EnemyPrefabs;
+        public static  Dictionary<string, Enemy> EnemyPrefabs;
 
 
         public BHGame(IGameFactory factory, Controller controller)

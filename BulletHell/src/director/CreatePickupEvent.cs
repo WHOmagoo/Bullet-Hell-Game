@@ -1,6 +1,7 @@
 ﻿using System;
+using BulletHell.gameEngine;
 using BulletHell.GameEngine;
-using BulletHell.Graphics;
+using BulletHell.graphics;
 using BulletHell.Pickups;
 namespace BulletHell.director
 {

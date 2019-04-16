@@ -38,6 +38,11 @@ namespace BulletHell.graphics
         {
             return (Texture2D)textureTable[textureName];
         }
+        //Depreciated
+        public Texture2D getBulletTexture()
+        {
+            return (Texture2D)textureTable["bullet"];
+        }
 
         public bool addTexture(string name, string path)
         {

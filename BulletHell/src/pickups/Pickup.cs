@@ -1,4 +1,5 @@
 using BulletHell.character;
+using BulletHell.character;
 using BulletHell.gameEngine;
 using BulletHell.GameEngine;
 using Microsoft.Xna.Framework;

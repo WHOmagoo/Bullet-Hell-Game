@@ -1,7 +1,12 @@
 using System;
 using System.Collections.Generic;
 using BulletHell;
+using BulletHell.character;
+using BulletHell.gameEngine;
 using BulletHell.GameEngine;
+using BulletHell.graphics;
+using BulletHell.gun;
+using BulletHell.path;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
