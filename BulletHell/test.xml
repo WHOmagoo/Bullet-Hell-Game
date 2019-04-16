@@ -1,13 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <level>
     <Header>
         <prefab>
             <name>butterfly</name>
             <health>5</health>
-            <sprite>TODO:<sprite>
+            <sprite>enemyA</sprite>
             <gun>shotgun</gun>
             <path>
                 <parts>
-                    <type>linear<t/ype>
+                    <type>linear</type>
                     <dur>30000</dur>
                     <offset>4.71</offset>
                     <speed>6</speed>
@@ -17,23 +18,23 @@
         <prefab>
             <name>RZapper</name>
             <health>5</health>
-            <sprite>TODO:<sprite>
+            <sprite>enemyB</sprite>
             <gun>basic</gun>
             <path>
                 <parts>
-                    <type>linear<t/ype>
+                    <type>linear</type>
                     <dur>3000</dur>
                     <offset>0</offset>
                     <speed>1</speed>
                 </parts>
                 <parts>
-                    <type>still<t/ype>
+                    <type>still</type>
                     <dur>3000</dur>
                     <offset>0</offset>
                     <speed>0</speed>
                 </parts>
                 <parts>
-                    <type>linear<t/ype>
+                    <type>linear</type>
                     <dur>3000</dur>
                     <offset>0</offset>
                     <speed>1</speed>
@@ -43,23 +44,23 @@
                 <prefab>
             <name>LZapper</name>
             <health>5</health>
-            <sprite>TODO:<sprite>
+            <sprite>enemyC</sprite>
             <gun>basic</gun>
             <path>
                 <parts>
-                    <type>linear<t/ype>
+                    <type>linear</type>
                     <dur>3000</dur>
                     <offset>3.14</offset>
                     <speed>1</speed>
                 </parts>
                 <parts>
-                    <type>still<t/ype>
+                    <type>still</type>
                     <dur>3000</dur>
                     <offset>0</offset>
                     <speed>0</speed>
                 </parts>
                 <parts>
-                    <type>linear<t/ype>
+                    <type>linear</type>
                     <dur>3000</dur>
                     <offset>3.14</offset>
                     <speed>1</speed>

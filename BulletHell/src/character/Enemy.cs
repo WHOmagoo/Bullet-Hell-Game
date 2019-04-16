@@ -69,7 +69,7 @@ namespace BulletHell.character
             }
         }
 
-        public Enemy(Enemy e) : base(e.texture, e.Path.InitialLocation)
+        public Enemy(Enemy e, Vector2 startLocation) : base(e.texture, startLocation)
         {
             gunEquipped = e.gunEquipped;
             healthPoints = e.healthPoints;

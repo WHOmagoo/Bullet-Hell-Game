@@ -17,12 +17,14 @@ namespace BulletHell
 
         public XMLParser(string filename)
         {
-            level.LoadXml(filename);
+            level = new XmlDocument();
+            level.Load(filename);
             enemyFactory = new EnemyFactory();
         }
 
         public void Parse(){
-            BHGame.EnemyPrefabs.Clear();
+            PrefabRepo prefabRepo = PrefabRepo.getPrefabRepo();
+            prefabRepo.emptyEnemyPrefabs();
             XmlNodeList Header = level.DocumentElement.SelectNodes("/Level/Header");
             foreach(XmlNode enemy in Header){
                 string name = enemy["typename"].Value;
@@ -52,7 +54,14 @@ namespace BulletHell
                                         offset, speed));
                 }
                 Enemy e = enemyFactory.makeEnemy(sprite, health, Vector2.Zero, complexPath, gun);
-                BHGame.EnemyPrefabs.Add(name, e);
+                try
+                {
+                    prefabRepo.registerEnemyPrefab(name, e);
+                }
+                catch(ArgumentException)
+                {
+                    throw new Exception("Defining a redundant enemy prefab name");
+                }
             }
 
             XmlNodeList Encounters = level.DocumentElement.SelectNodes("/Level/Encounters");

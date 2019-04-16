@@ -21,12 +21,10 @@ namespace BulletHell.GameEngine
                 this.speed = speed;
             }
         }
-        public Vector2 InitialLocation {get;}
         private Vector2 curLocation;
         private LinkedList<Piece> pieces;
         private Vector2 Offset;
         private double AngleOffset;
-        private long StartTime;
         
         /// <summary>
         /// 
@@ -39,7 +37,7 @@ namespace BulletHell.GameEngine
         {
             // locationEquations = new LinkedList<ILocationEquation>();
             pieces = new LinkedList<Piece>();
-            InitialLocation = initialLocation;
+            _initialLocation = initialLocation;
             curLocation = initialLocation;
             // Offset = initialLocation - locationEquation.GetLocation(0);
             StartTime = Clock.getClock().getTime();
@@ -57,7 +55,7 @@ namespace BulletHell.GameEngine
             pieces.AddLast(p);
         }
 
-        public Vector2 UpdateLocation()
+        public override Vector2 UpdateLocation()
         {
             //FIXME: For efficiency store the last position and time and do relative calculations from last path used
             //FIXME: Get speed to work
@@ -86,12 +84,5 @@ namespace BulletHell.GameEngine
             return location;
         }
 
-        /*
-            Resets the start time to current time
-         */
-        public void Reset()
-        {
-            this.StartTime = Clock.getClock().getTime();
-        }
     }
 }

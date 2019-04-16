@@ -5,12 +5,10 @@ namespace BulletHell.path
 {
     public class BasicPath : Path
     {
-        public Vector2 InitialLocation {get;}
         private ILocationEquation _locationEquation;
         private double _speedRatio;
         private Vector2 Offset;
         private double AngleOffset;
-        private long StartTime;
         
         /// <summary>
         /// 
@@ -23,7 +21,7 @@ namespace BulletHell.path
         {
             _locationEquation = locationEquation;
             _speedRatio = speedRatio;
-            InitialLocation = initialLocation;
+            _initialLocation = initialLocation;
             Offset = initialLocation - locationEquation.GetLocation(0);
             this.AngleOffset = AngleOffset;
             StartTime = Clock.getClock().getTime();
@@ -41,7 +39,7 @@ namespace BulletHell.path
             this.StartTime = Clock.getClock().getTime();
         }
 
-        public Vector2 UpdateLocation()
+        public override Vector2 UpdateLocation()
         {
             long curTime = (long)(Clock.getClock().getTime() * _speedRatio);
 
@@ -51,12 +49,6 @@ namespace BulletHell.path
             return newLocation + Offset;
         }
 
-        /*
-            Resets the start time to current time
-         */
-        public void Reset()
-        {
-            this.StartTime = Clock.getClock().getTime();
-        }
+
     }
 }

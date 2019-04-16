@@ -33,7 +33,6 @@ namespace BulletHell
         public static bool won;
         private bool paused;
 
-        public static  Dictionary<string, Enemy> EnemyPrefabs;
 
 
         public BHGame(IGameFactory factory, Controller controller)

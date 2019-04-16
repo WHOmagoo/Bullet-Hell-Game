@@ -26,6 +26,7 @@ namespace BulletHell.levels
         private GameDirector director;
         private CollisionManager collisionManager;
         private GraphicsLoader graphicsLoader;
+        private Parser xmlParser;
         private int SCREEN_WIDTH;
         private int SCREEN_HEIGHT;
 
@@ -33,11 +34,16 @@ namespace BulletHell.levels
 
         public Tuple<GameDirector, Canvas, CollisionManager> makeGame(GraphicsDevice graphicsDevice, Controller controller)
         {
+            xmlParser = new XMLParser("test.xml");
             director = new GameDirector();
             canvas = new Canvas(new SpriteBatch(graphicsDevice));
             collisionManager = new CollisionManager();
             graphicsLoader = GraphicsLoader.makeGraphicsLoader(graphicsDevice);
             EnemyFactory enemyFactory = new EnemyFactory(); 
+
+            xmlParser.Parse();
+            List<Encounter> encounters = xmlParser.getEncounterList();
+
 
             SCREEN_WIDTH = graphicsDevice.Viewport.Bounds.Width;
             SCREEN_HEIGHT = graphicsDevice.Viewport.Bounds.Height;

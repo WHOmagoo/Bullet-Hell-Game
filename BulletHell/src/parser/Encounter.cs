@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework;
 namespace BulletHell
 {
     public class Encounter {
-        string enemyType;
-        int timeInMS;
-        Vector2 locationPercentages;
+        public string enemyType;
+        public int timeInMS;
+        public Vector2 locationPercentages;
 
         public Encounter (string type, int startTime, Vector2 startingLocation){
             this.enemyType = type;

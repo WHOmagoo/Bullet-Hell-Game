@@ -3,15 +3,24 @@ using Microsoft.Xna.Framework;
 
 namespace BulletHell.path
 {
-    public interface Path
+    public abstract class Path
     {
 
-        Vector2 InitialLocation {get;}
-        Vector2 UpdateLocation();
+        protected long StartTime;
+        protected Vector2 _initialLocation;
+        public Vector2 InitialLocation {get{return _initialLocation;}}
+        public abstract Vector2 UpdateLocation();
 
         /*
             Resets the start time to current time
          */
-        void Reset();
+        public void Reset()
+        {
+            this.StartTime = Clock.getClock().getTime();
+        }
+        public void ResetAt(Vector2 newStartingLocation)
+        {
+            _initialLocation = newStartingLocation;
+        }
     }
 }
