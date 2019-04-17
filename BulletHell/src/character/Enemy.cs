@@ -88,13 +88,14 @@ namespace BulletHell.GameEngine
         {
             Random r = new Random();
             int ran = r.Next(0, 6);
-            if(ran == 1 || ran == 2) { makeDamagePickup(); }
+            if(ran == 1 || ran == 2) { makeDamagePickup(); } 
             if(ran == 3 || ran == 4) { makeFastPickup(); }
             //makepickup();
             BHGame.CollisionManager.removeFromTeam(this, TEAM.ENEMY);
             BHGame.Canvas.RemoveFromDrawList(this);
         }
 
+        //permanently increase damage
         public DamagePickup makeDamagePickup()
         {
             Texture2D texture = GraphicsLoader.getGraphicsLoader().getTexture("dmgPickup");
@@ -105,6 +106,7 @@ namespace BulletHell.GameEngine
             return dp;
         }
 
+        //increase speed temporarily
         public FastPickup makeFastPickup()
         {
             Texture2D texture = GraphicsLoader.getGraphicsLoader().getTexture("fastPickup");
