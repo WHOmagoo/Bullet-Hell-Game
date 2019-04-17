@@ -102,7 +102,7 @@ namespace BulletHell.character
         public override void Update()
         {
             base.Update();
-            float timeE = Clock.getClock().getTimeSinceLastUpdate();
+            float timeE = 10 * Clock.getClock().getTimeSinceLastUpdate();
             float scale = 0.5F;
             float scale2 = 2.0F;
 

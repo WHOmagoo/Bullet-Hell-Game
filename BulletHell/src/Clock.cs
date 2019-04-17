@@ -79,7 +79,7 @@ namespace BulletHell
 
         public long getTimeSinceLastUpdate()
         {
-            return 10 * timeSinceLastUpdate / TimeSpan.TicksPerMillisecond;
+            return timeSinceLastUpdate / TimeSpan.TicksPerMillisecond;
         }
 
 //        public void OnPause(object sender, EventArgs e)
