@@ -9,11 +9,14 @@ namespace BulletHell.path
         protected long StartTime;
         protected Vector2 _initialLocation;
         public Vector2 InitialLocation {get{return _initialLocation;}}
+
         public abstract Vector2 UpdateLocation();
 
         /*
             Resets the start time to current time
          */
+
+         public abstract Path Copy();
         public void Reset()
         {
             this.StartTime = Clock.getClock().getTime();

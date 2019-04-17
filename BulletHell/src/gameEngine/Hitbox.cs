@@ -22,6 +22,8 @@ namespace BulletHell.gameEngine
             this._relLoc = relLoc;
             this.parentLoc = parentLoc;
         }
+
+        public abstract Hitbox Copy();
         public abstract void DrawHitbox(SpriteBatch spriteBatch, Color color, int lineWidth);
         // public abstract bool isColliding(Hitbox h);
     }

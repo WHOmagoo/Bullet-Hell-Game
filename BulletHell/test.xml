@@ -71,10 +71,10 @@
     <Encounters>
         <encounter>
             <type>butterfly</type>
-            <time>1000</time>
+            <time>3000</time>
             <location>
-                <x>.30</x>
-                <y>.5</y>
+                <x>.3</x>
+                <y>1</y>
             </location>
         </encounter>
         <encounter>
@@ -89,8 +89,8 @@
             <type>LZapper</type>
             <time>2000</time>
             <location>
-                <x>0</x>
-                <y>.2</y>
+                <x>.5</x>
+                <y>0</y>
             </location>
         </encounter>
         <encounter>

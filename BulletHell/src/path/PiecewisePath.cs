@@ -42,6 +42,14 @@ namespace BulletHell.GameEngine
             // Offset = initialLocation - locationEquation.GetLocation(0);
             StartTime = Clock.getClock().getTime();
         }
+ 
+        public override Path Copy()
+        {
+            PiecewisePath p = new PiecewisePath(InitialLocation);
+            p.pieces = this.pieces;
+            return p;
+        }
+
         /// <summary>
         /// Adds onto the end of the path.
         /// </summary>

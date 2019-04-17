@@ -58,6 +58,17 @@ namespace BulletHell.character
             _healthbar = null;
         }
 
+        public Enemy(Enemy e, Vector2 startLocation) : base(e.texture, startLocation)
+        {
+            this.SetSize(e.Rect.Width, e.Rect.Height);
+            hitbox = e.hitbox.Copy();
+            gunEquipped = e.gunEquipped;
+            healthPoints = e.healthPoints;
+            path = e.Path.Copy();
+            path.ResetAt(startLocation);
+            this.healthbar = e.healthbar;
+        }
+
         public override void onCollision(GameObject hitby)
         {
             if (hitby is Bullet)
@@ -67,15 +78,6 @@ namespace BulletHell.character
                 TakeDamage(b.Damage);
                 healthbar.UpdateHealth(-1 * b.Damage);  //have to multiply by -1 for it to be negative
             }
-        }
-
-        public Enemy(Enemy e, Vector2 startLocation) : base(e.texture, startLocation)
-        {
-            hitbox = e.hitbox;
-            gunEquipped = e.gunEquipped;
-            healthPoints = e.healthPoints;
-            path = e.Path;
-            path.ResetAt(startLocation);
         }
 
         public override void Update()

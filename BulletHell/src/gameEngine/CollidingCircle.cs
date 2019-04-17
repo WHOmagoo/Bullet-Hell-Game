@@ -10,6 +10,11 @@ namespace BulletHell.gameEngine {
         {
             this.radius = radius;
         }
+        public override Hitbox Copy()
+        {
+            return new CollidingCircle(_parentLoc, _relLoc, radius);
+        }
+
 
         public override void DrawHitbox(SpriteBatch spriteBatch, Color color, int lineWidth)
         {

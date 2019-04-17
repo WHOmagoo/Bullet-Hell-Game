@@ -25,6 +25,11 @@ namespace BulletHell.gameEngine
             rect.Y = (int)(absLoc.Y);
         }
 
+        public override Hitbox Copy()
+        {
+            return new CollidingRectangle(_parentLoc, _relLoc, Width, Height);
+        }
+
         public override void DrawHitbox(SpriteBatch spriteBatch, Color color, int lineWidth)
         {
             DrawingTool.DrawRectangle(spriteBatch, rect, color, lineWidth);

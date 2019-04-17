@@ -39,6 +39,11 @@ namespace BulletHell.path
             this.StartTime = Clock.getClock().getTime();
         }
 
+        public override Path Copy()
+        {
+            return new BasicPath(this, InitialLocation, AngleOffset, _speedRatio);
+        }
+
         public override Vector2 UpdateLocation()
         {
             long curTime = (long)(Clock.getClock().getTime() * _speedRatio);
@@ -48,7 +53,5 @@ namespace BulletHell.path
             
             return newLocation + Offset;
         }
-
-
     }
 }

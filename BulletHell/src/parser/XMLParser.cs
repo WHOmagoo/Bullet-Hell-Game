@@ -54,9 +54,6 @@ namespace BulletHell
                     complexPath.Add(new PathData(part["type"].InnerText, duration, 
                                         offset, speed));
                 }
-                Console.WriteLine(name);
-                Console.WriteLine(gun);
-                Console.WriteLine(health);
                 Enemy e = enemyFactory.makeEnemy(sprite, health, Vector2.Zero, complexPath, gun);
                 try
                 {
