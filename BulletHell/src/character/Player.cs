@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Timers;
 using BulletHell.bullet.factory;
@@ -6,13 +7,11 @@ using BulletHell.controls;
 using BulletHell.gameEngine;
 using BulletHell.graphics;
 using BulletHell.gun;
-using BulletHell.path;
+using BulletHell.GameEngine;
+using BulletHell.Pickups;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Pickups;
-using System.Collections.Generic;
-using BulletHell.GameEngine;
 
 namespace BulletHell.character
 {
@@ -166,7 +165,7 @@ namespace BulletHell.character
         public override void onCollision(GameObject hitby)
         {
             // Console.WriteLine("hitby: " + hitby);
-            if (!invulnerable && !(hitby is Pickup))
+            if (!invulnerable && !(hitby is Pickup) && hitby.team != team)
             {
                 startInvulnerability();
                 TakeDamage(1);

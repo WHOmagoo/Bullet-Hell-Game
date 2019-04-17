@@ -12,6 +12,7 @@ namespace BulletHell.gameEngine
         protected Hitbox hitbox;
         public bool isHitboxVisible;
         public bool isSpriteVisible;
+        public TEAM team;
         public override Vector2 Location {
             get { return base.Location;}
             set { base.Location = value; 

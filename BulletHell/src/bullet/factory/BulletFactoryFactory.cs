@@ -50,7 +50,7 @@ namespace BulletHell.bullet.factory
 
         private static BulletFactory makeSurroundBulletFactory()
         {
-            return new SurroundBulletFactory(16, (float) Math.PI / 2, (float) (Math.PI / 9),
+            return new SurroundBulletFactory(16, (float) Math.PI / 2,
                 new  SingleBulletFactory(new SinusoidalLocationEquation(90, 110, 200)));
         }
 

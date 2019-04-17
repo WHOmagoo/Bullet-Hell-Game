@@ -7,6 +7,7 @@ namespace BulletHell.path
     {
         public static Vector2 RotateVector(double angle, Vector2 vector)
         {
+            
             float x = vector.X;
             float y = vector.Y;
 

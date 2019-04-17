@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using System.Xml;
-using Microsoft.Xna.Framework;
-using BulletHell.ObjectCreation;
-using BulletHell.GameEngine;
 using BulletHell.character;
+using BulletHell.ObjectCreation;
+using Microsoft.Xna.Framework;
 
 namespace BulletHell
 {
