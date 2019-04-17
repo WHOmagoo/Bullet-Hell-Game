@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.gameEngine
 {
 
     public abstract class Hitbox
@@ -24,6 +22,8 @@ namespace BulletHell.GameEngine
             this._relLoc = relLoc;
             this.parentLoc = parentLoc;
         }
+
+        public abstract Hitbox Copy();
         public abstract void DrawHitbox(SpriteBatch spriteBatch, Color color, int lineWidth);
         // public abstract bool isColliding(Hitbox h);
     }

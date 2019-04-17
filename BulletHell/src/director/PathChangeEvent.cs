@@ -1,5 +1,5 @@
-using BulletHell.GameEngine;
-using BulletHell.Graphics;
+using BulletHell.graphics;
+using BulletHell.path;
 
 namespace BulletHell.director
 {

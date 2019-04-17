@@ -1,0 +1,93 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Xml.Linq;
+using System.Xml;
+using Microsoft.Xna.Framework;
+using BulletHell.ObjectCreation;
+using BulletHell.GameEngine;
+using BulletHell.character;
+
+namespace BulletHell
+{
+    public class XMLParser : Parser
+    {
+        List<Encounter> encounterList;
+        XmlDocument level;
+        EnemyFactory enemyFactory;
+
+        public XMLParser(string filename)
+        {
+            encounterList = new List<Encounter>();
+            level = new XmlDocument();
+            level.Load(filename);
+            enemyFactory = new EnemyFactory();
+        }
+
+        public void Parse(){
+            PrefabRepo prefabRepo = PrefabRepo.getPrefabRepo();
+            prefabRepo.emptyEnemyPrefabs();
+            XmlNodeList Header = level.DocumentElement.SelectNodes("/level/Header/prefab");
+            foreach(XmlNode enemy in Header){
+                string name = enemy["name"].InnerText;
+                int health;
+                if(!Int32.TryParse(enemy["health"].InnerText, out health)) {
+                    health = 3;
+                }
+                string sprite = enemy["sprite"].InnerText;
+                string gun = enemy["gun"].InnerText;
+                List<PathData> complexPath = new List<PathData>();
+                
+                XmlNodeList path = enemy["path"].ChildNodes;
+                foreach(XmlNode part in path){
+                    int duration;
+                    double offset;
+                    int speed;
+                    if(!Int32.TryParse(part["dur"].InnerText, out duration)){
+                        duration = 0;
+                    }
+                    if(!Double.TryParse(part["offset"].InnerText, out offset)){
+                        offset = 0;
+                    }
+                    if(!Int32.TryParse(part["speed"].InnerText, out speed)){
+                        speed = 0;
+                    }
+                    complexPath.Add(new PathData(part["type"].InnerText, duration, 
+                                        offset, speed));
+                }
+                Enemy e = enemyFactory.makeEnemy(sprite, health, Vector2.Zero, complexPath, gun);
+                try
+                {
+                    prefabRepo.registerEnemyPrefab(name, e);
+                }
+                catch(ArgumentException)
+                {
+                    throw new Exception("Defining a redundant enemy prefab name");
+                }
+            }
+
+            XmlNodeList Encounters = level.DocumentElement.SelectNodes("/level/Encounters/encounter");
+            foreach(XmlNode encounter in Encounters){
+                string type = encounter["type"].InnerText;
+                int time;
+                double xlocal, ylocal;
+                if(!Int32.TryParse(encounter["time"].InnerText, out time)){
+                    time = 0;
+                }
+
+                if(!Double.TryParse(encounter["location"]["x"].InnerText, out xlocal)){
+                    xlocal = 0;
+                }
+
+                if(!Double.TryParse(encounter["location"]["y"].InnerText, out ylocal)){
+                    ylocal = 0;
+                }
+
+                encounterList.Add(new Encounter(type, time, new Vector2((float)xlocal, (float)ylocal)));
+            }
+        }
+        public List<Encounter>  getEncounterList(){
+            return encounterList;
+        }
+    }
+
+}

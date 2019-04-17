@@ -1,3 +1,6 @@
+using BulletHell.character;
+using BulletHell.character;
+using BulletHell.gameEngine;
 using BulletHell.GameEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,9 +17,12 @@ namespace BulletHell.Pickups {
             {
                 onPickup((Player)hitby);
                 BHGame.Canvas.RemoveFromDrawList(this);
+                BHGame.CollisionManager.removeFromTeam(this, TEAM.ENEMY);
             }
         }
 
         protected abstract void onPickup(Player player);
+
+        
     }
 }

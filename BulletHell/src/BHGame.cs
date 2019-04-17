@@ -5,12 +5,14 @@ using System.IO;
 using BulletHell.Annotations;
 using BulletHell.controls;
 using BulletHell.director;
+using BulletHell.gameEngine;
+using BulletHell.graphics;
 using BulletHell.GameEngine;
 using BulletHell.levels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using BulletHell.Graphics;
+using BulletHell.character;
 
 namespace BulletHell
 {
@@ -30,6 +32,8 @@ namespace BulletHell
         public static bool gameOver;
         public static bool won;
         private bool paused;
+
+
 
         public BHGame(IGameFactory factory, Controller controller)
         {
@@ -54,13 +58,13 @@ namespace BulletHell
 
         protected override void Initialize()
         {
-            GraphicsLoader.makeGraphicsLoader(GraphicsDevice);
-            GraphicsLoader.getGraphicsLoader().setGraphicsTexture(new FileStream("Content/sprites/bullet.png", FileMode.Open));
+            // GraphicsLoader.makeGraphicsLoader(GraphicsDevice);
+            // GraphicsLoader.getGraphicsLoader().setGraphicsTexture(new FileStream("Content/sprites/bullet.png", FileMode.Open));
 
             SetGame(factory);
             DrawingTool.Initialize(GraphicsDevice);
-            SpriteFont font = Content.Load<SpriteFont>("SplashFont");
-            Canvas.SetFont(font);
+           SpriteFont font = Content.Load<SpriteFont>("SplashFont");
+           Canvas.SetFont(font);
 
             base.Initialize();
         }
@@ -120,6 +124,7 @@ namespace BulletHell
             won = false;
             canvas.SetMessage("Game Over! Press Enter to play again or ESC to leave");
         }
+
 
         public static void OnWinCondition()
         {

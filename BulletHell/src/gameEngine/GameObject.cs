@@ -1,15 +1,15 @@
+using System;
+using BulletHell.graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
-using System;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.gameEngine
 {
 
     public class GameObject : Entity
     {
         private int counter; //FIXME: Get rid of this later
-        private Hitbox hitbox;
+        protected Hitbox hitbox;
         public bool isHitboxVisible;
         public bool isSpriteVisible;
         public override Vector2 Location {
@@ -41,8 +41,8 @@ namespace BulletHell.GameEngine
         {
             if (isSpriteVisible)
                 base.Draw(spriteBatch);
-            if (isHitboxVisible)
-                hitbox?.DrawHitbox(spriteBatch, Color.Red, 1);
+            //if (isHitboxVisible)
+            //    hitbox?.DrawHitbox(spriteBatch, Color.Red, 1);
         }
     }
 }

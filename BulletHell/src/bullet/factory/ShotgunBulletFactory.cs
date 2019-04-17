@@ -1,51 +1,59 @@
 using System.Collections.Generic;
-//using System.Windows.Media;
+using BulletHell.gameEngine;
+using BulletHell.path;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-namespace BulletHell.GameEngine
+
+namespace BulletHell.bullet.factory
 {
-    public class BasicShotgun : Gun
+    public class ShotgunBulletFactory : BulletFactory
     {
+        private ILocationEquation center;
+        private ILocationEquation left;
+        private ILocationEquation right;
+        private double spread;
 
-        private float weaponSpread;
-        private float direction;
-
-        public BasicShotgun(float direction, float spread, int damage, ILocationEquation shape, Texture2D texture, int delay, TEAM team) : base(damage, shape, texture, delay, team)
+        public ShotgunBulletFactory(double spread, ILocationEquation general)
         {
-            this.weaponSpread = spread;
-            this.direction = direction;
+            initialize(spread, general, general, general);
+        }
+        
+        
+        public ShotgunBulletFactory(double spread, ILocationEquation center, ILocationEquation left, ILocationEquation right)
+        {
+            initialize(spread, center, left, right);
         }
 
-        public override void Shoot(Vector2 location)
+        private void initialize(double spread, ILocationEquation center, ILocationEquation left, ILocationEquation right)
         {
-            if (canShoot())
-            {
-                var bullets = makeBullets(location);
-                base.wasShot();
-                OnShoot(bullets);
-            }
+            this.center = center;
+            this.left = left;
+            this.right = right;
+            this.spread = spread;
         }
-
-        private List<Bullet> makeBullets(Vector2 location)
+        
+        public override List<Bullet> makeBullets(Vector2 location, Texture2D bulletTexture, TEAM team, double angleOffset)
         {
             List<Bullet> result = new List<Bullet>();
 
-            Path pathLeftDiag = new Path(fireShape, location, Math.PI / 8);
-            Path pathRightDiag = new Path(fireShape, location, -Math.PI / 8);
-            Path pathDown = new Path(fireShape, location, 0);
+            // Path pathLeftDiag = new BasicPath(fireShape, location, Math.PI / 8);
+            // Path pathRightDiag = new BasicPath(fireShape, location, -Math.PI / 8);
+            // Path pathDown = new BasicPath(fireShape, location, 0);
+            Path pathLeftDiag = new BasicPath(left, location, spread + angleOffset);
+            Path pathRightDiag = new BasicPath(right, location, -spread + angleOffset);
+            Path pathDown = new BasicPath(center, location, angleOffset);
 
-            Bullet b = new Bullet(damage, pathLeftDiag, bulletTexture, team);
+            Bullet b = new Bullet(1, pathLeftDiag, bulletTexture, team);
             b.SetSize(20, 30);
             b.Hitbox = new CollidingRectangle(b.Location, new Vector2(0, 0), 20, 30);
             BHGame.CollisionManager.addToTeam(b, team);
             result.Add(b);
-            b = new Bullet(damage, pathRightDiag, bulletTexture, team);
+            b = new Bullet(1, pathRightDiag, bulletTexture, team);
             b.SetSize(20, 30);
             b.Hitbox = new CollidingRectangle(b.Location, new Vector2(0, 0), 20, 30);
             BHGame.CollisionManager.addToTeam(b, team);
             result.Add(b);
-            b = new Bullet(damage, pathDown, bulletTexture, team);
+            b = new Bullet(1, pathDown, bulletTexture, team);
             b.SetSize(20, 30);
             b.Hitbox = new CollidingRectangle(b.Location, new Vector2(0, 0), 20, 30);
             BHGame.CollisionManager.addToTeam(b, team);
@@ -72,5 +80,4 @@ namespace BulletHell.GameEngine
             return result;
         }
     }
-
 }

@@ -1,8 +1,11 @@
-using System.Collections;
+/*
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
+using BulletHell.gun;
+using BulletHell.path;
+using BulletHell.bullet;
+using BulletHell.gameEngine;
 
 namespace BulletHell.GameEngine
 {
@@ -32,7 +35,7 @@ namespace BulletHell.GameEngine
 
         private Bullet makeBullet(Vector2 location){
             // Bullet b = new Bullet(damage, this.fireShape, bulletTexture, location, team);
-            Path path = new Path(fireShape, location, fireAngleOffset);
+            Path path = new BasicPath(fireShape, location, fireAngleOffset);
             Bullet b = new Bullet(damage, path, bulletTexture, team);
             b.SetSize(20,30);
             b.Hitbox = new CollidingRectangle(b.Location, new Vector2(0,0), 20, 30);
@@ -42,3 +45,4 @@ namespace BulletHell.GameEngine
     }
 
 }
+*/

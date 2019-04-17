@@ -1,35 +1,58 @@
-﻿using System;
+﻿using BulletHell.gameEngine;
+using BulletHell.graphics;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.character
 {
-    class HealthBar : GameObject
+    public class HealthBar
     {
-        //This class is in charch of displaying the red bar
-        //we don't need an update funtion for this class because it will not need to change at all
-
-        private Texture2D container;
-        private Vector2 position;
-        private int fullHealth;
-        private int currentHealth;
-
-        public HealthBar(Texture2D healthBarTexture, Vector2 startLocation) : base(healthBarTexture, startLocation)
+        public Rectangle _bar;
+        public Rectangle _green_bar;
+        protected Vector2 _absLoc;
+        protected Vector2 _parentLoc;
+        protected Vector2 _relLoc;
+        public Vector2 absLoc { get { return _relLoc + _parentLoc; } }
+        public int Width { get { return _bar.Width; } }
+        public int Height { get { return _bar.Height; } }
+        private int _one_life;
+        public Vector2 parentLoc
         {
-            position = new Vector2(100, 100);
-            //LoadContent(content,healthBarTexture);
-            container = healthBarTexture;
-            fullHealth = container.Width;
-            currentHealth = fullHealth;
+            set
+            {
+                _parentLoc = value;
+                _bar.X = (int)absLoc.X; _bar.Y = (int)absLoc.Y;
+                _green_bar.X = (int)absLoc.X; _green_bar.Y = (int)absLoc.Y;
+            }
+            get { return _parentLoc; }
         }
+        public Vector2 relLoc;
+        public HealthBar(Vector2 parentLoc, Vector2 relLocation, int width, int height, int health)
+        {
+            this._relLoc = relLocation;
+            this.parentLoc = parentLoc;
+            _bar.Width = width;
+            _bar.Height = height;
+            _bar.X = (int)(absLoc.X);
+            _bar.Y = (int)(absLoc.Y);
 
-        //private void LoadContent(ContentManager content,Texture2D healthBarTexture)
-        //{
-        //    container = healthBarTexture;
-        //}
+            _green_bar.Width = width;
+            _green_bar.Height = height;
+            _green_bar.X = (int)(absLoc.X);
+            _green_bar.Y = (int)(absLoc.Y);
+
+            _one_life = width / health;
+        }
+        public void DrawHealthBar(SpriteBatch spriteBatch, Color color, int lineWidth)
+        {
+            DrawingTool.DrawRectangle(spriteBatch, _bar, color, lineWidth);
+            DrawingTool.DrawRectangle(spriteBatch, _green_bar, Color.LightGreen, lineWidth);
+        }
+        public void UpdateHealth(int damage)
+        {
+            _green_bar.Width += damage * _one_life;
+            //can add lives or subtract lives depending if damage is positive or negative
+        }
 
     }
 }

@@ -1,8 +1,8 @@
+using BulletHell.graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
 
-namespace BulletHell.GameEngine {
+namespace BulletHell.gameEngine {
     public class CollidingCircle : Hitbox {
         public float radius;
 
@@ -10,6 +10,11 @@ namespace BulletHell.GameEngine {
         {
             this.radius = radius;
         }
+        public override Hitbox Copy()
+        {
+            return new CollidingCircle(_parentLoc, _relLoc, radius);
+        }
+
 
         public override void DrawHitbox(SpriteBatch spriteBatch, Color color, int lineWidth)
         {

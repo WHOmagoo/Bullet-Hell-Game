@@ -2,16 +2,17 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using BulletHell.Annotations;
+using BulletHell.bullet;
+using BulletHell.gameEngine;
+using BulletHell.gun;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.character
 {
     public abstract class Character : GameObject, INotifyPropertyChanged
     {
         protected int healthPoints;
-        //protected Gun gunEquipped;  //need Gun class
 
         private Gun _gunEquipped;
 
@@ -29,17 +30,18 @@ namespace BulletHell.GameEngine
                 _gunEquipped = value;
                 OnWeaponChanged(nameof(gunEquipped));
             }
-        }  //need Gun class
+        }
+
+        public int Health { get { return healthPoints; } }
 
         public Character(Texture2D texture, Vector2 startLocation, int width = 0, int height = 0) 
             : base(texture,startLocation,width,height)
         {
-            healthPoints = 1000;    // just chose a random value of 1000 for now (value may depend on which character)
+            healthPoints = 5;
         }
 
         public void Shoot()
         {
-            //need gun class   TODO
             if(!ReferenceEquals(null, gunEquipped))
                 gunEquipped.Shoot(Location);
         }

@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.path
 {
     public class LinearLocationEquation : ILocationEquation
     {
@@ -18,7 +18,8 @@ namespace BulletHell.GameEngine
             xGrowRate = (float) (Math.Cos(angle) * speed);
             yGrowRate = (float) (Math.Sin(angle) * speed);
         }
-        
+
+
         /// <summary>
         ///     Returns the location that an object should be at after a certain amount of ticks have occured
         /// </summary>

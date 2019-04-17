@@ -13,6 +13,7 @@ namespace BulletHell.GameEngine
 
             //Default case goes here
             IGameFactory factory = new GameDirectorLevel1Creator();
+            //IGameFactory factory = new TestLevelCreeator();
             Controller controller = new Controller();
             
             
@@ -22,7 +23,7 @@ namespace BulletHell.GameEngine
                 {
                     if (string.Equals(args[i+1], "test", StringComparison.OrdinalIgnoreCase))
                     {
-                        factory = new TestLevelCreeator();
+                        factory = new TestLevelCreator();
                     } else if (string.Equals(args[i+1], "level1"))
                     {
                         factory = new GameDirectorLevel1Creator();

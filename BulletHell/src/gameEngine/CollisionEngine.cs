@@ -1,9 +1,8 @@
 using System;
-using System.Numerics;
 using Microsoft.Xna.Framework;
-using Vector2 = Microsoft.Xna.Framework.Vector2;
+
 // using System.Generic;
-namespace BulletHell.GameEngine
+namespace BulletHell.gameEngine
 {
 
     public static class CollisionEngine
@@ -36,7 +35,7 @@ namespace BulletHell.GameEngine
         public static bool isColliding(CollidingRectangle r, CollidingCircle c)
         {
             //Change to int for efficiency?
-            System.Numerics.Vector2 rLoc = new System.Numerics.Vector2(r.absLoc.X + r.Width/2, r.absLoc.Y + r.Height/2);
+            Vector2 rLoc = new Vector2(r.absLoc.X + r.Width/2, r.absLoc.Y + r.Height/2);
             float circleDistanceX = Math.Abs(c.absLoc.X - rLoc.X);
             float circleDistanceY = Math.Abs(c.absLoc.Y - rLoc.Y);
             // float circleDistanceX = Math.Abs(c.absLoc.X - r.absLoc.X);
