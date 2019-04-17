@@ -38,7 +38,14 @@ namespace BulletHell.levels
             director = new GameDirector();
             canvas = new Canvas(new SpriteBatch(graphicsDevice));
             collisionManager = new CollisionManager();
-            graphicsLoader = GraphicsLoader.makeGraphicsLoader(graphicsDevice);
+            try
+            {
+                graphicsLoader = GraphicsLoader.makeGraphicsLoader(graphicsDevice);
+            }
+            catch(ArgumentException)
+            {
+                graphicsLoader = GraphicsLoader.getGraphicsLoader();
+            }
             EnemyFactory enemyFactory = new EnemyFactory(); 
 
             xmlParser.Parse();
