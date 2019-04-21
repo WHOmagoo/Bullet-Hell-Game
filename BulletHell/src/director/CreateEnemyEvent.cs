@@ -18,6 +18,8 @@ namespace BulletHell.director
             this.canvas = canvas;
             this.enemy = enemy;
             this.collisionManager = collisionManager;
+            this.enemy.PropertyChanged += canvas.OnWeaponChange;
+            this.enemy.gunEquipped.GunShotHandler += canvas.OnGunShot;
         }
 
         public override void Execute()

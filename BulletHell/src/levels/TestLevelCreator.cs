@@ -61,9 +61,11 @@ namespace BulletHell.levels
             Enemy e4 = enemyFactory.makeEnemy("enemyA", 1, new Vector2(50, 50), pData3, null);
 
 
+            
+
             director.addEvent(0, new PlayerEnter(canvas, player));
             /******************Wave 1************************* */
-            director.addEvent(0, new CreateEnemyEvent(collisionManager, canvas, e1));
+            //director.addEvent(0, new CreateEnemyEvent(collisionManager, canvas, e1));
             director.addEvent(10 * 1000, new CreateEnemyEvent(collisionManager, canvas, e2));
             //director.addEvent(10 * 1000, new CreateEnemyEvent(collisionManager, canvas, e3));
             //director.addEvent(15 * 1000, new CreateEnemyEvent(collisionManager, canvas, e4));
