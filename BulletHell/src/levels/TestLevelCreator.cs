@@ -50,11 +50,12 @@ namespace BulletHell.levels
             PathData pData1 = new PathData("linear", 4000, 0, .1);
             PathData pData2 = new PathData("sinusoidal", 5000, 3 * Math.PI / 2, 1);
             PathData pData3 = new PathData("linear", 4000, 3 * Math.PI / 2, .1);
+            PathData pData4 = new PathData("spiral", 4000, 3 * Math.PI / 2, 5);
             List<PathData> pData = new List<PathData>();
             pData.Add(pData1);
             pData.Add(pData2);
             pData.Add(pData3);
-            Enemy e1 = enemyFactory.makeEnemy("enemyA", 1, new Vector2(50, 50), pData1, null);
+            Enemy e1 = enemyFactory.makeEnemy("enemyA", 1, new Vector2(50, 50), pData4, null);
             Enemy e2 = enemyFactory.makeEnemy("enemyA", 1, new Vector2(50, 50), pData1, null);
             Enemy e3 = enemyFactory.makeEnemy("enemyA", 1, new Vector2(50, 50), pData3, null);
             Enemy e4 = enemyFactory.makeEnemy("enemyA", 1, new Vector2(50, 50), pData3, null);
