@@ -24,8 +24,10 @@ namespace BulletHell.director
             Rectangle screen = canvas.GetBounds();
             PrefabRepo prefabRepo = PrefabRepo.getPrefabRepo();
             Enemy enemy = new Enemy(prefabRepo.getEnemyPrefab(encounter.enemyType), 
-                new Vector2(encounter.locationPercentages.X * screen.Width, (1 - encounter.locationPercentages.Y) * screen.Height), BulletFactoryFactory.make(encounter.weaponType));
-
+                new Vector2(encounter.locationPercentages.X * screen.Width, (1 - encounter.locationPercentages.Y) * screen.Height));
+            enemy.gunEquipped.GunShotHandler += canvas.OnGunShot;
+            
+            
             canvas.AddToDrawList(enemy);
             if (!ReferenceEquals(collisionManager, null))
             {

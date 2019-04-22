@@ -66,7 +66,7 @@ namespace BulletHell
 
             XmlNodeList Encounters = level.DocumentElement.SelectNodes("/level/Encounters/encounter");
             foreach(XmlNode encounter in Encounters){
-                string type = encounter["type"].InnerText, weaponType = encounter["gun"].InnerText;
+                string type = encounter["type"].InnerText;
                 int time;
                 double xlocal, ylocal;
                 if(!Int32.TryParse(encounter["time"].InnerText, out time)){
@@ -83,7 +83,7 @@ namespace BulletHell
                 
                 
 
-                encounterList.Add(new Encounter(type, weaponType, time, new Vector2((float)xlocal, (float)ylocal)));
+                encounterList.Add(new Encounter(type, time, new Vector2((float)xlocal, (float)ylocal)));
             }
         }
         public List<Encounter>  getEncounterList(){

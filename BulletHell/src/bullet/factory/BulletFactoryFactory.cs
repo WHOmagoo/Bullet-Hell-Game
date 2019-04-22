@@ -40,7 +40,6 @@ namespace BulletHell.bullet.factory
             nameToFunction.Add("basic", makeBasicGun);
             nameToFunction.Add("surround", makeSurroundBulletFactory);
             nameToFunction.Add("singlesinusoidal", makeSinusoidalBulletFactory);
-            
         }
 
         private static BulletFactory makeSinusoidalBulletFactory()

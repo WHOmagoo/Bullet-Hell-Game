@@ -53,7 +53,7 @@ namespace BulletHell.character
         {
             healthPoints = health;
             
-            this.gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getBulletTexture(), bulletFactory, TEAM.ENEMY, Math.PI / 2);
+            this.gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getBulletTexture(), bulletFactory, TEAM.ENEMY, -Math.PI / 2);
             path = p;
 
             isHealthbarVisible = true;
