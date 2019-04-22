@@ -5,6 +5,7 @@
             <name>butterfly</name>
             <health>5</health>
             <sprite>enemyA</sprite>
+            <scale>1</scale>
             <gun>shotgun</gun>
             <path>
                 <parts>
@@ -19,6 +20,7 @@
             <name>RZapper</name>
             <health>5</health>
             <sprite>enemyB</sprite>
+            <scale>.4</scale>
             <gun>basic</gun>
             <path>
                 <parts>
@@ -45,6 +47,7 @@
             <name>LZapper</name>
             <health>5</health>
             <sprite>enemyC</sprite>
+            <scale>.1</scale>
             <gun>basic</gun>
             <path>
                 <parts>

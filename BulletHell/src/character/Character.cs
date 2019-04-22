@@ -49,7 +49,7 @@ namespace BulletHell.character
 
         protected virtual void CheckHealth()
         {
-            Console.WriteLine("health: " + healthPoints);
+            // Console.WriteLine("health: " + healthPoints);
             if (healthPoints <= 0)
                 Die();
         }

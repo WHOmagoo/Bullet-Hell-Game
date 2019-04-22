@@ -19,5 +19,9 @@ namespace BulletHell.gameEngine {
             throw new System.NotImplementedException();
         }
 
+        public override void Scale(double scale)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

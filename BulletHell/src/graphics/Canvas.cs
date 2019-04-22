@@ -100,7 +100,7 @@ namespace BulletHell.graphics
             }
             else
             {    
-                Console.WriteLine("Duplicate added");
+                Console.WriteLine("Duplicate added to drawlist");
             }
         }
 
