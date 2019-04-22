@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using System.Xml;
-using Microsoft.Xna.Framework;
-using BulletHell.ObjectCreation;
-using BulletHell.GameEngine;
 using BulletHell.character;
+using BulletHell.ObjectCreation;
+using Microsoft.Xna.Framework;
+//using System.Xml.Linq;
 
 namespace BulletHell
 {
@@ -67,7 +66,7 @@ namespace BulletHell
 
             XmlNodeList Encounters = level.DocumentElement.SelectNodes("/level/Encounters/encounter");
             foreach(XmlNode encounter in Encounters){
-                string type = encounter["type"].InnerText;
+                string type = encounter["type"].InnerText, weaponType = encounter["gun"].InnerText;
                 int time;
                 double xlocal, ylocal;
                 if(!Int32.TryParse(encounter["time"].InnerText, out time)){
@@ -81,8 +80,10 @@ namespace BulletHell
                 if(!Double.TryParse(encounter["location"]["y"].InnerText, out ylocal)){
                     ylocal = 0;
                 }
+                
+                
 
-                encounterList.Add(new Encounter(type, time, new Vector2((float)xlocal, (float)ylocal)));
+                encounterList.Add(new Encounter(type, weaponType, time, new Vector2((float)xlocal, (float)ylocal)));
             }
         }
         public List<Encounter>  getEncounterList(){

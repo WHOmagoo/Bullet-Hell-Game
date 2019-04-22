@@ -1,5 +1,5 @@
 ﻿using System;
-using BulletHell.GameEngine;
+using BulletHell.path;
 using Microsoft.Xna.Framework;
 using NUnit.Framework;
 

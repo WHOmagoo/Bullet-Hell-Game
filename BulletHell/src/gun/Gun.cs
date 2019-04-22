@@ -46,7 +46,7 @@ namespace BulletHell.gun
 
         public bool canShoot()
         {
-            return lastShotTick + tickFireDelay < Clock.getClock().getTime();
+            return lastShotTick + tickFireDelay < Clock.getClock().getTime() && !ReferenceEquals(null, this.fireShape);
         }
         
         protected virtual void OnShoot(List<Bullet> bulletsCreated)

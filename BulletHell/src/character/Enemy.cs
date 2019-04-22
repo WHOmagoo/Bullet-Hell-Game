@@ -1,12 +1,13 @@
-﻿using BulletHell.gameEngine;
+﻿using System;
+using BulletHell.bullet;
+using BulletHell.bullet.factory;
+using BulletHell.gameEngine;
+using BulletHell.graphics;
 using BulletHell.gun;
 using BulletHell.path;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 // using BulletHell.Graphics;
-using BulletHell.bullet;
-using System;
-using BulletHell.Pickups;
 
 namespace BulletHell.character
 {
@@ -47,18 +48,19 @@ namespace BulletHell.character
             get { return path; }
         }
 
-        public Enemy(Texture2D texture, Path p , int health, Gun gun = null) 
+        public Enemy(Texture2D texture, Path p , int health, BulletFactory bulletFactory = null) 
             : base(texture, p.InitialLocation)
         {
             healthPoints = health;
-            gunEquipped = gun;
+            
+            this.gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getBulletTexture(), bulletFactory, TEAM.ENEMY, Math.PI / 2);
             path = p;
 
             isHealthbarVisible = true;
             _healthbar = null;
         }
 
-        public Enemy(Enemy e, Vector2 startLocation) : base(e.texture, startLocation)
+        public Enemy(Enemy e, Vector2 startLocation, BulletFactory bf = null) : base(e.texture, startLocation)
         {
             this.SetSize(e.Rect.Width, e.Rect.Height);
             hitbox = e.hitbox.Copy();
@@ -67,6 +69,14 @@ namespace BulletHell.character
             path = e.Path.Copy();
             path.ResetAt(startLocation);
             this.healthbar = e.healthbar;
+            if (ReferenceEquals(null, bf))
+            {
+                this.gunEquipped = e.gunEquipped;
+            }
+            else
+            {
+                this.gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getBulletTexture(), bf, TEAM.ENEMY);
+            }
         }
 
         public override void onCollision(GameObject hitby)

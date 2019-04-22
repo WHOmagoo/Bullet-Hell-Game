@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
-using BulletHell;
+using BulletHell.bullet.factory;
 using BulletHell.character;
 using BulletHell.gameEngine;
-using BulletHell.GameEngine;
 using BulletHell.graphics;
 using BulletHell.gun;
 using BulletHell.path;
@@ -38,7 +36,7 @@ namespace BulletHell.ObjectCreation {
         {
             Texture2D texture = GraphicsLoader.getGraphicsLoader().getTexture(textureName);
             Gun gun = gunFactory.makeGun(gunType);
-            Enemy enemy = new Enemy(texture, path, health, gun);
+            Enemy enemy = new Enemy(texture, path, health, BulletFactoryFactory.make(gunType));
             enemy.SetSize(100,100);
             enemy.Hitbox = new CollidingRectangle(enemy.Location, Vector2.Zero, 100, 100);
             enemy.healthbar = new HealthBar(enemy.Location, new Vector2(8, 0), 85, 90, enemy.Health);

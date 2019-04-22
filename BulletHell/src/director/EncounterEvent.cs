@@ -1,7 +1,6 @@
-using System;
+using BulletHell.bullet.factory;
 using BulletHell.character;
 using BulletHell.gameEngine;
-using BulletHell.GameEngine;
 using BulletHell.graphics;
 using Microsoft.Xna.Framework;
 
@@ -25,7 +24,7 @@ namespace BulletHell.director
             Rectangle screen = canvas.GetBounds();
             PrefabRepo prefabRepo = PrefabRepo.getPrefabRepo();
             Enemy enemy = new Enemy(prefabRepo.getEnemyPrefab(encounter.enemyType), 
-                new Vector2(encounter.locationPercentages.X * screen.Width, (1 - encounter.locationPercentages.Y) * screen.Height));
+                new Vector2(encounter.locationPercentages.X * screen.Width, (1 - encounter.locationPercentages.Y) * screen.Height), BulletFactoryFactory.make(encounter.weaponType));
 
             canvas.AddToDrawList(enemy);
             if (!ReferenceEquals(collisionManager, null))
