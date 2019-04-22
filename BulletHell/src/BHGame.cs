@@ -63,8 +63,8 @@ namespace BulletHell
 
             SetGame(factory);
             DrawingTool.Initialize(GraphicsDevice);
-           SpriteFont font = Content.Load<SpriteFont>("SplashFont");
-           Canvas.SetFont(font);
+            SpriteFont font = Content.Load<SpriteFont>("SplashFont");
+            Canvas.SetFont(font);
 
             base.Initialize();
         }

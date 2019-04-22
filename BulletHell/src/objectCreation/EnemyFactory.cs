@@ -7,6 +7,7 @@ using BulletHell.GameEngine;
 using BulletHell.graphics;
 using BulletHell.gun;
 using BulletHell.path;
+using BulletHell.bullet.factory;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -39,12 +40,18 @@ namespace BulletHell.ObjectCreation {
         private Enemy makeEnemy(string textureName, int health, Path path, string gunType, double scale)
         {
             Texture2D texture = GraphicsLoader.getGraphicsLoader().getTexture(textureName);
-            Gun gun = gunFactory.makeGun(gunType);
-            Enemy enemy = new Enemy(texture, path, health, gun);
+            //Gun gun = gunFactory.makeGun(gunType);
+            //BulletFactoryFactory f = new makeSurroundBulletFactory();
+            SpiralLocationEquation s = new SpiralLocationEquation(Math.PI / 2, 2);
+            BossGun g = new BossGun(1, BulletFactoryFactory.makeDefaultShotgun(), 1, s, texture, TEAM.ENEMY);
+            //Gun g = new Gun(1, texture, BulletFactoryFactory.make("shotgun"), TEAM.ENEMY);
+            Enemy enemy = new Enemy(texture, path, health, g);
+            //enemy.gunEquipped.GunShotHandler += BHGame.Canvas.OnGunShot();
             enemy.Hitbox = HitboxRepo.getHitboxRepo().getHitbox(textureName);
             enemy.Scale(scale);
             enemy.healthbar = new HealthBar(enemy.Location, new Vector2(8, 0), enemy.Rect.Width,
                                             10, enemy.Health);
+            
             return enemy;
         }
     }

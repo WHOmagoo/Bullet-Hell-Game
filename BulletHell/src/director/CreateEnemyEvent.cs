@@ -17,6 +17,10 @@ namespace BulletHell.director
             this.canvas = canvas;
             this.enemy = enemy;
             this.collisionManager = collisionManager;
+
+            this.enemy.gunEquipped.GunShotHandler += this.canvas.OnGunShot;
+
+
         }
 
         public override void Execute()
