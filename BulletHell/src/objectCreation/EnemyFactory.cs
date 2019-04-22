@@ -40,10 +40,12 @@ namespace BulletHell.ObjectCreation {
         private Enemy makeEnemy(string textureName, int health, Path path, string gunType, double scale)
         {
             Texture2D texture = GraphicsLoader.getGraphicsLoader().getTexture(textureName);
+            Texture2D texture2 = GraphicsLoader.getGraphicsLoader().getTexture("bullet");
+
             //Gun gun = gunFactory.makeGun(gunType);
             //BulletFactoryFactory f = new makeSurroundBulletFactory();
             SpiralLocationEquation s = new SpiralLocationEquation(Math.PI / 2, 2);
-            BossGun g = new BossGun(1, BulletFactoryFactory.makeDefaultShotgun(), 1, s, texture, TEAM.ENEMY);
+            BossGun g = new BossGun(1, BulletFactoryFactory.make("shotgun"), 1, s, texture2, TEAM.ENEMY);
             //Gun g = new Gun(1, texture, BulletFactoryFactory.make("shotgun"), TEAM.ENEMY);
             Enemy enemy = new Enemy(texture, path, health, g);
             //enemy.gunEquipped.GunShotHandler += BHGame.Canvas.OnGunShot();
