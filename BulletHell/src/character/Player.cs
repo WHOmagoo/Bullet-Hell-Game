@@ -65,6 +65,14 @@ namespace BulletHell.character
             controller.OnSlow += goSlow;
             controller.OnFast += goFast;
             controller.OnDown += goDown;
+            controller.OnCheat += onCheat;
+        }
+
+        private void onCheat(object sender, EventArgs e)
+        {
+            
+            invulnerable = !invulnerable;
+            validEndInvulnerability = !invulnerable;
         }
 
         public void MakeHearts(Texture2D heart_texture)
@@ -176,6 +184,7 @@ namespace BulletHell.character
         }
 
         private Thread t;
+        private bool validEndInvulnerability = true;
         public volatile bool invulnerable = false;
         public bool drawSp = true;
         public System.Timers.Timer myT = new System.Timers.Timer();
@@ -214,10 +223,13 @@ namespace BulletHell.character
             // invulnerable = true;
             newTimer();
             Thread.Sleep(2000);
-            invulnerable = false;
+            if (validEndInvulnerability)
+            {
+                invulnerable = false;
+                Console.WriteLine("Can now take damage again");
+            }
             myT.Dispose();
             drawSp = true;
-            Console.WriteLine("Can now take damage again");
         }
 
         protected override void TakeDamage(int damage)
