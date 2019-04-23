@@ -48,19 +48,19 @@ namespace BulletHell.character
             get { return path; }
         }
 
-        public Enemy(Texture2D texture, Path p , int health, BulletFactory bulletFactory = null) 
+        public Enemy(Texture2D texture, Path p , int health, BulletFactory bulletFactory = null, float delay = 1) 
             : base(texture, p.InitialLocation)
         {
             healthPoints = health;
             
-            this.gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getBulletTexture(), bulletFactory, TEAM.ENEMY, -Math.PI / 2);
+            this.gunEquipped = new Gun(delay, GraphicsLoader.getGraphicsLoader().getBulletTexture(), bulletFactory, TEAM.ENEMY, -Math.PI / 2);
             path = p;
 
             isHealthbarVisible = true;
             _healthbar = null;
         }
 
-        public Enemy(Enemy e, Vector2 startLocation, BulletFactory bf = null) : base(e.texture, startLocation)
+        public Enemy(Enemy e, Vector2 startLocation, BulletFactory bf = null, int delay = 1) : base(e.texture, startLocation)
         {
             this.SetSize(e.Rect.Width, e.Rect.Height);
             hitbox = e.hitbox.Copy();
@@ -75,7 +75,7 @@ namespace BulletHell.character
             }
             else
             {
-                this.gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getBulletTexture(), bf, TEAM.ENEMY);
+                this.gunEquipped = new Gun(delay, GraphicsLoader.getGraphicsLoader().getBulletTexture(), bf, TEAM.ENEMY);
             }
         }
 
