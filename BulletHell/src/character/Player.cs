@@ -186,7 +186,7 @@ namespace BulletHell.character
         }
 
 
-        private void startInvulnerability()
+        public void startInvulnerability()
         {
             if (invulnerable)
             {

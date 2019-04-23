@@ -71,6 +71,9 @@ namespace BulletHell.graphics
             // addTexture("healthBar", "Content/sprites/healthBar.png");
             // addTexture("lifeBar", "Content/sprites/lifeBar.png");
             addTexture("bullet", "Content/sprites/bullet.png");
+            addTexture("dmgPickup", "Content/sprites/fire-flower.png");
+            addTexture("fastPickup", "Content/sprites/gold-mushroom.png");
+            addTexture("lifepickup", "Content/sprites/mushroom-1up.png");
         }
     }
 }
