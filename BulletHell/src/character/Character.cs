@@ -14,7 +14,7 @@ namespace BulletHell.character
     {
         protected int healthPoints;
 
-        private Gun _gunEquipped;
+        protected Gun _gunEquipped;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

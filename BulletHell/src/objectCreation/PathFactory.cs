@@ -49,8 +49,8 @@ namespace BulletHell.ObjectCreation
             equationTable.Add("sinusoidal", new SinusoidalLocationEquation(10, 200, 25, .0001));
             equationTable.Add("zigzag", new ZigZag(Math.PI / 16, .1F, 3000, Math.PI - Math.PI / 16, .1F, 3000));
             equationTable.Add("linear", new LinearLocationEquation(0, .1f));
-            equationTable.Add("still", StayStill.getStayStill()); 
-
+            equationTable.Add("still", StayStill.getStayStill());
+            equationTable.Add("spiral", new SpiralLocationEquation(Math.PI, 6));            
         }
     }
 }

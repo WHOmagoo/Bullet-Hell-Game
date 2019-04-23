@@ -6,6 +6,7 @@ using BulletHell.gameEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using BulletHell.path;
+using BulletHell.ObjectCreation;
 
 namespace BulletHell.gun
 {
@@ -16,18 +17,50 @@ namespace BulletHell.gun
         private float direction;
         private int delay;
         BulletFactory bfactory;
-        
+        SpiralLocationEquation path;
+        Vector2 _location;
+        long time_elapsed;
+        private long startTime;
+
+
+        public virtual Vector2 Location
+        {
+            get { return _location; }
+            set
+            {
+                _location = value;
+            }
+        }
+
         /*
             TODO: IMPLEMEMENT GUN TO FOLLOW SPECIFIC SHAPE/PATTERN EQUATION
         */
-        public BossGun(int delay, BulletFactory factory, float direction, ILocationEquation shape, Texture2D texture, TEAM team) : base(delay, texture, factory, team)
+        public BossGun(Vector2 startingLoc, int delay, BulletFactory factory, float direction, ILocationEquation shape, Texture2D texture, TEAM team) : base(delay, texture, factory, team)
         {
+            Location = startingLoc;
             this.delay = delay;
             this.bfactory = factory;
             this.direction = direction;
+            base.fireAngleOffset = Math.PI/2;
+
+            path = (SpiralLocationEquation)shape;
+
+
         }
 
+        public override void Shoot(Vector2 location)
+        {
+            if (canShoot())
+            {
+                time_elapsed = Clock.getClock().getTime() - startTime;
+                Vector2 relLoc = path.GetLocation(time_elapsed);
+                Location = location + relLoc;
+                OnShoot(fireShape.makeBullets(location+relLoc, bulletTexture, team, Location.Y));
+                    wasShot();
+            }
+        }
         
+
     }
 
 }
