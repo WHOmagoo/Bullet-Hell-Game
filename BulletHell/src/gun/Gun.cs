@@ -21,10 +21,10 @@ namespace BulletHell.gun
         protected double fireAngleOffset;
         public event EventHandler<BulletsCreatedEventArgs> GunShotHandler;
 
-        public Gun(long delay, Texture2D texture, BulletFactory factory, TEAM team, double fireAngleOffset = Math.PI / 2)
+        public Gun(float delay, Texture2D texture, BulletFactory factory, TEAM team, double fireAngleOffset = Math.PI / 2)
         {
             this.bulletTexture = texture;
-            this.tickFireDelay = delay * 1000;
+            this.tickFireDelay = (long) (delay * 1000);
             this.fireShape = factory;
             this.team = team;
             this.fireAngleOffset = fireAngleOffset;
