@@ -22,27 +22,30 @@ namespace BulletHell.ObjectCreation {
                 this.pathFactory = pathFactory;
             gunFactory = new GunFactory();
         }
-        public Enemy makeEnemy(string textureName, int health, Vector2 startingLocation, List<PathData> pathData, string gun)
+        public Enemy makeEnemy(string textureName, int health, Vector2 startingLocation, List<PathData> pathData,
+            string gun, float delay)
         {
             Path p = pathFactory.makePath(startingLocation, pathData);
-            return makeEnemy(textureName, health, p, gun);
+            return makeEnemy(textureName, health, p, gun, delay);
         }
-        public Enemy makeEnemy(string textureName, int health, Vector2 startingLocation, PathData pathData, string gun)
+        public Enemy makeEnemy(string textureName, int health, Vector2 startingLocation, PathData pathData, string gun,
+            float delay)
         {
             Path p = pathFactory.makePath(startingLocation, pathData);
-            return makeEnemy(textureName, health, p, gun);
+            return makeEnemy(textureName, health, p, gun, delay);
         }
 
-        private Enemy makeEnemy(string textureName, int health, Path path, string gunType)
+        private Enemy makeEnemy(string textureName, int health, Path path, string gunType, float delay)
         {
             Texture2D texture = GraphicsLoader.getGraphicsLoader().getTexture(textureName);
             Enemy enemy;
             try
             {
-                enemy = new Enemy(texture, path, health, BulletFactoryFactory.make(gunType));
+                enemy = new Enemy(texture, path, health, BulletFactoryFactory.make(gunType), delay);
             }
             catch (Exception e)
             {
+                Console.WriteLine("Error loading gun " + gunType);
                 enemy = new Enemy(texture, path, health);
             }
 
