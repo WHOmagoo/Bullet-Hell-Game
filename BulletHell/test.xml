@@ -71,15 +71,8 @@
     <Encounters>
         <encounter>
             <type>butterfly</type>
-            <time>3000</time>
-            <location>
-                <x>.3</x>
-                <y>1</y>
-            </location>
-        </encounter>
-        <encounter>
-            <type>butterfly</type>
             <time>1000</time>
+            <boss>true</boss>
             <location>
                 <x>.7</x>
                 <y>1</y>
@@ -87,7 +80,8 @@
         </encounter>
         <encounter>
             <type>LZapper</type>
-            <time>2000</time>
+            <time>200000</time>
+            <boss>false</boss>
             <location>
                 <x>.9</x>
                 <y>1</y>
@@ -95,7 +89,8 @@
         </encounter>
         <encounter>
             <type>RZapper</type>
-            <time>2000</time>
+            <time>200001</time>
+            <boss>false</boss>
             <location>
                 <x>.1</x>
                 <y>1</y>

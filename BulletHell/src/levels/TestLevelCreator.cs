@@ -52,7 +52,7 @@ namespace BulletHell.levels
             List<Encounter> encounters = xmlParser.getEncounterList();
             foreach(var encounter in encounters)
             {
-                EncounterEvent encounterEvent = new EncounterEvent(collisionManager, canvas, encounter);
+                EncounterEvent encounterEvent = new EncounterEvent(collisionManager, canvas, encounter, director);
                 Console.WriteLine(encounter.timeInMS);
                 director.addEvent(encounter.timeInMS, encounterEvent);
             }
@@ -84,7 +84,7 @@ namespace BulletHell.levels
 
             director.addEvent(0, new PlayerEnter(canvas, player));
             /******************Wave 1************************* */
-            director.addEvent(3000, new CreateEnemyEvent(collisionManager, canvas, e1));
+            //director.addEvent(3000, new CreateEnemyEvent(collisionManager, canvas, e1));
 
             return new Tuple<GameDirector, Canvas, CollisionManager>(director, canvas, collisionManager);
         }

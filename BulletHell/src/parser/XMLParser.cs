@@ -54,7 +54,7 @@ namespace BulletHell
                     complexPath.Add(new PathData(part["type"].InnerText, duration, 
                                         offset, speed));
                 }
-                Enemy e = enemyFactory.makeEnemy(sprite, health, Vector2.Zero, complexPath, gun);
+                Enemy e = enemyFactory.makeEnemy(sprite, health, Vector2.Zero, complexPath, gun); // TODO: add boss to factory
                 try
                 {
                     prefabRepo.registerEnemyPrefab(name, e);
@@ -73,6 +73,11 @@ namespace BulletHell
                 if(!Int32.TryParse(encounter["time"].InnerText, out time)){
                     time = 0;
                 }
+                string boss = encounter["boss"].InnerText;
+                bool isBoss = false;
+                if(boss == "true"){
+                    isBoss = true;
+                }
 
                 if(!Double.TryParse(encounter["location"]["x"].InnerText, out xlocal)){
                     xlocal = 0;
@@ -82,7 +87,7 @@ namespace BulletHell
                     ylocal = 0;
                 }
 
-                encounterList.Add(new Encounter(type, time, new Vector2((float)xlocal, (float)ylocal)));
+                encounterList.Add(new Encounter(type, time, new Vector2((float)xlocal, (float)ylocal), isBoss));
             }
         }
         public List<Encounter>  getEncounterList(){

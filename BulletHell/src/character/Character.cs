@@ -50,7 +50,7 @@ namespace BulletHell.character
         protected virtual void CheckHealth()
         {
             Console.WriteLine("health: " + healthPoints);
-            if (healthPoints <= 0)
+            if (healthPoints == 0)
                 Die();
         }
         protected virtual void TakeDamage(int damage)
