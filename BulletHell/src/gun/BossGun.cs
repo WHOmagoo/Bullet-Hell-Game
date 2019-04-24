@@ -21,6 +21,7 @@ namespace BulletHell.gun
         Vector2 _location;
         long time_elapsed;
         private long startTime;
+        bool shooting;
 
 
         public virtual Vector2 Location
@@ -44,6 +45,7 @@ namespace BulletHell.gun
             base.fireAngleOffset = Math.PI/2;
 
             path = (SpiralLocationEquation)shape;
+            shooting = false;
 
 
         }
@@ -53,10 +55,17 @@ namespace BulletHell.gun
             if (canShoot())
             {
                 time_elapsed = Clock.getClock().getTime() - startTime;
-                Vector2 relLoc = path.GetLocation(time_elapsed);
-                Location = location + relLoc;
-                OnShoot(fireShape.makeBullets(location+relLoc, bulletTexture, team, Location.Y));
+
+                if (time_elapsed < 6000)
+                {
+                    Vector2 relLoc = path.GetLocation(time_elapsed);
+                    Location = location + relLoc;
+                    //OnShoot(fireShape.makeBullets(location+relLoc, bulletTexture, team, Location.Y));
+                    OnShoot(fireShape.makeBullets(location + relLoc, bulletTexture, team, Math.PI));
                     wasShot();
+                }
+                else if (time_elapsed > 8000)
+                    startTime = 8000;
             }
         }
         
