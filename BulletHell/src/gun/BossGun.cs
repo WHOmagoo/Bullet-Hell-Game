@@ -21,7 +21,6 @@ namespace BulletHell.gun
         Vector2 _location;
         long time_elapsed;
         private long startTime;
-        bool shooting;
 
 
         public virtual Vector2 Location
@@ -32,6 +31,8 @@ namespace BulletHell.gun
                 _location = value;
             }
         }
+
+        
 
         /*
             TODO: IMPLEMEMENT GUN TO FOLLOW SPECIFIC SHAPE/PATTERN EQUATION
@@ -45,8 +46,6 @@ namespace BulletHell.gun
             base.fireAngleOffset = Math.PI/2;
 
             path = (SpiralLocationEquation)shape;
-            shooting = false;
-
 
         }
 
@@ -61,7 +60,9 @@ namespace BulletHell.gun
                     Vector2 relLoc = path.GetLocation(time_elapsed);
                     Location = location + relLoc;
                     //OnShoot(fireShape.makeBullets(location+relLoc, bulletTexture, team, Location.Y));
-                    OnShoot(fireShape.makeBullets(location + relLoc, bulletTexture, team, Math.PI));
+                    OnShoot(fireShape.makeBullets(location + relLoc, bulletTexture, team, 4*Math.PI/3));
+                    OnShoot(fireShape.makeBullets(location + relLoc, bulletTexture, team, 8*Math.PI/3));
+                    OnShoot(fireShape.makeBullets(location + relLoc, bulletTexture, team, 4 * Math.PI));
                     wasShot();
                 }
                 else if (time_elapsed > 8000)

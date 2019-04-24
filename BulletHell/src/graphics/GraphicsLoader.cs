@@ -68,12 +68,8 @@ namespace BulletHell.graphics
             addTexture("midBoss", "Content/sprites/midboss.png");
             addTexture("finalBoss", "Content/sprites/finalboss.png");
             addTexture("heart", "Content/sprites/heart.png");
-            // addTexture("healthBar", "Content/sprites/healthBar.png");
-            // addTexture("lifeBar", "Content/sprites/lifeBar.png");
             addTexture("bullet", "Content/sprites/bullet.png");
-            addTexture("dmgPickup", "Content/sprites/fire-flower.png");
-            addTexture("fastPickup", "Content/sprites/gold-mushroom.png");
-            addTexture("lifepickup", "Content/sprites/mushroom-1up.png");
+            addTexture("bossBullet", "Content/sprites/bossBullet.png");
         }
     }
 }
