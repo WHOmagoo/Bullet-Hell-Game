@@ -38,6 +38,7 @@ namespace BulletHell.bullet.factory
             nameToFunction = new Dictionary<string, Func<BulletFactory>>();
             nameToFunction.Add("shotgun", makeDefaultShotgun);
             nameToFunction.Add("basic", makeBasicGun);
+            nameToFunction.Add("basic-fast", makeBasicFastGun);
             nameToFunction.Add("surround", makeSurroundBulletFactory);
             nameToFunction.Add("singlesinusoidal", makeSinusoidalBulletFactory);
             nameToFunction.Add("bossgun", makeBossGun);
@@ -90,6 +91,10 @@ namespace BulletHell.bullet.factory
         private static BulletFactory makeBasicGun()
         {
             return new SingleBulletFactory(new LinearLocationEquation(0, .2F));
+        }
+        private static BulletFactory makeBasicFastGun()
+        {
+            return new SingleBulletFactory(new LinearLocationEquation(0, .6F));
         }
 
         public static ShotgunBulletFactory makeDefaultShotgun()
