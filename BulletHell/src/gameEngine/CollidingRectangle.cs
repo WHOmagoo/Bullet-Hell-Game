@@ -1,3 +1,4 @@
+using System;
 using BulletHell.graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -33,6 +34,13 @@ namespace BulletHell.gameEngine
         public override void DrawHitbox(SpriteBatch spriteBatch, Color color, int lineWidth)
         {
             DrawingTool.DrawRectangle(spriteBatch, rect, color, lineWidth);
+        }
+
+        public override void Scale(double scale)
+        {
+            _relLoc = new Vector2((int)(_relLoc.X * scale), (int)(_relLoc.Y * scale));
+            rect.Width = (int)(rect.Width * scale);
+            rect.Height = (int)(rect.Height * scale);
         }
     }
 }

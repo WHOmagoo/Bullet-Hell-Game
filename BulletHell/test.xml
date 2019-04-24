@@ -2,9 +2,19 @@
 <level>
     <Header>
         <prefab>
+            <name>TheBoss</name>
+            <health>20</health>
+            <sprite>midBoss</sprite>
+            <scale>.1</scale>
+            <gun delay=".03">bossgun</gun>
+            <path>
+            </path>
+        </prefab>
+        <prefab>
             <name>butterfly</name>
             <health>5</health>
             <sprite>enemyA</sprite>
+            <scale>1</scale>
             <gun>shotgun</gun>
             <path>
                 <parts>
@@ -19,6 +29,7 @@
             <name>RZapper</name>
             <health>5</health>
             <sprite>enemyB</sprite>
+            <scale>.2</scale>
             <gun>basic</gun>
             <path>
                 <parts>
@@ -45,6 +56,7 @@
             <name>LZapper</name>
             <health>5</health>
             <sprite>enemyC</sprite>
+            <scale>.2</scale>
             <gun>basic</gun>
             <path>
                 <parts>
@@ -70,8 +82,17 @@
     </Header>
     <Encounters>
         <encounter>
+            <type>TheBoss</type>
+            <time>0</time>
+            <location>
+                <x>.5</x>
+                <y>.5</y>
+            </location>
+            <boss>true</boss>
+        </encounter>
+        <encounter>
             <type>butterfly</type>
-            <time>3000</time>
+            <time>10000</time>
             <location>
                 <x>.3</x>
                 <y>1</y>
@@ -79,7 +100,7 @@
         </encounter>
         <encounter>
             <type>butterfly</type>
-            <time>1000</time>
+            <time>10000</time>
             <location>
                 <x>.7</x>
                 <y>1</y>
@@ -87,7 +108,8 @@
         </encounter>
         <encounter>
             <type>LZapper</type>
-            <time>2000</time>
+            <time>10000</time>
+            <boss>false</boss>
             <location>
                 <x>.9</x>
                 <y>1</y>
@@ -95,10 +117,11 @@
         </encounter>
         <encounter>
             <type>RZapper</type>
-            <time>2000</time>
+            <time>50000</time>
+            <boss>false</boss>
             <location>
-                <x>.1</x>
-                <y>1</y>
+                <x>.5</x>
+                <y>.5</y>
             </location>
         </encounter>
     </Encounters>

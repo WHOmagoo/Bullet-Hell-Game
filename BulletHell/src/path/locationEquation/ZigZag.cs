@@ -63,7 +63,7 @@ namespace BulletHell.path
         {
             long modTick = getModTick(ticksElapsed);
             
-            if (wasZig)
+            if (modTick % 2 == 0)
             {
                 if (modTick < timeToZig)
                 {

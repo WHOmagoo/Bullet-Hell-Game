@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Timers;
 using BulletHell.bullet.factory;
@@ -6,7 +7,8 @@ using BulletHell.controls;
 using BulletHell.gameEngine;
 using BulletHell.graphics;
 using BulletHell.gun;
-using BulletHell.path;
+using BulletHell.GameEngine;
+using BulletHell.Pickups;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -51,7 +53,7 @@ namespace BulletHell.character
 
             MakeHearts(heart_texture);
             AddHearts(healthPoints);
-            gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getTexture("bullet"), BulletFactoryFactory.make("basic"), TEAM.ENEMY, - Math.PI / 2);
+            gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getTexture("player-bullet"), BulletFactoryFactory.make("basic"), TEAM.FRIENDLY, - Math.PI / 2);
 
             subscribeToController(controller);
         }
@@ -65,6 +67,14 @@ namespace BulletHell.character
             controller.OnSlow += goSlow;
             controller.OnFast += goFast;
             controller.OnDown += goDown;
+            controller.OnCheat += onCheat;
+        }
+
+        private void onCheat(object sender, EventArgs e)
+        {
+            
+            invulnerable = !invulnerable;
+            validEndInvulnerability = !invulnerable;
         }
 
         public void MakeHearts(Texture2D heart_texture)
@@ -166,7 +176,7 @@ namespace BulletHell.character
         public override void onCollision(GameObject hitby)
         {
             // Console.WriteLine("hitby: " + hitby);
-            if (!invulnerable && !(hitby is Pickup))
+            if (!invulnerable && !(hitby is Pickup) && hitby.team != team)
             {
                 startInvulnerability();
                 TakeDamage(1);
@@ -176,6 +186,7 @@ namespace BulletHell.character
         }
 
         private Thread t;
+        private bool validEndInvulnerability = true;
         public volatile bool invulnerable = false;
         public bool drawSp = true;
         public System.Timers.Timer myT = new System.Timers.Timer();
@@ -186,7 +197,7 @@ namespace BulletHell.character
         }
 
 
-        private void startInvulnerability()
+        public void startInvulnerability()
         {
             if (invulnerable)
             {
@@ -214,10 +225,13 @@ namespace BulletHell.character
             // invulnerable = true;
             newTimer();
             Thread.Sleep(2000);
-            invulnerable = false;
+            if (validEndInvulnerability)
+            {
+                invulnerable = false;
+                Console.WriteLine("Can now take damage again");
+            }
             myT.Dispose();
             drawSp = true;
-            Console.WriteLine("Can now take damage again");
         }
 
         protected override void TakeDamage(int damage)

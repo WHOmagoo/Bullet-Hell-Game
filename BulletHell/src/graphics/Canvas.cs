@@ -7,12 +7,10 @@ using BulletHell.bullet;
 using BulletHell.character;
 using BulletHell.gameEngine;
 using BulletHell.gun;
+using BulletHell.Pickups;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 // using BulletHell.director;
-using BulletHell.GameEngine;
-using System.IO;
-using BulletHell.Pickups;
 
 // using BulletHell.director;
 
@@ -85,10 +83,10 @@ namespace BulletHell.graphics
             }
             if (hasMessage)
             {
-                spriteBatch.DrawString(_font, message, new Vector2(50, 275), Color.White);
+                spriteBatch.DrawString(_font, message, new Vector2(GetBounds().Height, GetBounds().Width), Color.White);
             }
 
-                spriteBatch.End();
+            spriteBatch.End();
         }
         
         
@@ -100,7 +98,7 @@ namespace BulletHell.graphics
             }
             else
             {    
-                Console.WriteLine("Duplicate added");
+                Console.WriteLine("Duplicate added to drawlist" + entity);
             }
         }
 

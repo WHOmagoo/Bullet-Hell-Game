@@ -13,6 +13,7 @@ namespace BulletHell.Pickups {
 
         protected override void onPickup(Player player)
         {
+            player.AddHearts(1);
             player.Lives += 1;
         }
 

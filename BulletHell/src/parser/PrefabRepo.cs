@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BulletHell.bullet.factory;
 using BulletHell.character;
 
 namespace BulletHell
@@ -8,6 +9,7 @@ namespace BulletHell
     {
         private static PrefabRepo prefabRepo;
         private Dictionary<string, Enemy> EnemyPrefabs;
+        private Dictionary<string, BulletFactory> bulletFactoryPrefab;
 
         private PrefabRepo()
         {
@@ -35,6 +37,20 @@ namespace BulletHell
             return e;
         }
 
+        public BulletFactory getBulletFactoryPrefab(string name)
+        {
+            BulletFactory b;
+
+            try
+            {
+                return bulletFactoryPrefab[name];
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new ArgumentException("Invalid name of BulletFactory");
+            }
+        }
+
         public void registerEnemyPrefab(string name, Enemy prefab)
         {
             try
@@ -44,6 +60,18 @@ namespace BulletHell
             catch(ArgumentException)
             {
                 throw new ArgumentException("Name " + name + " already in the enemy prefab dictionary.");
+            }
+        }
+
+        public void registerBulletFactoryPrefab(string name, BulletFactory factory)
+        {
+            try
+            {
+                bulletFactoryPrefab.Add(name, factory);
+            }
+            catch (ArgumentException)
+            {
+                throw new ArgumentException("Name " + name + " already registered to BulletFactoryPrefab");
             }
         }
 

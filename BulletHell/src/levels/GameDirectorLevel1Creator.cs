@@ -113,6 +113,11 @@ namespace BulletHell.levels
             return new Tuple<GameDirector, Canvas, CollisionManager>(director, canvas, collisionManager);
         }
 
+        public void setCheatMode(bool hasCheatMode)
+        {
+            throw new NotImplementedException();
+        }
+
 //         private Enemy MakeEnemy(char enemyType, MOVEMENT movementType, Vector2 startLocation)
 //         {
 //             Enemy e;

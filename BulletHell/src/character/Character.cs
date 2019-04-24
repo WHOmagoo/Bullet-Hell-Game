@@ -14,7 +14,7 @@ namespace BulletHell.character
     {
         protected int healthPoints;
 
-        private Gun _gunEquipped;
+        protected Gun _gunEquipped;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -49,7 +49,7 @@ namespace BulletHell.character
 
         protected virtual void CheckHealth()
         {
-            Console.WriteLine("health: " + healthPoints);
+            // Console.WriteLine("health: " + healthPoints);
             if (healthPoints <= 0)
                 Die();
         }

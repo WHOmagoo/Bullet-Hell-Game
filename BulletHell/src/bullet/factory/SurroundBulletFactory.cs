@@ -8,15 +8,11 @@ namespace BulletHell.bullet.factory
 {
     public class SurroundBulletFactory : BulletFactory
     {
-        private float weaponSpread;
-        private float direction;
         private int amountOfBullets;
         private BulletFactory bulletsToSpawn;
 
-        public SurroundBulletFactory(int amountOfBullets, float direction, float spread, BulletFactory bulletsToSpawn)
+        public SurroundBulletFactory(int amountOfBullets, BulletFactory bulletsToSpawn)
         {
-            this.weaponSpread = spread;
-            this.direction = direction;
             this.amountOfBullets = amountOfBullets;
             this.bulletsToSpawn = bulletsToSpawn;
         }

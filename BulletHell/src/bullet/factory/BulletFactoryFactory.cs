@@ -40,9 +40,43 @@ namespace BulletHell.bullet.factory
             nameToFunction.Add("basic", makeBasicGun);
             nameToFunction.Add("surround", makeSurroundBulletFactory);
             nameToFunction.Add("singlesinusoidal", makeSinusoidalBulletFactory);
-            
+            nameToFunction.Add("bossgun", makeBossGun);
+            nameToFunction.Add("collidingcombinded", makeBulletWaveWithCollidingBulletWave);
+            nameToFunction.Add("colliding", makeCollidingBullet);
+//            nameToFunction.Add("zigzagshotgun", makeZigZagShotgun);
         }
 
+        private static BulletFactory makeBossGun()
+        {
+            BulletFactory secondColliding = new BulletWaveWithCollidingBullet(new SurroundBulletFactory(32, new SurroundBulletFactory(48, new SingleBulletFactory(new SinusoidalLocationEquation(70, 110, 200)))), new ShotgunBulletFactory(4 * Math.PI / 9, new LinearLocationEquation(0, .17F)));
+            
+            BulletFactory[] factories = 
+                {makeDefaultShotgun(), makeBulletWaveWithCollidingBulletWave(),
+                    makeDefaultShotgun(), makeSinusoidalBulletFactory(),
+                    secondColliding
+                };
+            ChangingBulletFactoryData[] datas = new ChangingBulletFactoryData[factories.Length];
+
+            int i = 0;
+            foreach (var unused in factories)
+            {
+                datas[i] = new ChangingBulletFactoryData(factories[i], 2);
+                i++;
+            }
+
+            datas[2].numberOfShots = 1;
+//            datas[3].numberOfShots = 0;
+            
+            return new ChangingBulletFactory(datas);
+        }
+
+        private static BulletFactory makeBossSpiralFactory()
+        {
+            SpiralLocationEquation s = new SpiralLocationEquation(6, 40, 10);
+            BulletFactory baseBf = new ShotgunBulletFactory(2*Math.PI/3, new LinearLocationEquation(Math.PI/2, .2F));
+            MovingBulletFactory bf = new MovingBulletFactory(baseBf, s);
+            return bf;
+        }
         private static BulletFactory makeSinusoidalBulletFactory()
         {
             return new SingleBulletFactory(new SinusoidalLocationEquation(90, 110, 200)); 
@@ -50,8 +84,7 @@ namespace BulletHell.bullet.factory
 
         private static BulletFactory makeSurroundBulletFactory()
         {
-            return new SurroundBulletFactory(16, (float) Math.PI / 2, (float) (Math.PI / 9),
-                new  SingleBulletFactory(new SinusoidalLocationEquation(90, 110, 200)));
+            return new SurroundBulletFactory(16, new  SingleBulletFactory(new SinusoidalLocationEquation(90, 110, 200)));
         }
 
         private static BulletFactory makeBasicGun()
@@ -62,6 +95,25 @@ namespace BulletHell.bullet.factory
         public static ShotgunBulletFactory makeDefaultShotgun()
         {
             return new ShotgunBulletFactory(Math.PI / 6, new LinearLocationEquation(0, .08F));
+        }
+
+//        public static ShotgunBulletFactory makeZigZagShotgun()
+//        {
+//            return new ShotgunBulletFactory(Math.PI / 6, new ZigZag(new LinearLocationEquation(0, .03F), 333, new LinearLocationEquation(-5 * Math.PI / 6,.03F), 333));
+//        }
+
+        public static BulletWaveWithCollidingBullet makeBulletWaveWithCollidingBulletWave()
+        {
+            BulletFactory bulletWave = new SurroundBulletFactory(66, new SingleBulletFactory(new LinearLocationEquation(0, .06F)));
+            BulletFactory collidingBullets =
+                new SurroundBulletFactory(8, new SingleBulletFactory(new LinearLocationEquation(0, .17F)));
+            
+            return new BulletWaveWithCollidingBullet(bulletWave, collidingBullets);
+        }
+
+        public static CollidingBulletFactory makeCollidingBullet()
+        {
+            return new CollidingBulletFactory(new SurroundBulletFactory(8, new SingleBulletFactory(new LinearLocationEquation(0, .14F))));
         }
     }
 }

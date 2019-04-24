@@ -12,10 +12,14 @@ namespace BulletHell.GameEngine
         {
 
             //Default case goes here
-            IGameFactory factory = new GameDirectorLevel1Creator();
+            IGameFactory factory = new LevelCreator();
             //IGameFactory factory = new TestLevelCreeator();
+            //IGameFactory factory = new GameDirectorLevel1Creator();
+
+            // IGameFactory factory = new TestLevelCreator();
             Controller controller = new Controller();
-            
+
+            bool cheatMode = false; 
             
             for (int i = 0; i < args.Length; i++)
             {
@@ -26,7 +30,7 @@ namespace BulletHell.GameEngine
                         factory = new TestLevelCreator();
                     } else if (string.Equals(args[i+1], "level1"))
                     {
-                        factory = new GameDirectorLevel1Creator();
+                        factory = new LevelCreator();
                     }
                     else
                     {
@@ -51,6 +55,9 @@ namespace BulletHell.GameEngine
 
                     //skip the next entry in args
                     i++;
+                } else if (string.Equals(args[i], "-cheatmode", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    cheatMode = true;
                 }
                 else
                 {
@@ -58,6 +65,8 @@ namespace BulletHell.GameEngine
                 }  
             }
 
+            factory.setCheatMode(cheatMode);
+            
             if (args.Length > 0)
             {
 

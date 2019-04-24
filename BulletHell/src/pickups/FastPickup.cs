@@ -51,8 +51,9 @@ namespace BulletHell.Pickups
         protected override void onPickup(Player player)
         {
             this.p = player;
+            p.startInvulnerability();
             // player.slow = 2;
-            startFast();
+            //startFast();
         }
 
 

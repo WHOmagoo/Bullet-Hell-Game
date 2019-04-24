@@ -21,15 +21,24 @@ namespace BulletHell.gun
         protected double fireAngleOffset;
         public event EventHandler<BulletsCreatedEventArgs> GunShotHandler;
 
-        public Gun(long delay, Texture2D texture, BulletFactory factory, TEAM team, double fireAngleOffset = Math.PI / 2)
+        public Gun(float delay, Texture2D texture, BulletFactory factory, TEAM team, double fireAngleOffset = Math.PI / 2)
         {
             this.bulletTexture = texture;
-            this.tickFireDelay = delay * 1000;
+            this.tickFireDelay = (long) (delay * 1000);
             this.fireShape = factory;
             this.team = team;
             this.fireAngleOffset = fireAngleOffset;
         }
-        public void Shoot(Vector2 location)
+
+        public Gun(Gun g)
+        {
+            this.bulletTexture = g.bulletTexture;
+            this.tickFireDelay = g.tickFireDelay;
+            this.fireShape = g.fireShape;
+            this.team = g.team;
+            this.fireAngleOffset = g.fireAngleOffset;
+        }
+        public virtual void Shoot(Vector2 location)
         {
             if (canShoot())
             {
@@ -38,6 +47,11 @@ namespace BulletHell.gun
             }
         }
 
+        public virtual void UpdateLoc(Vector2 loc)
+        {
+        }
+
+        public void Update() { }
 
         public virtual void wasShot()
         {
@@ -46,12 +60,13 @@ namespace BulletHell.gun
 
         public bool canShoot()
         {
-            return lastShotTick + tickFireDelay < Clock.getClock().getTime();
+            return lastShotTick + tickFireDelay < Clock.getClock().getTime() && !ReferenceEquals(null, this.fireShape);
         }
         
         protected virtual void OnShoot(List<Bullet> bulletsCreated)
         {
-            GunShotHandler?.Invoke(this, new BulletsCreatedEventArgs(bulletsCreated));
+            if(bulletsCreated != null)
+                GunShotHandler?.Invoke(this, new BulletsCreatedEventArgs(bulletsCreated));
         }
 
     }
@@ -65,6 +80,8 @@ namespace BulletHell.gun
             this.Bullets = bullets;
         }
     }
+
+   
 
 }
 

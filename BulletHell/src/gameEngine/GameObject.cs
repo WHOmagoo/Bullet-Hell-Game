@@ -12,6 +12,7 @@ namespace BulletHell.gameEngine
         protected Hitbox hitbox;
         public bool isHitboxVisible;
         public bool isSpriteVisible;
+        public TEAM team;
         public override Vector2 Location {
             get { return base.Location;}
             set { base.Location = value; 
@@ -32,6 +33,17 @@ namespace BulletHell.gameEngine
         // {
         // }
 
+        public void Scale(double scale)
+        {
+            if(texture != null)
+            {
+                SetSize((int)(Rect.Width * scale), (int)(Rect.Height * scale));
+            }
+            if(hitbox != null)
+            {
+                hitbox.Scale(scale);
+            }
+        }
         public virtual void Update() {}
         public virtual void onCollision(GameObject hitby) {
             Console.WriteLine(counter + "I got hit by: " + hitby.ToString());

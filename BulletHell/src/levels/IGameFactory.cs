@@ -11,5 +11,6 @@ namespace BulletHell.levels
     public interface IGameFactory
     {
         Tuple<GameDirector, Canvas, CollisionManager> makeGame(GraphicsDevice graphicsDevice, Controller controller);
+        void setCheatMode(bool hasCheatMode);
     }
 }

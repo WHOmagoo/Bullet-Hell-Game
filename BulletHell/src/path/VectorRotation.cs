@@ -11,9 +11,9 @@ namespace BulletHell.path
             float y = vector.Y;
 
             double newX = x * Math.Cos(angle) - y * Math.Sin(angle);
-            double newY = - x * Math.Sin(angle) + y * Math.Cos(angle);
+            double newY = x * Math.Sin(angle) + y * Math.Cos(angle);
             
-            return new Vector2((float) Math.Round(newX), (float) Math.Round(newY));
+            return new Vector2((float) Math.Round(newX), -(float) Math.Round(newY));
 
         }
     }
