@@ -29,6 +29,7 @@ namespace BulletHell.levels
         private Parser xmlParser;
         private int SCREEN_WIDTH;
         private int SCREEN_HEIGHT;
+        private bool hasCheatMode = false;
 
         private enum MOVEMENT { DOWN_RIGHT, DOWN_LEFT, ZIGZAG_DOWN, SIN_DOWN }
 
@@ -70,6 +71,7 @@ namespace BulletHell.levels
             // sin.healthbar = new HealthBar(sin.Location, new Vector2(8, 0), 85, 90, sin.Health);
 
             Player player = MakePlayer(controller);
+            player.invulnerable = hasCheatMode;
             director.addEvent(0, new PlayerEnter(canvas, player));
             player.DeathEvent += canvas.OnPlayerDeath;
 
@@ -77,7 +79,6 @@ namespace BulletHell.levels
             
             return new Tuple<GameDirector, Canvas, CollisionManager>(director, canvas, collisionManager);
         }
-
 
         private Player MakePlayer(Controller controller)
         {
@@ -93,6 +94,11 @@ namespace BulletHell.levels
             player.Hitbox = new CollidingCircle(player.Location, new Vector2(player.Rect.Width / 2, player.Rect.Height / 2), 15);
             collisionManager.addToTeam(player, TEAM.FRIENDLY);
             return player;
+        }
+
+        public void setCheatMode(bool hasCheatMode)
+        {
+            this.hasCheatMode = hasCheatMode;
         }
     }
 }

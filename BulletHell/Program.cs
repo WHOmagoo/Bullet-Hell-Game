@@ -18,7 +18,8 @@ namespace BulletHell.GameEngine
 
             // IGameFactory factory = new TestLevelCreator();
             Controller controller = new Controller();
-            
+
+            bool cheatMode = false; 
             
             for (int i = 0; i < args.Length; i++)
             {
@@ -54,6 +55,9 @@ namespace BulletHell.GameEngine
 
                     //skip the next entry in args
                     i++;
+                } else if (string.Equals(args[i], "-cheatmode", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    cheatMode = true;
                 }
                 else
                 {
@@ -61,6 +65,8 @@ namespace BulletHell.GameEngine
                 }  
             }
 
+            factory.setCheatMode(cheatMode);
+            
             if (args.Length > 0)
             {
 

@@ -31,6 +31,7 @@ namespace BulletHell.levels
         private int SCREEN_HEIGHT;
 
         private enum MOVEMENT { DOWN_RIGHT, DOWN_LEFT, ZIGZAG_DOWN, SIN_DOWN }
+        private bool hasCheatMode; 
 
         public Tuple<GameDirector, Canvas, CollisionManager> makeGame(GraphicsDevice graphicsDevice, Controller controller)
         {
@@ -70,6 +71,7 @@ namespace BulletHell.levels
             // sin.healthbar = new HealthBar(sin.Location, new Vector2(8, 0), 85, 90, sin.Health);
 
             Player player = MakePlayer(controller);
+            player.invulnerable = hasCheatMode;
             director.addEvent(0, new PlayerEnter(canvas, player));
             player.DeathEvent += canvas.OnPlayerDeath;
 
@@ -86,13 +88,17 @@ namespace BulletHell.levels
             // Texture2D playerTexture = null;
             Player player = new Player(canvas, playerTexture, new Vector2(SCREEN_WIDTH / 2 - playerTexture.Width / 2, 300), controller, heartTexture);
             player.SetSize(72, 100);
-            player.gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getTexture("player-bullet"),
+            player.gunEquipped = new Gun(.01f, GraphicsLoader.getGraphicsLoader().getTexture("player-bullet"),
                 BulletFactoryFactory.make("basic"), TEAM.FRIENDLY);
             player.PropertyChanged += canvas.OnWeaponChange;
             player.gunEquipped.GunShotHandler += canvas.OnGunShot;
             player.Hitbox = new CollidingCircle(player.Location, new Vector2(player.Rect.Width / 2, player.Rect.Height / 2), 15);
             collisionManager.addToTeam(player, TEAM.FRIENDLY);
             return player;
+        }
+        public void setCheatMode(bool hasCheatMode)
+        {
+            this.hasCheatMode = hasCheatMode;
         }
     }
 }
