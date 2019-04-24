@@ -12,9 +12,6 @@ using BulletHell.Pickups;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Pickups;
-using System.Collections.Generic;
-using BulletHell.GameEngine;
 
 namespace BulletHell.character
 {
@@ -201,7 +198,14 @@ namespace BulletHell.character
         {
             if (invulnerable)
             {
-                t.Abort();
+                try
+                {
+                    t.Abort();
+                }
+                catch (Exception unused)
+                {
+                    
+                }
             }
             
             invulnerable = true;
