@@ -8,6 +8,7 @@ using BulletHell.path;
 using BulletHell.Pickups;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 // using BulletHell.Graphics;
 
 namespace BulletHell.character
@@ -72,6 +73,7 @@ namespace BulletHell.character
             if (ReferenceEquals(null, bf))
             {
                 this.gunEquipped = e.gunEquipped.Copy();
+                //gunEquipped = new Gun(e.gunEquipped);
             }
             else
             {

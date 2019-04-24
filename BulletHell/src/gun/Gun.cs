@@ -29,6 +29,15 @@ namespace BulletHell.gun
             this.team = team;
             this.fireAngleOffset = fireAngleOffset;
         }
+
+        public Gun(Gun g)
+        {
+            this.bulletTexture = g.bulletTexture;
+            this.tickFireDelay = g.tickFireDelay;
+            this.fireShape = g.fireShape;
+            this.team = g.team;
+            this.fireAngleOffset = g.fireAngleOffset;
+        }
         public virtual void Shoot(Vector2 location)
         {
             if (canShoot())
