@@ -12,14 +12,14 @@ namespace BulletHell.bullet.factory
         private int width;
         private int height;
         
-        public SingleBulletFactory(ILocationEquation pathToFollow, int width = 20, int height = 30)
+        public SingleBulletFactory(ILocationEquation pathToFollow)
         {
             this.path = pathToFollow;
             this.width = width;
             this.height = height;
         }
 
-        public List<Bullet> makeBullets(Vector2 location, Texture2D bulletTexture, TEAM team, double angleOffset = 0)
+        public override List<Bullet> makeBullets(Vector2 location, Texture2D bulletTexture, TEAM team, double angleOffset = 0)
         {
             Bullet created = new Bullet(1, new RotatedLocationEquation(path, angleOffset), bulletTexture, location, team);
             prepareBullet(created, team);

@@ -23,7 +23,8 @@ namespace BulletHell.GameEngine
 
         public BulletCollidingBullet(Bullet b) : base(b.Damage, b.pathToFollow, b.texture, b.team)
         {
-            this.Hitbox = b.Hitbox;
+            SetSize(100, 100);
+            this.Hitbox = new CollidingCircle(Location, new Vector2(50,50), 50);
             this.team = b.team;
         }
 

@@ -30,7 +30,7 @@ namespace BulletHell.levels
 
         public Tuple<GameDirector, Canvas, CollisionManager> makeGame(GraphicsDevice graphicsDevice, Controller controller)
         {
-            //xmlParser = new XMLParser("test.xml");
+            xmlParser = new XMLParser("test.xml");
             director = new GameDirector();
             canvas = new Canvas(new SpriteBatch(graphicsDevice));
             collisionManager = new CollisionManager();

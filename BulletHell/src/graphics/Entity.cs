@@ -63,6 +63,7 @@ namespace BulletHell.graphics
         {
             rect.Width = width;
             rect.Height = height;
+            
         }
     }
 }

@@ -10,7 +10,7 @@ namespace BulletHell.bullet
         int damage;
         protected internal Path pathToFollow;
         public int Damage {get => damage;}
-        protected internal TEAM team;
+//        protected internal TEAM team;
         public double SpeedModifier { set; get; }
 
         //TODO decide if we should take in ILocationEquation and make a path or accept a Path object within bullet

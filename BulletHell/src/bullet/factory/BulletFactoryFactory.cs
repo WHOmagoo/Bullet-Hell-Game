@@ -48,7 +48,7 @@ namespace BulletHell.bullet.factory
 
         private static BulletFactory makeBossGun()
         {
-            BulletFactory secondColliding = new BulletWaveWithCollidingBullet(new SurroundBulletFactory(32, makeSinusoidalBulletFactory()), new ShotgunBulletFactory(4 * Math.PI / 9, new LinearLocationEquation(0, .15F)));
+            BulletFactory secondColliding = new BulletWaveWithCollidingBullet(new SurroundBulletFactory(32, new SurroundBulletFactory(48, new SingleBulletFactory(new SinusoidalLocationEquation(70, 110, 200)))), new ShotgunBulletFactory(4 * Math.PI / 9, new LinearLocationEquation(0, .17F)));
             
             BulletFactory[] factories = 
                 {makeDefaultShotgun(), makeBulletWaveWithCollidingBulletWave(),
@@ -104,16 +104,16 @@ namespace BulletHell.bullet.factory
 
         public static BulletWaveWithCollidingBullet makeBulletWaveWithCollidingBulletWave()
         {
-            BulletFactory bulletWave = new SurroundBulletFactory(66, new SingleBulletFactory(new LinearLocationEquation(0, .08F),10,15));
+            BulletFactory bulletWave = new SurroundBulletFactory(66, new SingleBulletFactory(new LinearLocationEquation(0, .06F)));
             BulletFactory collidingBullets =
-                new SurroundBulletFactory(8, new SingleBulletFactory(new LinearLocationEquation(0, .14F), 20, 30));
+                new SurroundBulletFactory(8, new SingleBulletFactory(new LinearLocationEquation(0, .17F)));
             
             return new BulletWaveWithCollidingBullet(bulletWave, collidingBullets);
         }
 
         public static CollidingBulletFactory makeCollidingBullet()
         {
-            return new CollidingBulletFactory(new SurroundBulletFactory(8, new SingleBulletFactory(new LinearLocationEquation(0, .14F), 20, 30)));
+            return new CollidingBulletFactory(new SurroundBulletFactory(8, new SingleBulletFactory(new LinearLocationEquation(0, .14F))));
         }
     }
 }

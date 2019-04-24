@@ -17,7 +17,7 @@ namespace BulletHell.bullet.factory
             this.bulletsToSpawn = bulletsToSpawn;
         }
         
-        public List<Bullet> makeBullets(Vector2 location, Texture2D bulletTexture, TEAM team, double angleOffset)
+        public override List<Bullet> makeBullets(Vector2 location, Texture2D bulletTexture, TEAM team, double angleOffset)
         {
             List<Bullet> result = new List<Bullet>();
 
