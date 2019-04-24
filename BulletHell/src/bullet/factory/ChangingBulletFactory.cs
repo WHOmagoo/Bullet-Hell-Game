@@ -44,6 +44,11 @@ namespace BulletHell.bullet.factory
             {
                 numberOfTimesShot = 0;
                 curFiringPatternIndex = (curFiringPatternIndex + 1) % patterns.Length;
+                BulletFactory nextBF = patterns[curFiringPatternIndex].factory;
+                if(nextBF is MovingBulletFactory)
+                {
+                    ((MovingBulletFactory)nextBF).ResetMovePath();
+                }
             }
         }
     }

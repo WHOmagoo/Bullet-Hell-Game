@@ -5,6 +5,7 @@ using BulletHell.gameEngine;
 using BulletHell.graphics;
 using BulletHell.gun;
 using BulletHell.path;
+using BulletHell.Pickups;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 // using BulletHell.Graphics;

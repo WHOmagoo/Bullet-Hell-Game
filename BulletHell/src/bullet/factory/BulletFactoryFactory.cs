@@ -47,7 +47,8 @@ namespace BulletHell.bullet.factory
 
         private static BulletFactory makeBossGun()
         {
-            BulletFactory[] factories = new BulletFactory[]{makeDefaultShotgun(), makeSurroundBulletFactory(), makeSinusoidalBulletFactory(), makeBasicGun()};
+            // BulletFactory[] factories = new BulletFactory[]{makeDefaultShotgun(), makeSurroundBulletFactory(), makeBossSpiralFactory()};
+            BulletFactory[] factories = new BulletFactory[]{makeBossSpiralFactory(), makeDefaultShotgun(), makeSurroundBulletFactory()};
             ChangingBulletFactoryData[] datas = new ChangingBulletFactoryData[factories.Length];
 
             int i = 0;
@@ -57,12 +58,20 @@ namespace BulletHell.bullet.factory
                 i++;
             }
 
-            datas[2].numberOfShots = 2;
-//            datas[3].numberOfShots = 0;
+            datas[0].numberOfShots = 3;
+            datas[1].numberOfShots = 3;
+            datas[2].numberOfShots = 3;
             
             return new ChangingBulletFactory(datas);
         }
 
+        private static BulletFactory makeBossSpiralFactory()
+        {
+            SpiralLocationEquation s = new SpiralLocationEquation(6, 40, 10);
+            BulletFactory baseBf = new ShotgunBulletFactory(2*Math.PI/3, new LinearLocationEquation(Math.PI/2, .2F));
+            MovingBulletFactory bf = new MovingBulletFactory(baseBf, s);
+            return bf;
+        }
         private static BulletFactory makeSinusoidalBulletFactory()
         {
             return new SingleBulletFactory(new SinusoidalLocationEquation(90, 110, 200)); 
