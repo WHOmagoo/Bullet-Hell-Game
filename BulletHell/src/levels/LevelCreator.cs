@@ -10,6 +10,7 @@ using BulletHell.gun;
 using BulletHell.ObjectCreation;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 // using BulletHell.Graphics;
 // using Path = BulletHell.GameEngine.Path;
 
@@ -35,10 +36,10 @@ namespace BulletHell.levels
             canvas = new Canvas(new SpriteBatch(graphicsDevice));
             collisionManager = new CollisionManager();
 
-            Hitbox top = new CollidingRectangle(new Vector2(-50, -100), Vector2.Zero, graphicsDevice.Viewport.Width+100, 50);
+            Hitbox top = new CollidingRectangle(new Vector2(-50, -450), Vector2.Zero, graphicsDevice.Viewport.Width+100, 50);
             Hitbox bottom = new CollidingRectangle(new Vector2(-50, graphicsDevice.Viewport.Height + 50), Vector2.Zero, graphicsDevice.Viewport.Width+100, 50);
-            Hitbox left = new CollidingRectangle(new Vector2(-100,-50), Vector2.Zero, 50, graphicsDevice.Viewport.Height + 100);
-            Hitbox right = new CollidingRectangle(new Vector2(graphicsDevice.Viewport.Width + 50,-50), Vector2.Zero, 50, graphicsDevice.Viewport.Height + 100);
+            Hitbox left = new CollidingRectangle(new Vector2(-100,-450), Vector2.Zero, 50, graphicsDevice.Viewport.Height + 500);
+            Hitbox right = new CollidingRectangle(new Vector2(graphicsDevice.Viewport.Width + 50,-450), Vector2.Zero, 50, graphicsDevice.Viewport.Height + 500);
             
             BoundingObject bTop = new BoundingObject(null, Vector2.Zero, canvas);
             BoundingObject bBottom = new BoundingObject(null, Vector2.Zero, canvas);
@@ -101,8 +102,8 @@ namespace BulletHell.levels
             // Texture2D playerTexture = null;
             Player player = new Player(canvas, playerTexture, new Vector2(SCREEN_WIDTH / 2 - playerTexture.Width / 2, 300), controller, heartTexture);
             player.SetSize(72, 100);
-            player.gunEquipped = new Gun(.01f, GraphicsLoader.getGraphicsLoader().getTexture("player-bullet"),
-                BulletFactoryFactory.make("basic"), TEAM.FRIENDLY);
+            player.gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getTexture("player-bullet"),
+                BulletFactoryFactory.make("basic"), TEAM.FRIENDLY, -Math.PI / 2);
             player.PropertyChanged += canvas.OnWeaponChange;
             player.gunEquipped.GunShotHandler += canvas.OnGunShot;
             player.Hitbox = new CollidingCircle(player.Location, new Vector2(player.Rect.Width / 2, player.Rect.Height / 2), 15);
