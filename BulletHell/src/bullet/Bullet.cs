@@ -10,11 +10,11 @@ namespace BulletHell.bullet
         int damage;
         protected internal Path pathToFollow;
         public int Damage {get => damage;}
-        private TEAM team;
+//        protected internal TEAM team;
         public double SpeedModifier { set; get; }
 
         //TODO decide if we should take in ILocationEquation and make a path or accept a Path object within bullet
-        public Bullet(int damage, ILocationEquation locationEquation, Texture2D texture, Vector2 startLocation, TEAM team, double speedModifier=1) : base(texture, startLocation)
+        public Bullet(int damage, ILocationEquation locationEquation, Texture2D texture, Vector2 startLocation, TEAM team, double speedModifier=1, bool collideWithBullets = false) : base(texture, startLocation)
         {
             this.damage = damage;
             this.pathToFollow = new BasicPath(locationEquation, startLocation, 0);
@@ -39,8 +39,15 @@ namespace BulletHell.bullet
         {
             if (hitby is Bullet)
                 return;
+            
             BHGame.CollisionManager.removeFromTeam(this, team);
             BHGame.Canvas.RemoveFromDrawList(this);
+        }
+
+        //TODO this setter should probably be given to GameObject but right now GameObject does not keep track of Path
+        public void setPath(Path path)
+        {
+            this.pathToFollow = path;
         }
 
         public override bool Equals(object obj)

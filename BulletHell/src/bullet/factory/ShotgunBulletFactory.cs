@@ -39,9 +39,9 @@ namespace BulletHell.bullet.factory
             // Path pathLeftDiag = new BasicPath(fireShape, location, Math.PI / 8);
             // Path pathRightDiag = new BasicPath(fireShape, location, -Math.PI / 8);
             // Path pathDown = new BasicPath(fireShape, location, 0);
-            Path pathLeftDiag = new BasicPath(left, location, spread + angleOffset);
-            Path pathRightDiag = new BasicPath(right, location, -spread + angleOffset);
-            Path pathDown = new BasicPath(center, location, angleOffset);
+            Path pathLeftDiag = new BasicPath(left, location,  -angleOffset + spread);
+            Path pathRightDiag = new BasicPath(right, location, -spread - angleOffset);
+            Path pathDown = new BasicPath(center, location, -angleOffset);
 
             Bullet b = new Bullet(1, pathLeftDiag, bulletTexture, team);
             prepareBullet(b, team);

@@ -55,7 +55,7 @@ namespace BulletHell.character
         {
             healthPoints = health;
             
-            this.gunEquipped = new Gun(delay, GraphicsLoader.getGraphicsLoader().getBulletTexture(), bulletFactory, TEAM.ENEMY, -Math.PI / 2);
+            this.gunEquipped = new Gun(delay, GraphicsLoader.getGraphicsLoader().getBulletTexture(), bulletFactory, TEAM.ENEMY);
             path = p;
 
             isHealthbarVisible = true;
@@ -69,6 +69,8 @@ namespace BulletHell.character
             healthPoints = e.healthPoints;
             path = e.Path.Copy();
             path.ResetAt(startLocation);
+            this.healthbar = e.healthbar;
+            this.team = TEAM.ENEMY;
             this.healthbar = e.healthbar.Copy();
             if (ReferenceEquals(null, bf))
             {
@@ -85,10 +87,15 @@ namespace BulletHell.character
         {
             if (hitby is Bullet)
             {
-                isHealthbarVisible = true;
                 Bullet b = hitby as Bullet;
-                TakeDamage(b.Damage);
-                healthbar.UpdateHealth(-1 * b.Damage);  //have to multiply by -1 for it to be negative
+
+                if (b.team == TEAM.FRIENDLY)
+                {
+
+                    isHealthbarVisible = true;
+                    TakeDamage(b.Damage);
+                    healthbar.UpdateHealth(-1 * b.Damage); //have to multiply by -1 for it to be negative
+                }
             }
         }
 

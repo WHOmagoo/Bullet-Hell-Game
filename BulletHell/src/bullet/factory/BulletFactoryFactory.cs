@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
-using System.Security.Cryptography.X509Certificates;
 using BulletHell.path;
 
 namespace BulletHell.bullet.factory
@@ -43,27 +41,31 @@ namespace BulletHell.bullet.factory
             nameToFunction.Add("surround", makeSurroundBulletFactory);
             nameToFunction.Add("singlesinusoidal", makeSinusoidalBulletFactory);
             nameToFunction.Add("bossgun", makeBossGun);
+            nameToFunction.Add("collidingcombinded", makeBulletWaveWithCollidingBulletWave);
+            nameToFunction.Add("colliding", makeCollidingBullet);
+//            nameToFunction.Add("zigzagshotgun", makeZigZagShotgun);
         }
 
         private static BulletFactory makeBossGun()
         {
-            // BulletFactory[] factories = new BulletFactory[]{makeDefaultShotgun(), makeSurroundBulletFactory(), makeBossSpiralFactory()};
-            BulletFactory[] factories = new BulletFactory[]{makeBossSpiralFactory(), makeDefaultShotgun(), makeSurroundBulletFactory()};
+            BulletFactory secondColliding = new BulletWaveWithCollidingBullet(new SurroundBulletFactory(32, new SurroundBulletFactory(48, new SingleBulletFactory(new SinusoidalLocationEquation(70, 110, 200)))), new ShotgunBulletFactory(4 * Math.PI / 9, new LinearLocationEquation(0, .17F)));
+            
+            BulletFactory[] factories = 
+                {makeDefaultShotgun(), makeBulletWaveWithCollidingBulletWave(),
+                    makeDefaultShotgun(), makeSinusoidalBulletFactory(),
+                    secondColliding
+                };
             ChangingBulletFactoryData[] datas = new ChangingBulletFactoryData[factories.Length];
 
             int i = 0;
-            foreach (var factory in factories)
+            foreach (var unused in factories)
             {
-                datas[i] = new ChangingBulletFactoryData(factories[i], 1);
+                datas[i] = new ChangingBulletFactoryData(factories[i], 2);
                 i++;
             }
 
-            datas[0].numberOfShots = 100;
-            datas[0].shotDrops = 1;
-            datas[1].numberOfShots = 3;
-            datas[1].shotDrops = 100;
-            datas[2].numberOfShots = 3;
-            datas[2].shotDrops = 100;
+            datas[2].numberOfShots = 1;
+//            datas[3].numberOfShots = 0;
             
             return new ChangingBulletFactory(datas);
         }
@@ -82,18 +84,36 @@ namespace BulletHell.bullet.factory
 
         private static BulletFactory makeSurroundBulletFactory()
         {
-            return new SurroundBulletFactory(16, (float) Math.PI / 2, (float) (Math.PI / 9),
-                new  SingleBulletFactory(new SinusoidalLocationEquation(90, 110, 200)));
+            return new SurroundBulletFactory(16, new  SingleBulletFactory(new SinusoidalLocationEquation(90, 110, 200)));
         }
 
         private static BulletFactory makeBasicGun()
         {
-            return new SingleBulletFactory(new LinearLocationEquation(3.14, .2F));
+            return new SingleBulletFactory(new LinearLocationEquation(0, .2F));
         }
 
         public static ShotgunBulletFactory makeDefaultShotgun()
         {
             return new ShotgunBulletFactory(Math.PI / 6, new LinearLocationEquation(0, .08F));
+        }
+
+//        public static ShotgunBulletFactory makeZigZagShotgun()
+//        {
+//            return new ShotgunBulletFactory(Math.PI / 6, new ZigZag(new LinearLocationEquation(0, .03F), 333, new LinearLocationEquation(-5 * Math.PI / 6,.03F), 333));
+//        }
+
+        public static BulletWaveWithCollidingBullet makeBulletWaveWithCollidingBulletWave()
+        {
+            BulletFactory bulletWave = new SurroundBulletFactory(66, new SingleBulletFactory(new LinearLocationEquation(0, .06F)));
+            BulletFactory collidingBullets =
+                new SurroundBulletFactory(8, new SingleBulletFactory(new LinearLocationEquation(0, .17F)));
+            
+            return new BulletWaveWithCollidingBullet(bulletWave, collidingBullets);
+        }
+
+        public static CollidingBulletFactory makeCollidingBullet()
+        {
+            return new CollidingBulletFactory(new SurroundBulletFactory(8, new SingleBulletFactory(new LinearLocationEquation(0, .14F))));
         }
     }
 }

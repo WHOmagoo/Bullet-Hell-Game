@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Timers;
 using BulletHell.bullet.factory;
@@ -6,7 +7,8 @@ using BulletHell.controls;
 using BulletHell.gameEngine;
 using BulletHell.graphics;
 using BulletHell.gun;
-using BulletHell.path;
+using BulletHell.GameEngine;
+using BulletHell.Pickups;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -51,7 +53,7 @@ namespace BulletHell.character
 
             MakeHearts(heart_texture);
             AddHearts(healthPoints);
-            gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getTexture("player-bullet"), BulletFactoryFactory.make("basic"), TEAM.FRIENDLY, - Math.PI / 2);
+            gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getTexture("player-bullet"), BulletFactoryFactory.make("basic"), TEAM.FRIENDLY, -Math.PI / 2);
 
             subscribeToController(controller);
         }
@@ -174,7 +176,7 @@ namespace BulletHell.character
         public override void onCollision(GameObject hitby)
         {
             // Console.WriteLine("hitby: " + hitby);
-            if (!invulnerable && !(hitby is Pickup))
+            if (!invulnerable && !(hitby is Pickup) && hitby.team != team)
             {
                 startInvulnerability();
                 TakeDamage(1);

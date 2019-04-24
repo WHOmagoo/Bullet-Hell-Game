@@ -5,6 +5,8 @@ using BulletHell.character;
 using BulletHell.ObjectCreation;
 using Microsoft.Xna.Framework;
 //using System.Xml.Linq;
+using BulletHell.ObjectCreation;
+using Microsoft.Xna.Framework;
 
 namespace BulletHell
 {
@@ -112,8 +114,6 @@ namespace BulletHell
                 {
                     ylocal = 0;
                 }
-                
-                
 
                 encounterList.Add(new Encounter(type, time, new Vector2((float)xlocal, (float)ylocal), isBoss));
             }

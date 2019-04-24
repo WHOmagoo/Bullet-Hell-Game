@@ -9,10 +9,14 @@ namespace BulletHell.bullet.factory
     public class SingleBulletFactory : BulletFactory
     {
         private ILocationEquation path;
+        private int width;
+        private int height;
         
         public SingleBulletFactory(ILocationEquation pathToFollow)
         {
             this.path = pathToFollow;
+            this.width = width;
+            this.height = height;
         }
 
         public override List<Bullet> makeBullets(Vector2 location, Texture2D bulletTexture, TEAM team, double angleOffset = 0)
