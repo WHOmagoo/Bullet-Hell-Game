@@ -129,7 +129,7 @@
         </prefab>
         <prefab>
             <name>butterfly</name>
-            <health>3</health>
+            <health>2</health>
             <sprite>enemyA</sprite>
             <scale>1</scale>
             <gun>basic</gun>
@@ -144,7 +144,7 @@
         </prefab>
         <prefab>
             <name>RZapper</name>
-            <health>4</health>
+            <health>3</health>
             <sprite>enemyB</sprite>
             <scale>.1</scale>
             <gun>basic</gun>
@@ -165,7 +165,7 @@
         </prefab>
         <prefab>
             <name>LZapper</name>
-            <health>4</health>
+            <health>3</health>
             <sprite>enemyB</sprite>
             <scale>.1</scale>
             <gun>basic</gun>
@@ -193,7 +193,7 @@
             <path>
                 <parts>
                     <type>linear</type>
-                    <dur>300</dur>
+                    <dur>200</dur>
                     <offset>4.71</offset>
                     <speed>2</speed>
                 </parts>
@@ -425,9 +425,9 @@
         </encounter>
         <encounter>
             <type>RZapper</type>
-            <time>21000</time>
+            <time>21500</time>
             <location>
-                <x>.1</x>
+                <x>0</x>
                 <y>1</y>
             </location>
         </encounter>
@@ -435,15 +435,15 @@
             <type>RZapper</type>
             <time>22000</time>
             <location>
-                <x>.1</x>
+                <x>0</x>
                 <y>1</y>
             </location>
         </encounter>
         <encounter>
             <type>RZapper</type>
-            <time>23000</time>
+            <time>23100</time>
             <location>
-                <x>.1</x>
+                <x>0</x>
                 <y>1</y>
             </location>
         </encounter>
@@ -451,13 +451,85 @@
             <type>RZapper</type>
             <time>24000</time>
             <location>
-                <x>.1</x>
+                <x>0</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>RZapper</type>
+            <time>25200</time>
+            <location>
+                <x>0</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>RZapper</type>
+            <time>26000</time>
+            <location>
+                <x>0</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>RZapper</type>
+            <time>27500</time>
+            <location>
+                <x>0</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>RZapper</type>
+            <time>28000</time>
+            <location>
+                <x>0</x>
                 <y>1</y>
             </location>
         </encounter>
         <encounter>
             <type>LZapper</type>
-            <time>25000</time>
+            <time>20000</time>
+            <location>
+                <x>.9</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>LZapper</type>
+            <time>21500</time>
+            <location>
+                <x>.9</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>LZapper</type>
+            <time>22000</time>
+            <location>
+                <x>.9</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>LZapper</type>
+            <time>23500</time>
+            <location>
+                <x>.9</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>LZapper</type>
+            <time>24000</time>
+            <location>
+                <x>.9</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>LZapper</type>
+            <time>25500</time>
             <location>
                 <x>.9</x>
                 <y>1</y>
@@ -473,15 +545,7 @@
         </encounter>
         <encounter>
             <type>LZapper</type>
-            <time>27000</time>
-            <location>
-                <x>.9</x>
-                <y>1</y>
-            </location>
-        </encounter>
-        <encounter>
-            <type>LZapper</type>
-            <time>27000</time>
+            <time>27500</time>
             <location>
                 <x>.9</x>
                 <y>1</y>
