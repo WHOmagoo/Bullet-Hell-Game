@@ -12,7 +12,7 @@ namespace BulletHell.GameEngine
         {
 
             //Default case goes here
-            IGameFactory factory = new GameDirectorLevel1Creator();
+            IGameFactory factory = new LevelCreator();
             //IGameFactory factory = new TestLevelCreeator();
             Controller controller = new Controller();
             
@@ -26,7 +26,7 @@ namespace BulletHell.GameEngine
                         factory = new TestLevelCreator();
                     } else if (string.Equals(args[i+1], "level1"))
                     {
-                        factory = new GameDirectorLevel1Creator();
+                        factory = new LevelCreator();
                     }
                     else
                     {

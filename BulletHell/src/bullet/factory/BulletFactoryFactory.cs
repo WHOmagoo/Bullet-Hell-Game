@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Security.Cryptography.X509Certificates;
 using BulletHell.path;
 
 namespace BulletHell.bullet.factory
@@ -40,7 +42,25 @@ namespace BulletHell.bullet.factory
             nameToFunction.Add("basic", makeBasicGun);
             nameToFunction.Add("surround", makeSurroundBulletFactory);
             nameToFunction.Add("singlesinusoidal", makeSinusoidalBulletFactory);
+            nameToFunction.Add("bossgun", makeBossGun);
+        }
+
+        private static BulletFactory makeBossGun()
+        {
+            BulletFactory[] factories = new BulletFactory[]{makeDefaultShotgun(), makeSurroundBulletFactory(), makeSinusoidalBulletFactory(), makeBasicGun()};
+            ChangingBulletFactoryData[] datas = new ChangingBulletFactoryData[factories.Length];
+
+            int i = 0;
+            foreach (var factory in factories)
+            {
+                datas[i] = new ChangingBulletFactoryData(factories[i], 1);
+                i++;
+            }
+
+            datas[2].numberOfShots = 2;
+//            datas[3].numberOfShots = 0;
             
+            return new ChangingBulletFactory(datas);
         }
 
         private static BulletFactory makeSinusoidalBulletFactory()

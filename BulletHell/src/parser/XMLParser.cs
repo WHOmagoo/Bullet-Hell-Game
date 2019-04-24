@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using System.Xml;
-using Microsoft.Xna.Framework;
-using BulletHell.ObjectCreation;
-using BulletHell.GameEngine;
 using BulletHell.character;
+using BulletHell.ObjectCreation;
+using Microsoft.Xna.Framework;
+//using System.Xml.Linq;
 
 namespace BulletHell
 {
@@ -43,6 +42,11 @@ namespace BulletHell
                     scale = 1;
                 }
                 string gun = enemy["gun"].InnerText;
+
+                string s_delay = enemy["gun"].GetAttribute("delay");
+                
+                float delay;
+                delay = float.TryParse(s_delay, out delay) ? delay : 1;
                 List<PathData> complexPath = new List<PathData>();
 
                 XmlNodeList path = enemy["path"].ChildNodes;
@@ -66,7 +70,7 @@ namespace BulletHell
                     complexPath.Add(new PathData(part["type"].InnerText, duration,
                                         offset, speed));
                 }
-                Enemy e = enemyFactory.makeEnemy(sprite, health, Vector2.Zero, complexPath, gun, scale);
+                Enemy e = enemyFactory.makeEnemy(sprite, health, Vector2.Zero, complexPath, gun, delay, scale);
                 try
                 {
                     prefabRepo.registerEnemyPrefab(name, e);
@@ -97,6 +101,8 @@ namespace BulletHell
                 {
                     ylocal = 0;
                 }
+                
+                
 
                 encounterList.Add(new Encounter(type, time, new Vector2((float)xlocal, (float)ylocal)));
             }

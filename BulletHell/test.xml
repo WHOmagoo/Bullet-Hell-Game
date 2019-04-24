@@ -5,7 +5,7 @@
             <name>butterfly</name>
             <health>5</health>
             <sprite>enemyA</sprite>
-            <scale>1.5</scale>
+            <scale>.8</scale>
             <gun>shotgun</gun>
             <path>
                 <parts>
@@ -20,12 +20,12 @@
             <name>RZapper</name>
             <health>5</health>
             <sprite>enemyB</sprite>
-            <scale>.4</scale>
+            <scale>.2</scale>
             <gun>basic</gun>
             <path>
                 <parts>
                     <type>linear</type>
-                    <dur>3000</dur>
+                    <dur>0</dur>
                     <offset>0</offset>
                     <speed>1</speed>
                 </parts>
@@ -37,7 +37,7 @@
                 </parts>
                 <parts>
                     <type>linear</type>
-                    <dur>3000</dur>
+                    <dur>0</dur>
                     <offset>0</offset>
                     <speed>1</speed>
                 </parts>
@@ -47,7 +47,7 @@
             <name>LZapper</name>
             <health>5</health>
             <sprite>enemyC</sprite>
-            <scale>.2</scale>
+            <scale>.1</scale>
             <gun>basic</gun>
             <path>
                 <parts>
@@ -100,8 +100,8 @@
             <type>RZapper</type>
             <time>2000</time>
             <location>
-                <x>.1</x>
-                <y>1</y>
+                <x>.5</x>
+                <y>.5</y>
             </location>
         </encounter>
     </Encounters>
