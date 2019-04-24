@@ -51,6 +51,7 @@ namespace BulletHell.ObjectCreation
             addHitbox("enemyA", new CollidingRectangle(Vector2.Zero, Vector2.Zero, 100,75));
             addHitbox("enemyB", new CollidingRectangle(Vector2.Zero, new Vector2(46,30), 390,600));
             addHitbox("enemyC", new CollidingCircle(Vector2.Zero, new Vector2(474,464), 496));
+            addHitbox("midBoss", new CollidingRectangle(Vector2.Zero, new Vector2(300,30), 850,800));
 
             // addTexture("player", "Content/sprites/shuttle.png");
             // addTexture("enemyA", "Content/sprites/enemyA.png");

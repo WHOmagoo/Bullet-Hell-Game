@@ -76,7 +76,7 @@ namespace BulletHell.bullet.factory
 
         private static BulletFactory makeBasicGun()
         {
-            return new SingleBulletFactory(new LinearLocationEquation(0, .2F));
+            return new SingleBulletFactory(new LinearLocationEquation(3.14, .2F));
         }
 
         public static ShotgunBulletFactory makeDefaultShotgun()
