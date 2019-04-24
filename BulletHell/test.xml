@@ -83,7 +83,7 @@
     <Encounters>
         <encounter>
             <type>TheBoss</type>
-            <time>0</time>
+            <time>2000000</time>
             <location>
                 <x>.5</x>
                 <y>.5</y>
@@ -92,7 +92,7 @@
         </encounter>
         <encounter>
             <type>butterfly</type>
-            <time>50000</time>
+            <time>0</time>
             <location>
                 <x>.3</x>
                 <y>1</y>
@@ -100,7 +100,7 @@
         </encounter>
         <encounter>
             <type>butterfly</type>
-            <time>50000</time>
+            <time>0</time>
             <location>
                 <x>.7</x>
                 <y>1</y>
@@ -108,7 +108,7 @@
         </encounter>
         <encounter>
             <type>LZapper</type>
-            <time>50000</time>
+            <time>0</time>
             <boss>false</boss>
             <location>
                 <x>.9</x>

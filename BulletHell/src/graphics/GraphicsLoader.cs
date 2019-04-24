@@ -73,6 +73,10 @@ namespace BulletHell.graphics
             addTexture("enemy-bullet", "Content/sprites/donut.png");
             addTexture("player-bullet", "Content/sprites/bullet.png");
             addTexture("bossBullet", "Content/sprites/bossBullet.png");
+            addTexture("dmgPickup", "Content/sprites/fire-flower.png");
+            addTexture("fastPickup", "Content/sprites/gold-mushroom.png");
+            addTexture("lifepickup", "Content/sprites/mushroom-1up.png");
+
         }
     }
 }

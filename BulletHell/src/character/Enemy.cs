@@ -106,7 +106,7 @@ namespace BulletHell.character
         protected override void Die()
         {
             Random r = new Random();
-            int ran = r.Next(0, 8);
+            int ran = r.Next(0, 30);
             if (ran == 1 || ran == 2) { makeDamagePickup(); }
             if (ran == 3 || ran == 4) { makeFastPickup(); }
             if (ran == 5 || ran == 6) { makeLifePickup(); }
