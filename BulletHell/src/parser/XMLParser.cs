@@ -91,6 +91,16 @@ namespace BulletHell
                 {
                     time = 0;
                 }
+                string boss = "";
+                try
+                {
+                    boss = encounter["boss"].InnerText;
+                }
+                catch {}
+                bool isBoss = false;
+                if(boss == "true"){
+                    isBoss = true;
+                }
 
                 if (!Double.TryParse(encounter["location"]["x"].InnerText, out xlocal))
                 {
@@ -104,7 +114,7 @@ namespace BulletHell
                 
                 
 
-                encounterList.Add(new Encounter(type, time, new Vector2((float)xlocal, (float)ylocal)));
+                encounterList.Add(new Encounter(type, time, new Vector2((float)xlocal, (float)ylocal), isBoss));
             }
         }
         public List<Encounter> getEncounterList()

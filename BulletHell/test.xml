@@ -100,6 +100,7 @@
                 <x>.5</x>
                 <y>1</y>
             </location>
+            <boss>true</boss>
         </encounter>
         <encounter>
             <type>butterfly</type>
@@ -119,7 +120,8 @@
         </encounter>
         <encounter>
             <type>LZapper</type>
-            <time>9000</time>
+            <time>10000</time>
+            <boss>false</boss>
             <location>
                 <x>.9</x>
                 <y>1</y>
@@ -127,7 +129,8 @@
         </encounter>
         <encounter>
             <type>RZapper</type>
-            <time>9000</time>
+            <time>11000</time>
+            <boss>false</boss>
             <location>
                 <x>.5</x>
                 <y>.5</y>

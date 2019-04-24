@@ -52,7 +52,7 @@ namespace BulletHell.levels
             List<Encounter> encounters = xmlParser.getEncounterList();
             foreach(var encounter in encounters)
             {
-                EncounterEvent encounterEvent = new EncounterEvent(collisionManager, canvas, encounter);
+                EncounterEvent encounterEvent = new EncounterEvent(collisionManager, canvas, encounter, director);
                 Console.WriteLine(encounter.timeInMS);
                 director.addEvent(encounter.timeInMS, encounterEvent);
             }

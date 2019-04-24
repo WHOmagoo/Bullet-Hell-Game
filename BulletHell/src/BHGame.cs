@@ -63,8 +63,8 @@ namespace BulletHell
 
             SetGame(factory);
             DrawingTool.Initialize(GraphicsDevice);
-           SpriteFont font = Content.Load<SpriteFont>("SplashFont");
-           Canvas.SetFont(font);
+            SpriteFont font = Content.Load<SpriteFont>("SplashFont");
+            Canvas.SetFont(font);
 
             base.Initialize();
         }
@@ -148,12 +148,14 @@ namespace BulletHell
         {
             paused = true;
             Console.WriteLine("Paused");
+            canvas.SetMessage("Paused");
         }
 
         private void OnUnpause(object sender, EventArgs e)
         {
             paused = false;
             Console.WriteLine("Unpaused");
+            canvas.TurnOffMessage();
 
         }
     }

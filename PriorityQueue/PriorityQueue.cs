@@ -87,5 +87,15 @@ namespace PriorityQueue
 
                 return result;
             }
+
+        // puts the next queue item to be ready
+        public void FastForward(){
+                var modifying = queue.Find(queue.First.Value);
+                if(!ReferenceEquals(queue.First, null)){
+                    var newVal = modifying.Value;
+                    newVal.Item1 = 1;
+                    modifying.Value = newVal;
+                }
+            }
         }
 }

@@ -1,5 +1,6 @@
 ﻿using BulletHell.GameEngine;
 using PriorityQueue;
+using System;
 
 namespace BulletHell.director
 {
@@ -26,6 +27,11 @@ namespace BulletHell.director
             {
                 update.Execute();
             }
+        }
+
+        public void OnBossDeath(){
+            Console.WriteLine("forwarding");
+            queue.FastForward();
         }
     }
 }
