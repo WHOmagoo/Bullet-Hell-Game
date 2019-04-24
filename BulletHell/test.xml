@@ -416,6 +416,14 @@
             </location>
         </encounter>
         <encounter>
+            <type>gungunboy</type>
+            <time>18000</time>
+            <location>
+                <x>.5</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
             <type>RZapper</type>
             <time>20000</time>
             <location>
