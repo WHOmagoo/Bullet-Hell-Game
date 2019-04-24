@@ -54,8 +54,6 @@ namespace BulletHell.character
             : base(texture, p.InitialLocation)
         {
             healthPoints = health;
-
-            this.team = TEAM.ENEMY;
             
             this.gunEquipped = new Gun(delay, GraphicsLoader.getGraphicsLoader().getBulletTexture(), bulletFactory, TEAM.ENEMY, -Math.PI / 2);
             path = p;
@@ -68,15 +66,16 @@ namespace BulletHell.character
         {
             this.SetSize(e.Rect.Width, e.Rect.Height);
             hitbox = e.hitbox.Copy();
-            
             healthPoints = e.healthPoints;
             path = e.Path.Copy();
             path.ResetAt(startLocation);
             this.healthbar = e.healthbar;
             this.team = TEAM.ENEMY;
+            this.healthbar = e.healthbar.Copy();
             if (ReferenceEquals(null, bf))
             {
-                gunEquipped = new Gun(e.gunEquipped);
+                this.gunEquipped = e.gunEquipped.Copy();
+                //gunEquipped = new Gun(e.gunEquipped);
             }
             else
             {

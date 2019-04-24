@@ -4,24 +4,141 @@
         <prefab>
             <name>TheBoss</name>
             <health>20</health>
-            <sprite>midBoss</sprite>
-            <scale>.1</scale>
-            <gun delay=".03">bossgun</gun>
+            <sprite>enemyC</sprite>
+            <scale>.15</scale>
+            <gun delay="0">bossgun</gun>
             <path>
+                <parts>
+                    <type>linear</type>
+                    <dur>500</dur>
+                    <offset>4.71</offset>
+                    <speed>1</speed>
+                </parts>
+                <parts>
+                    <type>linear</type>
+                    <dur>1500</dur>
+                    <offset>0</offset>
+                    <speed>1</speed>
+                </parts>
+                <parts>
+                    <type>linear</type>
+                    <dur>3000</dur>
+                    <offset>3.14</offset>
+                    <speed>1</speed>
+                </parts>
+                <parts>
+                    <type>linear</type>
+                    <dur>1500</dur>
+                    <offset>0</offset>
+                    <speed>1</speed>
+                </parts>
+                <parts>
+                    <type>still</type>
+                    <dur>2000</dur>
+                    <offset>0</offset>
+                    <speed>1</speed>
+                </parts>
+                <parts>
+                    <type>linear</type>
+                    <dur>1500</dur>
+                    <offset>3.14</offset>
+                    <speed>1</speed>
+                </parts>
+                <parts>
+                    <type>linear</type>
+                    <dur>3000</dur>
+                    <offset>0</offset>
+                    <speed>1</speed>
+                </parts>
+                <parts>
+                    <type>still</type>
+                    <dur>2000</dur>
+                    <offset>0</offset>
+                    <speed>1</speed>
+                </parts>
+                <parts>
+                    <type>linear</type>
+                    <dur>1500</dur>
+                    <offset>3.14</offset>
+                    <speed>1</speed>
+                </parts>
+                <parts>
+                    <type>linear</type>
+                    <dur>1500</dur>
+                    <offset>0</offset>
+                    <speed>1</speed>
+                </parts>
+                <parts>
+                    <type>linear</type>
+                    <dur>1500</dur>
+                    <offset>3.14</offset>
+                    <speed>1</speed>
+                </parts>
+                <parts>
+                    <type>linear</type>
+                    <dur>10000</dur>
+                    <offset>0</offset>
+                    <speed>1</speed>   
+                </parts>
+            </path>
+        </prefab>
+        <prefab>
+            <name>midBoss</name>
+            <health>15</health>
+            <sprite>enemyC</sprite>
+            <gun>surround</gun>
+            <scale>.1</scale>
+            <path>
+                <parts>
+                    <type>linear</type>
+                    <dur>250</dur>
+                    <offset>4.71</offset>
+                    <speed>1</speed>
+                </parts>
+                <parts>
+                    <type>linear</type>
+                    <dur>2500</dur>
+                    <offset>0</offset>
+                    <speed>1</speed>
+                </parts>
+                <parts>
+                    <type>linear</type>
+                    <dur>5000</dur>
+                    <offset>3.14</offset>
+                    <speed>1</speed>
+                </parts>
+                <parts>
+                    <type>linear</type>
+                    <dur>2500</dur>
+                    <offset>0</offset>
+                    <speed>1</speed>
+                </parts>
+                <parts>
+                    <type>still</type>
+                    <dur>2500</dur>
+                    <offset>0</offset>
+                    <speed>1</speed>
+                </parts>
+                <parts>
+                    <type>linear</type>
+                    <dur>10000</dur>
+                    <offset>0</offset>
+                    <speed>1</speed>
+                </parts>
             </path>
         </prefab>
         <prefab>
             <name>butterfly</name>
-            <health>5</health>
+            <health>3</health>
             <sprite>enemyA</sprite>
             <scale>1</scale>
-            <gun>shotgun</gun>
+            <gun>basic</gun>
             <path>
                 <parts>
                     <type>linear</type>
                     <dur>30000</dur>
                     <offset>4.71</offset>
-                    <speed>1</speed>
+                    <speed>15</speed>
                 </parts>
             </path>
         </prefab>
@@ -29,7 +146,7 @@
             <name>RZapper</name>
             <health>5</health>
             <sprite>enemyB</sprite>
-            <scale>.2</scale>
+            <scale>.1</scale>
             <gun>basic</gun>
             <path>
                 <parts>
@@ -39,24 +156,18 @@
                     <speed>1</speed>
                 </parts>
                 <parts>
-                    <type>still</type>
-                    <dur>3000</dur>
-                    <offset>0</offset>
-                    <speed>0</speed>
-                </parts>
-                <parts>
                     <type>linear</type>
-                    <dur>3000</dur>
+                    <dur>8000</dur>
                     <offset>0</offset>
                     <speed>1</speed>
                 </parts>
             </path>
         </prefab>
-                <prefab>
+        <prefab>
             <name>LZapper</name>
             <health>5</health>
-            <sprite>enemyC</sprite>
-            <scale>.2</scale>
+            <sprite>enemyB</sprite>
+            <scale>.1</scale>
             <gun>basic</gun>
             <path>
                 <parts>
@@ -66,16 +177,61 @@
                     <speed>1</speed>
                 </parts>
                 <parts>
-                    <type>still</type>
-                    <dur>3000</dur>
-                    <offset>0</offset>
-                    <speed>0</speed>
+                    <type>linear</type>
+                    <dur>8000</dur>
+                    <offset>3.14</offset>
+                    <speed>1</speed>
+                </parts>
+            </path>
+        </prefab>
+        <prefab>
+            <name>gungunboy</name>
+            <health>5</health>
+            <sprite>enemyC</sprite>
+            <scale>.05</scale>
+            <gun>shotgun</gun>
+            <path>
+                <parts>
+                    <type>linear</type>
+                    <dur>300</dur>
+                    <offset>4.71</offset>
+                    <speed>2</speed>
                 </parts>
                 <parts>
                     <type>linear</type>
                     <dur>3000</dur>
                     <offset>3.14</offset>
-                    <speed>1</speed>
+                    <speed>2</speed>
+                </parts>
+                <parts>
+                    <type>linear</type>
+                    <dur>3000</dur>
+                    <offset>0</offset>
+                    <speed>2</speed>
+                </parts>
+                <parts>
+                    <type>linear</type>
+                    <dur>3000</dur>
+                    <offset>3.14</offset>
+                    <speed>2</speed>
+                </parts>
+                <parts>
+                    <type>linear</type>
+                    <dur>3000</dur>
+                    <offset>0</offset>
+                    <speed>2</speed>
+                </parts>
+                <parts>
+                    <type>linear</type>
+                    <dur>3000</dur>
+                    <offset>3.14</offset>
+                    <speed>2</speed>
+                </parts>
+                <parts>
+                    <type>linear</type>
+                    <dur>10000</dur>
+                    <offset>0</offset>
+                    <speed>2</speed>
                 </parts>
             </path>
         </prefab>
@@ -83,16 +239,49 @@
     <Encounters>
         <encounter>
             <type>TheBoss</type>
-            <time>0</time>
+            <boss>true</boss>
+            <time>90000</time>
             <location>
                 <x>.5</x>
-                <y>.5</y>
+                <y>1</y>
             </location>
+        </encounter>
+        <encounter>
+            <type>midBoss</type>
             <boss>true</boss>
+            <time>35000</time>
+            <location>
+                <x>.5</x>
+                <y>1</y>
+            </location>
         </encounter>
         <encounter>
             <type>butterfly</type>
-            <time>10000</time>
+            <time>0</time>
+            <location>
+                <x>0</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>butterfly</type>
+            <time>1000</time>
+            <location>
+                <x>.1</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>butterfly</type>
+            <time>2000</time>
+            <location>
+                <x>.2</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>butterfly</type>
+            <time>3000</time>
             <location>
                 <x>.3</x>
                 <y>1</y>
@@ -100,16 +289,127 @@
         </encounter>
         <encounter>
             <type>butterfly</type>
-            <time>10000</time>
+            <time>4000</time>
+            <location>
+                <x>.4</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>butterfly</type>
+            <time>5000</time>
+            <location>
+                <x>.5</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>butterfly</type>
+            <time>6000</time>
+            <location>
+                <x>.6</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>butterfly</type>
+            <time>7000</time>
             <location>
                 <x>.7</x>
                 <y>1</y>
             </location>
         </encounter>
         <encounter>
-            <type>LZapper</type>
+            <type>butterfly</type>
+            <time>8000</time>
+            <location>
+                <x>.8</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>butterfly</type>
             <time>10000</time>
-            <boss>false</boss>
+            <location>
+                <x>.9</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>butterfly</type>
+            <time>11000</time>
+            <location>
+                <x>.8</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>butterfly</type>
+            <time>12000</time>
+            <location>
+                <x>.7</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>butterfly</type>
+            <time>13000</time>
+            <location>
+                <x>.6</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>butterfly</type>
+            <time>14000</time>
+            <location>
+                <x>.5</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>butterfly</type>
+            <time>15000</time>
+            <location>
+                <x>.4</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>butterfly</type>
+            <time>16000</time>
+            <location>
+                <x>.3</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>butterfly</type>
+            <time>17000</time>
+            <location>
+                <x>.2</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>butterfly</type>
+            <time>18000</time>
+            <location>
+                <x>.1</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>RZapper</type>
+            <time>8000</time>
+            <location>
+                <x>.1</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>LZapper</type>
+            <time>8000</time>
             <location>
                 <x>.9</x>
                 <y>1</y>
@@ -117,11 +417,106 @@
         </encounter>
         <encounter>
             <type>RZapper</type>
-            <time>50000</time>
-            <boss>false</boss>
+            <time>20000</time>
+            <location>
+                <x>.1</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>RZapper</type>
+            <time>21000</time>
+            <location>
+                <x>.1</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>RZapper</type>
+            <time>22000</time>
+            <location>
+                <x>.1</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>RZapper</type>
+            <time>23000</time>
+            <location>
+                <x>.1</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>RZapper</type>
+            <time>24000</time>
+            <location>
+                <x>.1</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>LZapper</type>
+            <time>25000</time>
+            <location>
+                <x>.9</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>LZapper</type>
+            <time>26000</time>
+            <location>
+                <x>.9</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>LZapper</type>
+            <time>27000</time>
+            <location>
+                <x>.9</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>LZapper</type>
+            <time>27000</time>
+            <location>
+                <x>.9</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>LZapper</type>
+            <time>28000</time>
+            <location>
+                <x>.9</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>gungunboy</type>
+            <time>55000</time>
             <location>
                 <x>.5</x>
-                <y>.5</y>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>gungunboy</type>
+            <time>60000</time>
+            <location>
+                <x>.5</x>
+                <y>1</y>
+            </location>
+        </encounter>
+        <encounter>
+            <type>gungunboy</type>
+            <time>65000</time>
+            <location>
+                <x>.5</x>
+                <y>1</y>
             </location>
         </encounter>
     </Encounters>

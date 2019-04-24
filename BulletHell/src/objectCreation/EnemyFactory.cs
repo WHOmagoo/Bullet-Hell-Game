@@ -48,6 +48,7 @@ namespace BulletHell.ObjectCreation
             catch (Exception e)
             {
                 Console.WriteLine("Error loading gun " + gunType);
+                Console.WriteLine(e.Message);
                 enemy = new Enemy(texture, path, health);
             }
             Gun gun = gunFactory.makeGun(gunType);

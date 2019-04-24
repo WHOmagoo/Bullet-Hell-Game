@@ -51,6 +51,10 @@ namespace BulletHell.gun
         {
         }
 
+        public Gun Copy(){
+            return new Gun(this.tickFireDelay / 1000, this.bulletTexture, fireShape, team, fireAngleOffset);
+        }
+
         public void Update() { }
 
         public virtual void wasShot()

@@ -83,7 +83,7 @@ namespace BulletHell.graphics
             }
             if (hasMessage)
             {
-                spriteBatch.DrawString(_font, message, new Vector2(GetBounds().Height, GetBounds().Width), Color.White);
+                spriteBatch.DrawString(_font, message, new Vector2(GetBounds().Height / 2, GetBounds().Width / 2), Color.White);
             }
 
             spriteBatch.End();
