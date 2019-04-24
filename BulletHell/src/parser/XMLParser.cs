@@ -24,6 +24,7 @@ namespace BulletHell
 
         public void Parse()
         {
+            int i = 0;
             PrefabRepo prefabRepo = PrefabRepo.getPrefabRepo();
             prefabRepo.emptyEnemyPrefabs();
             XmlNodeList Header = level.DocumentElement.SelectNodes("/level/Header/prefab");
@@ -50,6 +51,7 @@ namespace BulletHell
                 List<PathData> complexPath = new List<PathData>();
 
                 XmlNodeList path = enemy["path"].ChildNodes;
+
                 foreach (XmlNode part in path)
                 {
                     int duration;
@@ -70,6 +72,8 @@ namespace BulletHell
                     complexPath.Add(new PathData(part["type"].InnerText, duration,
                                         offset, speed));
                 }
+                i++;
+                //Console.WriteLine(i);
                 Enemy e = enemyFactory.makeEnemy(sprite, health, Vector2.Zero, complexPath, gun, delay, scale);
                 try
                 {

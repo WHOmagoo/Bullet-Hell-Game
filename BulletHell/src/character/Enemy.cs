@@ -65,14 +65,13 @@ namespace BulletHell.character
         {
             this.SetSize(e.Rect.Width, e.Rect.Height);
             hitbox = e.hitbox.Copy();
-            gunEquipped = e.gunEquipped;
             healthPoints = e.healthPoints;
             path = e.Path.Copy();
             path.ResetAt(startLocation);
-            this.healthbar = e.healthbar;
+            this.healthbar = e.healthbar.Copy();
             if (ReferenceEquals(null, bf))
             {
-                this.gunEquipped = e.gunEquipped;
+                this.gunEquipped = e.gunEquipped.Copy();
             }
             else
             {

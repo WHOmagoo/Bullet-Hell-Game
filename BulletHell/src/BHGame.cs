@@ -156,7 +156,6 @@ namespace BulletHell
             paused = false;
             Console.WriteLine("Unpaused");
             canvas.TurnOffMessage();
-
         }
     }
 }

@@ -12,6 +12,15 @@ namespace PriorityQueue
                 queue = new LinkedList<ValueTuple<long, T>>();
             }
 
+            public bool isEmpty(){
+                if(queue.Count == 0){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+
             public void Add(long time, T item)
             {
 
@@ -82,20 +91,22 @@ namespace PriorityQueue
 
                 for (int i = 0; i < result.Count; i++)
                 {
+                    Console.WriteLine(queue.Count);
                     queue.RemoveFirst();
                 }
-
                 return result;
             }
 
         // puts the next queue item to be ready
-        public void FastForward(){
+        public bool FastForward(){
                 var modifying = queue.Find(queue.First.Value);
                 if(!ReferenceEquals(queue.First, null)){
                     var newVal = modifying.Value;
                     newVal.Item1 = 1;
                     modifying.Value = newVal;
+                    return true;
                 }
+                return false;
             }
         }
 }

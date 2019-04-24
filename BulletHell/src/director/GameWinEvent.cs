@@ -4,6 +4,7 @@ namespace BulletHell.director
 {
     public class GameWinEvent : DirectorEvent
     {
+
         public override void Execute()
         {
             BHGame.OnWinCondition();

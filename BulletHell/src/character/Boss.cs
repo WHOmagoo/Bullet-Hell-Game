@@ -18,7 +18,7 @@ namespace BulletHell.character
         public delegate void bossdeath();
         public event bossdeath BossDeathEvent;
         public Boss(Texture2D texture, Path p , int health, BulletFactory bulletFactory = null, float delay = 1):
-            base(texture, p ,health, bulletFactory, delay){ }
+            base(texture, p, health, bulletFactory, delay){ }
 
         public Boss(Enemy e, Vector2 startLocation) : base(e, startLocation)
         { }

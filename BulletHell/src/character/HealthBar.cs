@@ -43,6 +43,10 @@ namespace BulletHell.character
 
             _one_life = width / health;
         }
+
+        public HealthBar Copy(){
+            return new HealthBar(parentLoc, _relLoc, _bar.Width, _bar.Height, _one_life * _bar.Width);
+        }
         public void DrawHealthBar(SpriteBatch spriteBatch, Color color, int lineWidth)
         {
             DrawingTool.DrawRectangle(spriteBatch, _bar, color, lineWidth);

@@ -127,7 +127,7 @@ namespace BulletHell.character
             if (Location.Y < 0) Location = new Vector2(Location.X, 1);
             else
             {
-                Location += direction * speed * timeE / 50000;
+                Location += direction * speed * timeE  * 2 / 50000;
             }
             
             direction = Vector2.Zero;
