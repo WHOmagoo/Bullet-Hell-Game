@@ -41,7 +41,7 @@ namespace BulletHell.graphics
         //Depreciated
         public Texture2D getBulletTexture()
         {
-            return (Texture2D)textureTable["bullet"];
+            return (Texture2D)textureTable["enemy-bullet"];
         }
 
         public bool addTexture(string name, string path)
@@ -70,7 +70,8 @@ namespace BulletHell.graphics
             addTexture("heart", "Content/sprites/heart.png");
             // addTexture("healthBar", "Content/sprites/healthBar.png");
             // addTexture("lifeBar", "Content/sprites/lifeBar.png");
-            addTexture("bullet", "Content/sprites/bullet.png");
+            addTexture("enemy-bullet", "Content/sprites/donut.png");
+            addTexture("player-bullet", "Content/sprites/bullet.png");
         }
     }
 }

@@ -75,7 +75,7 @@ namespace BulletHell.character
             }
             else
             {
-                this.gunEquipped = new Gun(delay, GraphicsLoader.getGraphicsLoader().getBulletTexture(), bf, TEAM.ENEMY);
+                this.gunEquipped = new Gun(delay, GraphicsLoader.getGraphicsLoader().getTexture("enemy-bullet"), bf, TEAM.ENEMY);
             }
         }
 

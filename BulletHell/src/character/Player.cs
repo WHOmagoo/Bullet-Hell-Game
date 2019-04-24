@@ -51,7 +51,7 @@ namespace BulletHell.character
 
             MakeHearts(heart_texture);
             AddHearts(healthPoints);
-            gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getTexture("bullet"), BulletFactoryFactory.make("basic"), TEAM.ENEMY, - Math.PI / 2);
+            gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getTexture("player-bullet"), BulletFactoryFactory.make("basic"), TEAM.FRIENDLY, - Math.PI / 2);
 
             subscribeToController(controller);
         }
