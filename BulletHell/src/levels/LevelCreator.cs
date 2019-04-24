@@ -1,5 +1,5 @@
 using System;
-using System.IO;
+using System.Collections.Generic;
 using BulletHell.bullet.factory;
 using BulletHell.character;
 using BulletHell.controls;
@@ -7,16 +7,11 @@ using BulletHell.director;
 using BulletHell.gameEngine;
 using BulletHell.graphics;
 using BulletHell.gun;
-using BulletHell.path;
+using BulletHell.ObjectCreation;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 // using BulletHell.Graphics;
-using System.IO;
-using System.Collections.Generic;
-using BulletHell.controls;
-using BulletHell.ObjectCreation;
 // using Path = BulletHell.GameEngine.Path;
-using Path = BulletHell.path.Path;
 
 namespace BulletHell.levels
 {
@@ -39,6 +34,26 @@ namespace BulletHell.levels
             director = new GameDirector();
             canvas = new Canvas(new SpriteBatch(graphicsDevice));
             collisionManager = new CollisionManager();
+
+            Hitbox top = new CollidingRectangle(new Vector2(-50, -100), Vector2.Zero, graphicsDevice.Viewport.Width+100, 50);
+            Hitbox bottom = new CollidingRectangle(new Vector2(-50, graphicsDevice.Viewport.Height + 50), Vector2.Zero, graphicsDevice.Viewport.Width+100, 50);
+            Hitbox left = new CollidingRectangle(new Vector2(-100,-50), Vector2.Zero, 50, graphicsDevice.Viewport.Height + 100);
+            Hitbox right = new CollidingRectangle(new Vector2(graphicsDevice.Viewport.Width + 50,-50), Vector2.Zero, 50, graphicsDevice.Viewport.Height + 100);
+            
+            BoundingObject bTop = new BoundingObject(null, Vector2.Zero, canvas);
+            BoundingObject bBottom = new BoundingObject(null, Vector2.Zero, canvas);
+            BoundingObject bLeft = new BoundingObject(null, Vector2.Zero, canvas);
+            BoundingObject bRight = new BoundingObject(null, Vector2.Zero, canvas);
+            bTop.Hitbox = top;
+            bBottom.Hitbox = bottom;
+            bLeft.Hitbox = left;
+            bRight.Hitbox = right;
+            
+            collisionManager.addToTeam(bTop, TEAM.UNASSIGNED);
+            collisionManager.addToTeam(bBottom, TEAM.UNASSIGNED);
+            collisionManager.addToTeam(bLeft, TEAM.UNASSIGNED);
+            collisionManager.addToTeam(bRight, TEAM.UNASSIGNED);
+            
             try
             {
                 graphicsLoader = GraphicsLoader.makeGraphicsLoader(graphicsDevice);
@@ -74,8 +89,6 @@ namespace BulletHell.levels
             player.invulnerable = hasCheatMode;
             director.addEvent(0, new PlayerEnter(canvas, player));
             player.DeathEvent += canvas.OnPlayerDeath;
-
-            director.addEvent(0, new PlayerEnter(canvas, player));
             
             return new Tuple<GameDirector, Canvas, CollisionManager>(director, canvas, collisionManager);
         }

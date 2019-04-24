@@ -29,15 +29,21 @@ namespace BulletHell.graphics
 
         public Entity(Texture2D texture, Vector2 startLocation, int width = 0, int height = 0)
         {
-            this.texture = texture; //Size should be held within texture for drawing
             this.location = startLocation;
-            if (width == 0 || height == 0)
+
+            if (texture != null)
             {
-                this.rect = new Rectangle((int)location.X, (int)location.Y, texture.Bounds.Width, texture.Bounds.Height);
-            }
-            else
-            {
-                this.rect = new Rectangle((int)location.X, (int)location.Y, width, height);
+
+                this.texture = texture; //Size should be held within texture for drawing
+                if (width == 0 || height == 0)
+                {
+                    this.rect = new Rectangle((int) location.X, (int) location.Y, texture.Bounds.Width,
+                        texture.Bounds.Height);
+                }
+                else
+                {
+                    this.rect = new Rectangle((int) location.X, (int) location.Y, width, height);
+                }
             }
         }
         

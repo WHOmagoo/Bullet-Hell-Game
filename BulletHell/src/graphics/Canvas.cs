@@ -7,12 +7,10 @@ using BulletHell.bullet;
 using BulletHell.character;
 using BulletHell.gameEngine;
 using BulletHell.gun;
+using BulletHell.Pickups;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 // using BulletHell.director;
-using BulletHell.GameEngine;
-using System.IO;
-using BulletHell.Pickups;
 
 // using BulletHell.director;
 
@@ -100,7 +98,7 @@ namespace BulletHell.graphics
             }
             else
             {    
-                Console.WriteLine("Duplicate added to drawlist");
+                Console.WriteLine("Duplicate added to drawlist" + entity);
             }
         }
 
