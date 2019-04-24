@@ -6,7 +6,7 @@
             <health>20</health>
             <sprite>enemyC</sprite>
             <scale>.15</scale>
-            <gun delay="0">bossgun</gun>
+            <gun delay="2">bossgun</gun>
             <path>
                 <parts>
                     <type>linear</type>
