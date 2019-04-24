@@ -58,9 +58,12 @@ namespace BulletHell.bullet.factory
                 i++;
             }
 
-            datas[0].numberOfShots = 3;
+            datas[0].numberOfShots = 100;
+            datas[0].shotDrops = 1;
             datas[1].numberOfShots = 3;
+            datas[1].shotDrops = 100;
             datas[2].numberOfShots = 3;
+            datas[2].shotDrops = 100;
             
             return new ChangingBulletFactory(datas);
         }

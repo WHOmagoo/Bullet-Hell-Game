@@ -11,12 +11,14 @@ namespace BulletHell.bullet.factory
         private ChangingBulletFactoryData[] patterns;
         private int curFiringPatternIndex;
         private int numberOfTimesShot;
+        private int untilNextShot;
         
         
         public ChangingBulletFactory(ChangingBulletFactoryData[] firingPatterns)
         {
             this.patterns = firingPatterns;
             curFiringPatternIndex = 0;
+            untilNextShot = patterns[curFiringPatternIndex].shotDrops;
             numberOfTimesShot = 0;
 
             if (firingPatterns.Length == 0)
@@ -29,8 +31,14 @@ namespace BulletHell.bullet.factory
         {
             UpdateWeapon();
 
-            numberOfTimesShot++;
-            return patterns[curFiringPatternIndex].factory.makeBullets(location, bulletTexture, team, angleOffset);
+            untilNextShot--;
+            if(untilNextShot <= 0)
+            {
+                untilNextShot = patterns[curFiringPatternIndex].shotDrops;
+                numberOfTimesShot++;
+                return patterns[curFiringPatternIndex].factory.makeBullets(location, bulletTexture, team, angleOffset);
+            }
+            return null;
         }
 
         private void UpdateWeapon()
@@ -40,10 +48,11 @@ namespace BulletHell.bullet.factory
                 return;
             }
             
-            if (numberOfTimesShot == patterns[curFiringPatternIndex].numberOfShots)
+            if (numberOfTimesShot >= patterns[curFiringPatternIndex].numberOfShots)
             {
                 numberOfTimesShot = 0;
                 curFiringPatternIndex = (curFiringPatternIndex + 1) % patterns.Length;
+                untilNextShot = patterns[curFiringPatternIndex].shotDrops;
                 BulletFactory nextBF = patterns[curFiringPatternIndex].factory;
                 if(nextBF is MovingBulletFactory)
                 {
@@ -57,11 +66,18 @@ namespace BulletHell.bullet.factory
     {
         public BulletFactory factory;
         public int numberOfShots;
-        
-        public ChangingBulletFactoryData(BulletFactory factory, int numberOfShots)
+        public int shotDrops;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="factory"></param>
+        /// <param name="numberOfShots"></param>
+        /// <param name="shotDrops"></param> Shoots every xth shot. 10 will shoot every 10th shot. 1 will shoot every shot
+        public ChangingBulletFactoryData(BulletFactory factory, int numberOfShots, int shotDrops = 1)
         {
             this.factory = factory;
             this.numberOfShots = numberOfShots;
+            this.shotDrops = shotDrops;
         } 
     }
 }

@@ -21,7 +21,8 @@ namespace BulletHell.bullet.factory
 
         public void ResetMovePath()
         {
-            path.Reset();
+            // path.Reset();
+            path.ResetAt(Vector2.Zero);
         }
 
         public override List<Bullet> makeBullets(Vector2 location, Texture2D bulletTexture, TEAM team, double angleOffset = 0)

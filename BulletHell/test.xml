@@ -5,8 +5,8 @@
             <name>TheBoss</name>
             <health>20</health>
             <sprite>midBoss</sprite>
-            <scale>.2</scale>
-            <gun delay="1">bossgun</gun>
+            <scale>.1</scale>
+            <gun delay=".03">bossgun</gun>
             <path>
             </path>
         </prefab>

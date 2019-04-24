@@ -56,7 +56,8 @@ namespace BulletHell.gun
         
         protected virtual void OnShoot(List<Bullet> bulletsCreated)
         {
-            GunShotHandler?.Invoke(this, new BulletsCreatedEventArgs(bulletsCreated));
+            if(bulletsCreated != null)
+                GunShotHandler?.Invoke(this, new BulletsCreatedEventArgs(bulletsCreated));
         }
 
     }
