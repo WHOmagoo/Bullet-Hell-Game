@@ -48,7 +48,7 @@ namespace BulletHell.bullet.factory
 
         private static BulletFactory makeBossGun()
         {
-            BulletFactory secondColliding = new BulletWaveWithCollidingBullet(new SurroundBulletFactory(32, new SurroundBulletFactory(48, new SingleBulletFactory(new SinusoidalLocationEquation(70, 110, 200)))), new ShotgunBulletFactory(4 * Math.PI / 9, new LinearLocationEquation(0, .17F)));
+            BulletFactory secondColliding = new BulletWaveWithCollidingBullet(new SurroundBulletFactory(32, new SurroundBulletFactory(48, new SingleBulletFactory(new SinusoidalLocationEquation(90, 90, 200)))), new ShotgunBulletFactory(4 * Math.PI / 9, new LinearLocationEquation(0, .4F)));
             
             BulletFactory[] factories = 
                 {makeDefaultShotgun(), makeBulletWaveWithCollidingBulletWave(),
