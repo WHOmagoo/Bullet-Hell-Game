@@ -91,8 +91,6 @@ namespace BulletHell.levels
             director.addEvent(0, new PlayerEnter(canvas, player));
             player.DeathEvent += canvas.OnPlayerDeath;
             
-            Clock.getClock().setSpeedModifier(3);
-            
             return new Tuple<GameDirector, Canvas, CollisionManager>(director, canvas, collisionManager);
         }
 

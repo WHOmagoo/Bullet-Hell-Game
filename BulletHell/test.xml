@@ -86,7 +86,7 @@
             <name>midBoss</name>
             <health>8</health>
             <sprite>enemyC</sprite>
-            <gun>surround</gun>
+            <gun delay=".01">bossgun2</gun>
             <scale>.1</scale>
             <path>
                 <parts>
