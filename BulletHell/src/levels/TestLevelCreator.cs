@@ -55,7 +55,6 @@ namespace BulletHell.levels
             foreach(var encounter in encounters)
             {
                 EncounterEvent encounterEvent = new EncounterEvent(collisionManager, canvas, encounter, director);
-                Console.WriteLine(encounter.timeInMS);
                 lastTime = encounter.timeInMS;
                 director.addEvent(encounter.timeInMS, encounterEvent);
             }

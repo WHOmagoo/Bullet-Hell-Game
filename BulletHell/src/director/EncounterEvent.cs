@@ -36,7 +36,6 @@ namespace BulletHell.director
                     new Vector2(encounter.locationPercentages.X * screen.Width, (1 - encounter.locationPercentages.Y) * screen.Height));
             }
             else{
-                Console.WriteLine("making boss");
                 Boss boss = new Boss(prefabRepo.getEnemyPrefab(encounter.enemyType), 
                     new Vector2(encounter.locationPercentages.X * screen.Width, (1 - encounter.locationPercentages.Y) * screen.Height));
                 boss.BossDeathEvent += director.OnBossDeath;

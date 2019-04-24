@@ -52,7 +52,7 @@ namespace BulletHell.ObjectCreation
                 enemy = new Enemy(texture, path, health);
             }
             Gun gun = gunFactory.makeGun(gunType);
-            enemy.Hitbox = HitboxRepo.getHitboxRepo().getHitbox(textureName);
+            enemy.Hitbox = HitboxRepo.getHitboxRepo().getHitbox(textureName).Copy();
             enemy.Scale(scale);
             enemy.healthbar = new HealthBar(enemy.Location, new Vector2(8, 0), enemy.Rect.Width, 10, enemy.Health);
 

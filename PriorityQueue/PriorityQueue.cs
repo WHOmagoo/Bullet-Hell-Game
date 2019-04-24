@@ -91,7 +91,6 @@ namespace PriorityQueue
 
                 for (int i = 0; i < result.Count; i++)
                 {
-                    Console.WriteLine(queue.Count);
                     queue.RemoveFirst();
                 }
                 return result;
