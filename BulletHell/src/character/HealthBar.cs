@@ -45,7 +45,7 @@ namespace BulletHell.character
         }
 
         public HealthBar Copy(){
-            return new HealthBar(parentLoc, _relLoc, _bar.Width, _bar.Height, _one_life * _bar.Width);
+            return new HealthBar(parentLoc, _relLoc, _bar.Width, _bar.Height, _bar.Width / _one_life);
         }
         public void DrawHealthBar(SpriteBatch spriteBatch, Color color, int lineWidth)
         {

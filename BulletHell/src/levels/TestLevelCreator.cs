@@ -93,7 +93,7 @@ namespace BulletHell.levels
                 BulletFactoryFactory.make("basic"), TEAM.FRIENDLY);
             player.PropertyChanged += canvas.OnWeaponChange;
             player.gunEquipped.GunShotHandler += canvas.OnGunShot;
-            player.Hitbox = new CollidingCircle(player.Location, new Vector2(player.Rect.Width / 2, player.Rect.Height / 2), 15);
+            player.Hitbox = new CollidingCircle(player.Location, new Vector2(player.Rect.Width / 2, player.Rect.Height / 2), 8);
             collisionManager.addToTeam(player, TEAM.FRIENDLY);
             return player;
         }

@@ -10,7 +10,7 @@
             <path>
                 <parts>
                     <type>linear</type>
-                    <dur>1000</dur>
+                    <dur>500</dur>
                     <offset>4.71</offset>
                     <speed>1</speed>
                 </parts>
@@ -91,7 +91,7 @@
             <path>
                 <parts>
                     <type>linear</type>
-                    <dur>1000</dur>
+                    <dur>250</dur>
                     <offset>4.71</offset>
                     <speed>1</speed>
                 </parts>
