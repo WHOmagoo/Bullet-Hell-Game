@@ -15,13 +15,12 @@ namespace BulletHell.bullet.factory
         private BulletFactory bulletWave;
         private BulletFactory collidingBullets;
 
-        public BulletWaveWithCollidingBullet()
+        public BulletWaveWithCollidingBullet(BulletFactory bulletWave, BulletFactory collidingBullets)
         {
-            bulletWave = new SurroundBulletFactory(66, 0, new SingleBulletFactory(new LinearLocationEquation(0, .08F),10,15));
-            collidingBullets =
-                new SurroundBulletFactory(8, 0, new SingleBulletFactory(new LinearLocationEquation(0, .14F), 20, 30));
+            this.bulletWave = bulletWave;
+            this.collidingBullets = collidingBullets;
         }
-        public override List<Bullet> makeBullets(Vector2 location, Texture2D bulletTexture, TEAM team, double angleOffset = 0)
+        public List<Bullet> makeBullets(Vector2 location, Texture2D bulletTexture, TEAM team, double angleOffset = 0)
         {
             List<Bullet> result = new List<Bullet>();
 

@@ -92,15 +92,17 @@ namespace BulletHell.graphics
         }
         
         
-        public void AddToDrawList(Entity entity)
+        public bool AddToDrawList(Entity entity)
         {
             if (!entities.Contains(entity) && !enqueuBuf.Contains(entity))
             {
                 enqueuBuf.AddLast(entity);
+                return true;
             }
             else
             {    
-                Console.WriteLine("Duplicate added");
+                Console.WriteLine("Duplicate added" + entity);
+                return false;
             }
         }
 
@@ -182,7 +184,12 @@ namespace BulletHell.graphics
         {
             foreach (Bullet bullet in bullets.Bullets)
             {
-                AddToDrawList(bullet);
+                var result = AddToDrawList(bullet);
+                if (!result)
+                {
+                    Gun g = sender as Gun;
+                }
+                
             }
         }
 

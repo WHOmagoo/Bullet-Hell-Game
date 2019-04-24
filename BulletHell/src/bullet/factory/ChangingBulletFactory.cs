@@ -25,7 +25,7 @@ namespace BulletHell.bullet.factory
             }
         }
 
-        public override List<Bullet> makeBullets(Vector2 location, Texture2D bulletTexture, TEAM team, double angleOffset = 0)
+        public List<Bullet> makeBullets(Vector2 location, Texture2D bulletTexture, TEAM team, double angleOffset = 0)
         {
             UpdateWeapon();
 

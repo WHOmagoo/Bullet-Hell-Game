@@ -19,7 +19,7 @@ namespace BulletHell.bullet.factory
             this.height = height;
         }
 
-        public override List<Bullet> makeBullets(Vector2 location, Texture2D bulletTexture, TEAM team, double angleOffset = 0)
+        public List<Bullet> makeBullets(Vector2 location, Texture2D bulletTexture, TEAM team, double angleOffset = 0)
         {
             Bullet created = new Bullet(1, new RotatedLocationEquation(path, angleOffset), bulletTexture, location, team);
             created.SetSize(width, height);

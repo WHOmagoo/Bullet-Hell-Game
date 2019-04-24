@@ -214,9 +214,9 @@ namespace BulletHell.character
             newTimer();
             Thread.Sleep(2000);
             invulnerable = false;
-            myT.Dispose();
             drawSp = true;
             Console.WriteLine("Can now take damage again");
+            myT.Dispose();
         }
 
         protected override void TakeDamage(int damage)

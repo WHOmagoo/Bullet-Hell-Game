@@ -82,7 +82,7 @@ namespace BulletHell.levels
             Player player = new Player(canvas, playerTexture, new Vector2(SCREEN_WIDTH / 2 - playerTexture.Width / 2, 300), controller, heartTexture);
             player.SetSize(72, 100);
             player.gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getBulletTexture(),
-                new BulletWaveWithCollidingBullet(), TEAM.FRIENDLY);
+                BulletFactoryFactory.make("basic"), TEAM.FRIENDLY, - Math.PI / 2);
             player.PropertyChanged += canvas.OnWeaponChange;
             player.gunEquipped.GunShotHandler += canvas.OnGunShot;
             player.Hitbox = new CollidingCircle(player.Location, new Vector2(player.Rect.Width / 2, player.Rect.Height / 2), 15);

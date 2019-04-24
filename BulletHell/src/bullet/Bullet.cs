@@ -49,5 +49,10 @@ namespace BulletHell.bullet
         {
             this.pathToFollow = path;
         }
+
+        public override bool Equals(object obj)
+        {
+            return ReferenceEquals(obj, this);
+        }
     }
 }

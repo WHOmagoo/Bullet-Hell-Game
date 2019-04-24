@@ -8,18 +8,16 @@ namespace BulletHell.bullet.factory
 {
     public class SurroundBulletFactory : BulletFactory
     {
-        private float direction;
         private int amountOfBullets;
         private BulletFactory bulletsToSpawn;
 
-        public SurroundBulletFactory(int amountOfBullets, float direction, BulletFactory bulletsToSpawn)
+        public SurroundBulletFactory(int amountOfBullets, BulletFactory bulletsToSpawn)
         {
-            this.direction = direction;
             this.amountOfBullets = amountOfBullets;
             this.bulletsToSpawn = bulletsToSpawn;
         }
         
-        public override List<Bullet> makeBullets(Vector2 location, Texture2D bulletTexture, TEAM team, double angleOffset)
+        public List<Bullet> makeBullets(Vector2 location, Texture2D bulletTexture, TEAM team, double angleOffset)
         {
             List<Bullet> result = new List<Bullet>();
 
