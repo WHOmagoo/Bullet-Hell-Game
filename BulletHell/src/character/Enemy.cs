@@ -104,11 +104,48 @@ namespace BulletHell.character
 
         protected override void Die()
         {
-            //CreateDeathEvent();
-            //CreatePickupEvent();
+            Random r = new Random();
+            int ran = r.Next(0, 8);
+            if (ran == 1 || ran == 2) { makeDamagePickup(); }
+            if (ran == 3 || ran == 4) { makeFastPickup(); }
+            if (ran == 5 || ran == 6) { makeLifePickup(); }
+
             BHGame.CollisionManager.removeFromTeam(this, TEAM.ENEMY);
             BHGame.Canvas.RemoveFromDrawList(this);
         }
+
+        public DamagePickup makeDamagePickup()
+        {
+            Texture2D texture = GraphicsLoader.getGraphicsLoader().getTexture("dmgPickup");
+            DamagePickup dp = new DamagePickup(texture, new Vector2(this.Location.X, this.Location.Y), 80, 80);
+            dp.Hitbox = new CollidingCircle(dp.Location, new Vector2(dp.Rect.Width / 2, dp.Rect.Height / 2), 15);
+            BHGame.CollisionManager.addToTeam(dp, TEAM.ENEMY);
+            BHGame.Canvas.AddToDrawList(dp);
+            return dp;
+        }
+
+        //increase speed temporarily
+        public FastPickup makeFastPickup()
+        {
+            Texture2D texture = GraphicsLoader.getGraphicsLoader().getTexture("fastPickup");
+            FastPickup dp = new FastPickup(texture, new Vector2(this.Location.X, this.Location.Y), 80, 80);
+            dp.Hitbox = new CollidingCircle(dp.Location, new Vector2(dp.Rect.Width / 2, dp.Rect.Height / 2), 15);
+            BHGame.CollisionManager.addToTeam(dp, TEAM.ENEMY);
+            BHGame.Canvas.AddToDrawList(dp);
+            return dp;
+        }
+
+        public LifePickup makeLifePickup()
+        {
+            Texture2D texture = GraphicsLoader.getGraphicsLoader().getTexture("lifepickup");
+            LifePickup dp = new LifePickup(texture, new Vector2(this.Location.X, this.Location.Y), 80, 80);
+            dp.Hitbox = new CollidingCircle(dp.Location, new Vector2(dp.Rect.Width / 2, dp.Rect.Height / 2), 15);
+            BHGame.CollisionManager.addToTeam(dp, TEAM.ENEMY);
+            BHGame.Canvas.AddToDrawList(dp);
+            return dp;
+        }
+
+
 
 
 

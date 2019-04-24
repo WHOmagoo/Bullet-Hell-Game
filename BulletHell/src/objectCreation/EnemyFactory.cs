@@ -6,6 +6,7 @@ using BulletHell.gameEngine;
 using BulletHell.graphics;
 using BulletHell.gun;
 using BulletHell.path;
+using BulletHell.bullet.factory;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -53,6 +54,10 @@ namespace BulletHell.ObjectCreation
             enemy.Hitbox = HitboxRepo.getHitboxRepo().getHitbox(textureName);
             enemy.Scale(scale);
             enemy.healthbar = new HealthBar(enemy.Location, new Vector2(8, 0), enemy.Rect.Width, 10, enemy.Health);
+
+            // SpiralLocationEquation s = new SpiralLocationEquation(6, 40, 10);
+            // BossGun g = new BossGun(path.InitialLocation+new Vector2(60,60), -2, new SingleBulletFactory(new LinearLocationEquation(Math.PI/2, .2F)), (float)(Math.PI/2), s, bossbullet_texture, TEAM.ENEMY);
+            
             return enemy;
         }
     }

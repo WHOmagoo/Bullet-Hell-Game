@@ -29,7 +29,7 @@ namespace BulletHell.gun
             this.team = team;
             this.fireAngleOffset = fireAngleOffset;
         }
-        public void Shoot(Vector2 location)
+        public virtual void Shoot(Vector2 location)
         {
             if (canShoot())
             {
@@ -38,6 +38,11 @@ namespace BulletHell.gun
             }
         }
 
+        public virtual void UpdateLoc(Vector2 loc)
+        {
+        }
+
+        public void Update() { }
 
         public virtual void wasShot()
         {
@@ -65,6 +70,8 @@ namespace BulletHell.gun
             this.Bullets = bullets;
         }
     }
+
+   
 
 }
 

@@ -72,6 +72,7 @@ namespace BulletHell.graphics
             // addTexture("lifeBar", "Content/sprites/lifeBar.png");
             addTexture("enemy-bullet", "Content/sprites/donut.png");
             addTexture("player-bullet", "Content/sprites/bullet.png");
+            addTexture("bossBullet", "Content/sprites/bossBullet.png");
         }
     }
 }
