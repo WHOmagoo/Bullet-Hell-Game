@@ -4,6 +4,9 @@ using System.Xml;
 using BulletHell.character;
 using BulletHell.ObjectCreation;
 using Microsoft.Xna.Framework;
+//using System.Xml.Linq;
+using BulletHell.ObjectCreation;
+using Microsoft.Xna.Framework;
 
 namespace BulletHell
 {
@@ -33,6 +36,11 @@ namespace BulletHell
                 }
                 string sprite = enemy["sprite"].InnerText;
                 string gun = enemy["gun"].InnerText;
+
+                string s_delay = enemy["gun"].GetAttribute("delay");
+                
+                float delay;
+                delay = float.TryParse(s_delay, out delay) ? delay : 1;
                 List<PathData> complexPath = new List<PathData>();
                 
                 XmlNodeList path = enemy["path"].ChildNodes;
@@ -52,7 +60,7 @@ namespace BulletHell
                     complexPath.Add(new PathData(part["type"].InnerText, duration, 
                                         offset, speed));
                 }
-                Enemy e = enemyFactory.makeEnemy(sprite, health, Vector2.Zero, complexPath, gun);
+                Enemy e = enemyFactory.makeEnemy(sprite, health, Vector2.Zero, complexPath, gun, delay);
                 try
                 {
                     prefabRepo.registerEnemyPrefab(name, e);
