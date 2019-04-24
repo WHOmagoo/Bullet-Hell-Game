@@ -8,6 +8,7 @@ using BulletHell.path;
 using BulletHell.Pickups;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 // using BulletHell.Graphics;
 
 namespace BulletHell.character
@@ -65,14 +66,14 @@ namespace BulletHell.character
         {
             this.SetSize(e.Rect.Width, e.Rect.Height);
             hitbox = e.hitbox.Copy();
-            gunEquipped = e.gunEquipped;
+            
             healthPoints = e.healthPoints;
             path = e.Path.Copy();
             path.ResetAt(startLocation);
             this.healthbar = e.healthbar;
             if (ReferenceEquals(null, bf))
             {
-                this.gunEquipped = e.gunEquipped;
+                gunEquipped = new Gun(e.gunEquipped);
             }
             else
             {

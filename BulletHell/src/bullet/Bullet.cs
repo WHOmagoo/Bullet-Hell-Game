@@ -1,5 +1,4 @@
 using BulletHell.gameEngine;
-using BulletHell.GameEngine;
 using BulletHell.path;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -44,5 +43,9 @@ namespace BulletHell.bullet
             BHGame.Canvas.RemoveFromDrawList(this);
         }
 
+        public override bool Equals(object obj)
+        {
+            return ReferenceEquals(obj, this);
+        }
     }
 }
