@@ -91,6 +91,8 @@ namespace BulletHell.levels
             director.addEvent(0, new PlayerEnter(canvas, player));
             player.DeathEvent += canvas.OnPlayerDeath;
             
+            Clock.getClock().setSpeedModifier(3);
+            
             return new Tuple<GameDirector, Canvas, CollisionManager>(director, canvas, collisionManager);
         }
 
@@ -102,7 +104,7 @@ namespace BulletHell.levels
             // Texture2D playerTexture = null;
             Player player = new Player(canvas, playerTexture, new Vector2(SCREEN_WIDTH / 2 - playerTexture.Width / 2, 300), controller, heartTexture);
             player.SetSize(72, 100);
-            player.gunEquipped = new Gun(1, GraphicsLoader.getGraphicsLoader().getTexture("player-bullet"),
+            player.gunEquipped = new Gun(.7F, GraphicsLoader.getGraphicsLoader().getTexture("player-bullet"),
                 BulletFactoryFactory.make("basic"), TEAM.FRIENDLY, -Math.PI / 2);
             player.PropertyChanged += canvas.OnWeaponChange;
             player.gunEquipped.GunShotHandler += canvas.OnGunShot;
