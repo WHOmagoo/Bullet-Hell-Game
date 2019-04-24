@@ -29,7 +29,16 @@ namespace BulletHell.gun
             this.team = team;
             this.fireAngleOffset = fireAngleOffset;
         }
-        public void Shoot(Vector2 location)
+
+        public Gun(Gun g)
+        {
+            this.bulletTexture = g.bulletTexture;
+            this.tickFireDelay = g.tickFireDelay;
+            this.fireShape = g.fireShape;
+            this.team = g.team;
+            this.fireAngleOffset = g.fireAngleOffset;
+        }
+        public virtual void Shoot(Vector2 location)
         {
             if (canShoot())
             {
@@ -38,6 +47,11 @@ namespace BulletHell.gun
             }
         }
 
+        public virtual void UpdateLoc(Vector2 loc)
+        {
+        }
+
+        public void Update() { }
 
         public virtual void wasShot()
         {
@@ -51,7 +65,8 @@ namespace BulletHell.gun
         
         protected virtual void OnShoot(List<Bullet> bulletsCreated)
         {
-            GunShotHandler?.Invoke(this, new BulletsCreatedEventArgs(bulletsCreated));
+            if(bulletsCreated != null)
+                GunShotHandler?.Invoke(this, new BulletsCreatedEventArgs(bulletsCreated));
         }
 
     }
@@ -65,6 +80,8 @@ namespace BulletHell.gun
             this.Bullets = bullets;
         }
     }
+
+   
 
 }
 

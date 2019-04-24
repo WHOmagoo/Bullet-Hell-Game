@@ -22,8 +22,7 @@ namespace BulletHell.bullet.factory
         public List<Bullet> makeBullets(Vector2 location, Texture2D bulletTexture, TEAM team, double angleOffset = 0)
         {
             Bullet created = new Bullet(1, new RotatedLocationEquation(path, angleOffset), bulletTexture, location, team);
-            created.SetSize(width, height);
-            created.Hitbox = new CollidingRectangle(created.Location, new Vector2(0, 0), 20, 30);
+            prepareBullet(created, team);
             BHGame.CollisionManager.addToTeam(created, team);
             return new List<Bullet>(new []{created});
         }

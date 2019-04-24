@@ -17,6 +17,7 @@ namespace BulletHell.controls
         public event EventHandler OnRebind;
         public event EventHandler OnPause;
         public event EventHandler OnUnpause;
+        public event EventHandler OnCheat;
 
         private Dictionary<Keys, Action> bindings;
 
@@ -33,10 +34,10 @@ namespace BulletHell.controls
         public Controller(Dictionary<string, Keys> bindingsIn = null)
         {
             //Initialize default key bindings
-            string[] tmp = {"left", "right", "up", "down", "shoot", "slow", "rebindkeys", "pause"};
+            string[] tmp = {"left", "right", "up", "down", "shoot", "slow", "rebindkeys", "pause", "cheat"};
             Names = tmp;
-            
-            Action[] tmp2 = {_OnLeft, _OnRight, _OnUp, _OnDown, _OnShoot, _OnSlow, _OnRebind, _OnPause};
+
+            Action[] tmp2 = {_OnLeft, _OnRight, _OnUp, _OnDown, _OnShoot, _OnSlow, _OnRebind, _OnPause, _OnCheat};
             Events = tmp2;
             
             Keys[] tmp3 = {Keys.Left, Keys.Right, Keys.Up, Keys.Down, Keys.Space, Keys.LeftControl, Keys.F5, Keys.Escape};
@@ -214,6 +215,11 @@ namespace BulletHell.controls
         private void _OnUp()
         {
             OnUp?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void _OnCheat()
+        {
+            OnCheat?.Invoke(this, EventArgs.Empty);
         }
 
 

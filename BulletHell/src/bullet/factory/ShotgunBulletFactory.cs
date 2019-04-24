@@ -44,18 +44,15 @@ namespace BulletHell.bullet.factory
             Path pathDown = new BasicPath(center, location, angleOffset);
 
             Bullet b = new Bullet(1, pathLeftDiag, bulletTexture, team);
-            b.SetSize(20, 30);
-            b.Hitbox = new CollidingRectangle(b.Location, new Vector2(0, 0), 20, 30);
+            prepareBullet(b, team);
             BHGame.CollisionManager.addToTeam(b, team);
             result.Add(b);
             b = new Bullet(1, pathRightDiag, bulletTexture, team);
-            b.SetSize(20, 30);
-            b.Hitbox = new CollidingRectangle(b.Location, new Vector2(0, 0), 20, 30);
+            prepareBullet(b, team);
             BHGame.CollisionManager.addToTeam(b, team);
             result.Add(b);
             b = new Bullet(1, pathDown, bulletTexture, team);
-            b.SetSize(20, 30);
-            b.Hitbox = new CollidingRectangle(b.Location, new Vector2(0, 0), 20, 30);
+            prepareBullet(b, team);
             BHGame.CollisionManager.addToTeam(b, team);
             result.Add(b);
 

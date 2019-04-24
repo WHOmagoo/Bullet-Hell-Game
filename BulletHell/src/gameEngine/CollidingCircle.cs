@@ -20,5 +20,11 @@ namespace BulletHell.gameEngine {
         {
             DrawingTool.DrawCircle(spriteBatch, this._absLoc, radius, Color.Red, 1, 16);
         }
+
+        public override void Scale(double scale)
+        {
+            _relLoc = new Vector2((int)(_relLoc.X * scale), (int)(_relLoc.Y * scale));
+            radius = (int)(radius * scale);
+        }
     }
 }

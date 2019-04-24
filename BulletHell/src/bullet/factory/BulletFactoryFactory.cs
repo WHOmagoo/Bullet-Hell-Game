@@ -70,6 +70,13 @@ namespace BulletHell.bullet.factory
             return new ChangingBulletFactory(datas);
         }
 
+        private static BulletFactory makeBossSpiralFactory()
+        {
+            SpiralLocationEquation s = new SpiralLocationEquation(6, 40, 10);
+            BulletFactory baseBf = new ShotgunBulletFactory(2*Math.PI/3, new LinearLocationEquation(Math.PI/2, .2F));
+            MovingBulletFactory bf = new MovingBulletFactory(baseBf, s);
+            return bf;
+        }
         private static BulletFactory makeSinusoidalBulletFactory()
         {
             return new SingleBulletFactory(new SinusoidalLocationEquation(90, 110, 200)); 
