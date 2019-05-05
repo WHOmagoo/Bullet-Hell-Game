@@ -1,10 +1,9 @@
 using System;
-using System.Collections.Generic;
+using BulletHell.graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.gameEngine
 {
     public class CollidingRectangle : Hitbox
     {
@@ -27,9 +26,21 @@ namespace BulletHell.GameEngine
             rect.Y = (int)(absLoc.Y);
         }
 
+        public override Hitbox Copy()
+        {
+            return new CollidingRectangle(_parentLoc, _relLoc, Width, Height);
+        }
+
         public override void DrawHitbox(SpriteBatch spriteBatch, Color color, int lineWidth)
         {
             DrawingTool.DrawRectangle(spriteBatch, rect, color, lineWidth);
+        }
+
+        public override void Scale(double scale)
+        {
+            _relLoc = new Vector2((int)(_relLoc.X * scale), (int)(_relLoc.Y * scale));
+            rect.Width = (int)(rect.Width * scale);
+            rect.Height = (int)(rect.Height * scale);
         }
     }
 }

@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 
-
-
-namespace BulletHell.GameEngine
+namespace BulletHell.gameEngine
 {
     // const int N_OF_TEAMS = 3;
     public enum TEAM { FRIENDLY = 0, ENEMY, UNASSIGNED }

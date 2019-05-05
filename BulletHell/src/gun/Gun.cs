@@ -1,38 +1,61 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using BulletHell.Annotations;
+using BulletHell.bullet;
+using BulletHell.bullet.factory;
+using BulletHell.gameEngine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.gun
 {
-    public abstract class Gun
+    public class Gun
     {
 
         protected int damage;
         //Bullet bulletNegative;
-        protected ILocationEquation fireShape;
+        protected BulletFactory fireShape;
         private readonly long tickFireDelay;
         private long lastShotTick;
         protected TEAM team;
         protected Texture2D bulletTexture;
+        protected double fireAngleOffset;
         public event EventHandler<BulletsCreatedEventArgs> GunShotHandler;
 
-
-
-        public Gun(int damage, ILocationEquation fireShape, Texture2D texture, long delay, TEAM team){
-            this.damage = damage;
-            this.fireShape = fireShape;
-            tickFireDelay = delay;
-            lastShotTick = 0;
+        public Gun(float delay, Texture2D texture, BulletFactory factory, TEAM team, double fireAngleOffset = Math.PI / 2)
+        {
+            this.bulletTexture = texture;
+            this.tickFireDelay = (long) (delay * 1000);
+            this.fireShape = factory;
             this.team = team;
-            bulletTexture = texture;
+            this.fireAngleOffset = fireAngleOffset;
         }
 
-        public abstract void Shoot(Vector2 location);
+        public Gun(Gun g)
+        {
+            this.bulletTexture = g.bulletTexture;
+            this.tickFireDelay = g.tickFireDelay;
+            this.fireShape = g.fireShape;
+            this.team = g.team;
+            this.fireAngleOffset = g.fireAngleOffset;
+        }
+        public virtual void Shoot(Vector2 location)
+        {
+            if (canShoot())
+            {
+                OnShoot(fireShape.makeBullets(location, bulletTexture, team, fireAngleOffset));
+                wasShot();
+            }
+        }
 
+        public virtual void UpdateLoc(Vector2 loc)
+        {
+        }
+
+        public Gun Copy(){
+            return new Gun(this.tickFireDelay / 1000, this.bulletTexture, fireShape, team, fireAngleOffset);
+        }
+
+        public void Update() { }
 
         public virtual void wasShot()
         {
@@ -41,12 +64,13 @@ namespace BulletHell.GameEngine
 
         public bool canShoot()
         {
-            return lastShotTick + tickFireDelay < Clock.getClock().getTime();
+            return lastShotTick + tickFireDelay < Clock.getClock().getTime() && !ReferenceEquals(null, this.fireShape);
         }
         
         protected virtual void OnShoot(List<Bullet> bulletsCreated)
         {
-            GunShotHandler?.Invoke(this, new BulletsCreatedEventArgs(bulletsCreated));
+            if(bulletsCreated != null)
+                GunShotHandler?.Invoke(this, new BulletsCreatedEventArgs(bulletsCreated));
         }
 
     }
@@ -54,12 +78,14 @@ namespace BulletHell.GameEngine
     public class BulletsCreatedEventArgs : EventArgs
     {
         public List<Bullet> Bullets { get; }
-    int damage;
+        int damage;
         public BulletsCreatedEventArgs(List<Bullet> bullets)
         {
             this.Bullets = bullets;
         }
     }
+
+   
 
 }
 

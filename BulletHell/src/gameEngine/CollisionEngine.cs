@@ -1,9 +1,8 @@
 using System;
-using System.Numerics;
 using Microsoft.Xna.Framework;
 
 // using System.Generic;
-namespace BulletHell.GameEngine
+namespace BulletHell.gameEngine
 {
 
     public static class CollisionEngine

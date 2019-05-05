@@ -1,5 +1,6 @@
 ﻿using BulletHell.GameEngine;
 using PriorityQueue;
+using System;
 
 namespace BulletHell.director
 {
@@ -7,6 +8,7 @@ namespace BulletHell.director
     {
         private Clock clock;
         private PriorityQueue<DirectorEvent> queue;
+        long timeEmpty;
 
         public GameDirector()
         {
@@ -25,6 +27,21 @@ namespace BulletHell.director
             foreach (var update in queue.Pop(clock.getTimeSinceLastUpdate()))
             {
                 update.Execute();
+            }
+            if(queue.isEmpty()){
+                if(timeEmpty < 30000){
+                    timeEmpty += clock.getTimeSinceLastUpdate();
+                }
+                else{
+                    BHGame.OnWinCondition();
+                }
+            }
+        }
+
+        public void OnBossDeath(){
+            Console.WriteLine("forwarding");
+            if(!queue.FastForward()){
+                BHGame.OnWinCondition();
             }
         }
     }

@@ -1,57 +1,30 @@
-using System;
+using BulletHell.GameEngine;
 using Microsoft.Xna.Framework;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.path
 {
-    public class Path
+    public abstract class Path
     {
-        private ILocationEquation _locationEquation;
-        private Vector2 Offset;
-        private double AngleOffset;
-        private long StartTime;
-        
-        public Path(ILocationEquation locationEquation, Vector2 initialLocation, double AngleOffset)
-        {
-            _locationEquation = locationEquation;
-            Offset = initialLocation - locationEquation.GetLocation(0);
-            this.AngleOffset = AngleOffset;
-            StartTime = Clock.getClock().getTime();
-        }
 
-        public Path(Path path, Vector2 initialLocation, double AngleOffset)
-        {
-            _locationEquation = path._locationEquation;
+        protected long StartTime;
+        protected Vector2 _initialLocation;
+        public Vector2 InitialLocation {get{return _initialLocation;}}
 
-            Offset = initialLocation - _locationEquation.GetLocation(0);
-
-            this.AngleOffset = AngleOffset;
-
-            this.StartTime = Clock.getClock().getTime();
-        }
-
-        public Vector2 UpdateLocation()
-        {
-            long curTime = Clock.getClock().getTime();
-
-            Vector2 newLocationBeforeAngleOffset = _locationEquation.GetLocation(curTime - StartTime) + Offset;
-
-            float newLocationX =
-                (float)(newLocationBeforeAngleOffset.X * Math.Cos(AngleOffset) -
-                        newLocationBeforeAngleOffset.Y * Math.Sin(AngleOffset));
-            
-            float newLocationY =
-                (float)(newLocationBeforeAngleOffset.X * Math.Sin(AngleOffset) +
-                        newLocationBeforeAngleOffset.Y * Math.Cos(AngleOffset));
-            
-            return new Vector2(newLocationX, newLocationY);
-        }
+        public abstract Vector2 UpdateLocation();
 
         /*
             Resets the start time to current time
          */
+
+         public abstract Path Copy();
         public void Reset()
         {
             this.StartTime = Clock.getClock().getTime();
+        }
+        public void ResetAt(Vector2 newStartingLocation)
+        {
+            _initialLocation = newStartingLocation;
+            Reset();
         }
     }
 }

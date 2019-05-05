@@ -1,17 +1,18 @@
+using System;
+using BulletHell.graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BulletHell.Graphics;
-using System.IO;
-using System;
 
-namespace BulletHell.GameEngine
+namespace BulletHell.gameEngine
 {
 
     public class GameObject : Entity
     {
         private int counter; //FIXME: Get rid of this later
-        private Hitbox hitbox;
+        protected Hitbox hitbox;
         public bool isHitboxVisible;
+        public bool isSpriteVisible;
+        public TEAM team;
         public override Vector2 Location {
             get { return base.Location;}
             set { base.Location = value; 
@@ -24,6 +25,7 @@ namespace BulletHell.GameEngine
             : base(texture, startLocation, width, height)
         {
             isHitboxVisible = true; //Probably default to false after testing
+            isSpriteVisible = true;
             hitbox = null;
         }
 
@@ -31,6 +33,17 @@ namespace BulletHell.GameEngine
         // {
         // }
 
+        public void Scale(double scale)
+        {
+            if(texture != null)
+            {
+                SetSize((int)(Rect.Width * scale), (int)(Rect.Height * scale));
+            }
+            if(hitbox != null)
+            {
+                hitbox.Scale(scale);
+            }
+        }
         public virtual void Update() {}
         public virtual void onCollision(GameObject hitby) {
             Console.WriteLine(counter + "I got hit by: " + hitby.ToString());
@@ -38,9 +51,10 @@ namespace BulletHell.GameEngine
         }
         public override void Draw(SpriteBatch spriteBatch) 
         {
-            base.Draw(spriteBatch);
-            if (hitbox != null && isHitboxVisible)
-                hitbox.DrawHitbox(spriteBatch, Color.Red, 1);
+            if (isSpriteVisible)
+                base.Draw(spriteBatch);
+            //if (isHitboxVisible)
+            //    hitbox?.DrawHitbox(spriteBatch, Color.Red, 1);
         }
     }
 }
